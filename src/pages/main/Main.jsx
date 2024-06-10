@@ -45,7 +45,13 @@ export class Main extends Component {
         </section>
         <section className="mw">
           <div className="mainWebzine">
-            <h2>웹진</h2>
+            <h2>웹진 타이틀</h2>
+            <p>
+              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진
+              내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용
+              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{' '}
+            </p>
+            <p>2024년 6월</p>
           </div>
           <div className="mainFeed">
             <h2>피드</h2>
