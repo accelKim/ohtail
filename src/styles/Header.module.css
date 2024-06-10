@@ -1,0 +1,68 @@
+.hd {
+  border-bottom: 1px solid var(--lightGray);
+}
+.hd > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
+.ham {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 25px;
+}
+.ham span {
+  background-color: #d9d9d9;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+}
+
+.gnb {
+  font-size: 0.85em;
+}
+.gnb a {
+  transition: 0.5s;
+}
+.gnb a:hover {
+  color: var(--main-color);
+}
+.gnb .logoff {
+  /* display: none; */
+  display: flex;
+  gap: 1.5rem;
+}
+.gnb .logon {
+  display: none;
+  position: relative;
+}
+.gnb .logon .profileImg a {
+  display: block;
+  width: 37px;
+  height: 37px;
+  border-radius: 100%;
+  background-color: #d9d9d9;
+}
+.gnb .logon .profileImg a img {
+  opacity: 0;
+  width: 100%;
+}
+.gnb .logon .toggleMenu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  padding: 1.5rem 2.5rem;
+  white-space: nowrap;
+  box-shadow: 0 5px 10px rgb(215 215 215 / 70%);
+}
