@@ -244,6 +244,29 @@ main section .btnMore i {
   flex: 1;
 }
 .mainWebzine {
+  padding: 2rem;
+  position: relative;
+}
+.mainWebzine h2 {
+  font-size: 3em;
+}
+.mainWebzine p:nth-of-type(1) {
+  padding-right: 5rem;
+  font-family: 'pretendard-medium';
+  font-size: 1.875em;
+  line-height: 1.4;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mainWebzine p:nth-of-type(2) {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'pretendard-medium';
+  font-size: 1.875em;
 }
 .mainFeed .imgArea {
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
