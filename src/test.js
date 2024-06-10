@@ -1,2 +1,2 @@
 const test = '.';
-const test1 = '어렵다...';
+const test1 = '...';
