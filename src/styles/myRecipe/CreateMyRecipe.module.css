@@ -1,0 +1,22 @@
+.recipeCon {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.imagePreview {
+  display: flex;
+  gap: 10px;
+}
+
+.previewImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+}
