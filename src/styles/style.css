@@ -244,6 +244,7 @@ main section .btnMore i {
   flex: 1;
 }
 .mainWebzine {
+  min-height: 50vh;
   padding: 2rem;
   position: relative;
 }

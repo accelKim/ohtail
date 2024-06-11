@@ -1,0 +1,251 @@
+#webzine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  z-index: 9999999;
+  background-color: var(--white);
+  overflow-y: scroll;
+}
+
+#webzine header {
+  border-bottom: 1px solid var(--black);
+  font-family: 'pretendard-extrabold';
+}
+#webzine header > div:nth-of-type(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+#webzine header > div:nth-of-type(1) > button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+#webzine header > div:nth-of-type(1) > button:hover::before,
+#webzine header > div:nth-of-type(1) > a:hover::before {
+  top: -15px;
+  opacity: 1;
+}
+#webzine header > div:nth-of-type(1) > button::before,
+#webzine header > div:nth-of-type(1) > a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: var(--main-color);
+  opacity: 0;
+  transition: 0.5s;
+}
+#webzine header > div:nth-of-type(1) > button,
+#webzine header > div:nth-of-type(1) > a {
+  position: relative;
+  font-size: 1.563em;
+  line-height: 1;
+}
+#webzine header > div:nth-of-type(1) > h3 {
+  text-align: center;
+  font-size: 3.125em;
+}
+
+#webzine .listArea.on {
+  transform: translateX(0%);
+}
+#webzine .listArea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 90%);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: 0.5s;
+  display: flex;
+  gap: 2rem;
+  padding: 4rem;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+#webzine .listArea > button {
+  /* display: block; */
+  flex: none;
+  width: 125px;
+  height: 125px;
+  padding: 0;
+  border-radius: 100%;
+  border: 1px solid var(--black);
+  outline: none;
+  background-color: transparent;
+  font-family: 'pretendard-bold';
+  font-size: 1.563em;
+  cursor: pointer;
+  transition: 0.5s;
+}
+#webzine .listArea > button:hover {
+  border-color: var(--main-color);
+  background-color: var(--main-color);
+  color: var(--white);
+}
+#webzine .listArea > ul {
+  width: 100%;
+}
+#webzine .listArea > ul li a {
+  display: inline-block;
+  width: 60%;
+  padding-bottom: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'pretendard-bold';
+  font-size: 2.188em;
+  transition: 0.5s;
+}
+#webzine .listArea > ul li a:hover {
+  color: var(--main-color);
+}
+
+#webzine .optionArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin: 4rem 0;
+  font-family: 'pretendard-semibold';
+  font-size: 2.188em;
+}
+#webzine .optionArea div {
+  display: flex;
+  gap: 2rem;
+}
+#webzine .optionArea div p {
+  position: relative;
+  padding-left: 65px;
+  cursor: pointer;
+}
+#webzine .optionArea div p::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--black);
+}
+#webzine .optionArea div p.on::after {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+#webzine .optionArea div p::after {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  left: 9.5px;
+  width: 33px;
+  height: 33px;
+  background-color: var(--black);
+  transition: 0.5s;
+}
+
+/* 어둡게 */
+#webzine.dark {
+  background-color: #111;
+  color: var(--white);
+}
+#webzine.dark header {
+  border-color: var(--white);
+}
+#webzine.dark .listArea {
+  background-color: rgba(0, 0, 0, 90%);
+}
+#webzine.dark .listArea > button {
+  border-color: var(--white);
+  color: var(--white);
+}
+#webzine.dark .optionArea div p::before {
+  border-color: var(--white);
+}
+#webzine.dark .optionArea div p.on::after {
+  background-color: var(--white);
+}
+
+/* 크게 */
+#webzine.large {
+}
+#webzine.large header > div:nth-of-type(1) > h3 {
+  font-size: 4.688em;
+}
+#webzine.large header > div:nth-of-type(1) > button,
+#webzine.large header > div:nth-of-type(1) > a {
+  font-size: 3.125em;
+}
+#webzine.large .optionArea {
+  font-size: 3.75em;
+}
+#webzine.large .optionArea div p::before {
+  width: 75px;
+  height: 75px;
+}
+#webzine.large .optionArea div p {
+  padding-left: 95px;
+}
+#webzine.large .optionArea {
+  gap: 6rem;
+  margin: 6rem 0;
+}
+#webzine.large .optionArea div {
+  gap: 4rem;
+}
+#webzine.large .optionArea div p::after {
+  left: 13px;
+  width: 50px;
+  height: 50px;
+}
+#webzine.large .listArea {
+  gap: 4rem;
+}
+#webzine.large .listArea > button {
+  width: 150px;
+  height: 150px;
+  font-size: 50px;
+}
+#webzine.large .listArea > ul li a {
+  font-size: 3.125rem;
+}
+
+/* 작게 */
+#webzine.small {
+}
+
+#webzine::-webkit-scrollbar,
+#webzine .listArea::-webkit-scrollbar {
+  width: 15px;
+}
+#webzine::-webkit-scrollbar-track,
+#webzine .listArea::-webkit-scrollbar-track {
+  background-color: var(--lightGray);
+}
+#webzine::-webkit-scrollbar-thumb,
+#webzine .listArea::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+}
+#webzine::-webkit-scrollbar-button,
+#webzine .listArea::-webkit-scrollbar-button {
+  display: none;
+}
+#webzine::-webkit-scrollbar-track,
+#webzine .listArea::-webkit-scrollbar-thumb {
+  /* border-radius: 15px; */
+}
