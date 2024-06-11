@@ -1,4 +1,5 @@
 import './styles/reset.css';
+import './styles/style.css';
 
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';

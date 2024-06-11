@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'Pretendard-Thin';
+  font-weight: 100;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-ExtraLight';
+  font-weight: 200;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Light';
+  font-weight: 300;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  font-weight: 500;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Bold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.ttf')
+      format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Black';
+  font-weight: 900;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf')
+      format('truetype');
+  font-display: swap;
+}
+
+:root {
+  --main-color: #6d4ee5;
+  --sub-color: #d7d1f9;
+  --white: #fff;
+  --black: #333;
+  --gray: #aaa;
+  --lightGray: #f0f0f0;
+}
+
+body {
+  font-family: 'Pretendard-Regular';
+  color: var(--black);
+  letter-spacing: -0.03em;
+}
+
+.wrap {
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.mw {
+  width: calc(100% - 4rem);
+  max-width: 1400px;
+  margin: auto;
+}
+
+h1 {
+}
+h2 {
+  margin-bottom: 2rem;
+  font-family: 'pretendard-bold';
+  font-size: 2em;
+}
+
+/* 메인 */
+main section {
+  border: 1px solid red;
+  padding-bottom: 4rem;
+  position: relative;
+}
+main section:last-of-type {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+main section .imgArea {
+  display: grid;
+  gap: 0;
+}
+main section .imgArea > * {
+  border: 1px solid blue;
+  height: 0;
+  padding-top: 100%;
+}
+main section .imgArea img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+main section .btnMore::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--main-color);
+  transition: 0.5s;
+}
+main section .btnMore {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  font-size: 0.9em;
+  transition: 0.5s;
+}
+main section .btnMore:hover {
+  color: var(--main-color);
+}
+main section .btnMore:hover::before {
+  transform: translateX(-50%) scale(1);
+}
+main section .btnMore i {
+  padding-left: 0.25rem;
+}
+.mainVisual {
+  width: 100%;
+  margin-bottom: 4rem;
+  padding: 10rem 0;
+  text-align: center;
+  font-family: 'pretendard-bold';
+  font-size: 2.5em;
+}
+.mainRecipe,
+.mainMyRecipe {
+}
+.mainRecipe .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+}
+.mainMyRecipe .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+}
+.mainWebzine,
+.mainFeed {
+  flex: 1;
+}
+.mainWebzine {
+  padding: 2rem;
+  position: relative;
+}
+.mainWebzine h2 {
+  font-size: 3em;
+}
+.mainWebzine p:nth-of-type(1) {
+  padding-right: 5rem;
+  font-family: 'pretendard-medium';
+  font-size: 1.875em;
+  line-height: 1.4;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mainWebzine p:nth-of-type(2) {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'pretendard-medium';
+  font-size: 1.875em;
+}
+.mainFeed .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+}
