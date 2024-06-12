@@ -16,20 +16,33 @@ const Webzine = () => {
 
   const toggleOption = (option) => {
     setSelectedOptions((prevOptions) => {
+      const sizeOptions = ['small', 'large'];
+
       if (prevOptions.includes(option)) {
         return prevOptions.filter((opt) => opt !== option);
-      } else {
-        return [...prevOptions, option];
       }
+
+      if (sizeOptions.includes(option)) {
+        return prevOptions
+          .filter((opt) => !sizeOptions.includes(opt))
+          .concat(option);
+      }
+
+      return [...prevOptions, option];
     });
   };
 
   useEffect(() => {
     const webzine = document.getElementById(style.webzine);
-    webzine.className = `${style.webzine} ${selectedOptions
-      .map((option) => style[option])
-      .join(' ')}`;
+    const classes = selectedOptions.map((option) => style[option]).join(' ');
+    webzine.className = `${style.webzine} ${classes}`;
   }, [selectedOptions]);
+
+  // const response = await fetch('http://localhost:3000/webzine', {
+  //   method: 'POST',
+  //   body: JSON.stringify({}),
+  //   headers: { 'Content-Type': 'application/json' },
+  // });
 
   return (
     <div id={`${style.webzine}`}>
@@ -118,9 +131,10 @@ const Webzine = () => {
               <a href="#">게시글 제목 666666</a>
             </li>
           </ul>
+          <div className={style.noise}></div>
         </div>
       </header>
-      <div className="mw">
+      <div className="">
         <div className={style.optionArea}>
           <p>보기 옵션</p>
           <div>
@@ -140,6 +154,7 @@ const Webzine = () => {
           </div>
         </div>
       </div>
+      <div className={style.noise}></div>
     </div>
   );
 };
