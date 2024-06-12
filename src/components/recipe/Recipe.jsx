@@ -39,7 +39,7 @@ const Recipe = () => {
             <ul>
                 {currentCocktails.map((cocktail) => (
                     <li key={cocktail.idDrink}>
-                        <Link to={`/cocktail/${cocktail.idDrink}`}>{cocktail.strDrink}</Link>
+                        <Link to={`/recipe/${cocktail.idDrink}`}>{cocktail.strDrink}</Link>
 
                         <img src={cocktail.strDrinkThumb} alt="" />
                     </li>
