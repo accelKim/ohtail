@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 const Webzine = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(() => {
+    // Local Storage에서 옵션을 불러오기
+    const savedOptions = localStorage.getItem('selectedOptions');
+    return savedOptions ? JSON.parse(savedOptions) : [];
+  });
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -18,17 +22,23 @@ const Webzine = () => {
     setSelectedOptions((prevOptions) => {
       const sizeOptions = ['small', 'large'];
 
+      let newOptions;
       if (prevOptions.includes(option)) {
-        return prevOptions.filter((opt) => opt !== option);
+        newOptions = prevOptions.filter((opt) => opt !== option);
+      } else {
+        if (sizeOptions.includes(option)) {
+          newOptions = prevOptions
+            .filter((opt) => !sizeOptions.includes(opt))
+            .concat(option);
+        } else {
+          newOptions = [...prevOptions, option];
+        }
       }
 
-      if (sizeOptions.includes(option)) {
-        return prevOptions
-          .filter((opt) => !sizeOptions.includes(opt))
-          .concat(option);
-      }
+      // Local Storage에 새로운 옵션 저장
+      localStorage.setItem('selectedOptions', JSON.stringify(newOptions));
 
-      return [...prevOptions, option];
+      return newOptions;
     });
   };
 
@@ -131,7 +141,6 @@ const Webzine = () => {
               <a href="#">게시글 제목 666666</a>
             </li>
           </ul>
-          <div className={style.noise}></div>
         </div>
       </header>
       <div className="">
@@ -154,6 +163,7 @@ const Webzine = () => {
           </div>
         </div>
       </div>
+      <div className={style.contArea}></div>
       <div className={style.noise}></div>
     </div>
   );
