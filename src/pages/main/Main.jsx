@@ -55,35 +55,6 @@ export class Main extends Component {
           </div>
           <div className="mainFeed">
             <h2>피드</h2>
-            <div className="imgArea">
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-              <a href="#">
-                <img src="" alt="" />
-              </a>
-            </div>
           </div>
         </section>
       </main>

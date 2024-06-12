@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   return (
     <header className={style.hd}>
       <div className="mw">
-        <div className={style.ham}>
+        <div
+          onClick={menuOpen}
+          className={`${style.ham} ${isOpen ? style.on : ''}`}
+        >
           <span></span>
           <span></span>
           <span></span>
         </div>
+        <div className={`${style.hamMenu} ${isOpen ? style.on : ''}`}>
+          <a href="#">공식레시피</a>
+          <a href="#">나만의레시피</a>
+          <a href="/webzine">웹진</a>
+          <a href="#">피드</a>
+        </div>
+
         <h1>
           <a href="/">로고</a>
         </h1>
