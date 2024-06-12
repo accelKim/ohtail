@@ -9,6 +9,8 @@ import Main from './pages/main/Main';
 import Login from './pages/login/Login';
 import Singup from './pages/singup/Singup';
 
+import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +20,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/singup" element={<Singup />} />
+          <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
         </Routes>
         <Footer />
       </div>
