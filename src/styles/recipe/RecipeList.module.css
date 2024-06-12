@@ -1,0 +1,15 @@
+.category_wrap {
+    display: flex;
+    flex-direction: row;
+}
+.Dropdown {
+    background-color: white;
+    border: 1px solid black;
+    height: 40px;
+    border-radius: 2rem;
+
+}
+.dropdown_memu {
+    display: flex;
+    flex-direction: column;
+}
