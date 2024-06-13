@@ -1,51 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import style from '../../styles/singup/Singup.module.css';
 
 const Singup = () => {
-  const [userID, setUserID] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userPasswordCon, setUserPasswordCon] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [userid, setUserid] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordcon, setPasswordcon] = useState('');
+  const [errMessage, setErrMessage] = useState('');
+  const [errMessage2, setErrMessage2] = useState('');
 
-  const onSubmit = (e) => {
+  const bcrypt = require('bcryptjs');
+  var salt = bcrypt.genSaltSync(10);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (userPassword !== userPasswordCon) {
-      return alert('비밀번호와 비밀번호확인이 일치하지 않습니다.');
+    if (!/^[a-zA-Z]+$/.test(userid)) {
+      setErrMessage('아이디는 영어로만 작성해주세요.');
+      return;
+    } else {
+      setErrMessage('');
     }
 
-    setFormData({ userID, userPassword });
-    setSubmitted(true);
-  };
-
-  useEffect(() => {
-    const submitForm = async () => {
-      if (submitted) {
-        try {
-          const response = await axios.post(
-            'http://localhost:5000/signup',
-            formData
-          );
-          alert(response.data.message);
-        } catch (error) {
-          if (
-            error.response &&
-            error.response.data &&
-            error.response.data.message
-          ) {
-            alert(error.response.data.message);
-          } else {
-            alert('회원가입 중 오류가 발생했습니다.');
-          }
-        } finally {
-          setSubmitted(false); // 요청 완료 후 상태를 리셋합니다.
-        }
+    if (password !== passwordcon) {
+      setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      return;
+    } else {
+      setErrMessage2('');
+    }
+    try {
+      const response = await fetch('http://localhost:8080/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userid,
+          password: bcrypt.hashSync(password, salt),
+        }),
+      });
+      const data = await response.json();
+      console.log('서버 응답:', data);
+      if (response.status === 200) {
+        window.location.href = '/login';
+        //모달창 들어가야함
+      } else {
+        alert(data.message || '회원가입 중 오류가 발생했습니다.');
       }
-    };
-
-    submitForm();
-  }, [submitted, formData]);
+    } catch (error) {
+      console.error('회원가입 요청 오류:', error);
+      alert('회원가입 중 오류가 발생했습니다.');
+    }
+  };
 
   return (
     <div className={style.singup}>
@@ -54,27 +58,26 @@ const Singup = () => {
         <label>아이디</label>
         <input
           type="text"
-          id="userID"
-          value={userID}
-          onChange={(e) => setUserID(e.target.value)}
+          value={userid}
+          onChange={(e) => setUserid(e.target.value)}
           required
         />
+        {errMessage && <div className={style.errorMessage}>{errMessage}</div>}
         <label>비밀번호</label>
         <input
           type="password"
-          id="userPassword"
-          value={userPassword}
-          onChange={(e) => setUserPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <label>비밀번호 확인</label>
         <input
           type="password"
-          id="userPasswordCon"
-          value={userPasswordCon}
-          onChange={(e) => setUserPasswordCon(e.target.value)}
+          value={passwordcon}
+          onChange={(e) => setPasswordcon(e.target.value)}
           required
         />
+        {errMessage2 && <div className={style.errorMessage}>{errMessage2}</div>}
         <button type="submit">회원가입</button>
       </form>
     </div>

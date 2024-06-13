@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import style from '../../styles/singup/Login.module.css';
 
 const Login = () => {
-  const [userID, setUserID] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [userid, setUserid] = useState('');
+  const [password, setPassword] = useState('');
   const login = (e) => {
     e.preventDefault();
   };
@@ -16,17 +16,17 @@ const Login = () => {
         <input
           type="text"
           placeholder="ID"
-          value={userID}
+          value={userid}
           onChange={(e) => {
-            setUserID(e.target.value);
+            setUserid(e.target.value);
           }}
         />
         <input
           type="text"
           placeholder="Password"
-          value={userPassword}
+          value={password}
           onChange={(e) => {
-            setUserPassword(e.target.value);
+            setPassword(e.target.value);
           }}
         />
         <button type="submit">로그인</button>
