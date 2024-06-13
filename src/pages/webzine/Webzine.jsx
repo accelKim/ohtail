@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 const Webzine = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(() => {
+    // Local Storage에서 옵션을 불러오기
+    const savedOptions = localStorage.getItem('selectedOptions');
+    return savedOptions ? JSON.parse(savedOptions) : [];
+  });
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -16,20 +20,39 @@ const Webzine = () => {
 
   const toggleOption = (option) => {
     setSelectedOptions((prevOptions) => {
+      const sizeOptions = ['small', 'large'];
+
+      let newOptions;
       if (prevOptions.includes(option)) {
-        return prevOptions.filter((opt) => opt !== option);
+        newOptions = prevOptions.filter((opt) => opt !== option);
       } else {
-        return [...prevOptions, option];
+        if (sizeOptions.includes(option)) {
+          newOptions = prevOptions
+            .filter((opt) => !sizeOptions.includes(opt))
+            .concat(option);
+        } else {
+          newOptions = [...prevOptions, option];
+        }
       }
+
+      // Local Storage에 새로운 옵션 저장
+      localStorage.setItem('selectedOptions', JSON.stringify(newOptions));
+
+      return newOptions;
     });
   };
 
   useEffect(() => {
     const webzine = document.getElementById(style.webzine);
-    webzine.className = `${style.webzine} ${selectedOptions
-      .map((option) => style[option])
-      .join(' ')}`;
+    const classes = selectedOptions.map((option) => style[option]).join(' ');
+    webzine.className = `${style.webzine} ${classes}`;
   }, [selectedOptions]);
+
+  // const response = await fetch('http://localhost:3000/webzine', {
+  //   method: 'POST',
+  //   body: JSON.stringify({}),
+  //   headers: { 'Content-Type': 'application/json' },
+  // });
 
   return (
     <div id={`${style.webzine}`}>
@@ -120,7 +143,7 @@ const Webzine = () => {
           </ul>
         </div>
       </header>
-      <div className="mw">
+      <div className="">
         <div className={style.optionArea}>
           <p>보기 옵션</p>
           <div>
@@ -140,6 +163,8 @@ const Webzine = () => {
           </div>
         </div>
       </div>
+      <div className={style.contArea}></div>
+      <div className={style.noise}></div>
     </div>
   );
 };
