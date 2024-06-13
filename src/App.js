@@ -10,26 +10,30 @@ import Recipe from './pages/recipe/RecipeList';
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
+import Login from './pages/login/Login';
+import Singup from './pages/singup/Singup';
 
 function App() {
-    return (
-        <BrowserRouter>
-            <div className="wrap">
-                <Header />
-                <Routes>
-                    <Route path="/" element={<Main />} />
-                    {/* 레시피 페이지 */}
-                    <Route path="/recipe" element={<Recipe />} />
-                    <Route path="/recipe/:id" element={<RecipeDetail />} />
-                    {/* 마이 레시피 */}
-                    <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
-                    {/* 웹진 */}
-                    <Route path="/webzine" element={<Webzine />} />
-                </Routes>
-                <Footer />
-            </div>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <div className="wrap">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          {/* 레시피 페이지 */}
+          <Route path="/recipe" element={<Recipe />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+          {/* 마이 레시피 */}
+          <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
+          {/* 웹진 */}
+          <Route path="/webzine" element={<Webzine />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/singup" element={<Singup />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -38,8 +38,8 @@ const Header = () => {
         </h1>
         <div className={style.gnb}>
           <div className={style.logoff}>
-            <a href="#">로그인</a>
-            <a href="#">회원가입</a>
+            <a href="/login">로그인</a>
+            <a href="/singup">회원가입</a>
           </div>
           <div className={style.logon}>
             <div className={style.profileImg}>
