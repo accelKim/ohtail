@@ -92,9 +92,6 @@
   box-shadow: inset 7px 7px 5px rgba(0, 0, 0, 10%);
 }
 
-.gnb {
-  font-size: 0.85em;
-}
 .gnb a {
   transition: 0.5s;
 }
@@ -104,7 +101,7 @@
 .gnb .logoff {
   /* display: none; */
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 .gnb .logon {
   display: none;
