@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import style from '../../styles/recipe/Recipe.module.css'
+import Pagination from '../../components/pagination/Pagination';
+import style from '../../styles/recipe/Recipe.module.css';
+
 const Recipe = () => {
     const [cocktails, setCocktails] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,29 +25,22 @@ const Recipe = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentCocktails = cocktails.slice(indexOfFirstItem, indexOfLastItem);
 
-    const renderPageNumbers = () => {
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(cocktails.length / itemsPerPage); i++) {
-            pageNumbers.push(
-                <button key={i} onClick={() => handleClick(i)}>
-                    {i}
-                </button>
-            );
-        }
-        return pageNumbers;
-    };
     return (
         <div>
             <ul>
                 {currentCocktails.map((cocktail) => (
                     <li key={cocktail.idDrink}>
                         <Link to={`/recipe/${cocktail.idDrink}`}>{cocktail.strDrink}</Link>
-
                         <img src={cocktail.strDrinkThumb} alt="" />
                     </li>
                 ))}
             </ul>
-            <div>{renderPageNumbers()}</div>
+            <Pagination
+                itemsPerPage={itemsPerPage}
+                totalItems={cocktails.length}
+                currentPage={currentPage}
+                handleClick={handleClick}
+            />
         </div>
     );
 };
