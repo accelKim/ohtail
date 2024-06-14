@@ -1,34 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const menuOpen = () => {
-    setIsOpen(!isOpen);
-  };
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isOpen]);
+    // 로컬 스토리지에서 userid를 가져와서 로그인 상태를 확인
+    const userid = localStorage.getItem('userid');
+    if (userid) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
+  };
+
+  const openProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+    document.body.style.overflow = isProfileMenuOpen ? 'auto' : 'hidden';
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('userid'); // 로컬 스토리지에서 userid 제거
+    setIsLoggedIn(false); // 로그인 상태를 false로 변경
+  };
 
   return (
     <header className={style.hd}>
       <div className="mw">
         <div
-          onClick={menuOpen}
-          className={`${style.ham} ${isOpen ? style.on : ''}`}
+          onClick={toggleMenu}
+          className={`${style.ham} ${isMenuOpen ? style.on : ''}`}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div className={`${style.hamMenu} ${isOpen ? style.on : ''}`}>
-          <a href="/recipe">공식레시피</a>
-          <a href="/createMyRecipe">나만의레시피</a>
+        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
+          <a href="#">공식레시피</a>
+          <a href="#">나만의레시피</a>
           <a href="/webzine">웹진</a>
           <a href="#">피드</a>
         </div>
@@ -37,21 +54,29 @@ const Header = () => {
           <a href="/">로고</a>
         </h1>
         <div className={style.gnb}>
-          <div className={style.logoff}>
-            <a href="/login">로그인</a>
-            <a href="/singup">회원가입</a>
-          </div>
-          <div className={style.logon}>
-            <div className={style.profileImg}>
-              <a href="#">
-                <img src="" alt="프로필 이미지" />
-              </a>
+          {!isLoggedIn && (
+            <div className={style.logoff}>
+              <Link to="/login">로그인</Link>
+              <Link to="/singup">회원가입</Link>
             </div>
-            <div className={style.toggleMenu}>
-              <a href="#">로그아웃</a>
-              <a href="#">마이페이지</a>
+          )}
+          {isLoggedIn && (
+            <div className={style.logon}>
+              <div className={style.profileImg}>
+                <a href="#" onClick={openProfileMenu}>
+                  <img src="" alt="프로필 이미지" />
+                </a>
+              </div>
+              {isProfileMenuOpen && (
+                <div className={`${style.toggleMenu} ${style.profile}`}>
+                  <a href="#" onClick={handleLogout}>
+                    로그아웃
+                  </a>
+                  <a href="#">마이페이지</a>
+                </div>
+              )}
             </div>
-          </div>
+          )}
         </div>
       </div>
     </header>

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import style from '../../styles/singup/Login.module.css';
 
 const Login = () => {
-  const [userid, setUserid] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const login = async (e) => {
     e.preventDefault();
     try {
@@ -17,12 +17,23 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      if (result.message === 'ok') {
+      const result = await response.json();
+      console.log('서버 응답:', result); // 서버 응답 로그 추가
+
+      if (result.message === '로그인 성공') {
+        localStorage.setItem('userid', result.userid);
+        localStorage.removeItem('email');
+
+        alert('로그인 성공!');
         window.location.href = '/';
-      } else if (result.message === 'nouser') {
+      } else if (result.message === '사용자를 찾을 수 없습니다.') {
         alert('사용자를 찾을 수 없습니다.');
+      } else if (result.message === '비밀번호가 일치하지 않습니다.') {
+        alert('비밀번호가 일치하지 않습니다.');
       } else {
         alert('로그인 실패!');
       }
@@ -40,23 +51,19 @@ const Login = () => {
           type="email"
           placeholder="test@gmail.com"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">로그인</button>
       </form>
       <div className={style.singupin}>
         <button>
-          <Link to="/singup">회원가입</Link>
+          <Link to="/signup">회원가입</Link>
         </button>
       </div>
     </div>

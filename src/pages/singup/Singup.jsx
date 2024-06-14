@@ -7,26 +7,15 @@ const Singup = () => {
   const [passwordcon, setPasswordcon] = useState('');
   const [email, setEmail] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
-  const [errMessage, setErrMessage] = useState('');
   const [errMessage2, setErrMessage2] = useState('');
   const [errMessage3, setErrMessage3] = useState('');
   const [errMessage4, setErrMessage4] = useState('');
-
-  const bcrypt = require('bcryptjs');
-  var salt = bcrypt.genSaltSync(10);
 
   const onSubmit = async (e) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const phonePattern = /^01[0-1, 7-9]\d{3,4}\d{4}$/;
 
     e.preventDefault();
-    if (!/^[a-zA-Z]+$/.test(userid)) {
-      setErrMessage('아이디는 영어로만 작성해주세요.');
-      return;
-    } else {
-      setErrMessage('');
-    }
-
     if (password !== passwordcon) {
       setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
       return;
@@ -52,9 +41,8 @@ const Singup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userid,
-          password: bcrypt.hashSync(password, salt),
           email,
+          password,
           phonenumber,
         }),
       });
@@ -76,14 +64,14 @@ const Singup = () => {
     <div className={style.singup}>
       <h2>회원가입</h2>
       <form onSubmit={onSubmit}>
-        <label>아이디</label>
+        <label>이메일</label>
         <input
-          type="text"
-          value={userid}
-          onChange={(e) => setUserid(e.target.value)}
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-        {errMessage && <div className={style.errorMessage}>{errMessage}</div>}
+        {errMessage3 && <div className={style.errorMessage}>{errMessage3}</div>}{' '}
         <label>비밀번호</label>
         <input
           type="password"
@@ -99,14 +87,6 @@ const Singup = () => {
           required
         />
         {errMessage2 && <div className={style.errorMessage}>{errMessage2}</div>}
-        <label>이메일</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        {errMessage3 && <div className={style.errorMessage}>{errMessage3}</div>}{' '}
         <label>휴대폰 번호</label>
         <input
           type="phonenumber"

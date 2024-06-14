@@ -5,7 +5,16 @@ export class Main extends Component {
   render() {
     return (
       <main>
-        <section className="mainVisual">메인 비주얼 영역</section>
+        <section className={`${style.mainVisual}`}>
+          <div className={`${style.wave} ${style.one}`}></div>
+          <div className={`${style.wave} ${style.two}`}></div>
+          <div className={`${style.wave} ${style.three}`}></div>
+          <div className={style.title}>
+            Discover Today's Cocktail
+            <br />
+            Raise Your Glass to New Flavors!
+          </div>
+        </section>
         <section className="mw mainRecipe">
           <h2>공식레시피</h2>
           <div className="imgArea">

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const Webzine = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
-    // Local Storage에서 옵션을 불러오기
     const savedOptions = localStorage.getItem('selectedOptions');
     return savedOptions ? JSON.parse(savedOptions) : [];
   });
@@ -35,7 +34,6 @@ const Webzine = () => {
         }
       }
 
-      // Local Storage에 새로운 옵션 저장
       localStorage.setItem('selectedOptions', JSON.stringify(newOptions));
 
       return newOptions;
