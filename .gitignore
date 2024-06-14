@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.RecipeDetail copy.jsx
 
 # testing
 /coverage

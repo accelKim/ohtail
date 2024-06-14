@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           {/* 레시피 페이지 */}
-          <Route path="/recipe" element={<Recipe />} />
+          <Route path="/recipe" element={<RecipeListPage />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           {/* 마이 레시피 */}
           <Route path="/myRecipe" element={<MyRecipeList />} />
