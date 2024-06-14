@@ -27,8 +27,8 @@ const Header = () => {
           <span></span>
         </div>
         <div className={`${style.hamMenu} ${isOpen ? style.on : ''}`}>
-          <a href="#">공식레시피</a>
-          <a href="#">나만의레시피</a>
+          <a href="/recipe">공식레시피</a>
+          <a href="/createMyRecipe">나만의레시피</a>
           <a href="/webzine">웹진</a>
           <a href="#">피드</a>
         </div>
@@ -38,8 +38,8 @@ const Header = () => {
         </h1>
         <div className={style.gnb}>
           <div className={style.logoff}>
-            <a href="#">로그인</a>
-            <a href="#">회원가입</a>
+            <a href="/login">로그인</a>
+            <a href="/singup">회원가입</a>
           </div>
           <div className={style.logon}>
             <div className={style.profileImg}>
