@@ -107,7 +107,7 @@
   gap: 1.5rem;
 }
 .gnb .logon {
-  display: none;
+  /* display: none; */
   position: relative;
 }
 .gnb .logon .profileImg a {
@@ -121,7 +121,7 @@
   opacity: 0;
   width: 100%;
 }
-.gnb .logon .toggleMenu {
+.gnb .logon .toggleMenu.profile {
   position: absolute;
   top: 50px;
   right: 0;
