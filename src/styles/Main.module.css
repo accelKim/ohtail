@@ -4,11 +4,10 @@
   padding: 5vw 3em;
   margin-bottom: 4rem;
   color: var(--white);
-  background: linear-gradient(-45deg, #6d4ee5, #d7d1f9, #ffc1d5, #ff83a8);
+  background: url('../../public/img/test.png') no-repeat center center,
+    linear-gradient(-45deg, #6d4ee5, #d7d1f9, #ffc1d5, #ff83a8);
   animation: gradient 10s ease infinite;
-  background-size: 400% 400%;
-  font-family: 'PartialSansKR-Regular';
-  font-size: 7vw;
+  background-size: cover, 400% 400%;
 
   position: relative;
   overflow: hidden;
@@ -17,6 +16,8 @@
 .title {
   position: relative;
   z-index: 1;
+  font-family: 'PartialSansKR-Regular';
+  font-size: 7vw;
 }
 
 @keyframes gradient {
@@ -32,9 +33,9 @@
 }
 
 .wave {
-  opacity: 0.4;
+  opacity: 0.5;
   position: absolute;
-  top: -60%;
+  top: -150%;
   left: 50%;
   background: var(--main-color);
   width: 70%;
