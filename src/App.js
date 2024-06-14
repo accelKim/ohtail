@@ -6,12 +6,13 @@ import Footer from './layouts/Footer';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/main/Main';
-import Recipe from './pages/recipe/RecipeList';
+
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
 import Login from './pages/login/Login';
 import Singup from './pages/singup/Singup';
+import RecipeListPage from './pages/recipe/RecipeListPage';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           {/* 레시피 페이지 */}
-          <Route path="/recipe" element={<Recipe />} />
+          <Route path="/recipe" element={<RecipeListPage />} />
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           {/* 마이 레시피 */}
           <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
