@@ -7,7 +7,7 @@ import Footer from './layouts/Footer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/main/Main';
 
-import RecipeDetail from './pages/recipe/RecipeDetail';
+import RecipeDetail from './pages/recipe/RecipeDetail copy';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
 import Login from './pages/login/Login';
