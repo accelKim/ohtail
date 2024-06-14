@@ -5,13 +5,20 @@ const Singup = () => {
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
   const [passwordcon, setPasswordcon] = useState('');
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
   const [errMessage, setErrMessage] = useState('');
   const [errMessage2, setErrMessage2] = useState('');
+  const [errMessage3, setErrMessage3] = useState('');
+  const [errMessage4, setErrMessage4] = useState('');
 
   const bcrypt = require('bcryptjs');
   var salt = bcrypt.genSaltSync(10);
 
   const onSubmit = async (e) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const phonePattern = /^01[0-1, 7-9]\d{3,4}\d{4}$/;
+
     e.preventDefault();
     if (!/^[a-zA-Z]+$/.test(userid)) {
       setErrMessage('아이디는 영어로만 작성해주세요.');
@@ -26,6 +33,18 @@ const Singup = () => {
     } else {
       setErrMessage2('');
     }
+    if (!emailPattern.test(email)) {
+      setErrMessage3('유효하지 않은 이메일 주소입니다.');
+      return;
+    } else {
+      setErrMessage3('');
+    }
+    if (!phonePattern.test(phonenumber)) {
+      setErrMessage4('유효하지 않은 휴대폰 번호입니다.');
+      return;
+    } else {
+      setErrMessage4('');
+    }
     try {
       const response = await fetch('http://localhost:8080/signup', {
         method: 'POST',
@@ -35,6 +54,8 @@ const Singup = () => {
         body: JSON.stringify({
           userid,
           password: bcrypt.hashSync(password, salt),
+          email,
+          phonenumber,
         }),
       });
       const data = await response.json();
@@ -78,6 +99,22 @@ const Singup = () => {
           required
         />
         {errMessage2 && <div className={style.errorMessage}>{errMessage2}</div>}
+        <label>이메일</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        {errMessage3 && <div className={style.errorMessage}>{errMessage3}</div>}{' '}
+        <label>휴대폰 번호</label>
+        <input
+          type="phonenumber"
+          value={phonenumber}
+          onChange={(e) => setPhonenumber(e.target.value)}
+          required
+        />
+        {errMessage4 && <div className={style.errorMessage}>{errMessage4}</div>}
         <button type="submit">회원가입</button>
       </form>
     </div>
