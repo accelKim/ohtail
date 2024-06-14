@@ -11,7 +11,7 @@ import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
 import Login from './pages/login/Login';
-import Singup from './pages/singup/Singup';
+import Signup from './pages/signup/Signup';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/singup" element={<Singup />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
         <Footer />
       </div>
