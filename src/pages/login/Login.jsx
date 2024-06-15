@@ -26,7 +26,7 @@ const Login = () => {
 
       if (result.message === '로그인 성공') {
         localStorage.setItem('userid', result.userid);
-        localStorage.removeItem('email');
+        localStorage.setItem('accessToken', result.accessToken);
 
         alert('로그인 성공!');
         window.location.href = '/';

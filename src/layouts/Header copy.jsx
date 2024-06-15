@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,8 +39,8 @@ const Header = () => {
         </h1>
         <div className={style.gnb}>
           <div className={style.logoff}>
-            <a href="/login">로그인</a>
-            <a href="/singup">회원가입</a>
+            <Link to="/login">로그인</Link>
+            <Link to="/signup">회원가입</Link>
           </div>
           <div className={style.logon}>
             <div className={style.profileImg}>

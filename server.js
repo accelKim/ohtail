@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const User = require('./src/store/UserStore');
 const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe'); // MyRecipe 모델 임포트
+const likeRoutes = require('./src/routes/likeRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer'); // multer 임포트
@@ -36,6 +38,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+app.use('/likes', likeRoutes);
+app.use('/comments', commentRoutes);
 
 // 회원가입
 app.post('/signup', async (req, res) => {

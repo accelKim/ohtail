@@ -31,7 +31,6 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/feed" element={<Feed />} />
         </Routes>
         <Footer />
       </div>
