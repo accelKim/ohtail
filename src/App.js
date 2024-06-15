@@ -12,30 +12,31 @@ import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
+import Feed from './pages/feed/Feed';
 import RecipeListPage from './pages/recipe/RecipeListPage';
 
 function App() {
-    return (
-        <BrowserRouter>
-            <div className="wrap">
-                <Header />
-                <Routes>
-                    <Route path="/" element={<Main />} />
-                    {/* 레시피 페이지 */}
-                    <Route path="/recipe" element={<RecipeListPage />} />
-                    <Route path="/recipe/:id" element={<RecipeDetail />} />
-                    {/* 마이 레시피 */}
-                    <Route path="/myRecipe" element={<MyRecipeList />} />
-                    <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
-                    {/* 웹진 */}
-                    <Route path="/webzine" element={<Webzine />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                </Routes>
-                <Footer />
-            </div>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <div className="wrap">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          {/* 레시피 페이지 */}
+          <Route path="/recipe" element={<RecipeListPage />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+          {/* 마이 레시피 */}
+          <Route path="/myRecipe" element={<MyRecipeList />} />
+          <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
+          {/* 웹진 */}
+          <Route path="/webzine" element={<Webzine />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
