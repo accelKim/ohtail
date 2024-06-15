@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import style from '../styles/Header.module.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import style from "../styles/Header.module.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,7 +9,7 @@ const Header = () => {
 
   useEffect(() => {
     // 로컬 스토리지에서 userid를 가져와서 로그인 상태를 확인
-    const userid = localStorage.getItem('userid');
+    const userid = localStorage.getItem("userid");
     if (userid) {
       setIsLoggedIn(true);
     } else {
@@ -19,17 +19,17 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
+    document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
   };
 
   const openProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
-    document.body.style.overflow = isProfileMenuOpen ? 'auto' : 'hidden';
+    document.body.style.overflow = isProfileMenuOpen ? "auto" : "hidden";
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userid'); // 로컬 스토리지에서 userid 제거
-    localStorage.removeItem('token'); // 로컬 스토리지에서 토큰 제거
+    localStorage.removeItem("userid"); // 로컬 스토리지에서 userid 제거
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
 
     setIsLoggedIn(false); // 로그인 상태를 false로 변경
   };
@@ -39,15 +39,15 @@ const Header = () => {
       <div className="mw">
         <div
           onClick={toggleMenu}
-          className={`${style.ham} ${isMenuOpen ? style.on : ''}`}
+          className={`${style.ham} ${isMenuOpen ? style.on : ""}`}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
+        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ""}`}>
           <a href="/recipe">공식레시피</a>
-          <a href="#">나만의레시피</a>
+          <a href="/myRecipe">나만의레시피</a>
           <a href="/webzine">웹진</a>
           <a href="#">피드</a>
         </div>
