@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
+import { useNavigate } from "react-router-dom";
 
 const CreateMyRecipe = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +10,7 @@ const CreateMyRecipe = () => {
     { name: "", quantity: "", unit: "옵션1" },
   ]);
   const [instructions, setInstructions] = useState("");
+  const navigate = useNavigate();
 
   // 이미지 추가 함수
   const handleFileChange = (e) => {
@@ -42,7 +44,7 @@ const CreateMyRecipe = () => {
     setIngredients(ingredients.filter((_, i) => i !== index));
   };
 
-  const handleCreateRecipe = (e) => {
+  const handleCreateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
       alert("칵테일 이름 필수!!!!!!!!!!");
@@ -98,11 +100,18 @@ const CreateMyRecipe = () => {
       instructions,
     });
 
-    // 백엔드 전송 코드 추가 예정
+    // 백엔드 전송 코드
+    const response = await fetch("http://localhost:8080/createMyRecipe", {
+      method: "POST",
+      body: formData,
+    });
+    if (response.ok) {
+      navigate("/");
+    }
   };
 
   return (
-    <main>
+    <main className="mw">
       <h2>나만의 레시피</h2>
       <form className={style.recipeCon} onSubmit={handleCreateRecipe}>
         <label htmlFor="title">칵테일 이름</label>

@@ -103,7 +103,7 @@ body {
 
 .mw {
   width: calc(100% - 4rem);
-  max-width: 1400px;
+  max-width: 1300px;
   margin: auto;
 }
 
@@ -189,9 +189,10 @@ main section .btnMore i {
   flex: 1;
 }
 .mainWebzine {
-  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
   padding: 2rem;
-  position: relative;
 }
 .mainWebzine h2 {
   font-size: 3em;
@@ -208,9 +209,10 @@ main section .btnMore i {
   overflow: hidden;
 }
 .mainWebzine p:nth-of-type(2) {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   font-family: 'pretendard-medium';
   font-size: 1.875em;
 }
