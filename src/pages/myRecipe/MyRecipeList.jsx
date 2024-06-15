@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 import style from "../../styles/myRecipe/MyRecipeList.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MyRecipeList = () => {
   const [myRecipeList, setMyRecipeList] = useState([]);

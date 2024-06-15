@@ -12,6 +12,7 @@ import CreateMyRecipe from "./pages/myRecipe/CreateMyRecipe";
 import Webzine from "./pages/webzine/Webzine";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import Feed from "./pages/feed/Feed";
 import RecipeListPage from "./pages/recipe/RecipeListPage";
 import MyRecipeDetail from "./pages/myRecipe/MyRecipeDetail";
 

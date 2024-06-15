@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const User = require("./src/store/UserStore");
+const User = require("./src/store/User");
 const Counter = require("./src/store/Counter"); // Counter 모델 임포트
 const MyRecipe = require("./src/store/MyRecipe");
 const likeRoutes = require("./src/routes/likeRoutes");
@@ -10,6 +10,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const multer = require("multer"); // multer 임포트
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 8080;
@@ -38,6 +39,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const generateAccessToken = (userid) => {
+  return jwt.sign({ userid }, "your_secret_key", { expiresIn: "3h" });
+};
+
 app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
 
@@ -56,7 +61,7 @@ app.post("/signup", async (req, res) => {
     // 비밀번호 해싱
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log("해싱된 비밀번호:", hashedPassword); // 디버깅을 위해 해싱된 비밀번호 로그 추가
+    console.log("해싱된 비밀번호:", hashedPassword);
 
     // 유저 번호 증가
     const counter = await Counter.findByIdAndUpdate(
@@ -105,7 +110,10 @@ app.post("/login", async (req, res) => {
 
     if (passwordMatch) {
       console.log("로그인 성공:", email);
-      res.status(200).json({ message: "로그인 성공", userid: user.userid });
+      const token = generateAccessToken(user.userid);
+      res
+        .status(200)
+        .json({ message: "로그인 성공", token, userid: user.userid });
     } else {
       console.log("비밀번호가 일치하지 않습니다:", email);
       res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });

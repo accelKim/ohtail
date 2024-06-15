@@ -29,6 +29,8 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userid"); // 로컬 스토리지에서 userid 제거
+    localStorage.removeItem("token"); // 로컬 스토리지에서 토큰 제거
+
     setIsLoggedIn(false); // 로그인 상태를 false로 변경
   };
 
@@ -57,7 +59,7 @@ const Header = () => {
           {!isLoggedIn && (
             <div className={style.logoff}>
               <Link to="/login">로그인</Link>
-              <Link to="/singup">회원가입</Link>
+              <Link to="/signup">회원가입</Link>
             </div>
           )}
           {isLoggedIn && (
