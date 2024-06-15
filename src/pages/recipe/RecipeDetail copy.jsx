@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import LikeButton from './LikeButton';
+import CommentSection from './CommentSection';
 import style from '../../styles/recipe/RecipeDetail.module.css';
 
 const RecipeDetail = () => {
@@ -7,6 +9,7 @@ const RecipeDetail = () => {
     const [cocktail, setCocktail] = useState(null);
     const [translatedInstructions, setTranslatedInstructions] = useState('');
     const [translatedIngredients, setTranslatedIngredients] = useState([]);
+    const userId = 'currentUserId'; // 실제로는 로그인한 유저의 ID를 가져와야 합니다.
 
     useEffect(() => {
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -28,27 +31,32 @@ const RecipeDetail = () => {
                         };
                     });
 
-                Promise.all(ingredients.map(async (item) => {
-                    const translatedIngredient = await translateText(item.ingredient);
-                    return { ...item, translatedIngredient };
-                })).then(translated => setTranslatedIngredients(translated));
+                Promise.all(
+                    ingredients.map(async (item) => {
+                        const translatedIngredient = await translateText(item.ingredient);
+                        return { ...item, translatedIngredient };
+                    })
+                ).then((translated) => setTranslatedIngredients(translated));
             })
             .catch((error) => console.error('Error fetching data:', error));
     }, [id]);
 
     const translateText = async (text, setState) => {
-        const response = await fetch(`https://translation.googleapis.com/language/translate/v2?key=AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o`, { // YOUR_API_KEY를 실제 API 키로 변경
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: JSON.stringify({
-                q: text,
-                source: 'en',
-                target: 'ko',
-                format: 'text'
-            }),
-        });
+        const response = await fetch(
+            `https://translation.googleapis.com/language/translate/v2?key=YOUR_API_KEY`, // YOUR_API_KEY를 실제 API 키로 변경
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
+                body: JSON.stringify({
+                    q: text,
+                    source: 'en',
+                    target: 'ko',
+                    format: 'text',
+                }),
+            }
+        );
         const data = await response.json();
         if (setState) {
             setState(data.data.translations[0].translatedText);
@@ -76,6 +84,8 @@ const RecipeDetail = () => {
                     </li>
                 ))}
             </ul>
+            <LikeButton cocktailId={id} userId={userId} />
+            <CommentSection cocktailId={id} userId={userId} />
         </div>
     );
 };
