@@ -10,9 +10,11 @@ export class Main extends Component {
           <div className={`${style.wave} ${style.two}`}></div>
           <div className={`${style.wave} ${style.three}`}></div>
           <div className={style.title}>
-            Discover Today's Cocktail
+            Today's
             <br />
-            Raise Your Glass to New Flavors!
+            Cocktail
+            <br />
+            Oh!tail
           </div>
         </section>
         <section className="mw mainRecipe">
@@ -54,7 +56,7 @@ export class Main extends Component {
         </section>
         <section className="mw">
           <div className="mainWebzine">
-            <h2>웹진 타이틀</h2>
+            <h2>웹진 오테일 1호</h2>
             <p>
               웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진
               내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용

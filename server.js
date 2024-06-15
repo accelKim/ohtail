@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./src/store/User');
+const User = require('./src/store/UserStore');
 const Counter = require('./src/store/Counter'); // Counter 모델 임포트
+const MyRecipe = require('./src/store/MyRecipe'); // MyRecipe 모델 임포트
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const multer = require('multer'); // multer 임포트
+const path = require('path');
 const jwt = require('jsonwebtoken');
 
 const app = express();
@@ -22,6 +25,19 @@ mongoose
   .then(() => console.log('MongoDB 연결 성공'))
   .catch((err) => console.error('MongoDB 연결 실패:', err));
 
+//multer 설정
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // 파일을 uploads 폴더로 저장
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // 파일 이름을 현재 시간 + 원래 파일 확장자로 설정
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// 회원가입
 app.post('/signup', async (req, res) => {
   const { userid, password, email, phonenumber } = req.body;
 
@@ -65,6 +81,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+// 로그인
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -92,6 +109,36 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('로그인 중 오류 발생:', error);
     res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
+  }
+});
+
+// 나만의 레시피
+app.post('/createMyRecipe', upload.array('files', 3), async (req, res) => {
+  try {
+    const { title, description, instructions } = req.body;
+    const files = req.files.map((file) => file.path);
+    const ingredients = [];
+
+    for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
+      ingredients.push({
+        name: req.body[`ingredient_${i}_name`],
+        quantity: req.body[`ingredient_${i}_quantity`],
+        unit: req.body[`ingredient_${i}_unit`],
+      });
+    }
+
+    const myRecipe = new MyRecipe({
+      title,
+      description,
+      files,
+      ingredients,
+      instructions,
+    });
+
+    await myRecipe.save();
+    res.status(201).json(myRecipe);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
