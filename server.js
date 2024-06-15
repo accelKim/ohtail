@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./src/store/UserStore');
+const User = require('./src/store/User');
 const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe'); // MyRecipe 모델 임포트
 const likeRoutes = require('./src/routes/likeRoutes');
@@ -38,6 +38,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+const generateAccessToken = (userid) => {
+  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
+};
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
@@ -106,7 +110,10 @@ app.post('/login', async (req, res) => {
 
     if (passwordMatch) {
       console.log('로그인 성공:', email);
-      res.status(200).json({ message: '로그인 성공', userid: user.userid });
+      const token = generateAccessToken(user.userid);
+      res
+        .status(200)
+        .json({ message: '로그인 성공', token, userid: user.userid });
     } else {
       console.log('비밀번호가 일치하지 않습니다:', email);
       res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
