@@ -11,12 +11,9 @@ import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
 import Login from './pages/login/Login';
-<<<<<<< HEAD
 import Signup from './pages/signup/Signup';
-=======
-import Singup from './pages/singup/Singup';
+import Feed from './pages/feed/Feed';
 import RecipeListPage from './pages/recipe/RecipeListPage';
->>>>>>> 3d2151461c3df370a676584453d17225bbba1f65
 
 function App() {
   return (
@@ -34,6 +31,7 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
         <Footer />
       </div>

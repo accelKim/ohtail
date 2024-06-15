@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./src/store/UserStore');
+const User = require('./src/store/User');
 const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = 8080;
@@ -35,7 +36,7 @@ app.post('/signup', async (req, res) => {
     // 비밀번호 해싱
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log('해싱된 비밀번호:', hashedPassword); // 디버깅을 위해 해싱된 비밀번호 로그 추가
+    console.log('해싱된 비밀번호:', hashedPassword);
 
     // 유저 번호 증가
     const counter = await Counter.findByIdAndUpdate(
