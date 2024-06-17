@@ -1,5 +1,5 @@
 import './styles/reset.css';
-import './styles/style.css'
+import './styles/style.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
         <Footer />
       </div>
