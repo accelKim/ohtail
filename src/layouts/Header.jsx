@@ -57,7 +57,7 @@ const Header = () => {
           {!isLoggedIn && (
             <div className={style.logoff}>
               <Link to="/login">로그인</Link>
-              <Link to="/singup">회원가입</Link>
+              <Link to="/signup">회원가입</Link>
             </div>
           )}
           {isLoggedIn && (

@@ -119,6 +119,17 @@ h2 {
   font-size: 2em;
 }
 
+button {
+  font-size: 1em;
+  cursor: pointer;
+}
+input:focus {
+  outline: none;
+}
+input::placeholder {
+  color: #ccc;
+}
+
 /* 메인 */
 main section {
   border: 1px solid red;
