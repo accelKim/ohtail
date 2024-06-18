@@ -106,7 +106,7 @@ const CreateMyRecipe = () => {
       body: formData,
     });
     if (response.ok) {
-      navigate("/");
+      navigate("/myRecipe");
     }
   };
 
