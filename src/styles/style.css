@@ -107,6 +107,10 @@ body {
   margin: auto;
 }
 
+.wrap > .mw {
+  margin: 70px auto;
+}
+
 h1 {
 }
 h2 {
