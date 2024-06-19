@@ -10,13 +10,14 @@ const RecipeDetail = () => {
     const [translatedInstructions, setTranslatedInstructions] = useState('');
     const [translatedIngredients, setTranslatedIngredients] = useState([]);
     const [userId, setUserId] = useState(null);
+    const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
     
 
     useEffect(() => {
         //로컬에서 유저아이디 가져오기 추후 토큰으로 변경예정
         const storedUserId = localStorage.getItem('userid');
         setUserId(storedUserId);
-
+      
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
             .then((response) => response.json())
             .then((data) => {
@@ -47,18 +48,21 @@ const RecipeDetail = () => {
     }, [id]);
 
     const translateText = async (text, setState) => {
-        const response = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${process.env.REACT_APP_TRANSLATE_API}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: JSON.stringify({
-                q: text,
-                source: 'en',
-                target: 'ko',
-                format: 'text',
-            }),
-        });
+        const response = await fetch(
+            `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
+                body: JSON.stringify({
+                    q: text,
+                    source: 'en',
+                    target: 'ko',
+                    format: 'text',
+                }),
+            }
+        );
         const data = await response.json();
         if (setState) {
             setState(data.data.translations[0].translatedText);
