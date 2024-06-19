@@ -1,5 +1,5 @@
 #webzine {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -76,7 +76,13 @@
   overflow: hidden;
   overflow-y: scroll;
 }
-#webzine .listArea > button {
+#webzine .listArea > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#webzine .listArea > div > button,
+#webzine .listArea > div > a {
   /* display: block; */
   flex: none;
   width: 125px;
@@ -91,7 +97,13 @@
   cursor: pointer;
   transition: 0.5s;
 }
-#webzine .listArea > button:hover {
+#webzine .listArea > div > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#webzine .listArea > div > button:hover,
+#webzine .listArea > div > a:hover {
   border-color: var(--main-color);
   background-color: var(--main-color);
   color: var(--white);
@@ -171,7 +183,8 @@
 #webzine.dark .listArea {
   background-color: rgba(0, 0, 0, 90%);
 }
-#webzine.dark .listArea > button {
+#webzine.dark .listArea > div > button,
+#webzine.dark .listArea > div > a {
   border-color: var(--white);
   color: var(--white);
 }
@@ -180,6 +193,10 @@
 }
 #webzine.dark .optionArea div p.on::after {
   background-color: var(--white);
+}
+#webzine.dark .contArea > div:nth-of-type(1) > button {
+  background-color: var(--white);
+  color: var(--black);
 }
 
 /* 크게 */
@@ -215,13 +232,30 @@
 #webzine.large .listArea {
   gap: 4rem;
 }
-#webzine.large .listArea > button {
+#webzine.large .listArea > div > button,
+#webzine.large .listArea > div > a {
   width: 150px;
   height: 150px;
   font-size: 50px;
 }
 #webzine.large .listArea > ul li a {
   font-size: 3.125rem;
+}
+#webzine.large .contArea > div:nth-of-type(1) {
+  font-size: 1.55em;
+}
+#webzine.large .contArea > button {
+  width: 175px;
+  height: 175px;
+  padding-top: 5.5rem;
+  font-size: 1.5em;
+}
+#webzine.large .contArea > button::before {
+  top: 0.7rem;
+  font-size: 5.5rem;
+}
+#webzine.large .contArea > div:nth-of-type(2) {
+  font-size: 1.55em;
 }
 
 /* 작게 */
@@ -257,13 +291,104 @@
 #webzine.small .listArea {
   gap: 2rem;
 }
-#webzine.small .listArea > button {
+#webzine.small .listArea > div > button,
+#webzine.small .listArea > div > a {
   width: 100px;
   height: 100px;
   font-size: 25px;
 }
 #webzine.small .listArea > ul li a {
   font-size: 1.25rem;
+}
+#webzine.small .contArea {
+  margin: 100px auto;
+}
+#webzine.small .contArea h4 {
+  margin-bottom: 50px;
+  font-size: 2em;
+}
+#webzine.small .contArea > div:nth-of-type(1) {
+  margin-bottom: 50px;
+  font-size: 1em;
+}
+#webzine.small .contArea > button {
+  width: 100px;
+  height: 100px;
+  padding-top: 3rem;
+  font-size: 1em;
+}
+#webzine.small .contArea > button::before {
+  top: 0.7rem;
+  font-size: 2.5rem;
+}
+#webzine.small .contArea > div:nth-of-type(2) {
+  font-size: 1em;
+}
+
+#webzine .contArea {
+  margin: 200px auto;
+}
+#webzine .contArea h4 {
+  font-family: 'pretendard-extrabold';
+  font-size: 4em;
+  line-height: 1;
+  margin-bottom: 100px;
+}
+#webzine .contArea > div:nth-of-type(1) {
+  margin-bottom: 100px;
+  font-size: 1.25em;
+  line-height: 1.8;
+}
+#webzine .contArea > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background-color: var(--black);
+  color: var(--white);
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  padding-top: 4rem;
+  font-family: 'Pretendard-Bold';
+  font-size: 1.25em;
+}
+#webzine .contArea > button::before {
+  content: '👍🏻';
+  position: absolute;
+  font-size: 4rem;
+  top: 1rem;
+}
+#webzine .contArea > div:nth-of-type(2) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gray);
+  font-size: 1.25em;
+}
+#webzine .contArea > div:nth-of-type(3) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+#webzine .contArea > div:nth-of-type(3) button {
+  border: 0;
+  outline: none;
+  background-color: var(--lightGray);
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  transition: 0.5s;
+}
+#webzine .contArea > div:nth-of-type(3) button:hover {
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .noise {
