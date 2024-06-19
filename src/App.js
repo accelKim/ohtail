@@ -10,7 +10,10 @@ import MyRecipeList from './pages/myRecipe/MyRecipeList';
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
+<<<<<<< HEAD
 import WebzineWrite from './pages/webzine/WebzineWrite';
+=======
+>>>>>>> master
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Feed from './pages/feed/Feed';
@@ -18,6 +21,7 @@ import RecipeListPage from './pages/recipe/RecipeListPage';
 import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
 import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
+<<<<<<< HEAD
 
 function App() {
   return (
@@ -46,6 +50,37 @@ function App() {
       </div>
     </BrowserRouter>
   );
+=======
+import Chatbot from './components/chatbot/Chatbot';
+
+function App() {
+    return (
+        <BrowserRouter>
+            <div className="wrap">
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    {/* 레시피 페이지 */}
+                    <Route path="/recipe" element={<RecipeListPage />} />
+                    <Route path="/recipe/:id" element={<RecipeDetail />} />
+                    {/* 마이 레시피 */}
+                    <Route path="/myRecipe" element={<MyRecipeList />} />
+                    <Route path="/myRecipe/:id" element={<MyRecipeDetail />} />
+                    <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
+                    <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
+                    {/* 웹진 */}
+                    <Route path="/webzine" element={<Webzine />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/feed" element={<Feed />} />
+                    <Route path="/createFeed" element={<CreateFeed />} />
+                </Routes>
+                <Chatbot />
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
+>>>>>>> master
 }
 
 export default App;

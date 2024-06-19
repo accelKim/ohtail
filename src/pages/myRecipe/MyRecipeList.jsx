@@ -1,12 +1,15 @@
-// MyRecipeList.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/myRecipe/SearchBar";
+import MyRecipeCategory from "../../components/myRecipe/MyRecipeCategory";
+import style from "../../styles/myRecipe/MyRecipeList.module.css";
 
 const MyRecipeList = () => {
   const [myRecipeList, setMyRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
+  const [sortOption, setSortOption] = useState("newest");
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,26 +30,61 @@ const MyRecipeList = () => {
     fetchMyRecipes();
   }, []);
 
+  const handleSearch = useCallback(
+    (term) => {
+      setSearchTerm(term);
+      let filtered = myRecipeList.filter((recipe) =>
+        recipe.title.toLowerCase().includes(term.toLowerCase())
+      );
+
+      if (sortOption === "newest") {
+        filtered = filtered.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      } else if (sortOption === "oldest") {
+        filtered = filtered.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+      }
+
+      setFilteredRecipeList(filtered);
+    },
+    [myRecipeList, sortOption]
+  );
+
+  useEffect(() => {
+    handleSearch(searchTerm); // 검색어 유지하며 정렬
+  }, [handleSearch, searchTerm, sortOption]);
+
   const handleButtonClick = () => {
-    navigate("/createMyRecipe");
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/createMyRecipe");
+    } else {
+      navigate("/login");
+    }
   };
 
-  const handleSearch = (searchTerm) => {
-    const filtered = myRecipeList.filter((recipe) =>
-      recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredRecipeList(filtered);
+  const handleSortChange = (value) => {
+    setSortOption(value);
   };
 
   return (
     <main className="mw">
       <h2>나만의 레시피 목록</h2>
       <SearchBar onSearch={handleSearch} />
-      <button onClick={handleButtonClick}>나만의 레시피 등록하기</button>
+      <MyRecipeCategory
+        sortOption={sortOption}
+        onSortChange={handleSortChange}
+      />
+      <button className={style.addBtn} onClick={handleButtonClick}>
+        나만의 레시피 등록하기
+      </button>
+
       {filteredRecipeList.length === 0 ? (
         <p>레시피가 없습니다</p>
       ) : (
-        <ul>
+        <ul className={style.gridContainer}>
           {filteredRecipeList.map((myRecipe) => (
             <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
           ))}

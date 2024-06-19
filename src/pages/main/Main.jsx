@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import style from '../../styles/Main.module.css';
+import React, { Component } from "react";
+import style from "../../styles/Main.module.css";
 
 export class Main extends Component {
   render() {
@@ -60,7 +60,7 @@ export class Main extends Component {
             <p>
               웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진
               내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용
-              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{' '}
+              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{" "}
             </p>
             <p>2024년 6월</p>
           </div>
