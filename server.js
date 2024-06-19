@@ -6,20 +6,13 @@ const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
-<<<<<<< HEAD
-const webzineRoutes = require('./src/routes/webzineRoutes');
-=======
->>>>>>> master
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer'); // multer 임포트
 const path = require('path');
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
-=======
 const OpenAIApi = require('openai'); // openai 임포트
 require('dotenv').config();
->>>>>>> master
 
 const app = express();
 const port = 8080;
@@ -29,23 +22,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 mongoose
-<<<<<<< HEAD
-  .connect(
-    'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-    {}
-  )
-  .then(() => console.log('MongoDB 연결 성공'))
-  .catch((err) => console.error('MongoDB 연결 실패:', err));
-
-//multer 설정
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-=======
     .connect(
         'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
         {}
@@ -66,43 +42,18 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
     },
->>>>>>> master
 });
 
 const upload = multer({ storage: storage });
 
 const generateAccessToken = (userid) => {
-<<<<<<< HEAD
-  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
-=======
     return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
->>>>>>> master
 };
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 파일 제공 설정
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
-<<<<<<< HEAD
-app.use('/webzines', webzineRoutes);
-
-// 사용자 인증 미들웨어
-const authenticateJWT = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) {
-    return res.status(401).json({ message: '로그인이 필요합니다.' });
-  }
-
-  try {
-    const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
-    req.user = decoded;
-    console.log('Decoded token:', decoded);
-    next();
-  } catch (error) {
-    console.error('토큰 인증 실패:', error);
-    res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
-  }
-=======
 
 // 사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
@@ -120,53 +71,10 @@ const authenticateJWT = (req, res, next) => {
         console.error('토큰 인증 실패:', error);
         res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
     }
->>>>>>> master
 };
 
 // 회원가입
 app.post('/signup', async (req, res) => {
-<<<<<<< HEAD
-  const { userid, password, email, phonenumber } = req.body;
-
-  try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ success: false, message: '이미 존재하는 이메일입니다.' });
-    }
-
-    // 비밀번호 해싱
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log('해싱된 비밀번호:', hashedPassword);
-
-    // 유저 번호 증가
-    const counter = await Counter.findByIdAndUpdate(
-      { _id: 'userId' },
-      { $inc: { sequence_value: 1 } },
-      { new: true, upsert: true }
-    );
-
-    const newUser = new User({
-      userid: counter.sequence_value,
-      password: hashedPassword,
-      email,
-      phonenumber,
-    });
-
-    await newUser.save();
-
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.error('회원가입 오류:', error);
-    res.status(500).json({
-      success: false,
-      message: '회원가입 중 오류가 발생했습니다.',
-      error: error.message,
-    });
-  }
-=======
     const { userid, password, email, phonenumber } = req.body;
 
     try {
@@ -205,51 +113,10 @@ app.post('/signup', async (req, res) => {
             error: error.message,
         });
     }
->>>>>>> master
 });
 
 // 로그인
 app.post('/login', async (req, res) => {
-<<<<<<< HEAD
-  const { email, password } = req.body;
-
-  try {
-    console.log('로그인 요청 받음:', { email, password }); // 요청 도착 확인용 로그
-
-    const user = await User.findOne({ email });
-    console.log('사용자 찾기 결과:', user); // 사용자 찾기 결과 로그
-
-    if (!user) {
-      console.log('사용자를 찾을 수 없습니다:', email);
-      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-    }
-
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log('비밀번호 비교 결과:', passwordMatch); // 비밀번호 비교 결과 로그
-
-    if (passwordMatch) {
-      console.log('로그인 성공:', email);
-      const token = generateAccessToken(user.userid);
-      res
-        .status(200)
-        .json({ message: '로그인 성공', token, userid: user.userid });
-    } else {
-      console.log('비밀번호가 일치하지 않습니다:', email);
-      res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
-    }
-  } catch (error) {
-    console.error('로그인 중 오류 발생:', error);
-    res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
-  }
-});
-
-// 나만의 레시피 생성
-app.post(
-  '/createMyRecipe',
-  authenticateJWT,
-  upload.array('files', 3),
-  async (req, res) => {
-=======
     const { email, password } = req.body;
 
     try {
@@ -282,7 +149,6 @@ app.post(
 
 // 나만의 레시피 생성
 app.post('/createMyRecipe', authenticateJWT, upload.array('files', 3), async (req, res) => {
->>>>>>> master
     try {
         const { title, description, instructions } = req.body;
         const files = req.files.map((file) => file.path);
@@ -315,41 +181,16 @@ app.post('/createMyRecipe', authenticateJWT, upload.array('files', 3), async (re
 
 // 나만의 레시피 리스트
 app.get('/myRecipe', async (req, res) => {
-<<<<<<< HEAD
-  try {
-    const recipes = await MyRecipe.find().sort({ createdAt: -1 });
-    res.status(200).json(recipes);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-=======
     try {
         const recipes = await MyRecipe.find().sort({ createdAt: -1 });
         res.status(200).json(recipes);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
->>>>>>> master
 });
 
 // 나만의 레시피 상세
 app.get('/myRecipe/:id', async (req, res) => {
-<<<<<<< HEAD
-  try {
-    const myRecipe = await MyRecipe.findById(req.params.id);
-    res.status(200).json(myRecipe);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// 나만의 레시피 수정
-app.put(
-  '/myRecipe/:id',
-  authenticateJWT,
-  upload.array('files', 3),
-  async (req, res) => {
-=======
     try {
         const myRecipe = await MyRecipe.findById(req.params.id);
         res.status(200).json(myRecipe);
@@ -360,7 +201,6 @@ app.put(
 
 // 나만의 레시피 수정
 app.put('/myRecipe/:id', authenticateJWT, upload.array('files', 3), async (req, res) => {
->>>>>>> master
     try {
         const { title, description, instructions } = req.body;
         const newFiles = req.files.map((file) => file.path);
@@ -398,14 +238,6 @@ app.put('/myRecipe/:id', authenticateJWT, upload.array('files', 3), async (req, 
 
 // 나만의 레시피 삭제
 app.delete('/myRecipe/:id', authenticateJWT, async (req, res) => {
-<<<<<<< HEAD
-  try {
-    await MyRecipe.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: '레시피가 삭제되었습니다.' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-=======
     try {
         await MyRecipe.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: '레시피가 삭제되었습니다.' });
@@ -433,7 +265,6 @@ app.post('/chatbot', async (req, res) => {
         console.error('OpenAI API 호출 오류:', error);
         res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
     }
->>>>>>> master
 });
 
 app.listen(port, () => {
