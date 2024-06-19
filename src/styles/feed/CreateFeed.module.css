@@ -28,7 +28,7 @@
 .createFeed input:nth-of-type(2) {
   height: 60px;
   border: none;
-  display: none;
+  /* display: none; */
 }
 .createFeed label {
   height: 60px;
