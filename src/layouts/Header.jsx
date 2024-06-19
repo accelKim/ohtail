@@ -47,9 +47,9 @@ const Header = () => {
         </div>
         <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
           <a href="/recipe">공식레시피</a>
-          <a href="#">나만의레시피</a>
+          <a href="/myRecipe">나만의레시피</a>
           <a href="/webzine">웹진</a>
-          <a href="#">피드</a>
+          <a href="/feed">피드</a>
         </div>
 
         <h1>

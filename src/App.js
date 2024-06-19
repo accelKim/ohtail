@@ -14,6 +14,8 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Feed from './pages/feed/Feed';
 import RecipeListPage from './pages/recipe/RecipeListPage';
+import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
+import CreateFeed from './pages/feed/CreateFeed';
 
 function App() {
   return (
@@ -27,12 +29,14 @@ function App() {
           <Route path="/recipe/:id" element={<RecipeDetail />} />
           {/* 마이 레시피 */}
           <Route path="/myRecipe" element={<MyRecipeList />} />
+          <Route path="/myRecipe/:id" element={<MyRecipeDetail />} />
           <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>
         <Footer />
       </div>
