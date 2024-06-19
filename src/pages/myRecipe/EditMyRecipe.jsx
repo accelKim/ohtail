@@ -1,50 +1,42 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
-import { useNavigate } from "react-router-dom";
 
-const CreateMyRecipe = () => {
+const EditMyRecipe = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
+  const [newFiles, setNewFiles] = useState([]);
+  const [removedFiles, setRemovedFiles] = useState([]);
   const [ingredients, setIngredients] = useState([
     { name: "", quantity: "", unit: "옵션1" },
   ]);
   const [instructions, setInstructions] = useState("");
-  const navigate = useNavigate();
 
-  // 이미지 추가 함수
-  const handleFileChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    if (files.length + newFiles.length <= 3) {
-      setFiles([...files, ...newFiles]);
-    } else {
-      alert("이미지는 최대 3장까지만");
-    }
-  };
+  useEffect(() => {
+    const fetchMyRecipe = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
+        if (!response.ok) {
+          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
+        }
+        const data = await response.json();
+        setTitle(data.title);
+        setDescription(data.description);
+        setFiles(data.files);
+        setIngredients(data.ingredients);
+        setInstructions(data.instructions);
+      } catch (error) {
+        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
+      }
+    };
 
-  // 이미지 제거 함수
-  const handleRemoveFile = (index) => {
-    setFiles(files.filter((_, i) => i !== index));
-  };
+    fetchMyRecipe();
+  }, [id]);
 
-  // 재료 입력 함수
-  const handleIngredientChange = (index, field, value) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index][field] = value;
-    setIngredients(newIngredients);
-  };
-
-  // 재료 필드 추가 함수
-  const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
-  };
-
-  // 재료 필드 제거 함수
-  const handleRemoveIngredient = (index) => {
-    setIngredients(ingredients.filter((_, i) => i !== index));
-  };
-
-  const handleCreateRecipe = async (e) => {
+  const handleUpdateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
       alert("칵테일 이름 필수!!!!!!!!!!");
@@ -56,7 +48,7 @@ const CreateMyRecipe = () => {
       return;
     }
 
-    if (files.length === 0) {
+    if (files.length === 0 && newFiles.length === 0) {
       alert("이미지 업로드 필수!!!!!!!!!!");
       return;
     }
@@ -78,51 +70,85 @@ const CreateMyRecipe = () => {
       return;
     }
 
-    // FormData
+    const token = localStorage.getItem("token");
+
     const formData = new FormData();
     formData.set("title", title);
     formData.set("description", description);
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-    for (let i = 0; i < ingredients.length; i++) {
-      formData.append(`ingredient_${i}_name`, ingredients[i].name);
-      formData.append(`ingredient_${i}_quantity`, ingredients[i].quantity);
-      formData.append(`ingredient_${i}_unit`, ingredients[i].unit);
-    }
+    newFiles.forEach((file) => {
+      formData.append("files", file);
+    });
+    formData.set(
+      "existingFiles",
+      JSON.stringify(files.filter((file) => !removedFiles.includes(file)))
+    );
+    formData.set("removedFiles", JSON.stringify(removedFiles));
+    ingredients.forEach((ingredient, index) => {
+      formData.append(`ingredient_${index}_name`, ingredient.name);
+      formData.append(`ingredient_${index}_quantity`, ingredient.quantity);
+      formData.append(`ingredient_${index}_unit`, ingredient.unit);
+    });
     formData.set("instructions", instructions);
 
-    console.log({
-      title,
-      description,
-      files,
-      ingredients,
-      instructions,
-    });
-
-    const token = localStorage.getItem("token");
-
     try {
-      const response = await fetch("http://localhost:8080/createMyRecipe", {
-        method: "POST",
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+        method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`, // Bearer 토큰 헤더 추가
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
+
       if (response.ok) {
-        navigate("/myRecipe");
+        navigate(`/myRecipe/${id}`);
+      } else {
+        const errorData = await response.json();
+        console.error("수정 요청 실패:", errorData);
+        throw new Error(errorData.message || "수정 중 오류 발생!!!!!");
       }
     } catch (error) {
-      console.error("Error creating recipe:", error);
-      alert("레시피 생성 중 오류가 발생했습니다.");
+      console.error("수정 중 오류 발생!!!!!", error);
+      alert(error.message);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const newAddedFiles = Array.from(e.target.files);
+    if (newFiles.length + newAddedFiles.length <= 3) {
+      setNewFiles([...newFiles, ...newAddedFiles]);
+    } else {
+      alert("이미지는 최대 3장까지만");
+    }
+  };
+
+  const handleRemoveFile = (index, isExistingFile) => {
+    if (isExistingFile) {
+      const fileToRemove = files[index];
+      setRemovedFiles([...removedFiles, fileToRemove]);
+      setFiles(files.filter((_, i) => i !== index));
+    } else {
+      setNewFiles(newFiles.filter((_, i) => i !== index));
+    }
+  };
+
+  const handleIngredientChange = (index, field, value) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index][field] = value;
+    setIngredients(newIngredients);
+  };
+
+  const handleAddIngredient = () => {
+    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
+  };
+
+  const handleRemoveIngredient = (index) => {
+    setIngredients(ingredients.filter((_, i) => i !== index));
   };
 
   return (
     <main className="mw">
-      <h2>나만의 레시피</h2>
-      <form className={style.recipeCon} onSubmit={handleCreateRecipe}>
+      <h2>레시피 수정</h2>
+      <form className={style.recipeCon} onSubmit={handleUpdateRecipe}>
         <label htmlFor="title">칵테일 이름</label>
         <input
           type="text"
@@ -156,13 +182,24 @@ const CreateMyRecipe = () => {
         />
         <div className={style.imagePreview}>
           {files.map((file, index) => (
-            <img
-              key={index}
-              src={URL.createObjectURL(file)}
-              alt={`Preview ${index}`}
-              onClick={() => handleRemoveFile(index)}
-              className={style.previewImage}
-            />
+            <div key={index} className={style.imageContainer}>
+              <img
+                src={`http://localhost:8080/${file}`}
+                alt={`Preview ${index}`}
+                className={style.previewImage}
+                onClick={() => handleRemoveFile(index, true)}
+              />
+            </div>
+          ))}
+          {newFiles.map((file, index) => (
+            <div key={index} className={style.imageContainer}>
+              <img
+                src={URL.createObjectURL(file)}
+                alt={`Preview new ${index}`}
+                className={style.previewImage}
+                onClick={() => handleRemoveFile(index, false)}
+              />
+            </div>
           ))}
         </div>
 
@@ -215,17 +252,17 @@ const CreateMyRecipe = () => {
         </button>
 
         <label htmlFor="instructions">만드는 방법</label>
-        <input
+        <textarea
           name="instructions"
           id="instructions"
           value={instructions}
           onChange={(e) => setInstructions(e.target.value)}
-        />
+        ></textarea>
 
-        <button type="submit">레시피 등록</button>
+        <button type="submit">레시피 수정</button>
       </form>
     </main>
   );
 };
 
-export default CreateMyRecipe;
+export default EditMyRecipe;
