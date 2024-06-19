@@ -31,7 +31,7 @@ export class Main extends Component {
             </a>
           </div>
           <a href="#" className="btnMore">
-            더보기<i class="fa-solid fa-caret-right"></i>
+            더보기<i className="fa-solid fa-caret-right"></i>
           </a>
         </section>
         <section className="mw mainMyRecipe">
@@ -51,7 +51,7 @@ export class Main extends Component {
             </a>
           </div>
           <a href="#" className="btnMore">
-            더보기<i class="fa-solid fa-caret-right"></i>
+            더보기<i className="fa-solid fa-caret-right"></i>
           </a>
         </section>
         <section className="mw">
