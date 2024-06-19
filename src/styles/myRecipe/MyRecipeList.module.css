@@ -1,0 +1,15 @@
+.addBtn {
+  color: #ffffff;
+  background-color: #333333;
+  width: 224px;
+  height: 60px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  margin-top: 20px;
+  gap: 20px;
+}

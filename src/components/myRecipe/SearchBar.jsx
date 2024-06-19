@@ -1,5 +1,5 @@
-// SearchBar.js
 import React, { useState } from "react";
+import style from "../../styles/myRecipe/SearchBar.module.css";
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,15 +19,20 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="레시피 제목으로 검색..."
-        value={searchTerm}
-        onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
-      />
-      <button onClick={handleSearch}>검색</button>
+    <div className={style.container}>
+      <div className={style.bar}>
+        <input
+          type="text"
+          placeholder="검색어를 입력하세요"
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+        />
+        <button onClick={handleSearch}>
+          {" "}
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
     </div>
   );
 };
