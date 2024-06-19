@@ -10,6 +10,7 @@ const RecipeDetail = () => {
     const [translatedInstructions, setTranslatedInstructions] = useState('');
     const [translatedIngredients, setTranslatedIngredients] = useState([]);
     const [userId, setUserId] = useState(null);
+    
 
     useEffect(() => {
         //로컬에서 유저아이디 가져오기 추후 토큰으로 변경예정
@@ -46,21 +47,18 @@ const RecipeDetail = () => {
     }, [id]);
 
     const translateText = async (text, setState) => {
-        const response = await fetch(
-            `https://translation.googleapis.com/language/translate/v2?key=AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                },
-                body: JSON.stringify({
-                    q: text,
-                    source: 'en',
-                    target: 'ko',
-                    format: 'text',
-                }),
-            }
-        );
+        const response = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${process.env.REACT_APP_TRANSLATE_API}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({
+                q: text,
+                source: 'en',
+                target: 'ko',
+                format: 'text',
+            }),
+        });
         const data = await response.json();
         if (setState) {
             setState(data.data.translations[0].translatedText);
