@@ -30,10 +30,10 @@ mongoose
 //multer 설정
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // 파일을 uploads 폴더로 저장
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // 파일 이름을 현재 시간 + 원래 파일 확장자로 설정
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
@@ -43,8 +43,28 @@ const generateAccessToken = (userid) => {
   return jwt.sign({ userid }, "your_secret_key", { expiresIn: "3h" });
 };
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // 정적 파일 제공 설정
+
 app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
+
+// 사용자 인증 미들웨어
+const authenticateJWT = (req, res, next) => {
+  const token = req.header("Authorization");
+  if (!token) {
+    return res.status(401).json({ message: "로그인이 필요합니다." });
+  }
+
+  try {
+    const decoded = jwt.verify(token.split(" ")[1], "your_secret_key");
+    req.user = decoded;
+    console.log("Decoded token:", decoded);
+    next();
+  } catch (error) {
+    console.error("토큰 인증 실패:", error);
+    res.status(401).json({ message: "유효하지 않은 토큰입니다." });
+  }
+};
 
 // 회원가입
 app.post("/signup", async (req, res) => {
@@ -125,39 +145,46 @@ app.post("/login", async (req, res) => {
 });
 
 // 나만의 레시피 생성
-app.post("/createMyRecipe", upload.array("files", 3), async (req, res) => {
-  try {
-    const { title, description, instructions } = req.body;
-    const files = req.files.map((file) => file.path);
-    const ingredients = [];
+app.post(
+  "/createMyRecipe",
+  authenticateJWT,
+  upload.array("files", 3),
+  async (req, res) => {
+    try {
+      const { title, description, instructions } = req.body;
+      const files = req.files.map((file) => file.path);
+      const ingredients = [];
+      const author = req.user.userid;
 
-    for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
-      ingredients.push({
-        name: req.body[`ingredient_${i}_name`],
-        quantity: req.body[`ingredient_${i}_quantity`],
-        unit: req.body[`ingredient_${i}_unit`],
+      for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
+        ingredients.push({
+          name: req.body[`ingredient_${i}_name`],
+          quantity: req.body[`ingredient_${i}_quantity`],
+          unit: req.body[`ingredient_${i}_unit`],
+        });
+      }
+
+      const myRecipe = new MyRecipe({
+        title,
+        description,
+        files,
+        ingredients,
+        instructions,
+        author,
       });
+
+      await myRecipe.save();
+      res.status(201).json(myRecipe);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-
-    const myRecipe = new MyRecipe({
-      title,
-      description,
-      files,
-      ingredients,
-      instructions,
-    });
-
-    await myRecipe.save();
-    res.status(201).json(myRecipe);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
   }
-});
+);
 
 // 나만의 레시피 리스트
 app.get("/myRecipe", async (req, res) => {
   try {
-    const recipes = await MyRecipe.find().sort({ createdAt: -1 }); // 최신순 정렬
+    const recipes = await MyRecipe.find().sort({ createdAt: -1 });
     res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -168,10 +195,65 @@ app.get("/myRecipe", async (req, res) => {
 app.get("/myRecipe/:id", async (req, res) => {
   try {
     const myRecipe = await MyRecipe.findById(req.params.id);
-    if (!myRecipe) {
-      return res.status(404).json({ message: "레시피를 찾을 수 없습니다." });
-    }
     res.status(200).json(myRecipe);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// 나만의 레시피 수정
+app.put(
+  "/myRecipe/:id",
+  authenticateJWT,
+  upload.array("files", 3),
+  async (req, res) => {
+    try {
+      const { title, description, instructions } = req.body;
+      const newFiles = req.files.map((file) => file.path);
+      const existingFiles = JSON.parse(req.body.existingFiles);
+      const removedFiles = JSON.parse(req.body.removedFiles);
+      const ingredients = [];
+
+      for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
+        ingredients.push({
+          name: req.body[`ingredient_${i}_name`],
+          quantity: req.body[`ingredient_${i}_quantity`],
+          unit: req.body[`ingredient_${i}_unit`],
+        });
+      }
+
+      // 기존 파일에서 삭제된 파일 제외
+      const updatedFiles = existingFiles.filter(
+        (file) => !removedFiles.includes(file)
+      );
+      const allFiles = [...updatedFiles, ...newFiles];
+
+      const updatedRecipe = {
+        title,
+        description,
+        files: allFiles,
+        ingredients,
+        instructions,
+      };
+
+      const result = await MyRecipe.findByIdAndUpdate(
+        req.params.id,
+        updatedRecipe,
+        { new: true }
+      );
+
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+);
+
+// 나만의 레시피 삭제
+app.delete("/myRecipe/:id", authenticateJWT, async (req, res) => {
+  try {
+    await MyRecipe.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "레시피가 삭제되었습니다." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

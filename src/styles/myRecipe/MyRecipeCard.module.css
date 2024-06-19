@@ -1,0 +1,31 @@
+.recipeCard {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 8px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipeImage {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.recipeTitle {
+  font-size: 1.5em;
+  margin: 8px 0;
+}
+
+.recipeDescription {
+  color: #666;
+}
