@@ -48,19 +48,19 @@ const CommentSection = ({ cocktailId, userId }) => {
                                     value={editCommentText}
                                     onChange={(e) => setEditCommentText(e.target.value)}
                                 />
-                                <button type="submit">Update</button>
+                                <button type="submit">확인</button>
                                 <button type="button" onClick={() => setEditCommentId(null)}>
-                                    Cancel
+                                    취소
                                 </button>
                             </form>
                         ) : (
                             <>
-                                <p>{comment.text}</p>
-                                <small>by {comment.userId}</small>
+                                <p>{comment.text}</p> 
+                                <small>작성자 : {comment.userId}</small>
                                 {comment.userId === userId && (
                                     <>
-                                        <button onClick={() => handleEdit(comment._id, comment.text)}>Edit</button>
-                                        <button onClick={() => handleDelete(comment._id)}>Delete</button>
+                                        <button onClick={() => handleEdit(comment._id, comment.text)}>수정</button>
+                                        <button onClick={() => handleDelete(comment._id)}>삭제</button>
                                     </>
                                 )}
                             </>
@@ -73,9 +73,9 @@ const CommentSection = ({ cocktailId, userId }) => {
                     type="text"
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Add a comment"
+                    placeholder="댓글내용을 입력하세요"
                 />
-                <button type="submit">Submit</button>
+                <button type="submit">등록</button>
             </form>
         </div>
     );
