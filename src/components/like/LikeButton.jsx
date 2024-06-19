@@ -16,7 +16,7 @@ const LikeButton = ({ cocktailId, userId }) => {
 
   return (
     <button onClick={handleToggleLike}>
-      {liked ? 'Unlike' : 'Like'}
+      {liked ? '좋아요 취소' : '좋아요'}
     </button>
   );
 };
