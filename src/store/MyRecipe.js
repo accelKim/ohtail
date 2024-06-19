@@ -14,6 +14,7 @@ const myRecipeSchema = new mongoose.Schema({
   ingredients: [ingredientSchema],
   instructions: { type: String, required: true },
   author: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("MyRecipe", myRecipeSchema);
