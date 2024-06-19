@@ -15,6 +15,7 @@ import Signup from "./pages/signup/Signup";
 import Feed from "./pages/feed/Feed";
 import RecipeListPage from "./pages/recipe/RecipeListPage";
 import MyRecipeDetail from "./pages/myRecipe/MyRecipeDetail";
+import EditMyRecipe from "./pages/myRecipe/EditMyRecipe";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/myRecipe" element={<MyRecipeList />} />
           <Route path="/myRecipe/:id" element={<MyRecipeDetail />} />
           <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
+          <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
