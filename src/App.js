@@ -15,6 +15,7 @@ import Signup from "./pages/signup/Signup";
 import Feed from "./pages/feed/Feed";
 import RecipeListPage from "./pages/recipe/RecipeListPage";
 import MyRecipeDetail from "./pages/myRecipe/MyRecipeDetail";
+import CreateFeed from "./pages/feed/CreateFeed";
 import EditMyRecipe from "./pages/myRecipe/EditMyRecipe";
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>
         <Footer />
       </div>
