@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div className={style.login}>
+    <div className={`mw ${style.login}`}>
       <h2>로그인</h2>
       <form onSubmit={login}>
         <input
@@ -52,6 +52,7 @@ const Login = () => {
           placeholder="test@gmail.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoFocus
         />
         <input
           type="password"
