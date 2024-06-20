@@ -18,6 +18,7 @@ import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
 import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
+import WebzineWrite from './pages/webzine/WebzineWrite';
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
                     {/* 웹진 */}
                     <Route path="/webzine" element={<Webzine />} />
+                    <Route path="/webzineWrite" element={<WebzineWrite />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/feed" element={<Feed />} />
