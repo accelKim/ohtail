@@ -1,50 +1,68 @@
 import React, { useState } from 'react';
 import { url } from '../../store/ref';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import style from '../../styles/webzine/WebzineWrite.module.css';
+import WebzineEditor from './WebzineEditor';
+import { useNavigate } from 'react-router-dom';
 
 const WebzineWrite = () => {
   const [title, setTitle] = useState('');
+  const [files, setFiles] = useState(null);
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const webzineSubmit = async (e) => {
+  const writeNewWebzine = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token');
+    const data = new FormData();
+
+    data.set('title', title);
+    data.append('files', files[0]);
+    data.append('content', content);
 
     try {
-      const response = await axios.post(
-        `${url}`,
-        { title, content },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 201) {
+      const response = await fetch(`${url}/webzineWrite`, {
+        method: 'POST',
+        body: data,
+        credentials: 'include',
+      });
+      if (response.ok) {
+        console.log('webzine write success');
         navigate('/webzine');
+      } else {
+        console.error('webzine write filed', response.statusText);
       }
     } catch (error) {
-      console.error('웹진 작성 오류:', error);
+      console.error('webzine write error', error);
     }
   };
+
   return (
     <div className={`mw ${style.write}`}>
-      <form onSubmit={webzineSubmit}>
+      <form onSubmit={writeNewWebzine}>
+        <label htmlFor="title" hidden></label>
         <input
           type="text"
+          id="title"
+          name="title"
           placeholder="웹진 타이틀을 입력해주세요."
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
+          required
         />
-        <ReactQuill value={content} onChange={setContent} />
+        <label htmlFor="file" hidden>
+          썸네일
+        </label>
+        <input
+          type="file"
+          id="files"
+          name="files"
+          required
+          onChange={(e) => setFiles(e.target.files)}
+        />
+        <label htmlFor="content" hidden></label>
+        <WebzineEditor content={content} setContent={setContent} />
         <button type="submit">글쓰기</button>
       </form>
     </div>
