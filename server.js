@@ -6,6 +6,7 @@ const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
+const webzineRoutes = require('./src/routes/webzineRoutes');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer'); // multer 임포트
@@ -54,6 +55,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
+app.use('/webzines', webzineRoutes);
 
 // 사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
@@ -61,7 +63,6 @@ const authenticateJWT = (req, res, next) => {
     if (!token) {
         return res.status(401).json({ message: '로그인이 필요합니다.' });
     }
-
     try {
         const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
         req.user = decoded;
