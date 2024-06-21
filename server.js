@@ -21,7 +21,13 @@ const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', // 클라이언트의 주소
+  credentials: true, // 인증 정보를 포함할 때 true로 설정
+};
+
+app.use(cors(corsOptions));
+const fs = require('fs');
 app.use(cookieParser());
 
 mongoose
@@ -329,6 +335,23 @@ app.post('/webzineWrite', upload.single('files'), (req, res) => {
   });
 });
 
+// feed 포스트 요청
+app.post('/createFeed', upload.single('imgFile'), (req, res) => {
+  const { title, content } = req.body;
+  const { filename, path } = req.file; // 파일 정보를 가져오는 방법 수정
+
+  // 확장자 추출
+  const ext = filename.split('.').pop();
+  const newPath = `${path}.${ext}`;
+
+  // 파일 이름 수정
+  fs.renameSync(path, newPath);
+  console.log(newPath);
+
+  console.log(req.body);
+  console.log(req.file);
+  res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.' });
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

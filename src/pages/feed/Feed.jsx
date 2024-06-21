@@ -1,6 +1,7 @@
 import React from 'react';
 import style from '../../styles/feed/Feed.module.css';
 import { Link } from 'react-router-dom';
+import SearchBar from '../../components/recipe/SearchBar';
 
 const Feed = () => {
   return (
