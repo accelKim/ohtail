@@ -52,7 +52,7 @@ const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
 const generateAccessToken = (userid) => {
-  return jwt.sign({ userid }, process.env.JWT_SECRET, { expiresIn: '3h' });
+  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
 };
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 파일 제공 설정
@@ -69,7 +69,7 @@ const authenticateJWT = (req, res, next) => {
     return res.status(401).json({ message: '로그인이 필요합니다.' });
   }
   try {
-    const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+    const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
