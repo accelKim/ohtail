@@ -65,18 +65,9 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Pretendard-Black';
-  font-weight: 900;
-  font-style: normal;
-  src: url('../../public/fonts/Pretendard-Black.woff');
-  src: url('../../public/fonts/Pretendard-Black.woff2');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PartialSansKR-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2')
-    format('woff2');
+  font-family: 'JalnanGothic';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -120,6 +111,9 @@ h2 {
 }
 
 button {
+  border: none;
+  outline: none;
+  border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
 }
@@ -132,7 +126,6 @@ input::placeholder {
 
 /* 메인 */
 main section {
-  border: 1px solid red;
   padding-bottom: 4rem;
   position: relative;
 }

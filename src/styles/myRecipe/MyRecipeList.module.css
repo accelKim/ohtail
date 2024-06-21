@@ -1,17 +1,22 @@
 .addBtn {
-  color: #ffffff;
-  background-color: #333333;
-  width: 200px;
-  height: 50px;
-  border-radius: 10px;
+  height: 36px;
+  padding: 0 1rem;
+  color: var(--white);
+  background-color: var(--black);
+  border: 1px solid var(--black);
+  transition: 0.5s;
+}
+.addBtn:hover {
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  color: var(--black);
 }
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  place-items: center;
-  margin-top: 20px;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
 }
 
 .actionBar {

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import style from "../../styles/Main.module.css";
+import React, { Component } from 'react';
+import style from '../../styles/Main.module.css';
 
 export class Main extends Component {
   render() {
@@ -10,11 +10,10 @@ export class Main extends Component {
           <div className={`${style.wave} ${style.two}`}></div>
           <div className={`${style.wave} ${style.three}`}></div>
           <div className={style.title}>
-            Today's
+            <span>오</span>늘의
+            <br />칵<span>테</span>일
             <br />
-            Cocktail
-            <br />
-            Oh!tail
+            오테<span>일</span>
           </div>
         </section>
         <section className="mw mainRecipe">
@@ -60,7 +59,7 @@ export class Main extends Component {
             <p>
               웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진
               내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용
-              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{" "}
+              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{' '}
             </p>
             <p>2024년 6월</p>
           </div>
