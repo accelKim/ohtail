@@ -11,6 +11,13 @@ const MyRecipeCategory = ({ sortOption, onSortChange }) => {
     onSortChange(selectedOption.value);
   };
 
+  const customStyles = {
+    container: (provided) => ({
+      ...provided,
+      width: 130,
+    }),
+  };
+
   return (
     <div>
       <Select
@@ -18,6 +25,7 @@ const MyRecipeCategory = ({ sortOption, onSortChange }) => {
         options={sortOptions}
         placeholder="정렬"
         onChange={handleChange}
+        styles={customStyles}
       />
     </div>
   );
