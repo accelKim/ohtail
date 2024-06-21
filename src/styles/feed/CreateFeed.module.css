@@ -61,3 +61,8 @@
   color: white;
   margin: 2rem 0;
 }
+
+.imgFile {
+  width: 100px;
+  height: 100px;
+}
