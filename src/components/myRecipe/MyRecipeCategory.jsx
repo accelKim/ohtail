@@ -14,7 +14,7 @@ const MyRecipeCategory = ({ sortOption, onSortChange }) => {
   const customStyles = {
     container: (provided) => ({
       ...provided,
-      width: 130,
+      width: 150,
     }),
   };
 

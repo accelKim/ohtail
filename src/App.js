@@ -40,9 +40,10 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
           <Route path="/webzineEdit" element={<WebzineEdit />} />
-          {/*  */}
+          {/* 로그인, 회원가입 */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>

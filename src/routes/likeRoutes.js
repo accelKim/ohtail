@@ -6,7 +6,8 @@ router.get('/', async (req, res) => {
     const { cocktailId, userId } = req.query;
     try {
         const like = await Like.findOne({ cocktailId, userId });
-        res.status(200).json({ liked: !!like });
+        const likeCount = await Like.countDocuments({ cocktailId });
+        res.status(200).json({ liked: !!like, likeCount });
     } catch (error) {
         res.status(500).json({ error: 'Error fetching like status' });
     }
@@ -21,10 +22,12 @@ router.post('/', async (req, res) => {
         } else {
             await Like.deleteOne({ cocktailId, userId });
         }
-        res.status(200).json({ success: true });
+        const likeCount = await Like.countDocuments({ cocktailId });
+        res.status(200).json({ success: true, liked, likeCount });
     } catch (error) {
         res.status(500).json({ error: 'Error toggling like status' });
     }
 });
+
 
 module.exports = router;

@@ -8,8 +8,9 @@ const RecipeList = ({ searchResults, hasSearched }) => {
             searchResults.length > 0 ? (
                 <div className={style.results}>
                     {searchResults.map((recipe) => (
-                        <div key={recipe.idDrink}>
-                            <Link to={`/recipe/${recipe.idDrink}`}>{recipe.strDrink}</Link>
+                        <div key={recipe.idDrink} className={style.recipe_card}>
+                            <p>{recipe.strDrink}</p>
+                            <Link to={`/recipe/${recipe.idDrink}`}></Link>
                             <img src={recipe.strDrinkThumb} alt={recipe.strDrink} width="100" />
                         </div>
                     ))}

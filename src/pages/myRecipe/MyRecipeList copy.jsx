@@ -3,7 +3,6 @@ import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/myRecipe/SearchBar";
 import MyRecipeCategory from "../../components/myRecipe/MyRecipeCategory";
-import Pagination from "../../components/pagination/Pagination";
 import style from "../../styles/myRecipe/MyRecipeList.module.css";
 
 const MyRecipeList = () => {
@@ -11,8 +10,6 @@ const MyRecipeList = () => {
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [sortOption, setSortOption] = useState("newest");
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,13 +17,13 @@ const MyRecipeList = () => {
       try {
         const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
-          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
+          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
         const data = await response.json();
         setMyRecipeList(data);
         setFilteredRecipeList(data); // 필터된 목록 초기화
       } catch (error) {
-        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
+        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
     };
 
@@ -40,18 +37,17 @@ const MyRecipeList = () => {
         recipe.title.toLowerCase().includes(term.toLowerCase())
       );
 
-      if (sortOption === 'newest') {
+      if (sortOption === "newest") {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      } else if (sortOption === 'oldest') {
+      } else if (sortOption === "oldest") {
         filtered = filtered.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
       }
 
       setFilteredRecipeList(filtered);
-      setCurrentPage(1); // 검색어 변경 시 첫 페이지로 이동
     },
     [myRecipeList, sortOption]
   );
@@ -61,11 +57,11 @@ const MyRecipeList = () => {
   }, [handleSearch, searchTerm, sortOption]);
 
   const handleButtonClick = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      navigate('/createMyRecipe');
+      navigate("/createMyRecipe");
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
@@ -73,20 +69,9 @@ const MyRecipeList = () => {
     setSortOption(value);
   };
 
-  const handleClick = (page) => {
-    setCurrentPage(page);
-  };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentResults = filteredRecipeList.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  ); // 현재 페이지에 표시할 항목들
-
   return (
     <main className="mw">
-      <h2>나만의 레시피</h2>
+      <h2>나만의 레시피 목록</h2>
       <SearchBar onSearch={handleSearch} />
       <div className={style.actionBar}>
         <MyRecipeCategory
@@ -101,17 +86,11 @@ const MyRecipeList = () => {
         <p>레시피가 없습니다</p>
       ) : (
         <ul className={style.gridContainer}>
-          {currentResults.map((myRecipe) => (
+          {filteredRecipeList.map((myRecipe) => (
             <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
           ))}
         </ul>
       )}
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredRecipeList.length}
-        currentPage={currentPage}
-        handleClick={handleClick}
-      />
     </main>
   );
 };
