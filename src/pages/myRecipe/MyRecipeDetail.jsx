@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, EffectCoverflow } from "swiper/modules";
+import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -61,40 +66,65 @@ const MyRecipeDetail = () => {
   }
 
   return (
-    <main className="mw">
-      <h2>레시피 제목: {myRecipe.title}</h2>
-      <h3>작성자: {myRecipe.author}</h3>
-      <div>
+    <main className={`mw ${style.main}`}>
+      <h2 className={style.title}>{myRecipe.title}</h2>
+      <p className={style.author}>{myRecipe.author}</p>
+      <Swiper
+        slidesPerView={3}
+        centeredSlides={true}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+        }}
+        effect="coverflow"
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.5,
+          slideShadows: false,
+        }}
+        modules={[Pagination, EffectCoverflow]}
+        className={style.mySwiper}
+      >
         {myRecipe.files.map((file, index) => {
           const imageUrl = `http://localhost:8080/${file}`;
           console.log(`이미지 URL ${index}:`, imageUrl);
           return (
-            <img
-              key={index}
-              src={imageUrl}
-              alt={`${myRecipe.title} 이미지 ${index + 1}`}
-            />
+            <SwiperSlide key={index} className={style.swiperSlide}>
+              <img
+                src={imageUrl}
+                alt={`${myRecipe.title} 이미지 ${index + 1}`}
+                className={style.image}
+              />
+            </SwiperSlide>
           );
         })}
-      </div>
-      <h3>레시피 설명: {myRecipe.description}</h3>
-      <h3>재료</h3>
-      <ul>
+      </Swiper>
+      <p className={style.desc}>칵테일 소개: {myRecipe.description}</p>
+      <h3>재료 정보</h3>
+      <ul className={style.ingredientCon}>
         {myRecipe.ingredients.map((ingredient, index) => (
-          <li key={index}>
-            {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+          <li key={index} className={style.ingredientItem}>
+            <span>{ingredient.name}</span>
+            <span>{ingredient.quantity}</span>
+            <span>{ingredient.unit}</span>
           </li>
         ))}
       </ul>
       <h3>만드는 방법</h3>
-      <p>{myRecipe.instructions}</p>
+      <p className={style.instructions}>{myRecipe.instructions}</p>
       {userId &&
         myRecipe.author &&
         userId.toString() === myRecipe.author.toString() && (
-          <>
-            <button onClick={handleEdit}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
-          </>
+          <div className={style.buttonContainer}>
+            <button className={style.editBtn} onClick={handleEdit}>
+              수정
+            </button>
+            <button className={style.deleteBtn} onClick={handleDelete}>
+              삭제
+            </button>
+          </div>
         )}
     </main>
   );

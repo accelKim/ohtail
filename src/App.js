@@ -10,6 +10,8 @@ import MyRecipeList from './pages/myRecipe/MyRecipeList';
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
+import WebzineWrite from './pages/webzine/WebzineWrite';
+import WebzineEdit from './pages/webzine/WebzineEdit';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Feed from './pages/feed/Feed';
@@ -18,7 +20,6 @@ import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
 import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
-import WebzineWrite from './pages/webzine/WebzineWrite';
 
 function App() {
   return (
@@ -38,8 +39,11 @@ function App() {
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
+          <Route path="/webzineEdit" element={<WebzineEdit />} />
+          {/* 로그인, 회원가입 */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>

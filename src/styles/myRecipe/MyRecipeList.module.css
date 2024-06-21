@@ -1,8 +1,9 @@
 .addBtn {
   color: #ffffff;
   background-color: #333333;
-  width: 224px;
-  height: 60px;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
 }
 
 .gridContainer {
@@ -12,4 +13,11 @@
   place-items: center;
   margin-top: 20px;
   gap: 20px;
+}
+
+.actionBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }

@@ -6,13 +6,14 @@ const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
-const webzineRoutes = require('./src/routes/webzineRoutes');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer'); // multer 임포트
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
+const cookieParser = require('cookie-parser');
+
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +28,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 const fs = require('fs');
+app.use(cookieParser());
 
 mongoose
   .connect(
@@ -51,17 +53,20 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
+const upload = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 const generateAccessToken = (userid) => {
-  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
+  return jwt.sign({ userid }, process.env.JWT_SECRET, { expiresIn: '3h' });
 };
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 파일 제공 설정
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
-app.use('/webzines', webzineRoutes);
+
+const Webzine = require('./src/models/Webzine');
 
 // 사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
@@ -70,7 +75,7 @@ const authenticateJWT = (req, res, next) => {
     return res.status(401).json({ message: '로그인이 필요합니다.' });
   }
   try {
-    const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
+    const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
@@ -295,7 +300,40 @@ app.post('/chatbot', async (req, res) => {
       .json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
   }
 });
-// feed 포스트 요청
+
+// Webzine
+app.get('/webzine', authenticateJWT, (req, res) => {
+  res.json(req.user);
+});
+
+app.post('/webzineWrite', upload.single('files'), (req, res) => {
+  console.log('webzine test req.cookies: ', req.cookies);
+  console.log('webzine test req.body: ', req.body);
+  console.log('webzine test req.file: ', req.file);
+
+  const { path, originalname } = req.file;
+  const part = originalname.split('.');
+  const ext = part[part.length - 1];
+  const newPath = path + '.' + ext;
+  console.log('webzine test newPath: ', newPath);
+
+  fs.renameSync(path, newPath);
+
+  const { token } = req.cookies;
+  console.log('webzine test token: ', token);
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
+    if (err) throw err;
+    console.log('webzine test info.email: ', info.email);
+    const { title, content } = req.body;
+    const webzineDoc = await Post.create({
+      title,
+      content,
+      cover: newPath,
+      author: info.email,
+    });
+    res.json(webzineDoc);
+  });
+});
 
 // feed 포스트 요청
 app.post('/createFeed', upload.single('imgFile'), (req, res) => {
@@ -314,7 +352,6 @@ app.post('/createFeed', upload.single('imgFile'), (req, res) => {
   console.log(req.file);
   res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.' });
 });
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
