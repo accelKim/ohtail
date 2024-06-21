@@ -10,6 +10,7 @@ const Header = () => {
   useEffect(() => {
     // 로컬 스토리지에서 userid를 가져와서 로그인 상태를 확인
     const userid = localStorage.getItem('userid');
+
     if (userid) {
       setIsLoggedIn(true);
     } else {
