@@ -5,6 +5,7 @@ import CategorySelect from '../../components/recipe/CategorySelect';
 import RecipeList from '../../components/recipe/RecipeList';
 import Pagination from '../../components/pagination/Pagination';
 import style from '../../styles/recipe/RecipeList.module.css';
+import '../../translate/i18n';
 
 const RecipeListPage = () => {
   const [degreeOptions, setDegreeOptions] = useState([]);
