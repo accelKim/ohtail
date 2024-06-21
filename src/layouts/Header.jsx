@@ -52,9 +52,10 @@ const Header = () => {
           <a href="/webzine">웹진</a>
           <a href="/feed">피드</a>
         </div>
-
         <h1>
-          <a href="/">로고</a>
+          <a href="/">
+            {/* 왜 이미지로 넣으면 이미지가 반영이 안 되는가... <img src="" alt="" /> */}
+          </a>
         </h1>
         <div className={style.gnb}>
           {!isLoggedIn && (

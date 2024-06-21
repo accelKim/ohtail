@@ -1,6 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "../../styles/myRecipe/MyRecipeCard.module.css";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from '../../styles/myRecipe/MyRecipeCard.module.css';
 
 const MyRecipeCard = ({ myRecipe }) => {
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ const MyRecipeCard = ({ myRecipe }) => {
               className={styles.image}
             />
             <figcaption className={styles.imageText}>
-              <h3>칵테일 제목: {myRecipe.title}</h3>
-              <p>작성자: {myRecipe.author}</p>
+              <h3>{myRecipe.title}</h3>
+              <p>{myRecipe.author}</p>
             </figcaption>
           </figure>
         )}
