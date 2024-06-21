@@ -3,7 +3,6 @@ import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/myRecipe/SearchBar";
 import MyRecipeCategory from "../../components/myRecipe/MyRecipeCategory";
-import Pagination from "../../components/pagination/Pagination";
 import style from "../../styles/myRecipe/MyRecipeList.module.css";
 
 const MyRecipeList = () => {
@@ -11,8 +10,6 @@ const MyRecipeList = () => {
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [sortOption, setSortOption] = useState("newest");
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +48,6 @@ const MyRecipeList = () => {
       }
 
       setFilteredRecipeList(filtered);
-      setCurrentPage(1); // 검색어 변경 시 첫 페이지로 이동
     },
     [myRecipeList, sortOption]
   );
@@ -73,17 +69,6 @@ const MyRecipeList = () => {
     setSortOption(value);
   };
 
-  const handleClick = (page) => {
-    setCurrentPage(page);
-  };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentResults = filteredRecipeList.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  ); // 현재 페이지에 표시할 항목들
-
   return (
     <main className="mw">
       <h2>나만의 레시피 목록</h2>
@@ -101,17 +86,11 @@ const MyRecipeList = () => {
         <p>레시피가 없습니다</p>
       ) : (
         <ul className={style.gridContainer}>
-          {currentResults.map((myRecipe) => (
+          {filteredRecipeList.map((myRecipe) => (
             <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
           ))}
         </ul>
       )}
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalItems={filteredRecipeList.length}
-        currentPage={currentPage}
-        handleClick={handleClick}
-      />
     </main>
   );
 };
