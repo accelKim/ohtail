@@ -73,14 +73,15 @@ const MyRecipeList = () => {
     <main className="mw">
       <h2>나만의 레시피 목록</h2>
       <SearchBar onSearch={handleSearch} />
-      <MyRecipeCategory
-        sortOption={sortOption}
-        onSortChange={handleSortChange}
-      />
-      <button className={style.addBtn} onClick={handleButtonClick}>
-        나만의 레시피 등록하기
-      </button>
-
+      <div className={style.actionBar}>
+        <MyRecipeCategory
+          sortOption={sortOption}
+          onSortChange={handleSortChange}
+        />
+        <button className={style.addBtn} onClick={handleButtonClick}>
+          나만의 레시피 등록하기
+        </button>
+      </div>
       {filteredRecipeList.length === 0 ? (
         <p>레시피가 없습니다</p>
       ) : (

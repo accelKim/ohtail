@@ -13,7 +13,7 @@ const MyRecipeCard = ({ myRecipe }) => {
     <li className={styles.card} onClick={handleCardClick}>
       <article>
         {myRecipe.files && myRecipe.files.length > 0 && (
-          <figure className={styles.imageContainer}>
+          <figure className={styles.imageCon}>
             <img
               src={`http://localhost:8080/${myRecipe.files[0]}`}
               alt={myRecipe.title}
