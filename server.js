@@ -21,6 +21,7 @@ const port = 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   // 클라이언트의 주소
@@ -29,7 +30,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-const fs = require('fs');
 app.use(cookieParser());
 
 mongoose
@@ -45,7 +45,7 @@ const openai = new OpenAIApi({
   apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
 
-//multer 설정
+// multer 설정
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -55,7 +55,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// const upload = multer({ storage: storage });
 const upload = multer({ dest: 'uploads/' });
 
 const generateAccessToken = (userid) => {
@@ -77,6 +76,7 @@ const authenticateJWT = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
+
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
@@ -337,36 +337,36 @@ app.post('/webzineWrite', upload.single('files'), (req, res) => {
 });
 
 // feed 포스트 요청
-
-app.post('/createFeed', authenticateJWT, upload.single('imgFile'), async (req, res) => {
+app.post('/createFeed', upload.single('imgFile'), async (req, res) => {
   try {
-    const { filename, path } = req.file;
+    const { title, content } = req.body;
+    const { filename, path } = req.file; // 파일 정보를 가져오는 방법 수정
+
+    // 확장자 추출
     const ext = filename.split('.').pop();
     const newPath = `${path}.${ext}`;
 
-    fs.renameSync(path, newPath);
+    await fs.promises.rename(path, newPath);
 
-    const { token } = req.header('Authorization');
-    jwt.verify(token, 'your_secret_key', async (err, decoded) => {
-      if (err) {
-        throw err;
-      }
-      
-      const { title, content } = req.body;
-      const createFeedDoc = await Post.create({
-        title,
-        content,
-        cover: newPath,
-        author: decoded.email,
-      });
-      
-      res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.', createFeedDoc });
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, 'your_secret_key');
+
+    const createFeedDoc = await Post.create({
+      title,
+      content,
+      cover: newPath,
+      author: decoded.email,
     });
+
+    res
+      .status(201)
+      .json({ message: '피드가 성공적으로 생성되었습니다.', createFeedDoc });
   } catch (error) {
     console.error('피드 생성 중 오류 발생:', error);
     res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
   }
 });
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
