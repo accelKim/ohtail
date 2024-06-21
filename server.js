@@ -13,17 +13,19 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
 const cookieParser = require('cookie-parser');
-
 require('dotenv').config();
 
 const app = express();
 const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
 const corsOptions = {
-  origin: 'http://localhost:3000', // 클라이언트의 주소
-  credentials: true, // 인증 정보를 포함할 때 true로 설정
+  origin: 'http://localhost:3000',
+  // 클라이언트의 주소
+  credentials: true,
+  // 인증 정보를 포함할 때 true로 설정
 };
 
 app.use(cors(corsOptions));
@@ -55,10 +57,9 @@ const storage = multer.diskStorage({
 
 // const upload = multer({ storage: storage });
 const upload = multer({ dest: 'uploads/' });
-const fs = require('fs');
 
 const generateAccessToken = (userid) => {
-  return jwt.sign({ userid }, process.env.JWT_SECRET, { expiresIn: '3h' });
+  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
 };
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 파일 제공 설정
@@ -75,7 +76,7 @@ const authenticateJWT = (req, res, next) => {
     return res.status(401).json({ message: '로그인이 필요합니다.' });
   }
   try {
-    const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+    const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
@@ -336,21 +337,35 @@ app.post('/webzineWrite', upload.single('files'), (req, res) => {
 });
 
 // feed 포스트 요청
-app.post('/createFeed', upload.single('imgFile'), (req, res) => {
-  const { title, content } = req.body;
-  const { filename, path } = req.file; // 파일 정보를 가져오는 방법 수정
 
-  // 확장자 추출
-  const ext = filename.split('.').pop();
-  const newPath = `${path}.${ext}`;
+app.post('/createFeed', authenticateJWT, upload.single('imgFile'), async (req, res) => {
+  try {
+    const { filename, path } = req.file;
+    const ext = filename.split('.').pop();
+    const newPath = `${path}.${ext}`;
 
-  // 파일 이름 수정
-  fs.renameSync(path, newPath);
-  console.log(newPath);
+    fs.renameSync(path, newPath);
 
-  console.log(req.body);
-  console.log(req.file);
-  res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.' });
+    const { token } = req.header('Authorization');
+    jwt.verify(token, 'your_secret_key', async (err, decoded) => {
+      if (err) {
+        throw err;
+      }
+      
+      const { title, content } = req.body;
+      const createFeedDoc = await Post.create({
+        title,
+        content,
+        cover: newPath,
+        author: decoded.email,
+      });
+      
+      res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.', createFeedDoc });
+    });
+  } catch (error) {
+    console.error('피드 생성 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
+  }
 });
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

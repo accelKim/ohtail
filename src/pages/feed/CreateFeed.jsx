@@ -52,7 +52,6 @@ const CreateFeed = () => {
 
       if (response.ok) {
         alert('피드가 성공적으로 생성되었습니다.');
-
         // 입력 필드 초기화
         setTitle('');
         setImgFile(null);
