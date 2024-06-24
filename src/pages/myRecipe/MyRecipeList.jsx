@@ -9,7 +9,9 @@ import style from "../../styles/myRecipe/MyRecipeList.module.css";
 const MyRecipeList = () => {
   const [myRecipeList, setMyRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
-  const [sortOption, setSortOption] = useState("newest");
+  const [sortOption, setSortOption] = useState(
+    localStorage.getItem("sortOption") || "newest"
+  ); // 로컬 스토리지에서 정렬 옵션을 읽어옴
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
@@ -20,13 +22,13 @@ const MyRecipeList = () => {
       try {
         const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
-          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
+          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
         const data = await response.json();
         setMyRecipeList(data);
         setFilteredRecipeList(data); // 필터된 목록 초기화
       } catch (error) {
-        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
+        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
     };
 
@@ -40,14 +42,12 @@ const MyRecipeList = () => {
         recipe.title.toLowerCase().includes(term.toLowerCase())
       );
 
-      if (sortOption === 'newest') {
+      if (sortOption === "newest") {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      } else if (sortOption === 'oldest') {
-        filtered = filtered.sort(
-          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-        );
+      } else if (sortOption === "mostLiked") {
+        filtered = filtered.sort((a, b) => b.likeCount - a.likeCount); // 좋아요순 정렬
       }
 
       setFilteredRecipeList(filtered);
@@ -61,16 +61,17 @@ const MyRecipeList = () => {
   }, [handleSearch, searchTerm, sortOption]);
 
   const handleButtonClick = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      navigate('/createMyRecipe');
+      navigate("/createMyRecipe");
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
   const handleSortChange = (value) => {
     setSortOption(value);
+    localStorage.setItem("sortOption", value); // 로컬 스토리지에 정렬 옵션 저장
   };
 
   const handleClick = (page) => {

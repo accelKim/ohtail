@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// 재료 스키마
 const ingredientSchema = new mongoose.Schema({
   name: { type: String, required: true },
   quantity: { type: String, required: true },
@@ -15,6 +14,7 @@ const myRecipeSchema = new mongoose.Schema({
   instructions: { type: String, required: true },
   author: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  likeCount: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("MyRecipe", myRecipeSchema);

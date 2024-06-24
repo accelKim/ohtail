@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchLikeStatus, toggleLikeStatus } from '../../store/likeSlice';
-import '../../styles/like/LikeButton.css'; 
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikeStatus, toggleLikeStatus } from "../../store/likeSlice";
+import "../../styles/like/LikeButton.css";
 
 const LikeButton = ({ cocktailId, userId }) => {
   const dispatch = useDispatch();
@@ -17,8 +17,11 @@ const LikeButton = ({ cocktailId, userId }) => {
 
   return (
     <div className="like-button-container">
-      <button className={`like-button ${liked ? 'liked' : ''}`} onClick={handleToggleLike}>
-        {liked ? '좋아요' : '좋아요'}
+      <button
+        className={`like-button ${liked ? "liked" : ""}`}
+        onClick={handleToggleLike}
+      >
+        {liked ? "좋아요" : "좋아요"}
       </button>
       <span className="like-count">{likeCount}</span>
       {liked && <div className="heart-animation">❤️</div>}
