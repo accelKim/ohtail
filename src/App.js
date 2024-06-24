@@ -20,6 +20,7 @@ import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
 import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
+import FeedDetailPage from './pages/feed/FeedDetailPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>
         <Chatbot />
