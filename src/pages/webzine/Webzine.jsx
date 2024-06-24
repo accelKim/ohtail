@@ -22,15 +22,18 @@ const Webzine = () => {
         try {
           const response = await fetch(`${url}/webzine`, {
             method: 'GET',
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-              'Content-Type': 'application/json',
-            },
           });
           if (response.ok) {
             const data = await response.json();
             // console.log('webzine area data', data);
             setWebzineData(data);
+            const userRes = await fetch(`${url}/user`, {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+              },
+            });
           } else {
             console.error('webzine area error');
           }
