@@ -5,19 +5,6 @@ const CreateFeed = () => {
   const [title, setTitle] = useState('');
   const [imgFile, setImgFile] = useState(null);
   const [content, setContent] = useState('');
-  const [imgPreview, setImgPreview] = useState('');
-
-  useEffect(() => {
-    if (imgFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImgPreview(reader.result);
-      };
-      reader.readAsDataURL(imgFile);
-    } else {
-      setImgPreview('');
-    }
-  }, [imgFile]);
 
   const createNewFeed = async (e) => {
     e.preventDefault();
@@ -44,19 +31,22 @@ const CreateFeed = () => {
     data.append('content', content);
 
     try {
+      const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+
       const response = await fetch('http://localhost:8080/createFeed', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`, // Bearer 토큰 헤더 추가
+        },
         body: data,
         credentials: 'include',
       });
 
       if (response.ok) {
         alert('피드가 성공적으로 생성되었습니다.');
-        // 입력 필드 초기화
         setTitle('');
         setImgFile(null);
         setContent('');
-        setImgPreview('');
       } else {
         throw new Error('피드 생성에 실패했습니다.');
       }
@@ -83,11 +73,7 @@ const CreateFeed = () => {
           name="imgFile"
           onChange={(e) => setImgFile(e.target.files[0])}
         />
-        <div className={style.imgPreview}>
-          {/* {imgPreview && (
-            <img src={imgPreview} alt="업로드한 이미지가 보일 공간" />
-          )} */}
-        </div>
+        <div className={style.imgPreview}></div>
         <input
           type="text"
           placeholder="내용을 입력해주세요"

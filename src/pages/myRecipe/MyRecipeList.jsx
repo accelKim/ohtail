@@ -20,13 +20,13 @@ const MyRecipeList = () => {
       try {
         const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
-          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
+          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
         }
         const data = await response.json();
         setMyRecipeList(data);
         setFilteredRecipeList(data); // 필터된 목록 초기화
       } catch (error) {
-        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
+        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
       }
     };
 
@@ -40,11 +40,11 @@ const MyRecipeList = () => {
         recipe.title.toLowerCase().includes(term.toLowerCase())
       );
 
-      if (sortOption === "newest") {
+      if (sortOption === 'newest') {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      } else if (sortOption === "oldest") {
+      } else if (sortOption === 'oldest') {
         filtered = filtered.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
@@ -61,11 +61,11 @@ const MyRecipeList = () => {
   }, [handleSearch, searchTerm, sortOption]);
 
   const handleButtonClick = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
-      navigate("/createMyRecipe");
+      navigate('/createMyRecipe');
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   };
 
@@ -86,7 +86,7 @@ const MyRecipeList = () => {
 
   return (
     <main className="mw">
-      <h2>나만의 레시피 목록</h2>
+      <h2>나만의 레시피</h2>
       <SearchBar onSearch={handleSearch} />
       <div className={style.actionBar}>
         <MyRecipeCategory
