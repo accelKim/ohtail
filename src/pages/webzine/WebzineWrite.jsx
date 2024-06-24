@@ -14,7 +14,6 @@ const WebzineWrite = () => {
     e.preventDefault();
 
     const data = new FormData();
-
     data.set('title', title);
     data.append('files', files[0]);
     data.append('content', content);
