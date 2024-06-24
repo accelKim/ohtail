@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination, EffectCoverflow } from 'swiper/modules';
-import style from '../../styles/myRecipe/MyRecipeDetail.module.css';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination, EffectCoverflow } from "swiper/modules";
+import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
+import LikeButton from "../../components/like/LikeButton";
+import CommentSection from "../../components/Comment/CommentSection";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -13,9 +15,9 @@ const MyRecipeDetail = () => {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+      const payload = JSON.parse(atob(token.split(".")[1]));
       setUserId(payload.userid);
     }
 
@@ -23,12 +25,12 @@ const MyRecipeDetail = () => {
       try {
         const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
-          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
+          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
         const data = await response.json();
         setMyRecipe(data);
       } catch (error) {
-        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
+        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
     };
 
@@ -36,23 +38,23 @@ const MyRecipeDetail = () => {
   }, [id]);
 
   const handleDelete = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('삭제 요청 실패:', errorData);
-        throw new Error(errorData.message || '삭제 중 오류 발생!!!!!');
+        console.error("삭제 요청 실패:", errorData);
+        throw new Error(errorData.message || "삭제 중 오류 발생!!!!!");
       }
-      console.log('레시피가 삭제되었습니다.');
-      navigate('/myRecipe');
+      console.log("레시피가 삭제되었습니다.");
+      navigate("/myRecipe");
     } catch (error) {
-      console.error('삭제 중 오류 발생!!!!!', error);
+      console.error("삭제 중 오류 발생!!!!!", error);
       alert(error.message);
     }
   };
@@ -126,6 +128,8 @@ const MyRecipeDetail = () => {
             </button>
           </div>
         )}
+      <LikeButton cocktailId={id} userId={userId} />
+      <CommentSection cocktailId={id} userId={userId} />
     </main>
   );
 };
