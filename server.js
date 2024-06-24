@@ -300,46 +300,61 @@ app.post('/chatbot', async (req, res) => {
 });
 
 // Webzine
-app.get('/webzine', authenticateJWT, (req, res) => {
-  res.json(req.user);
+app.get('/webzine', async (req, res) => {
+  // 웹진 리스트 조회 10개만 갖고오기
+  const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
+  res.json(webzineList);
 });
 
-const webzineUpload = multer({ dest: 'webzineUploads/' });
+// Webzine write
+const webzineUpload = multer({
+  dest: 'webzineUploads/',
+});
 
-app.post('/webzineWrite', webzineUpload.single('files'), (req, res) => {
-  console.log(
-    'webzine test req.cookies: ',
-    JSON.parse(JSON.stringify(req.cookies))
-  );
-  console.log('webzine test req.body: ', JSON.parse(JSON.stringify(req.body)));
-  console.log('webzine test req.file: ', req.file);
+app.post(
+  '/webzineWrite',
+  webzineUpload.single('files'),
+  authenticateJWT,
+  async (req, res) => {
+    console.log('webzineWrite 사용자 정보 확인: --- ', req.user);
+    console.log(
+      'webzine test req.body: ',
+      JSON.parse(JSON.stringify(req.body))
+    );
+    console.log('webzine test req.file: ', req.file);
 
-  const { path, originalname } = req.file;
-  const part = originalname.split('.');
-  const ext = part[part.length - 1];
-  const newPath = path + '.' + ext;
+    const { path, originalname } = req.file;
+    const part = originalname.split('.');
+    const ext = part[part.length - 1];
+    const newPath = path + '.' + ext;
 
-  fs.renameSync(path, newPath);
+    fs.renameSync(path, newPath);
 
-  const { token } = req.cookies;
-  if (!token) {
-    return res.status(401).json({ message: 'JWT 토큰이 필요합니다.' });
-  }
-  console.log('webzine token check ...', token);
-
-  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
-    if (err)
-      return res.status(403).json({ message: '유효하지 않은 토큰입니다.' });
-    console.log('webzine test info.email: ', info.email);
     const { title, content } = req.body;
     const webzineDoc = await Webzine.create({
       title,
       content,
       cover: newPath,
-      author: info.email,
+      author: req.user.userid,
+      nickname: '오테일',
     });
     res.json(webzineDoc);
-  });
+  }
+);
+
+// Webzine list
+app.get('/webzineList', async (req, res) => {
+  console.log('요청');
+  const webzineList = await Webzine.find().sort({ createdAt: -1 });
+  res.json(webzineList);
+  console.log(webzineList);
+});
+
+// Webzine detail
+app.get('/webzineDetail/:id', async (req, res) => {
+  const { id } = req.params;
+  const webzineDoc = await Webzine.findById(id);
+  res.json(webzineDoc);
 });
 
 // feed 포스트 요청
