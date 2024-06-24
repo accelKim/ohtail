@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import style from '../../styles/feed/CreateFeed.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreateFeed = () => {
   const [title, setTitle] = useState('');
   const [imgFile, setImgFile] = useState(null);
   const [content, setContent] = useState('');
+
+  const navigate = useNavigate(); // useNavigate 훅 호출
 
   const createNewFeed = async (e) => {
     e.preventDefault();
@@ -47,6 +50,7 @@ const CreateFeed = () => {
         setTitle('');
         setImgFile(null);
         setContent('');
+        navigate('/feed'); // 피드 목록 페이지로 네비게이션
       } else {
         throw new Error('피드 생성에 실패했습니다.');
       }

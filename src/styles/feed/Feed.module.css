@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: auto;
   text-align: center;
+  margin-top: 20px;
 }
 
 .feed {
@@ -12,38 +13,22 @@
   flex-direction: column;
 }
 
-.feed input {
-  border: none;
-  border-radius: 20px;
-  background-color: var(--lightGray);
-  width: 100%;
-  max-width: 1000px;
-  height: 50px;
-  margin: 20px auto;
-  color: var(--gray);
-  padding: 0 3rem;
-}
-.searchIcon {
-  /* position: absolute;
-  left: 10px; */
-  width: 20px;
-  height: 20px;
-}
-
 .feedContainer {
+  /* height: 1300px; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem; /* 가로세로 2rem 간격 */
+  gap: 2rem;
   padding: 10px;
 }
 
 .feedImg img {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 250px;
-  height: 250px;
+  height: 300px;
 }
 
 .feed button {
+  position: fixed;
   width: 50px;
   height: 50px;
   background-color: black;
@@ -51,4 +36,6 @@
   font-size: 30px;
   border-radius: 10px;
   margin-bottom: 10px;
+  bottom: 0px;
+  justify-content: center;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import style from '../../styles/feed/Feed.module.css';
+import style from '../../styles/feed/FeedDetail.module.css';
 
 const FeedDetailPage = () => {
   const { id } = useParams(); // useParams 훅을 사용하여 URL 파라미터(id)를 가져옴
@@ -30,7 +30,7 @@ const FeedDetailPage = () => {
 
   return (
     <div className={style.wrap}>
-      <section>
+      <section className={style.feedDetail}>
         <img src={feed.cover} alt="" /> {/* 피드의 이미지 */}
         <h3>{feed.title}</h3> {/* 피드의 제목 */}
         <div>{feed.content}</div> {/* 피드의 내용 */}

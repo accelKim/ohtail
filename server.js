@@ -361,7 +361,6 @@ app.post(
       console.log(req.file);
       console.log(req.body);
 
-      // 피드 저장 로직 (DB에 저장 등)
       const newFeed = new Feed({
         title,
         content,
@@ -379,7 +378,7 @@ app.post(
 );
 app.get('/feedList', async (req, res) => {
   try {
-    const feedList = await Feed.find().sort({ createdAt: -1 }); // createdAt 필드 기준으로 내림차순 정렬
+    const feedList = await Feed.find().sort({ createdAt: -1 });
     res.json(feedList);
   } catch (error) {
     console.error('Error fetching feeds:', error);
