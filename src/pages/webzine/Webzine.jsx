@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
@@ -8,9 +8,11 @@ const Webzine = () => {
   const userToken = localStorage.getItem('token');
   const userId = localStorage.getItem('userid');
   console.log('userid: ', userId);
+  const { webzineId } = useParams();
   const [user, setUser] = useState(false);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${url}/webzineList`)
@@ -82,6 +84,20 @@ const Webzine = () => {
     const classes = selectedOptions.map((option) => style[option]).join(' ');
     webzine.className = `${style.webzine} ${classes}`;
   }, [selectedOptions]);
+
+  const editWebzine = () => {};
+  const delWebzine = () => {
+    fetch(`${url}/delWebzine/${webzineId}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === 'ok') {
+          alert('삭제되었습니다.');
+          navigate('/webzine');
+        }
+      });
+  };
 
   return (
     <div id={`${style.webzine}`}>
@@ -169,8 +185,8 @@ const Webzine = () => {
             <div>
               {user && userId === 10 ? (
                 <>
-                  <Link to="/WebzineEdit">수정</Link>
-                  <Link to="">삭제</Link>
+                  <button onClick={editWebzine}>수정</button>
+                  <button onClick={delWebzine}>삭제</button>
                 </>
               ) : null}
             </div>

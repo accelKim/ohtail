@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
 import { url } from '../../store/ref';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import WebzineList from '../../components/webzine/WebzineList';
 import { useSelector } from 'react-redux';
 
@@ -11,6 +11,7 @@ const WebzineDetail = () => {
   const { webzineId } = useParams();
   const [webzineInfo, setWebzineInfo] = useState(null);
   const [webzineData, setWebzineData] = useState(null);
+  const navigate = useNavigate();
 
   //mongoDB에서 webzine 데이터 가져오기
   const fetchWebzineData = async () => {
@@ -140,7 +141,14 @@ const WebzineDetail = () => {
   const delWebzine = () => {
     fetch(`${url}/delWebzine/${webzineId}`, {
       method: 'DELETE',
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === 'ok') {
+          alert('삭제되었습니다.');
+          navigate('/webzine');
+        }
+      });
   };
 
   return (
