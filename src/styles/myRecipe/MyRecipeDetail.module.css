@@ -1,10 +1,8 @@
 .mySwiper {
   margin-bottom: 40px;
 }
-.swiperSlide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.swiperSlide .image {
+  width: 100%;
 }
 
 .title,

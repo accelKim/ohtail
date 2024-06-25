@@ -10,6 +10,7 @@ import MyRecipeList from './pages/myRecipe/MyRecipeList';
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
+import WebzineDetail from './pages/webzine/WebzineDetail';
 import WebzineWrite from './pages/webzine/WebzineWrite';
 import WebzineEdit from './pages/webzine/WebzineEdit';
 import Login from './pages/login/Login';
@@ -20,6 +21,7 @@ import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
 import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
+import FeedDetailPage from './pages/feed/FeedDetailPage';
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
           <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
+          <Route path="/webzineDetail/:webzineId" element={<WebzineDetail />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
           <Route path="/webzineEdit" element={<WebzineEdit />} />
           {/* 로그인, 회원가입 */}
@@ -45,6 +48,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
         </Routes>
         <Chatbot />
