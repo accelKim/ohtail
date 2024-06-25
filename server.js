@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -14,6 +15,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
 const cookieParser = require('cookie-parser');
+const fs = require('fs'); // 파일시스템 임포트
 require('dotenv').config();
 const fs = require('fs').promises; // fs 모듈 임포트
 
@@ -24,6 +26,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   // 클라이언트의 주소
@@ -32,6 +41,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 app.use(cookieParser());
 
 mongoose
@@ -78,7 +88,6 @@ const authenticateJWT = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
-
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
@@ -305,6 +314,28 @@ app.post('/chatbot', async (req, res) => {
 });
 
 // Webzine
+app.get('/webzine', async (req, res) => {
+  // 웹진 리스트 조회 10개만 갖고오기
+  const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
+  res.json(webzineList);
+});
+
+// Webzine write
+const webzineUpload = multer({
+  dest: 'webzineUploads/',
+});
+
+app.post(
+  '/webzineWrite',
+  webzineUpload.single('files'),
+  authenticateJWT,
+  async (req, res) => {
+    console.log('webzineWrite 사용자 정보 확인: --- ', req.user);
+    console.log(
+      'webzine test req.body: ',
+      JSON.parse(JSON.stringify(req.body))
+    );
+    console.log('webzine test req.file: ', req.file);
 app.get('/webzine', authenticateJWT, (req, res) => {
   res.json(req.user);
 });
@@ -319,8 +350,13 @@ app.post('/webzineWrite', upload.single('files'), (req, res) => {
   const ext = part[part.length - 1];
   const newPath = path + '.' + ext;
   console.log('webzine test newPath: ', newPath);
+  
+    const { path, originalname } = req.file;
+    const part = originalname.split('.');
+    const ext = part[part.length - 1];
+    const newPath = path + '.' + ext;
 
-  fs.renameSync(path, newPath);
+    fs.renameSync(path, newPath);
 
   const { token } = req.cookies;
   console.log('webzine test token: ', token);
@@ -328,16 +364,41 @@ app.post('/webzineWrite', upload.single('files'), (req, res) => {
     if (err) throw err;
     console.log('webzine test info.email: ', info.email);
     const { title, content } = req.body;
-    const webzineDoc = await Post.create({
+    const webzineDoc = await Webzine.create({
       title,
       content,
       cover: newPath,
-      author: info.email,
+      author: req.user.userid,
+      nickname: '오테일',
     });
     res.json(webzineDoc);
-  });
+  }
+);
+
+// Webzine list
+app.get('/webzineList', async (req, res) => {
+  console.log('요청');
+  const webzineList = await Webzine.find().sort({ createdAt: -1 });
+  res.json(webzineList);
+  console.log(webzineList);
 });
 
+// Webzine detail
+app.get('/webzineDetail/:id', async (req, res) => {
+  const { id } = req.params;
+  const webzineDoc = await Webzine.findById(id);
+  res.json(webzineDoc);
+});
+
+// feed 포스트 요청
+app.post('/createFeed', upload.single('imgFile'), (req, res) => {
+  const { title, content } = req.body;
+  const { filename, path } = req.file; // 파일 정보를 가져오는 방법 수정
+
+  // 확장자 추출
+  const ext = filename.split('.').pop();
+  const newPath = `${path}.${ext}`;
+  
 // 피드 포스트 요청
 app.post(
   '/createFeed',
@@ -369,6 +430,9 @@ app.post(
 
       await newFeed.save();
 
+  console.log(req.body);
+  console.log(req.file);
+  res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.' });
       res.status(201).json(newFeed);
     } catch (error) {
       console.error('피드 생성 중 오류 발생:', error);
