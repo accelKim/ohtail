@@ -41,10 +41,10 @@ const Feed = () => {
             </Link>
           ))}
         </div>
-        <button>
-          <Link to="/createFeed">+</Link>
-        </button>
       </div>
+      <button>
+        <Link to="/createFeed">+</Link>
+      </button>
     </div>
   );
 };
