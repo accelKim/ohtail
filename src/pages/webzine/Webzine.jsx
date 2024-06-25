@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
-  const userToken = localStorage.getItem('token');
-  const [user, setUser] = useState(false);
+  // const userToken = localStorage.getItem('token');
+  const userId = localStorage.getItem('userid'); // 관리자 아이디가 있다는 뜻, userid를 adminid로 변경하는 거 추천
+  const [user, setUser] = useState(0);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${url}/webzineList`)
@@ -35,8 +37,8 @@ const Webzine = () => {
 
   useEffect(() => {
     fetchWebzineData();
-    setUser(!!userToken);
-  }, []);
+    setUser(userId); // 정보가 들어가는데 그 정보가 있으면 기본값은 true, 부정을 하나 고치면 false 두 개 붙이면 갖고 있는 거
+  }, [userId]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -110,16 +112,11 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {/* user = true 라는 것은 token 정보가 있는 의미 */}
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user === '10' ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
+            {webzineList.map((webzine, i) => (
+              <WebzineList key={i} webzine={webzine} closeMenu={closeMenu} />
             ))}
           </ul>
         </div>
@@ -166,14 +163,6 @@ const Webzine = () => {
                   }
                 )}
               </p>
-            </div>
-            <div>
-              {user ? (
-                <>
-                  <Link to="/WebzineEdit">수정</Link>
-                  <Link to="">삭제</Link>
-                </>
-              ) : null}
             </div>
             <button>0</button>
           </>

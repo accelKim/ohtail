@@ -42,7 +42,7 @@ function App() {
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/webzineDetail/:webzineId" element={<WebzineDetail />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
-          <Route path="/webzineEdit" element={<WebzineEdit />} />
+          <Route path="/webzineEdit/:webzineId" element={<WebzineEdit />} />
           {/* 로그인, 회원가입 */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
