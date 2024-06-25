@@ -7,6 +7,7 @@ import { Pagination, EffectCoverflow } from "swiper/modules";
 import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
+import FavoritesButton from "../../components/favorites/FavoritesButton";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -129,6 +130,7 @@ const MyRecipeDetail = () => {
           </div>
         )}
       <LikeButton cocktailId={id} userId={userId} />
+      <FavoritesButton cocktailId={id} userId={userId} />
       <CommentSection cocktailId={id} userId={userId} />
     </main>
   );
