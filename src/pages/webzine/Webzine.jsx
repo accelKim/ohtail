@@ -2,41 +2,35 @@ import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
 import { Link } from 'react-router-dom';
 import { url } from '../../store/ref';
-import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
   const userToken = localStorage.getItem('token');
-  const [user, setUser] = useState(false);
-  const [webzineList, setWebzineList] = useState([]);
-  const [webzineData, setWebzineData] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch(`${url}/webzineList`)
-      .then((res) => res.json())
-      .then((data) => setWebzineList(data));
-  }, []);
-
-  //mongoDB에서 webzine 데이터 가져오기
-  const fetchWebzineData = async () => {
-    try {
-      const response = await fetch(`${url}/webzine`, {
-        method: 'GET',
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setWebzineData(data);
-      } else {
-        console.error('webzine area error');
+    const fetchUser = async () => {
+      if (userToken) {
+        try {
+          const response = await fetch(`${url}/webzine`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+              'Content-Type': 'application/json',
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setUser(data);
+          } else {
+            console.error('webzine area error');
+          }
+        } catch (error) {
+          console.error('webzine area error', error);
+        }
       }
-    } catch (error) {
-      console.error('webzine area error', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchWebzineData();
-    setUser(!!userToken);
-  }, []);
+    };
+    fetchUser();
+  }, [userToken]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -91,15 +85,9 @@ const Webzine = () => {
             한눈에👀
           </button>
           <h3>
-            {webzineData && webzineData.length > 0 ? (
-              <>{webzineData[0].title}</>
-            ) : (
-              <>
-                웹진 오테일
-                <br />
-                로딩중
-              </>
-            )}
+            웹진 오테일
+            <br />
+            1호
           </h3>
           <Link to="/">
             웹진
@@ -110,17 +98,15 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {/* user = true 라는 것은 token 정보가 있는 의미 */}
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user && user.userid === 10 && (
+              <Link to="/WebzineWrite">글쓰기</Link>
+            )}
+            {/* 어떻게 야매로 글쓰기 버튼 노출은 일단 했는데... */}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
-            ))}
+            <li>
+              <a href="#">게시글 제목 1</a>
+            </li>
           </ul>
         </div>
       </header>
@@ -144,42 +130,27 @@ const Webzine = () => {
           </div>
         </div>
       </div>
-
       <div className={`mw ${style.contArea}`}>
-        {webzineData && webzineData.length > 0 ? (
-          <>
-            <div>
-              <h4>{webzineData[0].title}</h4>
-              <div
-                dangerouslySetInnerHTML={{ __html: webzineData[0].content }}
-              ></div>
-            </div>
-            <div>
-              <p>{webzineData[0].nickname}</p>
-              <p>
-                {new Date(webzineData[0].createdAt).toLocaleDateString(
-                  'ko-KR',
-                  {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  }
-                )}
-              </p>
-            </div>
-            <div>
-              {user ? (
-                <>
-                  <Link to="/WebzineEdit">수정</Link>
-                  <Link to="">삭제</Link>
-                </>
-              ) : null}
-            </div>
-            <button>0</button>
-          </>
-        ) : (
-          <p>웹진 최신호 로딩중...</p>
+        <div>
+          {/* 에디터 작성 내용 불러오는 영역 */}
+          <h4>웹진 오테일 1호</h4>
+          <p>
+            국민의 모든 자유와 권리는 국가안전보장·질서유지 또는 공공복리를
+            위하여 필요한 경우에 한하여 법률로써 제한할 수 있으며, 제한하는
+            경우에도 자유와 권리의 본질적인 내용을 침해할 수 없다.
+          </p>
+        </div>
+        <div>
+          <p>오테일</p>
+          <p>2024-06-19</p>
+        </div>
+        {user && user.userid === 10 && (
+          <div>
+            <Link to="/WebzineEdit">수정</Link>
+            <Link to="">삭제</Link>
+          </div>
         )}
+        <button>0</button>
       </div>
       <div className={style.noise}></div>
     </div>
