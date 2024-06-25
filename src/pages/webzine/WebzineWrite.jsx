@@ -5,7 +5,6 @@ import WebzineEditor from './WebzineEditor';
 import { useNavigate } from 'react-router-dom';
 
 const WebzineWrite = () => {
-  const userToken = localStorage.getItem('token'); // 추가 토큰 정보를 사용하려면 얘를 가지고 다녀야 함
   const [title, setTitle] = useState('');
   const [files, setFiles] = useState(null);
   const [content, setContent] = useState('');
@@ -15,16 +14,14 @@ const WebzineWrite = () => {
     e.preventDefault();
 
     const data = new FormData();
+
     data.set('title', title);
     data.append('files', files[0]);
     data.append('content', content);
 
     try {
       const response = await fetch(`${url}/webzineWrite`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        }, // 추가해야
-        method: 'POST', // 쓰기니까 POST
+        method: 'POST',
         body: data,
         credentials: 'include',
       });

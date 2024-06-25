@@ -7,7 +7,6 @@ const webzineSchema = new Schema(
     content: String,
     cover: String,
     author: String,
-    nickname: String,
   },
   { timestamps: true }
 );
