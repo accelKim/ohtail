@@ -1,27 +1,28 @@
-import './styles/reset.css';
-import './styles/style.css';
+import "./styles/reset.css";
+import "./styles/style.css";
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Header from './layouts/Header';
-import Footer from './layouts/Footer';
-import Main from './pages/main/Main';
-import MyRecipeList from './pages/myRecipe/MyRecipeList';
-import RecipeDetail from './pages/recipe/RecipeDetail';
-import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
-import Webzine from './pages/webzine/Webzine';
-import WebzineDetail from './pages/webzine/WebzineDetail';
-import WebzineWrite from './pages/webzine/WebzineWrite';
-import WebzineEdit from './pages/webzine/WebzineEdit';
-import Login from './pages/login/Login';
-import Signup from './pages/signup/Signup';
-import Feed from './pages/feed/Feed';
-import RecipeListPage from './pages/recipe/RecipeListPage';
-import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
-import CreateFeed from './pages/feed/CreateFeed';
-import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
-import Chatbot from './components/chatbot/Chatbot';
-import FeedDetailPage from './pages/feed/FeedDetailPage';
+import Header from "./layouts/Header";
+import Footer from "./layouts/Footer";
+import Main from "./pages/main/Main";
+import MyRecipeList from "./pages/myRecipe/MyRecipeList";
+import RecipeDetail from "./pages/recipe/RecipeDetail";
+import CreateMyRecipe from "./pages/myRecipe/CreateMyRecipe";
+import Webzine from "./pages/webzine/Webzine";
+import WebzineDetail from "./pages/webzine/WebzineDetail";
+import WebzineWrite from "./pages/webzine/WebzineWrite";
+import WebzineEdit from "./pages/webzine/WebzineEdit";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
+import Feed from "./pages/feed/Feed";
+import RecipeListPage from "./pages/recipe/RecipeListPage";
+import MyRecipeDetail from "./pages/myRecipe/MyRecipeDetail";
+import CreateFeed from "./pages/feed/CreateFeed";
+import EditMyRecipe from "./pages/myRecipe/EditMyRecipe";
+import Chatbot from "./components/chatbot/Chatbot";
+import FeedDetailPage from "./pages/feed/FeedDetailPage";
+import Favorites from "./pages/favorites/Favorites";
 
 function App() {
   return (
@@ -50,6 +51,8 @@ function App() {
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
+          {/* 즐겨찾기 */}
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
         <Chatbot />
         <Footer />
