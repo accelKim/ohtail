@@ -114,12 +114,8 @@ const Webzine = () => {
             {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
+            {webzineList.map((webzine, i) => (
+              <WebzineList key={i} webzine={webzine} closeMenu={closeMenu} />
             ))}
           </ul>
         </div>
