@@ -6,6 +6,7 @@ import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
   const userToken = localStorage.getItem('token');
+  const userId = localStorage.getItem('userid');
   const [user, setUser] = useState(false);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
@@ -36,7 +37,7 @@ const Webzine = () => {
   useEffect(() => {
     fetchWebzineData();
     setUser(!!userToken);
-  }, []);
+  }, [userToken]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -110,8 +111,9 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {/* user = true 라는 것은 token 정보가 있는 의미 */}
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user && userId === 10 ? (
+              <Link to="/WebzineWrite">글쓰기</Link>
+            ) : null}
           </div>
           <ul>
             {webzineList.map((webzine, i) => (
@@ -164,7 +166,7 @@ const Webzine = () => {
               </p>
             </div>
             <div>
-              {user ? (
+              {user && userId === 10 ? (
                 <>
                   <Link to="/WebzineEdit">수정</Link>
                   <Link to="">삭제</Link>

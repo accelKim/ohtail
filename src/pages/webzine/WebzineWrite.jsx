@@ -21,10 +21,10 @@ const WebzineWrite = () => {
 
     try {
       const response = await fetch(`${url}/webzineWrite`, {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
-        method: 'POST',
         body: data,
         credentials: 'include',
       });

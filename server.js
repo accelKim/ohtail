@@ -15,7 +15,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
 const cookieParser = require('cookie-parser');
-const fs = require('fs').promises; // fs 모듈 임포트
+const fs = require('fs'); // fs 모듈 임포트
 
 const app = express();
 const port = 8080;

@@ -6,6 +6,7 @@ import WebzineList from '../../components/webzine/WebzineList';
 import { useSelector } from 'react-redux';
 
 const WebzineDetail = () => {
+  const userId = localStorage.getItem('userid');
   const { webzineId } = useParams();
   const [webzineInfo, setWebzineInfo] = useState(null);
   const [webzineData, setWebzineData] = useState(null);
@@ -150,17 +151,7 @@ const WebzineDetail = () => {
             <br />
             한눈에👀
           </button>
-          <h3>
-            {webzineData && webzineData.length > 0 ? (
-              <>{webzineData[0].title}</>
-            ) : (
-              <>
-                웹진 오테일
-                <br />
-                로딩중
-              </>
-            )}
-          </h3>
+          <h3>{webzineInfo?.title}</h3>
           <Link to="/">
             웹진
             <br />
@@ -170,15 +161,13 @@ const WebzineDetail = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user && userId === 10 ? (
+              <Link to="/WebzineWrite">글쓰기</Link>
+            ) : null}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
+            {webzineList.map((webzine, i) => (
+              <WebzineList key={i} webzine={webzine} closeMenu={closeMenu} />
             ))}
           </ul>
         </div>
@@ -213,7 +202,7 @@ const WebzineDetail = () => {
           <p>{writeDate}</p>
         </div>
         <div>
-          {user ? (
+          {user && userId === 10 ? (
             <>
               <button onClick={editWebzine}>수정</button>
               <button onClick={delWebzine}>삭제</button>
