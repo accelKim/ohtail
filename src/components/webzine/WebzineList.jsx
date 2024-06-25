@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const WebzineList = ({ webzine, closeMenu }) => {
   const navigate = useNavigate();
+
   return (
     <li
       onClick={() => {

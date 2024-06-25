@@ -332,9 +332,9 @@ app.get('/webzineDetail/:id', async (req, res) => {
 
 // Webzine delete
 app.delete('/delWebzine/:id', async (req, res) => {
-    const { id } = req.params;
-    await Webzine.findByIdAndDelete(id);
-    res.json({ message: 'ok' });
+  const { id } = req.params;
+  await Webzine.findByIdAndDelete(id);
+  res.json({ message: 'ok' });
 });
 
 // 피드 포스트 요청
