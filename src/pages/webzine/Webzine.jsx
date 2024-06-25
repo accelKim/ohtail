@@ -6,7 +6,7 @@ import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
   const userToken = localStorage.getItem('token');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
 
@@ -16,31 +16,27 @@ const Webzine = () => {
       .then((data) => setWebzineList(data));
   }, []);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (userToken) {
-        try {
-          const response = await fetch(`${url}/webzine`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-              'Content-Type': 'application/json',
-            },
-          });
-          if (response.ok) {
-            const data = await response.json();
-            // console.log('webzine area data', data);
-            setWebzineData(data);
-          } else {
-            console.error('webzine area error');
-          }
-        } catch (error) {
-          console.error('webzine area error', error);
-        }
+  //mongoDB에서 webzine 데이터 가져오기
+  const fetchWebzineData = async () => {
+    try {
+      const response = await fetch(`${url}/webzine`, {
+        method: 'GET',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setWebzineData(data);
+      } else {
+        console.error('webzine area error');
       }
-    };
-    fetchUser();
-  }, [userToken]);
+    } catch (error) {
+      console.error('webzine area error', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWebzineData();
+    setUser(!!userToken);
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -114,10 +110,8 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            <Link to="/WebzineWrite">글쓰기</Link>
-            {/* {user && user.userid === 10 && (
-              <Link to="/WebzineWrite">글쓰기</Link>
-            )} */}
+            {/* user = true 라는 것은 token 정보가 있는 의미 */}
+            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
             {webzineList.map((webzine) => (
@@ -150,7 +144,7 @@ const Webzine = () => {
           </div>
         </div>
       </div>
-      {}
+
       <div className={`mw ${style.contArea}`}>
         {webzineData && webzineData.length > 0 ? (
           <>
@@ -174,15 +168,13 @@ const Webzine = () => {
               </p>
             </div>
             <div>
-              <Link to="/WebzineEdit">수정</Link>
-              <Link to="">삭제</Link>
+              {user ? (
+                <>
+                  <Link to="/WebzineEdit">수정</Link>
+                  <Link to="">삭제</Link>
+                </>
+              ) : null}
             </div>
-            {/* {user && user.userid === 10 && (
-              <div>
-                <Link to="/WebzineEdit">수정</Link>
-                <Link to="">삭제</Link>
-              </div>
-            )} */}
             <button>0</button>
           </>
         ) : (
