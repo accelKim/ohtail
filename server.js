@@ -7,6 +7,7 @@ const Counter = require('./src/store/Counter'); // Counter 모델 임포트
 const MyRecipe = require('./src/store/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
+const Feed = require('./src/store/Feed'); // Feed 모델 불러오기
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const multer = require('multer'); // multer 임포트
@@ -15,11 +16,14 @@ const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
 const cookieParser = require('cookie-parser');
 const fs = require('fs'); // 파일시스템 임포트
+require('dotenv').config();
+const fs = require('fs').promises; // fs 모듈 임포트
 
 const app = express();
 const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
 
 app.use(
@@ -28,6 +32,16 @@ app.use(
     credentials: true,
   })
 );
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  // 클라이언트의 주소
+  credentials: true,
+  // 인증 정보를 포함할 때 true로 설정
+};
+
+app.use(cors(corsOptions));
+
 app.use(cookieParser());
 
 mongoose
@@ -322,7 +336,21 @@ app.post(
       JSON.parse(JSON.stringify(req.body))
     );
     console.log('webzine test req.file: ', req.file);
+app.get('/webzine', authenticateJWT, (req, res) => {
+  res.json(req.user);
+});
 
+app.post('/webzineWrite', upload.single('files'), (req, res) => {
+  console.log('webzine test req.cookies: ', req.cookies);
+  console.log('webzine test req.body: ', req.body);
+  console.log('webzine test req.file: ', req.file);
+
+  const { path, originalname } = req.file;
+  const part = originalname.split('.');
+  const ext = part[part.length - 1];
+  const newPath = path + '.' + ext;
+  console.log('webzine test newPath: ', newPath);
+  
     const { path, originalname } = req.file;
     const part = originalname.split('.');
     const ext = part[part.length - 1];
@@ -330,6 +358,11 @@ app.post(
 
     fs.renameSync(path, newPath);
 
+  const { token } = req.cookies;
+  console.log('webzine test token: ', token);
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
+    if (err) throw err;
+    console.log('webzine test info.email: ', info.email);
     const { title, content } = req.body;
     const webzineDoc = await Webzine.create({
       title,
@@ -365,16 +398,62 @@ app.post('/createFeed', upload.single('imgFile'), (req, res) => {
   // 확장자 추출
   const ext = filename.split('.').pop();
   const newPath = `${path}.${ext}`;
+  
+// 피드 포스트 요청
+app.post(
+  '/createFeed',
+  authenticateJWT,
+  upload.single('imgFile'),
+  async (req, res) => {
+    try {
+      const { originalname } = req.file;
+      const tempPath = req.file.path;
+      const ext = path.extname(originalname);
+      const newPath = tempPath + ext;
 
-  // 파일 이름 수정
-  fs.renameSync(path, newPath);
-  console.log(newPath);
+      // 파일명을 변경
+      await fs.rename(tempPath, newPath);
+
+      const { title, content } = req.body;
+      const imageUrl = `http://localhost:8080/uploads/${path.basename(
+        newPath
+      )}`;
+      console.log('생성된 이미지 URL:', imageUrl);
+      console.log(req.file);
+      console.log(req.body);
+
+      const newFeed = new Feed({
+        title,
+        content,
+        cover: imageUrl, // cover 필드에 이미지 URL 저장
+      });
+
+      await newFeed.save();
 
   console.log(req.body);
   console.log(req.file);
   res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.' });
+      res.status(201).json(newFeed);
+    } catch (error) {
+      console.error('피드 생성 중 오류 발생:', error);
+      res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
+    }
+  }
+);
+app.get('/feedList', async (req, res) => {
+  try {
+    const feedList = await Feed.find().sort({ createdAt: -1 });
+    res.json(feedList);
+  } catch (error) {
+    console.error('Error fetching feeds:', error);
+    res.status(500).json({ message: 'Failed to fetch feeds' });
+  }
 });
-
+app.get('/feedDetail/:id', async (req, res) => {
+  const { id } = req.params;
+  const feedDoc = await Feed.findById(id);
+  res.json(feedDoc);
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

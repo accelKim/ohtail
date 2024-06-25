@@ -1,0 +1,33 @@
+.wrap {
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+}
+.feedDetail {
+  padding: 2rem 0;
+}
+
+.feedDetail img {
+  width: 50%;
+  height: cover;
+}
+
+.feedDetail h3 {
+  width: 30%;
+  position: relative;
+  margin: 1rem 0;
+  background-color: var(--lightGray);
+  border-radius: 20px;
+  padding: 1rem 0;
+}
+.feedDetail div {
+  width: 100%;
+  height: 200px;
+  /* border: 1px solid red; */
+  overflow: scroll;
+  text-align: start;
+  background-color: var(--lightGray);
+  border-radius: 20px;
+  padding: 2rem;
+}
