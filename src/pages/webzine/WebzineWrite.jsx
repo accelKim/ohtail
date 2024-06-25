@@ -23,8 +23,8 @@ const WebzineWrite = () => {
       const response = await fetch(`${url}/webzineWrite`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
-        }, // 추가해야
-        method: 'POST', // 쓰기니까 POST
+        },
+        method: 'POST',
         body: data,
         credentials: 'include',
       });
