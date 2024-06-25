@@ -10,6 +10,7 @@ import MyRecipeList from './pages/myRecipe/MyRecipeList';
 import RecipeDetail from './pages/recipe/RecipeDetail';
 import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
 import Webzine from './pages/webzine/Webzine';
+import WebzineDetail from './pages/webzine/WebzineDetail';
 import WebzineWrite from './pages/webzine/WebzineWrite';
 import WebzineEdit from './pages/webzine/WebzineEdit';
 import Login from './pages/login/Login';
@@ -39,6 +40,7 @@ function App() {
           <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
+          <Route path="/webzineDetail/:webzineId" element={<WebzineDetail />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
           <Route path="/webzineEdit" element={<WebzineEdit />} />
           {/* 로그인, 회원가입 */}

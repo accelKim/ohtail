@@ -23,12 +23,13 @@ const Header = () => {
     document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
   };
 
-  const openProfileMenu = () => {
+  const openProfileMenu = (e) => {
+    e.preventDefault();
     setIsProfileMenuOpen(!isProfileMenuOpen);
-    document.body.style.overflow = isProfileMenuOpen ? 'auto' : 'hidden';
   };
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     localStorage.removeItem('userid'); // 로컬 스토리지에서 userid 제거
     localStorage.removeItem('token'); // 로컬 스토리지에서 토큰 제거
 
