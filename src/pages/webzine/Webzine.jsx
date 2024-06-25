@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
@@ -8,7 +8,6 @@ const Webzine = () => {
   const userToken = localStorage.getItem('token');
   const userId = localStorage.getItem('userid');
   console.log('userid: ', userId);
-  const { webzineId } = useParams();
   const [user, setUser] = useState(false);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
@@ -85,20 +84,6 @@ const Webzine = () => {
     webzine.className = `${style.webzine} ${classes}`;
   }, [selectedOptions]);
 
-  const editWebzine = () => {};
-  const delWebzine = () => {
-    fetch(`${url}/delWebzine/${webzineId}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.message === 'ok') {
-          alert('삭제되었습니다.');
-          navigate('/webzine');
-        }
-      });
-  };
-
   return (
     <div id={`${style.webzine}`}>
       <header>
@@ -128,9 +113,10 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {user && userId === 10 ? (
+            <Link to="/WebzineWrite">글쓰기</Link>
+            {/* {user && userId === 10 ? (
               <Link to="/WebzineWrite">글쓰기</Link>
-            ) : null}
+            ) : null} */}
           </div>
           <ul>
             {webzineList.map((webzine, i) => (
@@ -181,14 +167,6 @@ const Webzine = () => {
                   }
                 )}
               </p>
-            </div>
-            <div>
-              {user && userId === 10 ? (
-                <>
-                  <button onClick={editWebzine}>수정</button>
-                  <button onClick={delWebzine}>삭제</button>
-                </>
-              ) : null}
             </div>
             <button>0</button>
           </>

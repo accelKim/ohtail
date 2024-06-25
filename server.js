@@ -367,6 +367,13 @@ app.delete('/delWebzine/:id', async (req, res) => {
   res.json({ message: 'ok' });
 });
 
+// Webzine edit
+app.get('/webzineEdit/:id', async (raq, res) => {
+  const { id } = req.params;
+  const webzineDoc = await Webzine.findById(id);
+  res.json(webzineDoc);
+});
+
 // 피드 포스트 요청
 app.post(
   '/createFeed',

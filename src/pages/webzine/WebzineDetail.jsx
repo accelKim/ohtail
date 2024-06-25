@@ -137,7 +137,9 @@ const WebzineDetail = () => {
     day: 'numeric',
   });
 
-  const editWebzine = () => {};
+  const editWebzine = () => {
+    navigate(`/webzineEdit/${webzineId}`);
+  };
   const delWebzine = () => {
     fetch(`${url}/delWebzine/${webzineId}`, {
       method: 'DELETE',
@@ -170,6 +172,7 @@ const WebzineDetail = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
+            <Link to="/WebzineWrite">글쓰기</Link>
             {user && userId === 10 ? (
               <Link to="/WebzineWrite">글쓰기</Link>
             ) : null}
@@ -211,12 +214,12 @@ const WebzineDetail = () => {
           <p>{writeDate}</p>
         </div>
         <div>
+          <button onClick={editWebzine}>수정</button>
+          <button onClick={delWebzine}>삭제</button>
           {user && userId === 10 ? (
             <>
               <button onClick={editWebzine}>수정</button>
               <button onClick={delWebzine}>삭제</button>
-              {/* <Link to="/WebzineEdit">수정</Link>
-              <Link to="">삭제</Link> */}
             </>
           ) : null}
         </div>
