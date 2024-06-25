@@ -5,6 +5,7 @@ import style from '../../styles/Chatbot.module.css';
 const Chatbot = () => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,26 +24,45 @@ const Chatbot = () => {
     }
   };
 
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
+  const closeChat = () => {
+    setIsChatOpen(false);
+  };
+
   return (
-    <div className={`${style.chatbot}`}>
-      <h1>GPT Chatbot</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message"
-        />
-        <button type="submit">Send</button>
-      </form>
-      <div>
-        <h2>Chat History:</h2>
-        {chatHistory.map((chat, index) => (
-          <p key={index} className={chat.role}>
-            <strong>{chat.role === 'user' ? 'You' : 'Bot'}: </strong>
-            {chat.content}
-          </p>
-        ))}
+    <div className={`chatbot ${style.chatbot}`}>
+      <button onClick={toggleChat}>
+        <i className="fa-solid fa-robot"></i>
+      </button>
+      <div className={`${style.chatContainer} ${isChatOpen ? style.show : ''}`}>
+        <div>
+          <h2>Chat History:</h2>
+          <div>
+            {chatHistory.map((chat, index) => (
+              <p key={index} className={chat.role}>
+                <strong>{chat.role === 'user' ? 'You' : 'Bot'}: </strong>
+                {chat.content}
+              </p>
+            ))}
+          </div>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type your message"
+          />
+          <button type="submit">
+            <i className="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+        <button onClick={closeChat} className={`${style.chatConClose}`}>
+          <i className="fa-solid fa-xmark"></i>
+        </button>
       </div>
     </div>
   );
