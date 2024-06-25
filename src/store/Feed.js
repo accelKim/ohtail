@@ -9,6 +9,7 @@ const FeedSchema = new Schema({
     type: Date,
     default: Date.now, // 기본값으로 현재 시간 사용
   },
+  author: { type: String },
 });
 
 const FeedModel = model('Feed', FeedSchema);

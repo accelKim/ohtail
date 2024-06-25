@@ -18,7 +18,7 @@ const Feed = () => {
         throw new Error('Failed to fetch feeds');
       }
       const data = await response.json();
-      console.log(data); // 데이터 확인용 콘솔 로그
+      console.log('Fetched feeds:', data); // 데이터 확인용 콘솔 로그
       setFeedList(data); // 받아온 데이터를 상태에 저장
     } catch (error) {
       console.error('Error fetching feeds:', error);
@@ -31,15 +31,20 @@ const Feed = () => {
       <SearchBar />
       <div className={style.feed}>
         <div className={style.feedContainer}>
-          {feedList.map((feed) => (
-            <Link
-              to={`/feed/${feed._id}`}
-              key={feed._id}
-              className={style.feedImg}
-            >
-              <img src={feed.cover} alt="" />
-            </Link>
-          ))}
+          {feedList.length > 0 ? (
+            feedList.map((feed) => (
+              <Link
+                to={`/feed/${feed._id}`}
+                key={feed._id}
+                className={style.feedImg}
+              >
+                <img src={feed.cover} alt={feed.title} />{' '}
+                {/* alt 속성에 제목 추가 */}
+              </Link>
+            ))
+          ) : (
+            <p>아직 피드가 없습니다</p> // 피드가 없을 때 메시지 표시
+          )}
         </div>
       </div>
       <button>

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -14,7 +15,6 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai'); // openai 임포트
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
 const fs = require('fs').promises; // fs 모듈 임포트
 
 const app = express();
@@ -33,7 +33,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
-
 mongoose
   .connect(
     'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
@@ -78,7 +77,6 @@ const authenticateJWT = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
-
     req.user = decoded;
     console.log('Decoded token:', decoded);
     next();
@@ -90,7 +88,7 @@ const authenticateJWT = (req, res, next) => {
 
 // 회원가입
 app.post('/signup', async (req, res) => {
-  const { userid, password, email, phonenumber } = req.body;
+  const { userid, password, email, phonenumber, nickname } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -117,6 +115,7 @@ app.post('/signup', async (req, res) => {
       password: hashedPassword,
       email,
       phonenumber,
+      nickname,
     });
 
     await newUser.save();
@@ -305,37 +304,68 @@ app.post('/chatbot', async (req, res) => {
 });
 
 // Webzine
-app.get('/webzine', authenticateJWT, (req, res) => {
-  res.json(req.user);
+app.get('/webzine', async (req, res) => {
+  // 웹진 리스트 조회 10개만 갖고오기
+  const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
+  res.json(webzineList);
 });
 
-app.post('/webzineWrite', upload.single('files'), (req, res) => {
-  console.log('webzine test req.cookies: ', req.cookies);
-  console.log('webzine test req.body: ', req.body);
-  console.log('webzine test req.file: ', req.file);
+// Webzine write
+const webzineUpload = multer({
+  dest: 'webzineUploads/',
+});
 
-  const { path, originalname } = req.file;
-  const part = originalname.split('.');
-  const ext = part[part.length - 1];
-  const newPath = path + '.' + ext;
-  console.log('webzine test newPath: ', newPath);
+app.post(
+  '/webzineWrite',
+  webzineUpload.single('files'),
+  authenticateJWT,
+  async (req, res) => {
+    console.log('webzineWrite 사용자 정보 확인: --- ', req.user);
+    console.log(
+      'webzine test req.body: ',
+      JSON.parse(JSON.stringify(req.body))
+    );
+    console.log('webzine test req.file: ', req.file);
 
-  fs.renameSync(path, newPath);
+    const { path, originalname } = req.file;
+    const part = originalname.split('.');
+    const ext = part[part.length - 1];
+    const newPath = path + '.' + ext;
 
-  const { token } = req.cookies;
-  console.log('webzine test token: ', token);
-  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, info) => {
-    if (err) throw err;
-    console.log('webzine test info.email: ', info.email);
+    fs.renameSync(path, newPath);
+
     const { title, content } = req.body;
-    const webzineDoc = await Post.create({
+    const webzineDoc = await Webzine.create({
       title,
       content,
       cover: newPath,
-      author: info.email,
+      author: req.user.userid,
+      nickname: '오테일',
     });
     res.json(webzineDoc);
-  });
+  }
+);
+
+// Webzine list
+app.get('/webzineList', async (req, res) => {
+  console.log('요청');
+  const webzineList = await Webzine.find().sort({ createdAt: -1 });
+  res.json(webzineList);
+  console.log(webzineList);
+});
+
+// Webzine detail
+app.get('/webzineDetail/:id', async (req, res) => {
+  const { id } = req.params;
+  const webzineDoc = await Webzine.findById(id);
+  res.json(webzineDoc);
+});
+
+// Webzine delete
+app.delete('/delWebzine/:id', async (req, res) => {
+  const { id } = req.params;
+  await Webzine.findByIdAndDelete(id);
+  res.json({ message: 'ok' });
 });
 
 // 피드 포스트 요청
@@ -365,31 +395,93 @@ app.post(
         title,
         content,
         cover: imageUrl, // cover 필드에 이미지 URL 저장
+        author: req.user.userid, // 작성자 정보 추가 (userid 사용)
       });
 
       await newFeed.save();
 
-      res.status(201).json(newFeed);
+      console.log(req.body);
+      console.log(req.file);
+      res
+        .status(200)
+        .json({ message: '피드가 성공적으로 생성되었습니다.', newFeed });
     } catch (error) {
       console.error('피드 생성 중 오류 발생:', error);
       res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
     }
   }
 );
+
 app.get('/feedList', async (req, res) => {
   try {
     const feedList = await Feed.find().sort({ createdAt: -1 });
     res.json(feedList);
   } catch (error) {
-    console.error('Error fetching feeds:', error);
-    res.status(500).json({ message: 'Failed to fetch feeds' });
+    console.error('피드 리스트를 가져오는 중 오류 발생:', error);
+    res
+      .status(500)
+      .json({ message: '피드 리스트를 가져오는 중 오류가 발생했습니다.' });
   }
 });
 app.get('/feedDetail/:id', async (req, res) => {
   const { id } = req.params;
-  const feedDoc = await Feed.findById(id);
-  res.json(feedDoc);
+  try {
+    const feed = await Feed.findById(id).populate('author', 'userid'); // 작성자 정보 포함 (userid 사용)
+    res.json(feed);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
+app.delete('/feedDelete/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  await Feed.findByIdAndDelete(id);
+  res.json({ message: 'ok' });
+});
+
+app.put('/feedEdit/:id', upload.single('imgFile'), async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    let updatedFields = {};
+
+    // 이미지 파일이 업로드된 경우
+    if (req.file) {
+      const { originalname, path: filePath } = req.file; // path 변수명을 filePath로 변경
+      const ext = path.extname(originalname); // 확장자 추출
+      const newPath = path.join('uploads', `${id}${ext}`); // 새로운 파일 경로 설정
+
+      // 파일 이동 및 이름 변경
+      await fs.rename(filePath, newPath);
+      updatedFields.cover = `http://localhost:8080/${newPath}`; // 파일 경로를 URL 형태로 설정
+    }
+
+    // 피드 제목과 내용 업데이트
+    if (req.body.title) {
+      updatedFields.title = req.body.title;
+    }
+    if (req.body.content) {
+      updatedFields.content = req.body.content;
+    }
+
+    // 데이터베이스 업데이트
+    const updatedFeed = await Feed.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
+
+    if (!updatedFeed) {
+      return res.status(404).json({ message: '해당 피드를 찾을 수 없습니다.' });
+    }
+
+    res
+      .status(200)
+      .json({ message: '피드가 성공적으로 업데이트되었습니다.', updatedFeed });
+  } catch (error) {
+    console.error('피드 업데이트 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 업데이트 중 오류가 발생했습니다.' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
