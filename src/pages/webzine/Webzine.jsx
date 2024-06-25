@@ -5,10 +5,9 @@ import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
-  const userToken = localStorage.getItem('token');
-  const userId = localStorage.getItem('userid');
-  console.log('userid: ', userId);
-  const [user, setUser] = useState(false);
+  // const userToken = localStorage.getItem('token');
+  const userId = localStorage.getItem('userid'); // 관리자 아이디가 있다는 뜻, userid를 adminid로 변경하는 거 추천
+  const [user, setUser] = useState(0);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
   const navigate = useNavigate();
@@ -38,8 +37,8 @@ const Webzine = () => {
 
   useEffect(() => {
     fetchWebzineData();
-    setUser(!!userToken);
-  }, [userToken]);
+    setUser(userId); // 정보가 들어가는데 그 정보가 있으면 기본값은 true, 부정을 하나 고치면 false 두 개 붙이면 갖고 있는 거
+  }, [userId]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -113,10 +112,7 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            <Link to="/WebzineWrite">글쓰기</Link>
-            {/* {user && userId === 10 ? (
-              <Link to="/WebzineWrite">글쓰기</Link>
-            ) : null} */}
+            {user === '10' ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
             {webzineList.map((webzine, i) => (
