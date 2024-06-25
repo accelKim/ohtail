@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 const WebzineDetail = () => {
   const userId = localStorage.getItem('userid');
+  console.log('userid: ', userId);
   const { webzineId } = useParams();
   const [webzineInfo, setWebzineInfo] = useState(null);
   const [webzineData, setWebzineData] = useState(null);

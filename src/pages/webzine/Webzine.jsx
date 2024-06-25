@@ -7,6 +7,7 @@ import WebzineList from '../../components/webzine/WebzineList';
 const Webzine = () => {
   const userToken = localStorage.getItem('token');
   const userId = localStorage.getItem('userid');
+  console.log('userid: ', userId);
   const [user, setUser] = useState(false);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
