@@ -368,7 +368,7 @@ app.delete('/delWebzine/:id', async (req, res) => {
 });
 
 // Webzine edit
-app.get('/webzineEdit/:id', async (raq, res) => {
+app.get('/webzineEdit/:id', async (req, res) => {
   const { id } = req.params;
   const webzineDoc = await Webzine.findById(id);
   res.json(webzineDoc);

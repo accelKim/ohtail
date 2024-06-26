@@ -14,12 +14,15 @@ const WebzineEdit = () => {
   const navigate = useNavigate();
   const { webzineId } = useParams();
 
-  useEffect(async () => {
+  useEffect(() => {
     const getWebzine = async () => {
       const res = await fetch(`${url}/webzineEdit/${webzineId}`);
       const result = await res.json();
       console.log(result);
+      setTitle(result.title);
+      setContent(result.content);
     };
+    getWebzine();
   }, [webzineId]);
 
   const writeNewWebzine = async (e) => {
@@ -32,11 +35,11 @@ const WebzineEdit = () => {
 
     const response = await fetch(`${url}/webzineEdit`, {
       method: 'PUT',
-      boday: data,
+      body: data,
       credentials: 'include',
     });
     if (response.ok) {
-      navigate(`webzineDetail/${webzineId}`);
+      navigate(`/webzineDetail/${webzineId}`);
     }
   };
 
