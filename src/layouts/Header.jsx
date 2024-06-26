@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 로컬 스토리지에서 userid를 가져와서 로그인 상태를 확인
@@ -34,6 +36,7 @@ const Header = () => {
     localStorage.removeItem('token'); // 로컬 스토리지에서 토큰 제거
 
     setIsLoggedIn(false); // 로그인 상태를 false로 변경
+    navigate('/');
   };
 
   return (

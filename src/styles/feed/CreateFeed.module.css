@@ -13,10 +13,11 @@
 }
 
 .createFeed input,
-.createFeed label {
+.createFeed > .imgdiv {
   width: 100%;
   background-color: var(--lightGray);
   border: none;
+  height: 100px;
 }
 
 .createFeed input:nth-of-type(1) {
@@ -25,32 +26,44 @@
   margin: 0.5rem;
 }
 
-.createFeed input:nth-of-type(2) {
-  height: 60px;
-  border: none;
-  /* display: none; */
+.createFeed > .imgdiv {
+  margin-top: 10px;
 }
-.createFeed label {
-  height: 60px;
-}
-.createFeed label > div {
-  background-color: #d9d9d9;
-  width: 100px;
-  height: 20px;
-  color: #929292;
-  border-radius: 19px;
-}
-.createFeed > div {
-  position: relative;
-  border: 1px solid var(--lightGray);
-  width: 100%;
-  height: 230px;
-  top: -25px;
-}
+
 .createFeed input:nth-of-type(3) {
   height: 500px;
   padding: 0 1rem;
   margin: 0.5rem;
+}
+
+.uploadLabel {
+  position: relative;
+  width: 110px;
+  height: 30px;
+  background: #d9d9d9;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #929292;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3%;
+}
+
+.imgPreview {
+  margin: 10px 0;
+  height: 200px;
+}
+
+.imgPreview img {
+  position: absolute;
+  left: 150px;
+  width: 161px;
+  height: 161px;
+  object-fit: cover;
+  display: block;
 }
 
 .createFeed button {
@@ -60,9 +73,4 @@
   background-color: black;
   color: white;
   margin: 2rem 0;
-}
-
-.imgFile {
-  width: 100px;
-  height: 100px;
 }
