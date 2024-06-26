@@ -22,7 +22,8 @@ import CreateFeed from "./pages/feed/CreateFeed";
 import EditMyRecipe from "./pages/myRecipe/EditMyRecipe";
 import Chatbot from "./components/chatbot/Chatbot";
 import FeedDetailPage from "./pages/feed/FeedDetailPage";
-import Favorites from "./pages/favorites/Favorites";
+import FavoritesTab from "./pages/favorites/FavoritesTab"; // 임시 설정
+import MyRecipeTab from "./pages/myRecipe/MyRecipeTab"; // 임시 설정
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/myRecipe/:id" element={<MyRecipeDetail />} />
           <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
           <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
+          <Route path="/myRecipeTab" element={<MyRecipeTab />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/webzineDetail/:webzineId" element={<WebzineDetail />} />
@@ -51,8 +53,9 @@ function App() {
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
-          {/* 즐겨찾기 */}
-          <Route path="/favorites" element={<Favorites />} />
+          {/* 마이페이지 생성 시 삭제 예정 탭 페이지 */}
+          <Route path="/favoritesTab" element={<FavoritesTab />} />
+          <Route path="/myRecipeTab" element={<MyRecipeTab />} />
         </Routes>
         <Chatbot />
         <Footer />

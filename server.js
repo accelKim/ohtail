@@ -182,7 +182,7 @@ app.post("/favorite", authenticateJWT, async (req, res) => {
     await newFavorite.save();
     res.status(201).json(newFavorite);
   } catch (error) {
-    console.error("즐겨찾기 추가 중 오류 발생:", error);
+    console.error("즐겨찾기 추가 중 오류 발생", error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -200,7 +200,7 @@ app.delete("/favorite", authenticateJWT, async (req, res) => {
     await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
     res.status(200).json({ message: "즐겨찾기가 삭제되었습니다." });
   } catch (error) {
-    console.error("즐겨찾기 삭제 중 오류 발생:", error);
+    console.error("즐겨찾기 삭제 중 오류 발생", error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -212,7 +212,7 @@ app.get("/favorites", authenticateJWT, async (req, res) => {
     const favorites = await Favorite.find({ userId });
     res.status(200).json(favorites);
   } catch (error) {
-    console.error("Error fetching favorites:", error);
+    console.error("즐겨찾기를 불러오는 중 오류 발생", error);
     res.status(500).json({ message: error.message });
   }
 });
