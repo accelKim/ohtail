@@ -5,9 +5,22 @@ import { useNavigate } from 'react-router-dom';
 const CreateFeed = () => {
   const [title, setTitle] = useState('');
   const [imgFile, setImgFile] = useState(null);
+  const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const [content, setContent] = useState('');
 
-  const navigate = useNavigate(); // useNavigate 훅 호출
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (imgFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImgPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(imgFile);
+    } else {
+      setImgPreviewUrl(null);
+    }
+  }, [imgFile]);
 
   const createNewFeed = async (e) => {
     e.preventDefault();
@@ -34,12 +47,12 @@ const CreateFeed = () => {
     data.append('content', content);
 
     try {
-      const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+      const token = localStorage.getItem('token');
 
       const response = await fetch('http://localhost:8080/createFeed', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`, // Bearer 토큰 헤더 추가
+          Authorization: `Bearer ${token}`,
         },
         body: data,
         credentials: 'include',
@@ -50,7 +63,7 @@ const CreateFeed = () => {
         setTitle('');
         setImgFile(null);
         setContent('');
-        navigate('/feed'); // 피드 목록 페이지로 네비게이션
+        navigate('/feed');
       } else {
         throw new Error('피드 생성에 실패했습니다.');
       }
@@ -71,13 +84,23 @@ const CreateFeed = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <div className={style.imgdiv}>
+          <label htmlFor="imgFile" className={style.uploadLabel}>
+            이미지 업로드
+          </label>
+        </div>
         <input
           type="file"
           id="imgFile"
           name="imgFile"
           onChange={(e) => setImgFile(e.target.files[0])}
+          style={{ display: 'none' }}
         />
-        <div className={style.imgPreview}></div>
+        {imgPreviewUrl && (
+          <div className={style.imgPreview}>
+            <img src={imgPreviewUrl} alt="이미지 미리보기" />
+          </div>
+        )}
         <input
           type="text"
           placeholder="내용을 입력해주세요"

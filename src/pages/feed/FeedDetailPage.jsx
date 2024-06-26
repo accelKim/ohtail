@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from '../../styles/feed/FeedDetail.module.css';
+import LikeButton from '../../components/like/LikeButton';
+import CommentSection from '../../components/Comment/CommentSection';
+import FavoritesButton from '../../components/favorites/FavoritesButton';
 
 const FeedDetailPage = () => {
   const { id } = useParams();
@@ -74,6 +77,9 @@ const FeedDetailPage = () => {
           </React.Fragment>
         )}
       </section>
+      <LikeButton cocktailId={id} userId={userId} />
+      <FavoritesButton cocktailId={id} userId={userId} />
+      <CommentSection cocktailId={id} userId={userId} />
     </div>
   );
 };

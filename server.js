@@ -3,32 +3,29 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./src/store/User');
-const Counter = require('./src/store/Counter'); // Counter 모델 임포트
+const Counter = require('./src/store/Counter');
 const MyRecipe = require('./src/store/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
-const Feed = require('./src/store/Feed'); // Feed 모델 불러오기
+const Feed = require('./src/store/Feed');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-const multer = require('multer'); // multer 임포트
+const multer = require('multer');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const OpenAIApi = require('openai'); // openai 임포트
+const OpenAIApi = require('openai');
 const cookieParser = require('cookie-parser');
-const fs = require('fs').promises; // fs 모듈 임포트
+const fs = require('fs').promises;
 
 const app = express();
 const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
 
 const corsOptions = {
   origin: 'http://localhost:3000',
-  // 클라이언트의 주소
   credentials: true,
-  // 인증 정보를 포함할 때 true로 설정
 };
 
 app.use(cors(corsOptions));
@@ -46,7 +43,6 @@ const openai = new OpenAIApi({
   apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
 
-// multer 설정
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -62,12 +58,13 @@ const generateAccessToken = (userid) => {
   return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
 };
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // 정적 파일 제공 설정
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
 
 const Webzine = require('./src/models/Webzine');
+const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
 
 // 사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
@@ -95,15 +92,14 @@ app.post('/signup', async (req, res) => {
     if (existingUser) {
       return res
         .status(400)
+
         .json({ success: false, message: '이미 존재하는 이메일입니다.' });
     }
 
-    // 비밀번호 해싱
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     console.log('해싱된 비밀번호:', hashedPassword);
 
-    // 유저 번호 증가
     const counter = await Counter.findByIdAndUpdate(
       { _id: 'userId' },
       { $inc: { sequence_value: 1 } },
@@ -136,10 +132,10 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    console.log('로그인 요청 받음:', { email, password }); // 요청 도착 확인용 로그
+    console.log('로그인 요청 받음:', { email, password });
 
     const user = await User.findOne({ email });
-    console.log('사용자 찾기 결과:', user); // 사용자 찾기 결과 로그
+    console.log('사용자 찾기 결과:', user);
 
     if (!user) {
       console.log('사용자를 찾을 수 없습니다:', email);
@@ -147,7 +143,7 @@ app.post('/login', async (req, res) => {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log('비밀번호 비교 결과:', passwordMatch); // 비밀번호 비교 결과 로그
+    console.log('비밀번호 비교 결과:', passwordMatch);
 
     if (passwordMatch) {
       console.log('로그인 성공:', email);
@@ -162,6 +158,64 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('로그인 중 오류 발생:', error);
     res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
+  }
+});
+
+// 즐겨찾기 추가
+app.post('/favorite', authenticateJWT, async (req, res) => {
+  try {
+    const { cocktailId, userId, isExternal } = req.body;
+    if (!cocktailId || !userId) {
+      return res
+        .status(400)
+        .json({ message: 'cocktailId와 userId가 필요합니다.' });
+    }
+
+    const existingFavorite = await Favorite.findOne({
+      userId,
+      cocktailId,
+      isExternal,
+    });
+    if (existingFavorite) {
+      return res.status(400).json({ message: '이미 즐겨찾기된 레시피입니다.' });
+    }
+
+    const newFavorite = new Favorite({ userId, cocktailId, isExternal });
+    await newFavorite.save();
+    res.status(201).json(newFavorite);
+  } catch (error) {
+    console.error('즐겨찾기 추가 중 오류 발생:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// 즐겨찾기 삭제
+app.delete('/favorite', authenticateJWT, async (req, res) => {
+  try {
+    const { cocktailId, userId, isExternal } = req.body;
+    if (!cocktailId || !userId) {
+      return res
+        .status(400)
+        .json({ message: 'cocktailId와 userId가 필요합니다.' });
+    }
+
+    await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
+    res.status(200).json({ message: '즐겨찾기가 삭제되었습니다.' });
+  } catch (error) {
+    console.error('즐겨찾기 삭제 중 오류 발생:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// 즐겨찾기 리스트
+app.get('/favorites', authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userid;
+    const favorites = await Favorite.find({ userId });
+    res.status(200).json(favorites);
+  } catch (error) {
+    console.error('Error fetching favorites:', error);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -203,6 +257,7 @@ app.post(
 );
 
 // 나만의 레시피 리스트
+
 app.get('/myRecipe', async (req, res) => {
   try {
     const recipes = await MyRecipe.find().sort({ createdAt: -1 });
@@ -213,6 +268,7 @@ app.get('/myRecipe', async (req, res) => {
 });
 
 // 나만의 레시피 상세
+
 app.get('/myRecipe/:id', async (req, res) => {
   try {
     const myRecipe = await MyRecipe.findById(req.params.id);
@@ -244,6 +300,7 @@ app.put(
       }
 
       // 기존 파일에서 삭제된 파일 제외
+
       const updatedFiles = existingFiles.filter(
         (file) => !removedFiles.includes(file)
       );
@@ -271,6 +328,7 @@ app.put(
 );
 
 // 나만의 레시피 삭제
+
 app.delete('/myRecipe/:id', authenticateJWT, async (req, res) => {
   try {
     await MyRecipe.findByIdAndDelete(req.params.id);
@@ -279,6 +337,7 @@ app.delete('/myRecipe/:id', authenticateJWT, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 // 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
   const userPrompt = req.body.userPrompt;
@@ -305,7 +364,6 @@ app.post('/chatbot', async (req, res) => {
 
 // Webzine
 app.get('/webzine', async (req, res) => {
-  // 웹진 리스트 조회 10개만 갖고오기
   const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
   res.json(webzineList);
 });
@@ -367,8 +425,7 @@ app.delete('/delWebzine/:id', async (req, res) => {
   await Webzine.findByIdAndDelete(id);
   res.json({ message: 'ok' });
 });
-
-// 피드 포스트 요청
+// 피드 생성
 app.post(
   '/createFeed',
   authenticateJWT,
@@ -388,8 +445,6 @@ app.post(
         newPath
       )}`;
       console.log('생성된 이미지 URL:', imageUrl);
-      console.log(req.file);
-      console.log(req.body);
 
       const newFeed = new Feed({
         title,
@@ -400,8 +455,6 @@ app.post(
 
       await newFeed.save();
 
-      console.log(req.body);
-      console.log(req.file);
       res
         .status(200)
         .json({ message: '피드가 성공적으로 생성되었습니다.', newFeed });
@@ -412,6 +465,7 @@ app.post(
   }
 );
 
+// 피드 리스트
 app.get('/feedList', async (req, res) => {
   try {
     const feedList = await Feed.find().sort({ createdAt: -1 });
@@ -423,6 +477,8 @@ app.get('/feedList', async (req, res) => {
       .json({ message: '피드 리스트를 가져오는 중 오류가 발생했습니다.' });
   }
 });
+
+// 피드 상세
 app.get('/feedDetail/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -432,6 +488,8 @@ app.get('/feedDetail/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// 피드 삭제
 app.delete('/feedDelete/:id', async (req, res) => {
   const { id } = req.params;
   console.log(id);
@@ -439,6 +497,7 @@ app.delete('/feedDelete/:id', async (req, res) => {
   res.json({ message: 'ok' });
 });
 
+// 피드 수정
 app.put('/feedEdit/:id', upload.single('imgFile'), async (req, res) => {
   const { id } = req.params;
 

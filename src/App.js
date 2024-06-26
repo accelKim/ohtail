@@ -3,6 +3,7 @@ import './styles/style.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import FeedEdit from './pages/feed/FeedEdit';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import Main from './pages/main/Main';
@@ -22,7 +23,7 @@ import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
 import FeedDetailPage from './pages/feed/FeedDetailPage';
-import FeedEdit from './pages/feed/FeedEdit';
+import Favorites from './pages/favorites/Favorites';
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
           <Route path="/feed/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
           <Route path="/feedEdit/:id" element={<FeedEdit />} />
+          {/* 즐겨찾기 */}
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
         <Chatbot />
         <Footer />
