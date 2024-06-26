@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  nickname: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

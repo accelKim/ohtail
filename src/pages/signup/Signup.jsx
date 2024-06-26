@@ -6,10 +6,12 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [passwordcon, setPasswordcon] = useState('');
   const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   const [errMessage2, setErrMessage2] = useState('');
   const [errMessage3, setErrMessage3] = useState('');
   const [errMessage4, setErrMessage4] = useState('');
+  const [errMessage5, setErrMessage5] = useState('');
 
   const onSubmit = async (e) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -34,6 +36,12 @@ const Signup = () => {
     } else {
       setErrMessage4('');
     }
+    if (!nickname) {
+      setErrMessage5('닉네임을 입력해주세요.');
+      return;
+    } else {
+      setErrMessage5('');
+    }
     try {
       const response = await fetch('http://localhost:8080/signup', {
         method: 'POST',
@@ -44,6 +52,7 @@ const Signup = () => {
           email,
           password,
           phonenumber,
+          nickname,
         }),
       });
       const data = await response.json();
@@ -96,6 +105,14 @@ const Signup = () => {
           required
         />
         {errMessage4 && <div className={style.errorMessage}>{errMessage4}</div>}
+        <label>닉네임</label>
+        <input
+          type="text"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          required
+        />
+        {errMessage5 && <div className={style.errorMessage}>{errMessage5}</div>}
         <button type="submit">회원가입</button>
       </form>
     </div>
