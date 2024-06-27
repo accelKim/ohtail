@@ -374,6 +374,42 @@ app.get('/webzineEdit/:id', async (req, res) => {
   res.json(webzineDoc);
 });
 
+app.put('/webzineEdit/:id', webzineUpload.single('files'), (req, res) => {
+  const { id } = req.params;
+  let newPath = null;
+
+  if (req.file) {
+    const { path, originalname } = req.file;
+    const part = originalname.split('.');
+    const ext = part[part.length - 1];
+    newPath = path + '.' + ext;
+    fs.renameSync(path, newPath);
+  }
+
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: '인증 토큰 없음' });
+  }
+
+  jwt.verify(token, jwtSecret, {}, async (err, info) => {
+    if (err) return res.status(500).json({ message: '토큰 검증 실패' });
+
+    const { title, summary, content } = req.body;
+    try {
+      const webzineDoc = await Webzine.findById(id);
+      await Webzine.findByIdAndUpdate(id, {
+        title,
+        content,
+        cover: newPath ? newPath : webzineDoc.cover,
+      });
+      res.json({ message: 'ok' });
+    } catch (updateError) {
+      console.error('Error updating webzine: ', updateError);
+      res.status(500).json({ message: '웹진 업데이트 실패' });
+    }
+  });
+});
+
 // 피드 포스트 요청
 app.post(
   '/createFeed',

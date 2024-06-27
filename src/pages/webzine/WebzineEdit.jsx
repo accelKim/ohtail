@@ -10,6 +10,7 @@ const WebzineEdit = () => {
   const [title, setTitle] = useState('');
   const [files, setFiles] = useState(null);
   const [content, setContent] = useState('');
+  const [cover, setCover] = useState('');
 
   const navigate = useNavigate();
   const { webzineId } = useParams();
@@ -21,31 +22,44 @@ const WebzineEdit = () => {
       console.log(result);
       setTitle(result.title);
       setContent(result.content);
+      setCover(result.cover);
     };
     getWebzine();
   }, [webzineId]);
 
-  const writeNewWebzine = async (e) => {
+  const updateWebzine = async (e) => {
     e.preventDefault();
 
     const data = new FormData();
     data.set('title', title);
-    data.append('files', files[0]);
+    if (files?.[0]) {
+      data.set('files', files?.[0]);
+    }
     data.append('content', content);
 
-    const response = await fetch(`${url}/webzineEdit`, {
+    const response = await fetch(`${url}/webzineEdit/${webzineId}`, {
       method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
       body: data,
       credentials: 'include',
     });
-    if (response.ok) {
-      navigate(`/webzineDetail/${webzineId}`);
+    try {
+      const result = await response.json();
+      if (response.ok) {
+        navigate(`/webzineDetail/${webzineId}`);
+      } else {
+        console.error('Failed to update webzine: ', result.message);
+      }
+    } catch (error) {
+      console.error('Error parsing JSON: ', error);
     }
   };
 
   return (
     <div className={`mw ${style.write}`}>
-      <form onSubmit={writeNewWebzine}>
+      <form onSubmit={updateWebzine}>
         <label htmlFor="title" hidden></label>
         <input
           type="text"
@@ -65,9 +79,11 @@ const WebzineEdit = () => {
           type="file"
           id="files"
           name="files"
-          required
           onChange={(e) => setFiles(e.target.files)}
         />
+        <p className={style.smallImgCon}>
+          <img src={`${url}/${cover}`} alt={title} />
+        </p>
         <label htmlFor="content" hidden></label>
         <WebzineEditor content={content} setContent={setContent} />
         <button type="submit">수정</button>
