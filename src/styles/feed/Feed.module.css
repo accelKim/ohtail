@@ -14,11 +14,13 @@
 }
 
 .feedContainer {
-  /* height: 1300px; */
+  height: 800px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 10px;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .feedImg img {
@@ -27,7 +29,7 @@
   height: 300px;
 }
 
-.feed button {
+.wrap button {
   position: fixed;
   width: 50px;
   height: 50px;

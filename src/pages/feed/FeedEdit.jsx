@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import style from '../../styles/feed/CreateFeed.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CreateFeed = () => {
+const FeedEdit = () => {
+  const { id } = useParams();
   const [title, setTitle] = useState('');
   const [imgFile, setImgFile] = useState(null);
-  const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const [content, setContent] = useState('');
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (imgFile) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImgPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(imgFile);
-    } else {
-      setImgPreviewUrl(null);
-    }
-  }, [imgFile]);
-
-  const createNewFeed = async (e) => {
+  const updateFeed = async (e) => {
     e.preventDefault();
 
     if (title === '') {
@@ -41,41 +27,40 @@ const CreateFeed = () => {
       return;
     }
 
-    const data = new FormData();
-    data.append('title', title);
-    data.append('imgFile', imgFile);
-    data.append('content', content);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('imgFile', imgFile);
+    formData.append('content', content);
 
     try {
       const token = localStorage.getItem('token');
-
-      const response = await fetch('http://localhost:8080/createFeed', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:8080/feedEdit/${id}`, {
+        method: 'PUT', // 또는 'PATCH'로 변경
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: data,
+        body: formData,
         credentials: 'include',
       });
 
       if (response.ok) {
-        alert('피드가 성공적으로 생성되었습니다.');
+        alert('피드가 성공적으로 수정되었습니다.');
         setTitle('');
         setImgFile(null);
         setContent('');
-        navigate('/feed');
+        navigate(`/feed/${id}`);
       } else {
-        throw new Error('피드 생성에 실패했습니다.');
+        throw new Error('피드 수정에 실패했습니다.');
       }
     } catch (error) {
       console.error('Error submitting the form:', error);
-      alert('피드 생성에 실패했습니다...');
+      alert('피드 수정에 실패했습니다.');
     }
   };
 
   return (
-    <div className={style.wrap}>
-      <form className={style.createFeed} onSubmit={createNewFeed}>
+    <div className="wrap">
+      <form className="createFeed" onSubmit={updateFeed}>
         <input
           type="text"
           placeholder="제목을 입력해주세요"
@@ -84,23 +69,13 @@ const CreateFeed = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <div className={style.imgdiv}>
-          <label htmlFor="imgFile" className={style.uploadLabel}>
-            이미지 업로드
-          </label>
-        </div>
         <input
           type="file"
           id="imgFile"
           name="imgFile"
           onChange={(e) => setImgFile(e.target.files[0])}
-          style={{ display: 'none' }}
         />
-        {imgPreviewUrl && (
-          <div className={style.imgPreview}>
-            <img src={imgPreviewUrl} alt="이미지 미리보기" />
-          </div>
-        )}
+        <div className="imgPreview"></div>
         <input
           type="text"
           placeholder="내용을 입력해주세요"
@@ -109,10 +84,10 @@ const CreateFeed = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button type="submit">업로드</button>
+        <button type="submit">수정하기</button>
       </form>
     </div>
   );
 };
 
-export default CreateFeed;
+export default FeedEdit;

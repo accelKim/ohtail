@@ -257,6 +257,7 @@ const EditMyRecipe = () => {
               <option value="옵션3">옵션3</option>
             </select>
             <button
+              type="button"
               className={style.deletIngredient}
               onClick={() => handleRemoveIngredient(index)}
               disabled={ingredients.length === 1}

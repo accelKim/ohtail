@@ -14,6 +14,7 @@ const MyRecipeDetail = () => {
   const navigate = useNavigate();
   const [myRecipe, setMyRecipe] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -62,6 +63,14 @@ const MyRecipeDetail = () => {
 
   const handleEdit = () => {
     navigate(`/editMyRecipe/${myRecipe._id}`);
+  };
+
+  const openDeleteModal = () => {
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
   };
 
   if (!myRecipe) {
@@ -124,7 +133,7 @@ const MyRecipeDetail = () => {
             <button className={style.editBtn} onClick={handleEdit}>
               수정
             </button>
-            <button className={style.deleteBtn} onClick={handleDelete}>
+            <button className={style.deleteBtn} onClick={openDeleteModal}>
               삭제
             </button>
           </div>
@@ -132,6 +141,20 @@ const MyRecipeDetail = () => {
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
       <CommentSection cocktailId={id} userId={userId} />
+
+      {showDeleteModal && (
+        <div className={style.modal}>
+          <div className={style.modalContent}>
+            <p>레시피를 삭제하시겠습니까?</p>
+            <button className={style.cancelBtn} onClick={closeDeleteModal}>
+              취소
+            </button>
+            <button className={style.confirmBtn} onClick={handleDelete}>
+              삭제
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

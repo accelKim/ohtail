@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./src/store/User");
 const Counter = require("./src/store/Counter");
-const MyRecipe = require("./src/store/MyRecipe");
+const MyRecipe = require("./src/models/MyRecipe");
 const likeRoutes = require("./src/routes/likeRoutes");
 const commentRoutes = require("./src/routes/commentRoutes");
 const Feed = require("./src/store/Feed");
@@ -54,11 +54,27 @@ const storage = multer.diskStorage({
 
 const upload = multer({ dest: "uploads/" });
 
+// myRecipeStorage 및 myRecipeUpload 추가
+const myRecipeStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploadsMyRecipe/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const myRecipeUpload = multer({ storage: myRecipeStorage });
+
 const generateAccessToken = (userid) => {
   return jwt.sign({ userid }, "your_secret_key", { expiresIn: "3h" });
 };
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(
+  "/uploadsMyRecipe",
+  express.static(path.join(__dirname, "uploadsMyRecipe"))
+);
 
 app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
@@ -85,7 +101,7 @@ const authenticateJWT = (req, res, next) => {
 
 // 회원가입
 app.post("/signup", async (req, res) => {
-  const { userid, password, email, phonenumber } = req.body;
+  const { userid, password, email, phonenumber, nickname } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -110,6 +126,7 @@ app.post("/signup", async (req, res) => {
       password: hashedPassword,
       email,
       phonenumber,
+      nickname,
     });
 
     await newUser.save();
@@ -221,7 +238,7 @@ app.get("/favorites", authenticateJWT, async (req, res) => {
 app.post(
   "/createMyRecipe",
   authenticateJWT,
-  upload.array("files", 3),
+  myRecipeUpload.array("files", 3),
   async (req, res) => {
     try {
       const { title, description, instructions } = req.body;
@@ -255,6 +272,7 @@ app.post(
 );
 
 // 나만의 레시피 리스트
+
 app.get("/myRecipe", async (req, res) => {
   try {
     const recipes = await MyRecipe.find().sort({ createdAt: -1 });
@@ -265,6 +283,7 @@ app.get("/myRecipe", async (req, res) => {
 });
 
 // 나만의 레시피 상세
+
 app.get("/myRecipe/:id", async (req, res) => {
   try {
     const myRecipe = await MyRecipe.findById(req.params.id);
@@ -278,7 +297,7 @@ app.get("/myRecipe/:id", async (req, res) => {
 app.put(
   "/myRecipe/:id",
   authenticateJWT,
-  upload.array("files", 3),
+  myRecipeUpload.array("files", 3),
   async (req, res) => {
     try {
       const { title, description, instructions } = req.body;
@@ -295,6 +314,7 @@ app.put(
         });
       }
 
+      // 기존 파일에서 삭제된 파일 제외
       const updatedFiles = existingFiles.filter(
         (file) => !removedFiles.includes(file)
       );
@@ -419,11 +439,11 @@ app.delete("/delWebzine/:id", async (req, res) => {
   res.json({ message: "ok" });
 });
 
-// 피드 포스트 요청
+// 피드 생성
 app.post(
   "/createFeed",
   authenticateJWT,
-  upload.single("imgFile"),
+  upload.single("imgFile"), // 기존 multer 설정 유지
   async (req, res) => {
     try {
       const { originalname } = req.file;
@@ -431,6 +451,7 @@ app.post(
       const ext = path.extname(originalname);
       const newPath = tempPath + ext;
 
+      // 파일명을 변경
       await fs.rename(tempPath, newPath);
 
       const { title, content } = req.body;
@@ -438,40 +459,100 @@ app.post(
         newPath
       )}`;
       console.log("생성된 이미지 URL:", imageUrl);
-      console.log(req.file);
-      console.log(req.body);
 
       const newFeed = new Feed({
         title,
         content,
-        cover: imageUrl,
+        cover: imageUrl, // cover 필드에 이미지 URL 저장
+        author: req.user.userid, // 작성자 정보 추가 (userid 사용)
       });
 
       await newFeed.save();
 
-      console.log(req.body);
-      console.log(req.file);
-      res.status(200).json({ message: "피드가 성공적으로 생성되었습니다." });
-      res.status(201).json(newFeed);
+      res
+        .status(200)
+        .json({ message: "피드가 성공적으로 생성되었습니다.", newFeed });
     } catch (error) {
       console.error("피드 생성 중 오류 발생:", error);
       res.status(500).json({ message: "피드 생성 중 오류가 발생했습니다." });
     }
   }
 );
+
+// 피드 리스트
 app.get("/feedList", async (req, res) => {
   try {
     const feedList = await Feed.find().sort({ createdAt: -1 });
     res.json(feedList);
   } catch (error) {
-    console.error("Error fetching feeds:", error);
-    res.status(500).json({ message: "Failed to fetch feeds" });
+    console.error("피드 리스트를 가져오는 중 오류 발생:", error);
+    res
+      .status(500)
+      .json({ message: "피드 리스트를 가져오는 중 오류가 발생했습니다." });
   }
 });
+
+// 피드 상세
 app.get("/feedDetail/:id", async (req, res) => {
   const { id } = req.params;
-  const feedDoc = await Feed.findById(id);
-  res.json(feedDoc);
+  try {
+    const feed = await Feed.findById(id).populate("author", "userid"); // 작성자 정보 포함 (userid 사용)
+    res.json(feed);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// 피드 삭제
+app.delete("/feedDelete/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  await Feed.findByIdAndDelete(id);
+  res.json({ message: "ok" });
+});
+
+// 피드 수정
+app.put("/feedEdit/:id", upload.single("imgFile"), async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    let updatedFields = {};
+
+    // 이미지 파일이 업로드된 경우
+    if (req.file) {
+      const { originalname, path: filePath } = req.file; // path 변수명을 filePath로 변경
+      const ext = path.extname(originalname); // 확장자 추출
+      const newPath = path.join("uploads", `${id}${ext}`); // 새로운 파일 경로 설정
+
+      // 파일 이동 및 이름 변경
+      await fs.rename(filePath, newPath);
+      updatedFields.cover = `http://localhost:8080/${newPath}`; // 파일 경로를 URL 형태로 설정
+    }
+
+    // 피드 제목과 내용 업데이트
+    if (req.body.title) {
+      updatedFields.title = req.body.title;
+    }
+    if (req.body.content) {
+      updatedFields.content = req.body.content;
+    }
+
+    // 데이터베이스 업데이트
+    const updatedFeed = await Feed.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
+
+    if (!updatedFeed) {
+      return res.status(404).json({ message: "해당 피드를 찾을 수 없습니다." });
+    }
+
+    res
+      .status(200)
+      .json({ message: "피드가 성공적으로 업데이트되었습니다.", updatedFeed });
+  } catch (error) {
+    console.error("피드 업데이트 중 오류 발생:", error);
+    res.status(500).json({ message: "피드 업데이트 중 오류가 발생했습니다." });
+  }
 });
 
 app.listen(port, () => {

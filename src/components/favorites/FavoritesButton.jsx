@@ -16,20 +16,20 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
         const data = await response.json();
 
         if (Array.isArray(data)) {
-          console.log("Favorites data:", data);
+          console.log("즐겨찾기 데이터", data);
           const favorited = data.some(
             (favorite) =>
               favorite.cocktailId === cocktailId &&
               favorite.isExternal === isExternal
           );
-          console.log("Favorited status:", favorited);
+          console.log("즐겨찾기 상태", favorited);
           setIsFavorited(favorited);
           setLoaded(true);
         } else {
-          console.error("Unexpected response format:", data);
+          console.error("응답 형식 오류!!!", data);
         }
       } catch (error) {
-        console.error("Error checking favorite:", error);
+        console.error("오류 발생!!!", error);
       }
     };
 
@@ -53,14 +53,14 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
         body: JSON.stringify({ cocktailId, userId, isExternal }),
       });
       if (response.ok) {
-        console.log("Favorite toggled successfully");
+        console.log("토글 성공!!!");
         setIsFavorited(!isFavorited);
       } else {
         const errorData = await response.json();
-        console.error("Error toggling favorite:", errorData.message);
+        console.error("토글 오류!!!", errorData.message);
       }
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      console.error("즐겨찾기 중 토글 오류!!!", error);
     }
   };
 
