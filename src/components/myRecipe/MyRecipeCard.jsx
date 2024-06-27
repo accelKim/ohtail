@@ -17,12 +17,12 @@ const MyRecipeCard = ({ myRecipe }) => {
           `http://localhost:8080/likes?cocktailId=${myRecipe._id}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch like count");
+          throw new Error("좋아요 불러오기 실패!!!");
         }
         const data = await response.json();
         setLikeCount(data.likeCount);
       } catch (error) {
-        console.error("Error fetching like count:", error);
+        console.error("좋아요 오류!!", error);
       }
     };
 

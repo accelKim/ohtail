@@ -118,6 +118,7 @@ const CreateMyRecipe = () => {
       alert("레시피 생성 중 오류가 발생했습니다.");
     }
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -223,6 +224,7 @@ const CreateMyRecipe = () => {
               <option value="옵션3">옵션3</option>
             </select>
             <button
+              type="button"
               className={style.deletIngredient}
               onClick={() => handleRemoveIngredient(index)}
               disabled={ingredients.length === 1}
@@ -249,7 +251,9 @@ const CreateMyRecipe = () => {
           onKeyDown={handleKeyDown}
         ></textarea>
 
-        <button className={style.uploadBtn}>레시피 등록</button>
+        <button type="submit" className={style.uploadBtn}>
+          레시피 등록
+        </button>
       </form>
     </main>
   );
