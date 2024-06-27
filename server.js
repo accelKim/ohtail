@@ -82,7 +82,7 @@ app.use("/comments", commentRoutes);
 const Webzine = require("./src/models/Webzine");
 const Favorite = require("./src/models/Favorite"); // Favorite 모델 불러오기
 
-// 사용자 인증 미들웨어
+//사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
   const token = req.header("Authorization");
   if (!token) {

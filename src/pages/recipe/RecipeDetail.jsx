@@ -75,21 +75,27 @@ const RecipeDetail = () => {
   }
 
   return (
-    <div>
-      <h1>{cocktail.strDrink}</h1>
-      <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-      <p>{translatedInstructions}</p>
-      <ul>
+    <div className={`${style.recipe_wrap} mw`}>
+      <h1 className={style.recipe_title}>{cocktail.strDrink}</h1>
+
+      <div className={style.recipe_img_wrap}><img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} className={style.recipe_img}/></div>
+      <p className={style.recipe_contents}>{translatedInstructions}</p>
+      <ul className={style.ingredient_wrap}>
         {translatedIngredients.map((item, index) => (
-          <li key={index}>
-            {item.measure}{" "}
-            {item.translatedIngredient
-              ? item.translatedIngredient
-              : item.ingredient}
-            <img
-              src={`https://www.thecocktaildb.com/images/ingredients/${item.ingredient}-Small.png`}
-              alt={item.ingredient}
-            />
+          <li key={index} className={style.ingredient}>
+            <p className={style.ingredient_title}>
+              {item.translatedIngredient
+                ? item.translatedIngredient
+                : item.ingredient}
+            </p>
+            <div className={style.ingredient_capacity_wrap}>
+              <p className={style.ingredient_capacity}>{item.measure}</p>
+              <img
+                src={`https://www.thecocktaildb.com/images/ingredients/${item.ingredient}-Small.png`}
+                alt={item.ingredient}
+                className={style.ingredient_img}
+              />
+            </div>
           </li>
         ))}
       </ul>
