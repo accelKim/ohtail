@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./src/store/User");
 const Counter = require("./src/store/Counter");
-const MyRecipe = require("./src/store/MyRecipe");
+const MyRecipe = require("./src/models/MyRecipe");
 const likeRoutes = require("./src/routes/likeRoutes");
 const commentRoutes = require("./src/routes/commentRoutes");
 const Feed = require("./src/store/Feed");
@@ -54,11 +54,27 @@ const storage = multer.diskStorage({
 
 const upload = multer({ dest: "uploads/" });
 
+// myRecipeStorage 및 myRecipeUpload 추가
+const myRecipeStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploadsMyRecipe/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const myRecipeUpload = multer({ storage: myRecipeStorage });
+
 const generateAccessToken = (userid) => {
   return jwt.sign({ userid }, "your_secret_key", { expiresIn: "3h" });
 };
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(
+  "/uploadsMyRecipe",
+  express.static(path.join(__dirname, "uploadsMyRecipe"))
+);
 
 app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
@@ -92,7 +108,6 @@ app.post("/signup", async (req, res) => {
     if (existingUser) {
       return res
         .status(400)
-
         .json({ success: false, message: "이미 존재하는 이메일입니다." });
     }
 
@@ -223,7 +238,7 @@ app.get("/favorites", authenticateJWT, async (req, res) => {
 app.post(
   "/createMyRecipe",
   authenticateJWT,
-  upload.array("files", 3),
+  myRecipeUpload.array("files", 3),
   async (req, res) => {
     try {
       const { title, description, instructions } = req.body;
@@ -282,7 +297,7 @@ app.get("/myRecipe/:id", async (req, res) => {
 app.put(
   "/myRecipe/:id",
   authenticateJWT,
-  upload.array("files", 3),
+  myRecipeUpload.array("files", 3),
   async (req, res) => {
     try {
       const { title, description, instructions } = req.body;
@@ -300,7 +315,6 @@ app.put(
       }
 
       // 기존 파일에서 삭제된 파일 제외
-
       const updatedFiles = existingFiles.filter(
         (file) => !removedFiles.includes(file)
       );
@@ -328,7 +342,6 @@ app.put(
 );
 
 // 나만의 레시피 삭제
-
 app.delete("/myRecipe/:id", authenticateJWT, async (req, res) => {
   try {
     await MyRecipe.findByIdAndDelete(req.params.id);
@@ -425,11 +438,12 @@ app.delete("/delWebzine/:id", async (req, res) => {
   await Webzine.findByIdAndDelete(id);
   res.json({ message: "ok" });
 });
+
 // 피드 생성
 app.post(
   "/createFeed",
   authenticateJWT,
-  upload.single("imgFile"),
+  upload.single("imgFile"), // 기존 multer 설정 유지
   async (req, res) => {
     try {
       const { originalname } = req.file;
