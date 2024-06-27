@@ -1,0 +1,29 @@
+.comment_title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 1rem 0 1rem 0;
+}
+.comment_input_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comment_input {
+    width: 100%;
+    max-width: 1200px;
+    height: 2rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    border: 1px solid #aaaaaa;
+}
+.comment_wrap {
+    border-bottom: 1px solid #999;
+    margin: 1rem 2rem 1rem 2rem;
+}
+.comment_content {
+    margin-left: 3rem;
+}
+.comment_content_wrap {
+    display: flex;
+    justify-content: space-between;
+}
