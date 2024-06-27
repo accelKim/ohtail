@@ -37,7 +37,7 @@ const Webzine = () => {
 
   useEffect(() => {
     fetchWebzineData();
-    setUser(userId); // 정보가 들어가는데 그 정보가 있으면 기본값은 true, 부정을 하나 고치면 false 두 개 붙이면 갖고 있는 거
+    setUser(userId);
   }, [userId]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +99,7 @@ const Webzine = () => {
               <>
                 웹진 오테일
                 <br />
-                로딩중
+                업데이트 중
               </>
             )}
           </h3>
@@ -167,7 +167,7 @@ const Webzine = () => {
             <button>0</button>
           </>
         ) : (
-          <p>웹진 최신호 로딩중...</p>
+          ''
         )}
       </div>
       <div className={style.noise}></div>
