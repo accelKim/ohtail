@@ -7,18 +7,22 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
   const navigate = useNavigate();
 
+  // useEffect 훅 수정
   useEffect(() => {
-    // 로컬 스토리지에서 userid를 가져와서 로그인 상태를 확인
-    const userid = localStorage.getItem('userid');
-
-    if (userid) {
+    const token = localStorage.getItem('token');
+    if (token) {
       setIsLoggedIn(true);
+      const profileImageUrl = localStorage.getItem('profileImage');
+      if (profileImageUrl) {
+        setProfileImage(profileImageUrl);
+      }
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, []); // isLoggedIn 상태가 변경될 때마다 useEffect 실행하지 않도록 수정
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -32,11 +36,28 @@ const Header = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('userid'); // 로컬 스토리지에서 userid 제거
-    localStorage.removeItem('token'); // 로컬 스토리지에서 토큰 제거
 
-    setIsLoggedIn(false); // 로그인 상태를 false로 변경
+    // Kakao SDK 로그아웃
+    if (window.Kakao && window.Kakao.Auth) {
+      window.Kakao.Auth.logout(function () {
+        console.log('카카오 계정 로그아웃 완료');
+      });
+    }
+
+    // 로컬 스토리지에서 관련 정보 제거
+    localStorage.removeItem('userid');
+    localStorage.removeItem('token');
+    localStorage.removeItem('profileImage');
+    localStorage.removeItem('nickname');
+
+    // 상태 초기화 및 리디렉션
+    setIsLoggedIn(false);
+    setProfileImage('');
     navigate('/');
+  };
+
+  const handleMenuLinkClick = () => {
+    setIsMenuOpen(false); // 메뉴 링크 클릭 시 메뉴 닫기
   };
 
   return (
@@ -51,28 +72,41 @@ const Header = () => {
           <span></span>
         </div>
         <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
-          <a href="/recipe">공식레시피</a>
-          <a href="/myRecipe">나만의레시피</a>
-          <a href="/webzine">웹진</a>
-          <a href="/feed">피드</a>
+          <Link to="/recipe" onClick={handleMenuLinkClick}>
+            공식레시피
+          </Link>
+          <Link to="/myRecipe" onClick={handleMenuLinkClick}>
+            나만의레시피
+          </Link>
+          <Link to="/webzine" onClick={handleMenuLinkClick}>
+            웹진
+          </Link>
+          <Link to="/feed" onClick={handleMenuLinkClick}>
+            피드
+          </Link>
         </div>
         <h1>
-          <a href="/">
-            {/* 왜 이미지로 넣으면 이미지가 반영이 안 되는가... <img src="" alt="" /> */}
-          </a>
+          <Link to="/">
+            {/* 이미지 추가 */}
+            {/* <img src="" alt="" /> */}
+          </Link>
         </h1>
         <div className={style.gnb}>
           {!isLoggedIn && (
             <div className={style.logoff}>
-              <Link to="/login">로그인</Link>
-              <Link to="/signup">회원가입</Link>
+              <Link to="/login" onClick={handleMenuLinkClick}>
+                로그인
+              </Link>
+              <Link to="/signup" onClick={handleMenuLinkClick}>
+                회원가입
+              </Link>
             </div>
           )}
           {isLoggedIn && (
             <div className={style.logon}>
               <div className={style.profileImg}>
                 <a href="#" onClick={openProfileMenu}>
-                  <img src="" alt="프로필 이미지" />
+                  <img src={profileImage} alt="프로필 이미지" />
                 </a>
               </div>
               {isProfileMenuOpen && (
@@ -80,7 +114,9 @@ const Header = () => {
                   <a href="#" onClick={handleLogout}>
                     로그아웃
                   </a>
-                  <a href="#">마이페이지</a>
+                  <Link to="/mypage" onClick={handleMenuLinkClick}>
+                    마이페이지
+                  </Link>
                 </div>
               )}
             </div>
