@@ -47,7 +47,7 @@ const CommentSection = ({ cocktailId, userId }) => {
                     placeholder="댓글 내용을 입력하세요"
                     className={style.comment_input}
                 />
-                <button type="submit">등록</button>
+                <button type="submit" className={style.comment_submit_button}>등록</button>
             </form>
             <ul>
                 {comments.map((comment) => (
@@ -71,8 +71,8 @@ const CommentSection = ({ cocktailId, userId }) => {
                                     <div className={style.comment_content_wrap}>
                                         <p className={style.comment_content}>{comment.text}</p>
                                         <div>
-                                          <button onClick={() => handleEdit(comment._id, comment.text)}>수정</button>
-                                          <button onClick={() => handleDelete(comment._id)}>삭제</button>
+                                            <button onClick={() => handleEdit(comment._id, comment.text)}>수정</button>
+                                            <button onClick={() => handleDelete(comment._id)}>삭제</button>
                                         </div>
                                     </div>
                                 )}
