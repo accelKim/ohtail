@@ -15,19 +15,38 @@
 
 .feedDetail h3 {
   width: 30%;
-  position: relative;
-  margin: 1rem 0;
-  background-color: var(--lightGray);
+  margin: 1rem 0 0 0;
   border-radius: 20px;
   padding: 1rem 0;
+  font-size: 30px;
+}
+.feedDetail p {
+  width: 30%;
+  border-radius: 20px;
+  font-weight: bold;
 }
 .feedDetail div {
   width: 100%;
   height: 200px;
-  /* border: 1px solid red; */
   overflow: scroll;
   text-align: start;
+  padding: 1rem 10rem;
+}
+.button {
+  display: flex;
+}
+
+.button > * {
+  /* border: 1px solid red; */
+  position: relative;
+  /* padding: 1rem; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 50px;
   background-color: var(--lightGray);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 10px;
+  left: 70%;
+  margin: 0 1rem;
 }

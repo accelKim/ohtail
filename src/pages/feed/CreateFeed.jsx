@@ -22,6 +22,18 @@ const CreateFeed = () => {
     }
   }, [imgFile]);
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImgFile(file);
+    }
+  };
+
+  const handleImageDelete = () => {
+    setImgFile(null);
+    setImgPreviewUrl(null);
+  };
+
   const createNewFeed = async (e) => {
     e.preventDefault();
 
@@ -62,6 +74,7 @@ const CreateFeed = () => {
         alert('피드가 성공적으로 생성되었습니다.');
         setTitle('');
         setImgFile(null);
+        setImgPreviewUrl(null);
         setContent('');
         navigate('/feed');
       } else {
@@ -93,14 +106,21 @@ const CreateFeed = () => {
           type="file"
           id="imgFile"
           name="imgFile"
-          onChange={(e) => setImgFile(e.target.files[0])}
+          onChange={handleImageUpload}
           style={{ display: 'none' }}
         />
-        {imgPreviewUrl && (
-          <div className={style.imgPreview}>
+        <div className={style.imgPreview}>
+          {imgPreviewUrl ? (
             <img src={imgPreviewUrl} alt="이미지 미리보기" />
-          </div>
-        )}
+          ) : (
+            <span>이미지를 선택해 주세요</span>
+          )}
+          {imgPreviewUrl && (
+            <span className={style.deleteText} onClick={handleImageDelete}>
+              삭제
+            </span>
+          )}
+        </div>
         <input
           type="text"
           placeholder="내용을 입력해주세요"
