@@ -1,30 +1,31 @@
-import "./styles/reset.css";
-import "./styles/style.css";
+import './styles/reset.css';
+import './styles/style.css';
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import FeedEdit from "./pages/feed/FeedEdit";
-import Header from "./layouts/Header";
-import Footer from "./layouts/Footer";
-import Main from "./pages/main/Main";
-import MyRecipeList from "./pages/myRecipe/MyRecipeList";
-import RecipeDetail from "./pages/recipe/RecipeDetail";
-import CreateMyRecipe from "./pages/myRecipe/CreateMyRecipe";
-import Webzine from "./pages/webzine/Webzine";
-import WebzineDetail from "./pages/webzine/WebzineDetail";
-import WebzineWrite from "./pages/webzine/WebzineWrite";
-import WebzineEdit from "./pages/webzine/WebzineEdit";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signup/Signup";
-import Feed from "./pages/feed/Feed";
-import RecipeListPage from "./pages/recipe/RecipeListPage";
-import MyRecipeDetail from "./pages/myRecipe/MyRecipeDetail";
-import CreateFeed from "./pages/feed/CreateFeed";
-import EditMyRecipe from "./pages/myRecipe/EditMyRecipe";
-import Chatbot from "./components/chatbot/Chatbot";
-import FeedDetailPage from "./pages/feed/FeedDetailPage";
-import FavoritesTab from "./pages/favorites/FavoritesTab"; // 임시 설정
-import MyRecipeTab from "./pages/myRecipe/MyRecipeTab"; // 임시 설정
+import FeedEdit from './pages/feed/FeedEdit';
+import Header from './layouts/Header';
+import Footer from './layouts/Footer';
+import Main from './pages/main/Main';
+import MyRecipeList from './pages/myRecipe/MyRecipeList';
+import RecipeDetail from './pages/recipe/RecipeDetail';
+import CreateMyRecipe from './pages/myRecipe/CreateMyRecipe';
+import Webzine from './pages/webzine/Webzine';
+import WebzineDetail from './pages/webzine/WebzineDetail';
+import WebzineWrite from './pages/webzine/WebzineWrite';
+import WebzineEdit from './pages/webzine/WebzineEdit';
+import Login from './pages/login/Login';
+import Signup from './pages/signup/Signup';
+import Feed from './pages/feed/Feed';
+import RecipeListPage from './pages/recipe/RecipeListPage';
+import MyRecipeDetail from './pages/myRecipe/MyRecipeDetail';
+import CreateFeed from './pages/feed/CreateFeed';
+import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
+import Chatbot from './components/chatbot/Chatbot';
+import FeedDetailPage from './pages/feed/FeedDetailPage';
+import FavoritesTab from './pages/favorites/FavoritesTab'; // 임시 설정
+import MyRecipeTab from './pages/myRecipe/MyRecipeTab'; // 임시 설정
+import KakaoAuth from './pages/login/KakaoAuth';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           {/* 로그인, 회원가입 */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/oauth" element={<KakaoAuth />} />
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:id" element={<FeedDetailPage />} />

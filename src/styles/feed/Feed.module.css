@@ -23,21 +23,76 @@
   scrollbar-width: none;
 }
 
-.feedImg img {
-  /* border: 1px solid red; */
-  width: 250px;
-  height: 300px;
+/* 반응형 디자인: 화면 크기에 따라 그리드 열 수 변경 */
+@media (max-width: 1024px) {
+  .feedContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .feedImg img {
+    /* border: 1px solid red; */
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+  }
 }
 
-.wrap button {
+.feedImg img {
+  /* border: 1px solid red; */
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.createButton {
   position: fixed;
-  width: 50px;
-  height: 50px;
+  top: 80%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
   background-color: black;
-  color: white;
-  font-size: 30px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  bottom: 0px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+
+.plusIcon {
+  position: relative;
+  width: 35px;
+  height: 35px;
+}
+
+.plusIcon::before,
+.plusIcon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 5px;
+  background-color: white;
+  transform: translate(-50%, -50%);
+}
+
+.plusIcon::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.plusIcon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+@media (max-width: 800px) {
+  .feedContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .feedImg img {
+    /* border: 1px solid red; */
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
 }

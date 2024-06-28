@@ -24,6 +24,19 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+
+  drinkingFrequency: {
+    type: String,
+    required: true,
+  },
+  preferredIngredients: {
+    type: String,
+    required: true,
+  },
+  preferredAlcoholLevel: {
+    type: String,
+    required: true,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

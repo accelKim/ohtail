@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../styles/signup/Login.module.css';
+import KakaoLoginButton from './KakaoLoginBtn';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState(''); // nickname 상태 추가
 
-  const login = async (e) => {
+  const loginWithEmail = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:8080/login', {
@@ -27,6 +29,7 @@ const Login = () => {
       if (result.message === '로그인 성공') {
         localStorage.setItem('userid', result.userid);
         localStorage.setItem('token', result.token);
+        localStorage.setItem('nickname', result.nickname);
 
         alert('로그인 성공!');
         window.location.href = '/';
@@ -46,7 +49,7 @@ const Login = () => {
   return (
     <div className={`mw ${style.login}`}>
       <h2>로그인</h2>
-      <form onSubmit={login}>
+      <form onSubmit={loginWithEmail}>
         <input
           type="email"
           placeholder="test@gmail.com"
@@ -66,6 +69,7 @@ const Login = () => {
         <button>
           <Link to="/signup">회원가입</Link>
         </button>
+        <KakaoLoginButton />
       </div>
     </div>
   );

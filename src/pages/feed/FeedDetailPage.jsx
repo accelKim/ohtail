@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from '../../styles/feed/FeedDetail.module.css';
 import LikeButton from '../../components/like/LikeButton';
 import CommentSection from '../../components/Comment/CommentSection';
-import FavoritesButton from '../../components/favorites/FavoritesButton';
 
 const FeedDetailPage = () => {
   const { id } = useParams();
@@ -66,10 +65,10 @@ const FeedDetailPage = () => {
       <section className={style.feedDetail}>
         <img src={feed.cover} alt="" />
         <h3>{feed.title}</h3>
+        <p>{feed.author}</p>
         <div>{feed.content}</div>
-        <p>작성자: {feed.author}</p>
       </section>
-      <section>
+      <section className={style.button}>
         {userId && userId === feed.author && (
           <React.Fragment>
             <button onClick={handleFeedDelete}>삭제</button>
@@ -78,7 +77,6 @@ const FeedDetailPage = () => {
         )}
       </section>
       <LikeButton cocktailId={id} userId={userId} />
-      <FavoritesButton cocktailId={id} userId={userId} />
       <CommentSection cocktailId={id} userId={userId} />
     </div>
   );

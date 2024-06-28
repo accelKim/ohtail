@@ -7,11 +7,17 @@ const Signup = () => {
   const [passwordcon, setPasswordcon] = useState('');
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
+  const [drinkingFrequency, setDrinkingFrequency] = useState('');
+  const [preferredIngredients, setPreferredIngredients] = useState('');
+  const [preferredAlcoholLevel, setPreferredAlcoholLevel] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   const [errMessage2, setErrMessage2] = useState('');
   const [errMessage3, setErrMessage3] = useState('');
   const [errMessage4, setErrMessage4] = useState('');
   const [errMessage5, setErrMessage5] = useState('');
+  const [errMessage6, setErrMessage6] = useState('');
+  const [errMessage7, setErrMessage7] = useState('');
+  const [errMessage8, setErrMessage8] = useState('');
 
   const onSubmit = async (e) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,6 +48,24 @@ const Signup = () => {
     } else {
       setErrMessage5('');
     }
+    if (!drinkingFrequency) {
+      setErrMessage6('음주빈도를 작성해주세요.');
+      return;
+    } else {
+      setErrMessage6('');
+    }
+    if (!preferredIngredients) {
+      setErrMessage7('선호하는 재료를 입력해주세요.');
+      return;
+    } else {
+      setErrMessage7('');
+    }
+    if (!preferredAlcoholLevel) {
+      setErrMessage8('선호하는 도수를 입력해주세요.');
+      return;
+    } else {
+      setErrMessage8('');
+    }
     try {
       const response = await fetch('http://localhost:8080/signup', {
         method: 'POST',
@@ -53,6 +77,9 @@ const Signup = () => {
           password,
           phonenumber,
           nickname,
+          drinkingFrequency,
+          preferredIngredients,
+          preferredAlcoholLevel,
         }),
       });
       const data = await response.json();
@@ -113,6 +140,30 @@ const Signup = () => {
           required
         />
         {errMessage5 && <div className={style.errorMessage}>{errMessage5}</div>}
+        <label>음주 빈도</label>
+        <input
+          type="text"
+          value={drinkingFrequency}
+          onChange={(e) => setDrinkingFrequency(e.target.value)}
+          required
+        />
+        {errMessage6 && <div className={style.errorMessage}>{errMessage6}</div>}
+        <label>선호 재료</label>
+        <input
+          type="text"
+          value={preferredIngredients}
+          onChange={(e) => setPreferredIngredients(e.target.value)}
+          required
+        />
+        {errMessage7 && <div className={style.errorMessage}>{errMessage7}</div>}
+        <label>선호 도수</label>
+        <input
+          type="text"
+          value={preferredAlcoholLevel}
+          onChange={(e) => setPreferredAlcoholLevel(e.target.value)}
+          required
+        />
+        {errMessage8 && <div className={style.errorMessage}>{errMessage8}</div>}
         <button type="submit">회원가입</button>
       </form>
     </div>
