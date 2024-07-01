@@ -1,14 +1,16 @@
+// 추후 마이페이지 관련 폴더로 이동
+
 import React, { useEffect, useState } from "react";
-import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
+import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 
 const MyRecipeTab = () => {
-  const [myPageRecipes, setMyPageRecipes] = useState([]);
+  const [myRecipes, setMyRecipes] = useState([]);
 
   useEffect(() => {
-    const fetchMyPageRecipes = async () => {
+    const fetchMyRecipes = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/myRecipeTab", {
+        const response = await fetch("http://localhost:8080/myRecipe", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -17,22 +19,21 @@ const MyRecipeTab = () => {
           throw new Error("레시피 불러오기 실패!!!!!");
         }
         const data = await response.json();
-        console.log("불러온 레시피 데이터:", data); // 로그 추가
-        setMyPageRecipes(data);
+        setMyRecipes(data);
       } catch (error) {
         console.error("오류발생!!!!!", error);
       }
     };
 
-    fetchMyPageRecipes();
+    fetchMyRecipes();
   }, []);
 
   return (
     <div>
       <h2>내가 작성한 레시피</h2>
       <ul>
-        {myPageRecipes.map((myRecipe) => (
-          <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
+        {myRecipes.map((recipe) => (
+          <MyRecipeCard key={recipe._id} myRecipe={recipe} />
         ))}
       </ul>
     </div>
