@@ -13,7 +13,6 @@ const myRecipeSchema = new mongoose.Schema({
   ingredients: [ingredientSchema],
   instructions: { type: String, required: true },
   author: { type: String, required: true },
-  authorNickname: { type: String, required: true }, // 사용자 닉네임 필드 추가
   createdAt: { type: Date, default: Date.now },
   likeCount: { type: Number, default: 0 },
 });

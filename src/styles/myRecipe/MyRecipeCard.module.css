@@ -2,8 +2,6 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 313px;
-  height: 313px;
 }
 
 .imageCon:hover .imageText {
@@ -56,4 +54,11 @@
   font-family: "pretendard-right";
   font-size: 16px;
   color: #808080;
+}
+
+.likeButtonContainer {
+  position: absolute;
+  top: 10px; /* 원하는 위치 조정 */
+  right: 10px; /* 원하는 위치 조정 */
+  z-index: 1;
 }
