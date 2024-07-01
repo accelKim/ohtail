@@ -374,41 +374,75 @@ app.get('/webzineEdit/:id', async (req, res) => {
   res.json(webzineDoc);
 });
 
-app.put('/webzineEdit/:id', webzineUpload.single('files'), (req, res) => {
-  const { id } = req.params;
-  let newPath = null;
+app.put(
+  '/webzineEdit/:id',
+  authenticateJWT,
+  webzineUpload.single('files'),
+  async (req, res) => {
+    const { id } = req.params;
+    let newPath = null;
 
-  if (req.file) {
-    const { path, originalname } = req.file;
-    const part = originalname.split('.');
-    const ext = part[part.length - 1];
-    newPath = path + '.' + ext;
-    fs.renameSync(path, newPath);
-  }
-
-  const { token } = req.cookies;
-  if (!token) {
-    return res.status(401).json({ message: '인증 토큰 없음' });
-  }
-
-  jwt.verify(token, jwtSecret, {}, async (err, info) => {
-    if (err) return res.status(500).json({ message: '토큰 검증 실패' });
+    if (req.file) {
+      const { path, originalname } = req.file;
+      const part = originalname.split('.');
+      const ext = part[part.length - 1];
+      newPath = path + '.' + ext;
+      fs.renameSync(path, newPath);
+    }
 
     const { title, summary, content } = req.body;
     try {
       const webzineDoc = await Webzine.findById(id);
+      if (!webzineDoc) {
+        return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
+      }
+
       await Webzine.findByIdAndUpdate(id, {
         title,
         content,
         cover: newPath ? newPath : webzineDoc.cover,
       });
+
       res.json({ message: 'ok' });
     } catch (updateError) {
       console.error('Error updating webzine: ', updateError);
       res.status(500).json({ message: '웹진 업데이트 실패' });
     }
-  });
-});
+  }
+);
+
+// Webzine like
+// app.get('/webzine/:id/likes', async (req, res) => {
+//   try {
+//     const webzine = await Webzine.findById(req.params.id);
+//     const userId = req.query.userId;
+//     const liked = webzine.likedUsers.includes(userId);
+//     res.json({ likes: webzine.likes, liked });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+// app.post('/webzine/:id/like', authenticateJWT, async (req, res) => {
+//   try {
+//     const webzine = await Webzine.findById(req.params.id);
+//     const userId = req.user.userid;
+//     const liked = webzine.likedUsers.includes(userId);
+
+//     if (liked) {
+//       webzine.likes--;
+//       webzine.likedUsers = webzine.likedUsers.filter((id) => id !== userId);
+//     } else {
+//       webzine.likes++;
+//       webzine.likedUsers.push(userId);
+//     }
+
+//     await webzine.save();
+//     res.json({ likes: webzine.likes, liked: !liked });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 // 피드 포스트 요청
 app.post(

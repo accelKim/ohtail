@@ -43,7 +43,6 @@ const WebzineEdit = () => {
         Authorization: `Bearer ${userToken}`,
       },
       body: data,
-      credentials: 'include',
     });
     try {
       const result = await response.json();

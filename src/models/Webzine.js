@@ -8,6 +8,8 @@ const webzineSchema = new Schema(
     cover: String,
     author: String,
     nickname: String,
+    like: { type: Number, default: 0 },
+    likedUsers: [String],
   },
   { timestamps: true }
 );
