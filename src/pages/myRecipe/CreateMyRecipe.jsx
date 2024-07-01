@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,10 +7,31 @@ const CreateMyRecipe = () => {
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
   const [ingredients, setIngredients] = useState([
-    { name: "", quantity: "", unit: "옵션1" },
+    {
+      name: "",
+      quantity: "",
+      unit: "옵션1",
+      showOptions: false,
+      filteredOptions: [],
+    },
   ]);
   const [instructions, setInstructions] = useState("");
+  const [ingredientOptions, setIngredientOptions] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list")
+      .then((response) => response.json())
+      .then((data) => {
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+        setIngredientOptions(ingredientNames);
+      })
+      .catch((error) =>
+        console.error("Error fetching ingredient options:", error)
+      );
+  }, []);
 
   // 이미지 추가 함수
   const handleFileChange = (e) => {
@@ -36,7 +57,16 @@ const CreateMyRecipe = () => {
 
   // 재료 필드 추가 함수
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
+    setIngredients([
+      ...ingredients,
+      {
+        name: "",
+        quantity: "",
+        unit: "옵션1",
+        showOptions: false,
+        filteredOptions: [],
+      },
+    ]);
   };
 
   // 재료 필드 제거 함수
@@ -126,6 +156,36 @@ const CreateMyRecipe = () => {
     }
   };
 
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const handleNameFieldClick = (index) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].showOptions = true;
+    newIngredients[index].filteredOptions = ingredientOptions;
+    setIngredients(newIngredients);
+  };
+
+  const handleOptionClick = (index, option) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].name = option;
+    newIngredients[index].showOptions = false;
+    setIngredients(newIngredients);
+  };
+
+  const handleSearchChange = (e, index) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filtered = ingredientOptions.filter((option) =>
+      option.toLowerCase().includes(searchValue)
+    );
+    const newIngredients = [...ingredients];
+    newIngredients[index].filteredOptions = filtered;
+    setIngredients(newIngredients);
+  };
+
   return (
     <main className={`mw ${style.main}`}>
       <h2>나만의 레시피 등록</h2>
@@ -197,7 +257,28 @@ const CreateMyRecipe = () => {
               onChange={(e) =>
                 handleIngredientChange(index, "name", e.target.value)
               }
+              onClick={() => handleNameFieldClick(index)}
             />
+            {ingredient.showOptions && (
+              <div className={style.options}>
+                <input
+                  type="text"
+                  placeholder="재료 검색"
+                  onChange={(e) => handleSearchChange(e, index)}
+                  onKeyDown={handleSearchKeyDown}
+                  className={style.searchInput}
+                />
+                {ingredient.filteredOptions.map((option, i) => (
+                  <div
+                    key={i}
+                    className={style.option}
+                    onClick={() => handleOptionClick(index, option)}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
 
             <input
               type="number"
