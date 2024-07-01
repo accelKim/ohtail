@@ -41,7 +41,7 @@ const MyRecipeCard = ({ myRecipe }) => {
             />
             <figcaption className={styles.imageText}>
               <h3>{myRecipe.title}</h3>
-              <p>{myRecipe.author}</p>
+              <p>작성자: {myRecipe.authorNickname}</p>
               <p>좋아요: {likeCount}</p>
             </figcaption>
           </figure>
