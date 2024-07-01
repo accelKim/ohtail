@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import style from '../styles/Header.module.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import style from "../styles/Header.module.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState("");
   const navigate = useNavigate();
 
   // useEffect 훅 수정
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
-      const profileImageUrl = localStorage.getItem('profileImage');
+      const profileImageUrl = localStorage.getItem("profileImage");
       if (profileImageUrl) {
         setProfileImage(profileImageUrl);
       }
@@ -26,7 +26,7 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
+    document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
   };
 
   const openProfileMenu = (e) => {
@@ -40,20 +40,20 @@ const Header = () => {
     // Kakao SDK 로그아웃
     if (window.Kakao && window.Kakao.Auth) {
       window.Kakao.Auth.logout(function () {
-        console.log('카카오 계정 로그아웃 완료');
+        console.log("카카오 계정 로그아웃 완료");
       });
     }
 
     // 로컬 스토리지에서 관련 정보 제거
-    localStorage.removeItem('userid');
-    localStorage.removeItem('token');
-    localStorage.removeItem('profileImage');
-    localStorage.removeItem('nickname');
+    localStorage.removeItem("userid");
+    localStorage.removeItem("token");
+    localStorage.removeItem("profileImage");
+    localStorage.removeItem("nickname");
 
     // 상태 초기화 및 리디렉션
     setIsLoggedIn(false);
-    setProfileImage('');
-    navigate('/');
+    setProfileImage("");
+    navigate("/");
   };
 
   const handleMenuLinkClick = () => {
@@ -65,13 +65,13 @@ const Header = () => {
       <div className="mw">
         <div
           onClick={toggleMenu}
-          className={`${style.ham} ${isMenuOpen ? style.on : ''}`}
+          className={`${style.ham} ${isMenuOpen ? style.on : ""}`}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
+        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ""}`}>
           <Link to="/recipe" onClick={handleMenuLinkClick}>
             공식레시피
           </Link>
@@ -114,7 +114,7 @@ const Header = () => {
                   <a href="#" onClick={handleLogout}>
                     로그아웃
                   </a>
-                  <Link to="/mypage" onClick={handleMenuLinkClick}>
+                  <Link to="/myPage" onClick={handleMenuLinkClick}>
                     마이페이지
                   </Link>
                 </div>

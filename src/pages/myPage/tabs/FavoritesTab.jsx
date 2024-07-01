@@ -1,8 +1,6 @@
-// 추후 마이페이지 관련 폴더로 이동
-
 import React, { useEffect, useState } from "react";
-import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
-import RecipeCard from "../../components/recipe/RecipeCard";
+import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
+import RecipeCard from "../../../components/recipe/RecipeCard";
 
 const FavoritesTab = () => {
   const [allRecipes, setAllRecipes] = useState([]);
