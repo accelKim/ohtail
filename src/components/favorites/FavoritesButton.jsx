@@ -8,25 +8,30 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     const checkFavorite = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/favorites", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await response.json();
+        let url = "http://localhost:8080/favorites";
+        if (token) {
+          const response = await fetch(url, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
 
-        if (Array.isArray(data)) {
-          console.log("즐겨찾기 데이터", data);
-          const favorited = data.some(
-            (favorite) =>
-              favorite.cocktailId === cocktailId &&
-              favorite.isExternal === isExternal
-          );
-          console.log("즐겨찾기 상태", favorited);
-          setIsFavorited(favorited);
-          setLoaded(true);
+          if (Array.isArray(data)) {
+            console.log("즐겨찾기 데이터", data);
+            const favorited = data.some(
+              (favorite) =>
+                favorite.cocktailId === cocktailId &&
+                favorite.isExternal === isExternal
+            );
+            console.log("즐겨찾기 상태", favorited);
+            setIsFavorited(favorited);
+            setLoaded(true);
+          } else {
+            console.error("응답 형식 오류!!!", data);
+          }
         } else {
-          console.error("응답 형식 오류!!!", data);
+          setLoaded(true);
         }
       } catch (error) {
         console.error("오류 발생!!!", error);
@@ -36,14 +41,16 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     checkFavorite();
   }, [cocktailId, isExternal]);
 
-  // 즐겨찾기 상태 토글
   const handleFavorite = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("로그인 유저만 이용할 수 있습니다");
+      alert("로그인 유저만 이용할 수 있습니다"); // 사용자에게도 알림
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("token");
       const method = isFavorited ? "DELETE" : "POST";
-      console.log(
-        `Sending ${method} request to /favorite with cocktailId: ${cocktailId}, userId: ${userId}, isExternal: ${isExternal}`
-      );
       const response = await fetch("http://localhost:8080/favorite", {
         method,
         headers: {
@@ -64,7 +71,6 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     }
   };
 
-  // 즐겨찾기 로딩
   if (!loaded) {
     return <button disabled>불러오는 중</button>;
   }
