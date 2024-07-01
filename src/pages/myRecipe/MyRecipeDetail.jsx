@@ -15,6 +15,7 @@ const MyRecipeDetail = () => {
   const [myRecipe, setMyRecipe] = useState(null);
   const [userId, setUserId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [ingredientImages, setIngredientImages] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,6 +32,20 @@ const MyRecipeDetail = () => {
         }
         const data = await response.json();
         setMyRecipe(data);
+
+        // Fetch ingredient images
+        const images = {};
+        for (const ingredient of data.ingredients) {
+          const imgResponse = await fetch(
+            `https://www.thecocktaildb.com/images/ingredients/${ingredient.name}-Small.png`
+          );
+          if (imgResponse.ok) {
+            images[ingredient.name] = imgResponse.url;
+          } else {
+            images[ingredient.name] = null; // 이미지가 없을 경우
+          }
+        }
+        setIngredientImages(images);
       } catch (error) {
         console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
@@ -80,7 +95,7 @@ const MyRecipeDetail = () => {
   return (
     <main className={`mw ${style.main}`}>
       <h2 className={style.title}>{myRecipe.title}</h2>
-      <p className={style.author}>{myRecipe.author}</p>
+      <p className={style.authorNickname}>{myRecipe.authorNickname}</p>
       <Swiper
         slidesPerView={3}
         centeredSlides={true}
@@ -121,6 +136,13 @@ const MyRecipeDetail = () => {
             <span>{ingredient.name}</span>
             <span>{ingredient.quantity}</span>
             <span>{ingredient.unit}</span>
+            {ingredientImages[ingredient.name] && (
+              <img
+                src={ingredientImages[ingredient.name]}
+                alt={ingredient.name}
+                className={style.ingredientImage}
+              />
+            )}
           </li>
         ))}
       </ul>
