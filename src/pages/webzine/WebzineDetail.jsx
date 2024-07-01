@@ -4,6 +4,7 @@ import { url } from '../../store/ref';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import WebzineList from '../../components/webzine/WebzineList';
 import { useSelector } from 'react-redux';
+import WebzineLikeButton from '../../components/webzine/WebzineLikeButton';
 
 const WebzineDetail = () => {
   const userId = localStorage.getItem('userid');
@@ -191,7 +192,7 @@ const WebzineDetail = () => {
             </>
           ) : null}
         </div>
-        <button>0</button>
+        <WebzineLikeButton webzineId={webzineId} user={user} />
       </div>
       <div className={style.noise}></div>
     </div>

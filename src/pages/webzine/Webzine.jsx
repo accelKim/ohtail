@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
+import WebzineLikeButton from '../../components/webzine/WebzineLikeButton';
 
 const Webzine = () => {
-  // const userToken = localStorage.getItem('token');
-  const userId = localStorage.getItem('userid'); // 관리자 아이디가 있다는 뜻, userid를 adminid로 변경하는 거 추천
+  const userId = localStorage.getItem('userid');
   const [user, setUser] = useState(0);
+  const { webzineId } = useParams();
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const Webzine = () => {
       .then((data) => setWebzineList(data));
   }, []);
 
-  //mongoDB에서 webzine 데이터 가져오기
   const fetchWebzineData = async () => {
     try {
       const response = await fetch(`${url}/webzine`, {
@@ -164,7 +164,7 @@ const Webzine = () => {
                 )}
               </p>
             </div>
-            <button>0</button>
+            <WebzineLikeButton webzineId={webzineId} user={user} />
           </>
         ) : (
           ''
