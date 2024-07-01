@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import style from '../../styles/feed/FeedDetail.module.css';
-import LikeButton from '../../components/like/LikeButton';
-import CommentSection from '../../components/Comment/CommentSection';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import style from "../../styles/feed/FeedDetail.module.css";
+import LikeButton from "../../components/like/LikeButton";
+import CommentSection from "../../components/Comment/CommentSection";
 
 const FeedDetailPage = () => {
   const { id } = useParams();
@@ -16,19 +16,19 @@ const FeedDetailPage = () => {
       try {
         const response = await fetch(`http://localhost:8080/feedDetail/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch feed detail');
+          throw new Error("Failed to fetch feed detail");
         }
         const data = await response.json();
         setFeed(data);
       } catch (error) {
-        console.error('Error fetching feed detail:', error);
+        console.error("Error fetching feed detail:", error);
       }
     };
 
     fetchFeedDetail();
 
     // 로컬 스토리지에서 사용자 아이디 가져오기
-    const storedUserId = localStorage.getItem('userid');
+    const storedUserId = localStorage.getItem("userid");
     if (storedUserId) {
       setUserId(storedUserId);
     }
@@ -39,19 +39,19 @@ const FeedDetailPage = () => {
   }
 
   const handleFeedDelete = () => {
-    const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+    const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
     if (confirmDelete) {
       fetch(`http://localhost:8080/feedDelete/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       })
         .then((res) => res.json())
         .then((res) => {
-          if (res.message === 'ok') {
-            navigate('/feed');
+          if (res.message === "ok") {
+            navigate("/feed");
           }
         })
         .catch((error) => {
-          console.error('Error deleting feed:', error);
+          console.error("Error deleting feed:", error);
         });
     }
   };
@@ -77,7 +77,8 @@ const FeedDetailPage = () => {
         )}
       </section>
       <LikeButton cocktailId={id} userId={userId} />
-      <CommentSection cocktailId={id} userId={userId} />
+      {/* 댓글 타입 feed 추가 */}
+      <CommentSection cocktailId={id} userId={userId} type="feed" />
     </div>
   );
 };

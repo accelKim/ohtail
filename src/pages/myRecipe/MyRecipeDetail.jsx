@@ -16,6 +16,8 @@ const MyRecipeDetail = () => {
   const [userId, setUserId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [ingredientImages, setIngredientImages] = useState({});
+  const [translatedIngredients, setTranslatedIngredients] = useState([]);
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -46,6 +48,14 @@ const MyRecipeDetail = () => {
           }
         }
         setIngredientImages(images);
+
+        // Translate ingredients
+        Promise.all(
+          data.ingredients.map(async (ingredient) => {
+            const translatedName = await translateText(ingredient.name);
+            return { ...ingredient, translatedName };
+          })
+        ).then((translated) => setTranslatedIngredients(translated));
       } catch (error) {
         console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
@@ -53,6 +63,29 @@ const MyRecipeDetail = () => {
 
     fetchMyRecipe();
   }, [id]);
+
+  const translateText = async (text, setState) => {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+          q: text,
+          source: "en",
+          target: "ko",
+          format: "text",
+        }),
+      }
+    );
+    const data = await response.json();
+    if (setState) {
+      setState(data.data.translations[0].translatedText);
+    }
+    return data.data.translations[0].translatedText;
+  };
 
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
@@ -131,9 +164,9 @@ const MyRecipeDetail = () => {
       <p className={style.desc}>{myRecipe.description}</p>
       <h3 className={style.subTitle}>재료 정보</h3>
       <ul className={style.ingredientCon}>
-        {myRecipe.ingredients.map((ingredient, index) => (
+        {translatedIngredients.map((ingredient, index) => (
           <li key={index} className={style.ingredientItem}>
-            <span>{ingredient.name}</span>
+            <span>{ingredient.translatedName}</span>
             <span>{ingredient.quantity}</span>
             <span>{ingredient.unit}</span>
             {ingredientImages[ingredient.name] && (
@@ -162,8 +195,7 @@ const MyRecipeDetail = () => {
         )}
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
-      <CommentSection cocktailId={id} userId={userId} />
-
+      <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
       {showDeleteModal && (
         <div className={style.modal}>
           <div className={style.modalContent}>
