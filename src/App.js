@@ -52,7 +52,7 @@ function App() {
           <Route path="/oauth" element={<KakaoAuth />} />
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:id" element={<FeedDetailPage />} />
+          <Route path="/feedDetail/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
           <Route path="/feedEdit/:id" element={<FeedEdit />} />
           {/* 마이페이지 */}
