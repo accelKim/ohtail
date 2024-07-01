@@ -17,20 +17,34 @@ const CreateMyRecipe = () => {
   ]);
   const [instructions, setInstructions] = useState("");
   const [ingredientOptions, setIngredientOptions] = useState([]);
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchAndTranslateIngredients = async () => {
+      try {
+        const response = await fetch(
+          "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+        );
+        const data = await response.json();
         const ingredientNames = data.drinks.map(
           (drink) => drink.strIngredient1
         );
-        setIngredientOptions(ingredientNames);
-      })
-      .catch((error) =>
-        console.error("Error fetching ingredient options:", error)
-      );
+
+        const translatedNames = await Promise.all(
+          ingredientNames.map(async (name) => await translateText(name))
+        );
+
+        setIngredientOptions(translatedNames);
+      } catch (error) {
+        console.error(
+          "Error fetching and translating ingredient options:",
+          error
+        );
+      }
+    };
+
+    fetchAndTranslateIngredients();
   }, []);
 
   // 이미지 추가 함수
@@ -173,6 +187,7 @@ const CreateMyRecipe = () => {
     const newIngredients = [...ingredients];
     newIngredients[index].name = option;
     newIngredients[index].showOptions = false;
+
     setIngredients(newIngredients);
   };
 
@@ -184,6 +199,26 @@ const CreateMyRecipe = () => {
     const newIngredients = [...ingredients];
     newIngredients[index].filteredOptions = filtered;
     setIngredients(newIngredients);
+  };
+
+  const translateText = async (text) => {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+          q: text,
+          source: "en",
+          target: "ko",
+          format: "text",
+        }),
+      }
+    );
+    const data = await response.json();
+    return data.data.translations[0].translatedText;
   };
 
   return (
@@ -279,7 +314,6 @@ const CreateMyRecipe = () => {
                 ))}
               </div>
             )}
-
             <input
               type="number"
               name={`ingredient-quantity-${index}`}
