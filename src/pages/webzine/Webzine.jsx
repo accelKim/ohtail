@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
-
 const Webzine = () => {
   const userId = localStorage.getItem('userid');
   const [user, setUser] = useState(0);
@@ -164,7 +163,6 @@ const Webzine = () => {
                 )}
               </p>
             </div>
-          
           </>
         ) : (
           ''

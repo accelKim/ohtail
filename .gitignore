@@ -24,4 +24,6 @@ yarn-error.log*
 
 .env
 
+/uploads
+/uploadsMyRecipe
 /webzineUploads
