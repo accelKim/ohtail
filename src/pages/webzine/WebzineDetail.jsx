@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
 import { url } from '../../store/ref';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import WebzineList from '../../components/webzine/WebzineList';
 import { useSelector } from 'react-redux';
 
 const WebzineDetail = () => {
+  const userId = localStorage.getItem('userid');
+  const [user, setUser] = useState(0);
   const { webzineId } = useParams();
   const [webzineInfo, setWebzineInfo] = useState(null);
   const [webzineData, setWebzineData] = useState(null);
+  const navigate = useNavigate();
 
   //mongoDB에서 webzine 데이터 가져오기
   const fetchWebzineData = async () => {
@@ -29,8 +32,8 @@ const WebzineDetail = () => {
 
   useEffect(() => {
     fetchWebzineData();
-    setUser(!!userToken);
-  }, []);
+    setUser(userId);
+  }, [userId]);
 
   useEffect(() => {
     fetch(`${url}/webzineDetail/${webzineId}`)
@@ -49,8 +52,6 @@ const WebzineDetail = () => {
       });
   }, [webzineId]);
 
-  const userToken = localStorage.getItem('token');
-  const [user, setUser] = useState(null);
   const [webzineList, setWebzineList] = useState([]);
 
   useEffect(() => {
@@ -58,31 +59,6 @@ const WebzineDetail = () => {
       .then((res) => res.json())
       .then((data) => setWebzineList(data));
   }, []);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (userToken) {
-        try {
-          const response = await fetch(`${url}/webzine`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-              'Content-Type': 'application/json',
-            },
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data);
-          } else {
-            console.error('webzine area error');
-          }
-        } catch (error) {
-          console.error('webzine area error', error);
-        }
-      }
-    };
-    fetchUser();
-  }, [userToken]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -134,11 +110,20 @@ const WebzineDetail = () => {
     day: 'numeric',
   });
 
-  const editWebzine = () => {};
+  const editWebzine = () => {
+    navigate(`/webzineEdit/${webzineId}`);
+  };
   const delWebzine = () => {
     fetch(`${url}/delWebzine/${webzineId}`, {
       method: 'DELETE',
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === 'ok') {
+          alert('삭제되었습니다.');
+          navigate('/webzine');
+        }
+      });
   };
 
   return (
@@ -150,17 +135,7 @@ const WebzineDetail = () => {
             <br />
             한눈에👀
           </button>
-          <h3>
-            {webzineData && webzineData.length > 0 ? (
-              <>{webzineData[0].title}</>
-            ) : (
-              <>
-                웹진 오테일
-                <br />
-                로딩중
-              </>
-            )}
-          </h3>
+          <h3>{webzineInfo?.title}</h3>
           <Link to="/">
             웹진
             <br />
@@ -170,15 +145,11 @@ const WebzineDetail = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user === '10' ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
+            {webzineList.map((webzine, i) => (
+              <WebzineList key={i} webzine={webzine} closeMenu={closeMenu} />
             ))}
           </ul>
         </div>
@@ -213,16 +184,13 @@ const WebzineDetail = () => {
           <p>{writeDate}</p>
         </div>
         <div>
-          {user ? (
+          {user === '10' ? (
             <>
               <button onClick={editWebzine}>수정</button>
               <button onClick={delWebzine}>삭제</button>
-              {/* <Link to="/WebzineEdit">수정</Link>
-              <Link to="">삭제</Link> */}
             </>
           ) : null}
         </div>
-        <button>0</button>
       </div>
       <div className={style.noise}></div>
     </div>
