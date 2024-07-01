@@ -11,9 +11,16 @@ const EditMyRecipe = () => {
   const [newFiles, setNewFiles] = useState([]);
   const [removedFiles, setRemovedFiles] = useState([]);
   const [ingredients, setIngredients] = useState([
-    { name: "", quantity: "", unit: "옵션1" },
+    {
+      name: "",
+      quantity: "",
+      unit: "옵션1",
+      showOptions: false,
+      filteredOptions: [],
+    },
   ]);
   const [instructions, setInstructions] = useState("");
+  const [ingredientOptions, setIngredientOptions] = useState([]);
 
   useEffect(() => {
     const fetchMyRecipe = async () => {
@@ -26,7 +33,13 @@ const EditMyRecipe = () => {
         setTitle(data.title);
         setDescription(data.description);
         setFiles(data.files);
-        setIngredients(data.ingredients);
+        setIngredients(
+          data.ingredients.map((ingredient) => ({
+            ...ingredient,
+            showOptions: false,
+            filteredOptions: [],
+          }))
+        );
         setInstructions(data.instructions);
       } catch (error) {
         console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
@@ -35,6 +48,20 @@ const EditMyRecipe = () => {
 
     fetchMyRecipe();
   }, [id]);
+
+  useEffect(() => {
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list")
+      .then((response) => response.json())
+      .then((data) => {
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+        setIngredientOptions(ingredientNames);
+      })
+      .catch((error) =>
+        console.error("Error fetching ingredient options:", error)
+      );
+  }, []);
 
   const handleUpdateRecipe = async (e) => {
     e.preventDefault();
@@ -138,7 +165,16 @@ const EditMyRecipe = () => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
+    setIngredients([
+      ...ingredients,
+      {
+        name: "",
+        quantity: "",
+        unit: "옵션1",
+        showOptions: false,
+        filteredOptions: [],
+      },
+    ]);
   };
 
   const handleRemoveIngredient = (index) => {
@@ -150,6 +186,30 @@ const EditMyRecipe = () => {
       e.preventDefault();
       setInstructions(instructions + "\n");
     }
+  };
+
+  const handleSearchChange = (e, index) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filtered = ingredientOptions.filter((option) =>
+      option.toLowerCase().includes(searchValue)
+    );
+    const newIngredients = [...ingredients];
+    newIngredients[index].filteredOptions = filtered;
+    setIngredients(newIngredients);
+  };
+
+  const handleNameFieldClick = (index) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].showOptions = true;
+    newIngredients[index].filteredOptions = ingredientOptions;
+    setIngredients(newIngredients);
+  };
+
+  const handleOptionClick = (index, option) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].name = option;
+    newIngredients[index].showOptions = false;
+    setIngredients(newIngredients);
   };
 
   return (
@@ -230,8 +290,27 @@ const EditMyRecipe = () => {
               onChange={(e) =>
                 handleIngredientChange(index, "name", e.target.value)
               }
+              onClick={() => handleNameFieldClick(index)}
             />
-
+            {ingredient.showOptions && (
+              <div className={style.options}>
+                <input
+                  type="text"
+                  placeholder="재료 검색"
+                  onChange={(e) => handleSearchChange(e, index)}
+                  className={style.searchInput}
+                />
+                {ingredient.filteredOptions.map((option, i) => (
+                  <div
+                    key={i}
+                    className={style.option}
+                    onClick={() => handleOptionClick(index, option)}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="number"
               name={`ingredient-quantity-${index}`}
