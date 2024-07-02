@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import style from '../../styles/Main.module.css';
 import MainPageRacipe from '../../components/recipe/MainPageRacipe';
+import MainPageFeed from '../../components/feed/MainPageFeed';
 import MainPageMyRecipe from '../../components/myRecipe/MainPageMyRecipe';
 import WebzineMain from '../../components/webzine/WebzineMain';
 import { Link } from 'react-router-dom';
@@ -37,6 +38,7 @@ export class Main extends Component {
           <WebzineMain />
           <div className="mainFeed">
             <h2>피드</h2>
+            <MainPageFeed />
           </div>
         </section>
       </main>

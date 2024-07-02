@@ -1,17 +1,18 @@
-.singup h2 {
+.signup h2 {
   text-align: center;
 }
 
-.singup form {
+.signup form {
   max-width: 450px;
   margin: auto;
 }
-.singup label {
+.signup label {
   position: relative;
   top: 10px;
 }
 
-.singup input {
+.signup input,
+.signup select {
   width: 100%;
   padding: 1rem;
   margin-top: 1rem;
@@ -19,7 +20,7 @@
   border: 1px solid var(--black);
 }
 
-.singup form button {
+.signup form button {
   padding: 1rem;
   width: 100%;
   margin-top: 1.5rem;
@@ -30,7 +31,7 @@
   font-size: 1em;
   transition: 0.3s;
 }
-.singup form button:hover {
+.signup form button:hover {
   background-color: var(--main-color);
 }
 .errorMessage,

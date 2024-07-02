@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const REACT_APP_KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
-  const REDIRECT_URL = 'http://localhost:3000/oauth'; // 개발 환경에서 사용하는 리다이렉트 URI
+  const REDIRECT_URL = 'http://localhost:3000/oauth';
+
   const navigate = useNavigate();
 
   const getToken = async (code) => {
@@ -50,8 +51,5 @@ const KakaoAuth = () => {
     };
     fetchData();
   }, [navigate]);
-
-  return <></>;
 };
-
 export default KakaoAuth;
