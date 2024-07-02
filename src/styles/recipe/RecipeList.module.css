@@ -116,6 +116,19 @@
 }
 .category {
   width: 200px;
+
+}
+.reset_button {
+  position: absolute;
+  top: -70px;
+  left: 150px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
+}
+.main_recipe_list {
+  position: relative;
 }
 @media (max-width:600px) {
   .results {
