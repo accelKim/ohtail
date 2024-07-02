@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import style from "../../styles/Main.module.css";
 import MainPageRacipe from "../../components/recipe/MainPageRacipe";
 import MainPageMyRecipe from "../../components/myRecipe/MainPageMyRecipe";
+import Calculator from "../../components/calculator/Calculator";
 import { Link } from "react-router-dom";
 export class Main extends Component {
   render() {
@@ -17,6 +18,9 @@ export class Main extends Component {
             <br />
             오테<span>일</span>
           </div>
+        </section>
+        <section className="mw">
+        <Calculator />
         </section>
         <section className="mw mainRecipe">
           <h2>공식레시피</h2>
