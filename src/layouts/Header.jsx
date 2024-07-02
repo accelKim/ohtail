@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -6,14 +6,13 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [nickname, setNickname] = useState(false);
   const [profileImage, setProfileImage] = useState('');
   const [userInfo, setUserInfo] = useState({ properties: {} });
   const [token, setToken] = useState(localStorage.getItem('token'));
   const { nicknames = '', profile_image = '' } = userInfo.properties || {};
-
+  console.log(userInfo);
   const navigate = useNavigate();
-
-  const menuRef = useRef(null); // 메뉴가 열려 있는 영역의 ref
 
   const getUserData = async (token) => {
     const response = await fetch(`https://kapi.kakao.com/v2/user/me`, {
@@ -23,7 +22,7 @@ const Header = () => {
       },
     });
     const user = await response.json();
-    setUserInfo(user);
+    setUserInfo(user, () => navigate('/'));
   };
 
   useEffect(() => {
@@ -41,14 +40,11 @@ const Header = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [localStorage.getItem('token')]);
 
   useEffect(() => {
-    document.addEventListener('click', closeProfileMenu); // document 클릭 이벤트 추가
-    return () => {
-      document.removeEventListener('click', closeProfileMenu); // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    };
-  }, []);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -57,12 +53,6 @@ const Header = () => {
   const openProfileMenu = (e) => {
     e.preventDefault();
     setIsProfileMenuOpen(!isProfileMenuOpen);
-  };
-
-  const closeProfileMenu = (e) => {
-    if (menuRef.current && !menuRef.current.contains(e.target)) {
-      setIsProfileMenuOpen(false);
-    }
   };
 
   const handleLogout = (e) => {
@@ -75,6 +65,7 @@ const Header = () => {
     setUserInfo({ properties: {} });
     setIsLoggedIn(false);
     setProfileImage('/default_profile_image.jpg');
+    setNickname('');
     navigate('/');
   };
 
@@ -126,7 +117,7 @@ const Header = () => {
           )}
           {isLoggedIn && (
             <div className={style.logon}>
-              <div className={style.profileImg} ref={menuRef}>
+              <div className={style.profileImg}>
                 <a href="#" onClick={openProfileMenu}>
                   <img src={profile_image} alt="프로필 이미지" />
                 </a>
