@@ -14,7 +14,7 @@ const MyRecipeDetail = () => {
   const navigate = useNavigate();
   const [myRecipe, setMyRecipe] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const [ingredientImages, setIngredientImages] = useState({});
   const [translatedIngredients, setTranslatedIngredients] = useState([]);
   const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
@@ -87,43 +87,23 @@ const MyRecipeDetail = () => {
     return data.data.translations[0].translatedText;
   };
 
-  const handleDelete = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("삭제 요청 실패:", errorData);
-        throw new Error(errorData.message || "삭제 중 오류 발생!!!!!");
-      }
-      console.log("레시피가 삭제되었습니다.");
-      navigate("/myRecipe");
-    } catch (error) {
-      console.error("삭제 중 오류 발생!!!!!", error);
-      alert(error.message);
-    }
-  };
-
   const handleEdit = () => {
     navigate(`/editMyRecipe/${myRecipe._id}`);
-  };
-
-  const openDeleteModal = () => {
-    setShowDeleteModal(true);
-  };
-
-  const closeDeleteModal = () => {
-    setShowDeleteModal(false);
   };
 
   if (!myRecipe) {
     return <p>로딩 중...</p>;
   }
+
+  // 개행 처리를 위한 코드
+  const formattedInstructions = myRecipe.instructions
+    .split("\n")
+    .map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
 
   return (
     <main className={`mw ${style.main}`}>
@@ -162,53 +142,43 @@ const MyRecipeDetail = () => {
         })}
       </Swiper>
       <p className={style.desc}>{myRecipe.description}</p>
-      <h3 className={style.subTitle}>재료 정보</h3>
+      <h3>재료 정보</h3>
       <ul className={style.ingredientCon}>
         {translatedIngredients.map((ingredient, index) => (
           <li key={index} className={style.ingredientItem}>
             <span>{ingredient.translatedName}</span>
-            <span>{ingredient.quantity}</span>
-            <span>{ingredient.unit}</span>
-            {ingredientImages[ingredient.name] && (
-              <img
-                src={ingredientImages[ingredient.name]}
-                alt={ingredient.name}
-                className={style.ingredientImage}
-              />
-            )}
+            <div className={style.measureWrap}>
+              <span>{ingredient.quantity}</span>
+              <span>{ingredient.unit}</span>
+              {ingredientImages[ingredient.name] && (
+                <img
+                  src={ingredientImages[ingredient.name]}
+                  alt={ingredient.name}
+                  className={style.ingredientImg}
+                />
+              )}
+            </div>
           </li>
         ))}
       </ul>
       <h3 className={style.subTitle}>만드는 방법</h3>
-      <p className={style.instructions}>{myRecipe.instructions}</p>
+      <div className={style.instructions}>
+        <p>{formattedInstructions}</p>
+      </div>
+
       {userId &&
         myRecipe.author &&
         userId.toString() === myRecipe.author.toString() && (
-          <div className={style.buttonContainer}>
+          <div className={style.btnCon}>
             <button className={style.editBtn} onClick={handleEdit}>
               수정
             </button>
-            <button className={style.deleteBtn} onClick={openDeleteModal}>
-              삭제
-            </button>
+            <button className={style.delBtn}>삭제</button>
           </div>
         )}
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
-      {showDeleteModal && (
-        <div className={style.modal}>
-          <div className={style.modalContent}>
-            <p>레시피를 삭제하시겠습니까?</p>
-            <button className={style.cancelBtn} onClick={closeDeleteModal}>
-              취소
-            </button>
-            <button className={style.confirmBtn} onClick={handleDelete}>
-              삭제
-            </button>
-          </div>
-        </div>
-      )}
     </main>
   );
 };
