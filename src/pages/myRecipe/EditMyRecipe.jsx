@@ -29,12 +29,11 @@ const EditMyRecipe = () => {
         setDescription(data.description);
         setFiles(data.files);
 
-        // 재료 이름 설정 및 번역 추가
         const ingredientsData = await Promise.all(
           data.ingredients.map(async (ingredient) => ({
             ...ingredient,
-            originalName: ingredient.name, // 원래 이름 저장
-            translatedName: await translateText(ingredient.name), // 번역된 이름 저장
+            originalName: ingredient.name,
+            translatedName: await translateText(ingredient.name),
             showOptions: false,
             filteredOptions: [],
           }))
@@ -100,15 +99,18 @@ const EditMyRecipe = () => {
     return translatedOptions;
   };
 
+  // 파일 변경 시 처리하는 함수
   const handleFileChange = (e) => {
     const newAddedFiles = Array.from(e.target.files);
-    if (newFiles.length + newAddedFiles.length <= 3) {
+    // 새로운 파일이 추가될 때, 기존 파일을 고려하여 최대 3개까지 추가
+    if (files.length + newFiles.length + newAddedFiles.length <= 3) {
       setNewFiles([...newFiles, ...newAddedFiles]);
     } else {
       alert("이미지는 최대 3장까지만");
     }
   };
 
+  // 파일 제거 처리하는 함수
   const handleRemoveFile = (index, isExistingFile) => {
     if (isExistingFile) {
       const fileToRemove = files[index];
@@ -165,7 +167,7 @@ const EditMyRecipe = () => {
     if (
       ingredients.some(
         (ingredient) =>
-          ingredient.originalName === "" || // Check originalName instead of name
+          ingredient.originalName === "" ||
           ingredient.quantity === "" ||
           ingredient.unit === ""
       )
@@ -193,7 +195,7 @@ const EditMyRecipe = () => {
     );
     formData.set("removedFiles", JSON.stringify(removedFiles));
     ingredients.forEach((ingredient, index) => {
-      formData.append(`ingredient_${index}_name`, ingredient.originalName); // Use originalName
+      formData.append(`ingredient_${index}_name`, ingredient.originalName);
       formData.append(`ingredient_${index}_quantity`, ingredient.quantity);
       formData.append(`ingredient_${index}_unit`, ingredient.unit);
     });
@@ -244,11 +246,11 @@ const EditMyRecipe = () => {
 
   const handleOptionClick = async (index, option, originalOption) => {
     const newIngredients = [...ingredients];
-    newIngredients[index].originalName = originalOption; // Set originalName
-    newIngredients[index].name = originalOption; // Set name as well
+    newIngredients[index].originalName = originalOption;
+    newIngredients[index].name = originalOption;
     newIngredients[index].showOptions = false;
     const translatedName = await translateText(originalOption);
-    newIngredients[index].translatedName = translatedName; // Set translatedName
+    newIngredients[index].translatedName = translatedName;
     setIngredients(newIngredients);
   };
 
@@ -318,19 +320,31 @@ const EditMyRecipe = () => {
           {[0, 1, 2].map((index) => (
             <div key={index} className={style.previewCon}>
               {files[index] ? (
-                <img
-                  src={`http://localhost:8080/${files[index]}`}
-                  alt={`Preview ${index}`}
-                  onClick={() => handleRemoveFile(index, true)}
-                  className={style.previewImg}
-                />
-              ) : newFiles[index] ? (
-                <img
-                  src={URL.createObjectURL(newFiles[index])}
-                  alt={`Preview new ${index}`}
-                  onClick={() => handleRemoveFile(index, false)}
-                  className={style.previewImg}
-                />
+                <>
+                  <img
+                    src={`http://localhost:8080/${files[index]}`}
+                    alt={`Preview ${index}`}
+                    className={style.previewImg}
+                  />
+                  <i
+                    className={`fa-solid fa-x ${style.removeIcon}`}
+                    onClick={() => handleRemoveFile(index, true)}
+                  ></i>
+                </>
+              ) : newFiles[index - files.length] ? (
+                <>
+                  <img
+                    src={URL.createObjectURL(newFiles[index - files.length])}
+                    alt={`Preview new ${index}`}
+                    className={style.previewImg}
+                  />
+                  <i
+                    className={`fa-solid fa-x ${style.removeIcon}`}
+                    onClick={() =>
+                      handleRemoveFile(index - files.length, false)
+                    }
+                  ></i>
+                </>
               ) : (
                 <div>이미지를 등록해주세요</div>
               )}
@@ -347,7 +361,7 @@ const EditMyRecipe = () => {
                   name={`ingredient-name-${index}`}
                   id={`ingredient-name-${index}`}
                   placeholder="재료명"
-                  value={ingredient.translatedName} // Display translated name
+                  value={ingredient.translatedName}
                   onClick={() => handleNameFieldClick(index)}
                   readOnly
                   className={style.ingredients_name}

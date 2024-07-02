@@ -278,18 +278,24 @@ const CreateMyRecipe = () => {
           {[0, 1, 2].map((_, index) => (
             <div key={index} className={style.previewCon}>
               {files[index] ? (
-                <img
-                  src={URL.createObjectURL(files[index])}
-                  alt={`Preview ${index}`}
-                  onClick={() => handleRemoveFile(index)}
-                  className={style.previewImg}
-                />
+                <>
+                  <img
+                    src={URL.createObjectURL(files[index])}
+                    alt={`Preview ${index}`}
+                    className={style.previewImg}
+                  />
+                  <i
+                    className={`fa-solid fa-x ${style.removeIcon}`}
+                    onClick={() => handleRemoveFile(index)}
+                  ></i>
+                </>
               ) : (
                 <div>이미지를 등록해주세요</div>
               )}
             </div>
           ))}
         </div>
+
         <div className={style.ingredientsCon}>
           <h3>재료 정보</h3>
           {ingredients.map((ingredient, index) => (
