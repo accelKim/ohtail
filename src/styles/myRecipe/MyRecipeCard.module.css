@@ -2,15 +2,15 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 313px;
-  height: 313px;
+  border-radius: 5px;
 }
 
 .imgCon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 5px;
+  transform: scale(1);
+  transition: 0.5s;
 }
 
 .imgText {
@@ -35,13 +35,13 @@
   text-overflow: ellipsis;
 }
 
-.imgText h3 {
-  font-family: "pretendard-medium";
+.imageText h3 {
+  font-family: 'pretendard-medium';
   font-size: 18px;
 }
 
-.imgText span {
-  font-family: "pretendard-right";
+.imageText p {
+  font-family: 'pretendard-right';
   font-size: 16px;
   color: #808080;
 }
