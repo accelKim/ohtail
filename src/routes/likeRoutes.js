@@ -20,10 +20,8 @@ router.post("/", async (req, res) => {
     if (liked) {
       const newLike = new Like({ cocktailId, userId });
       await newLike.save();
-      await MyRecipe.findByIdAndUpdate(cocktailId, { $inc: { likeCount: 1 } }); // 나만의 레시피 좋아요 증가
     } else {
       await Like.deleteOne({ cocktailId, userId });
-      await MyRecipe.findByIdAndUpdate(cocktailId, { $inc: { likeCount: -1 } }); // 나만의 레시피 좋아요 감소
     }
     const likeCount = await Like.countDocuments({ cocktailId });
     res.status(200).json({ success: true, liked, likeCount });

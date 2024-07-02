@@ -33,16 +33,16 @@ const MyRecipeCard = ({ myRecipe }) => {
     <li className={styles.card} onClick={handleCardClick}>
       <article>
         {myRecipe.files && myRecipe.files.length > 0 && (
-          <figure className={styles.imageCon}>
+          <figure className={styles.imgCon}>
             <img
               src={`http://localhost:8080/${myRecipe.files[0]}`}
               alt={myRecipe.title}
               className={styles.image}
             />
-            <figcaption className={styles.imageText}>
+            <figcaption className={styles.imgText}>
               <h3>{myRecipe.title}</h3>
-              <p>작성자: {myRecipe.authorNickname}</p>
-              <p>좋아요: {likeCount}</p>
+              <span>{myRecipe.authorNickname}</span>
+              {/* <p>좋아요: {likeCount}</p> */}
             </figcaption>
           </figure>
         )}

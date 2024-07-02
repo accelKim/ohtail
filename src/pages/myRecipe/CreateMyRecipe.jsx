@@ -17,11 +17,10 @@ const CreateMyRecipe = () => {
   ]);
   const [instructions, setInstructions] = useState("");
   const [ingredientOptions, setIngredientOptions] = useState([]);
-  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchAndTranslateIngredients = async () => {
+    const fetchIngredients = async () => {
       try {
         const response = await fetch(
           "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
@@ -31,23 +30,15 @@ const CreateMyRecipe = () => {
           (drink) => drink.strIngredient1
         );
 
-        const translatedNames = await Promise.all(
-          ingredientNames.map(async (name) => await translateText(name))
-        );
-
-        setIngredientOptions(translatedNames);
+        setIngredientOptions(ingredientNames);
       } catch (error) {
-        console.error(
-          "Error fetching and translating ingredient options:",
-          error
-        );
+        console.error("Error fetching ingredient options:", error);
       }
     };
 
-    fetchAndTranslateIngredients();
+    fetchIngredients();
   }, []);
 
-  // 이미지 추가 함수
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
     if (files.length + newFiles.length <= 3) {
@@ -57,19 +48,16 @@ const CreateMyRecipe = () => {
     }
   };
 
-  // 이미지 제거 함수
   const handleRemoveFile = (index) => {
     setFiles(files.filter((_, i) => i !== index));
   };
 
-  // 재료 입력 함수
   const handleIngredientChange = (index, field, value) => {
     const newIngredients = [...ingredients];
     newIngredients[index][field] = value;
     setIngredients(newIngredients);
   };
 
-  // 재료 필드 추가 함수
   const handleAddIngredient = () => {
     setIngredients([
       ...ingredients,
@@ -83,7 +71,6 @@ const CreateMyRecipe = () => {
     ]);
   };
 
-  // 재료 필드 제거 함수
   const handleRemoveIngredient = (index) => {
     setIngredients(ingredients.filter((_, i) => i !== index));
   };
@@ -122,7 +109,6 @@ const CreateMyRecipe = () => {
       return;
     }
 
-    // FormData
     const formData = new FormData();
     formData.set("title", title);
     formData.set("description", description);
@@ -150,7 +136,7 @@ const CreateMyRecipe = () => {
       const response = await fetch("http://localhost:8080/createMyRecipe", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`, // Bearer 토큰 헤더 추가
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -178,8 +164,8 @@ const CreateMyRecipe = () => {
 
   const handleNameFieldClick = (index) => {
     const newIngredients = [...ingredients];
-    newIngredients[index].showOptions = true;
-    newIngredients[index].filteredOptions = ingredientOptions;
+    newIngredients[index].showOptions = !newIngredients[index].showOptions;
+    newIngredients[index].filteredOptions = [];
     setIngredients(newIngredients);
   };
 
@@ -197,62 +183,50 @@ const CreateMyRecipe = () => {
       option.toLowerCase().includes(searchValue)
     );
     const newIngredients = [...ingredients];
-    newIngredients[index].filteredOptions = filtered;
+    newIngredients[index].filteredOptions = searchValue ? filtered : [];
     setIngredients(newIngredients);
-  };
-
-  const translateText = async (text) => {
-    const response = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({
-          q: text,
-          source: "en",
-          target: "ko",
-          format: "text",
-        }),
-      }
-    );
-    const data = await response.json();
-    return data.data.translations[0].translatedText;
   };
 
   return (
     <main className={`mw ${style.main}`}>
-      <h2>나만의 레시피 등록</h2>
-      <form onSubmit={handleCreateRecipe}>
-        <label htmlFor="title"></label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          className={style.title}
-          placeholder="칵테일 이름을 작성해주세요"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-
-        <label htmlFor="description"></label>
-        <input
-          type="text"
-          name="description"
-          id="description"
-          className={style.desc}
-          placeholder="칵테일 소개를 작성해주세요"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-
-        <div className={style.imageHeader}>
-          <h3>칵테일 이미지</h3>
-          <label htmlFor="files" className={style.fileUpload}>
-            이미지 추가
-          </label>
+      <h2>나만의 레시피 등록🍸</h2>
+      <form onSubmit={handleCreateRecipe} className={style.form}>
+        <div className={style.titleCon}>
+          <h3>칵테일 이름</h3>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="칵테일 이름을 작성해주세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={style.titleInput}
+          />
         </div>
+
+        <div className={style.descCon}>
+          <h3>칵테일 소개</h3>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            placeholder="칵테일 소개를 작성해주세요"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className={style.descInput}
+          />
+        </div>
+        <div className={style.imgUpload}>
+          <h3>칵테일 이미지</h3>
+          <button
+            type="button"
+            onClick={() => document.getElementById("files").click()}
+            className={style.imgUploadBtn}
+          >
+            이미지 추가
+          </button>
+        </div>
+
         <input
           type="file"
           name="files"
@@ -260,114 +234,130 @@ const CreateMyRecipe = () => {
           id="files"
           onChange={handleFileChange}
           multiple
-          style={{ display: "none" }}
+          className={style.fileInput}
         />
-        <div className={style.imagePreview}>
+        <div className={style.imgPreview}>
           {[0, 1, 2].map((_, index) => (
-            <div key={index} className={style.previewContainer}>
+            <div key={index} className={style.previewCon}>
               {files[index] ? (
                 <img
                   src={URL.createObjectURL(files[index])}
                   alt={`Preview ${index}`}
                   onClick={() => handleRemoveFile(index)}
-                  className={style.previewImage}
+                  className={style.previewImg}
                 />
               ) : (
-                <div className={style.placeholder}></div>
+                <div>이미지를 등록해주세요</div>
               )}
             </div>
           ))}
         </div>
-
-        <h3>재료 정보</h3>
-        {ingredients.map((ingredient, index) => (
-          <div key={index} className={style.ingredientCon}>
-            <input
-              type="text"
-              name={`ingredient-name-${index}`}
-              id={`ingredient-name-${index}`}
-              className={style.ingredientName}
-              placeholder="재료명"
-              value={ingredient.name}
-              onChange={(e) =>
-                handleIngredientChange(index, "name", e.target.value)
-              }
-              onClick={() => handleNameFieldClick(index)}
-            />
-            {ingredient.showOptions && (
-              <div className={style.options}>
+        <div className={style.ingredientsCon}>
+          <h3>재료 정보</h3>
+          {ingredients.map((ingredient, index) => (
+            <div key={index} className={style.ingredientsInput}>
+              <div className={style.ingredients_name_Con}>
                 <input
                   type="text"
-                  placeholder="재료 검색"
-                  onChange={(e) => handleSearchChange(e, index)}
-                  onKeyDown={handleSearchKeyDown}
-                  className={style.searchInput}
+                  name={`ingredient-name-${index}`}
+                  id={`ingredient-name-${index}`}
+                  placeholder="재료명"
+                  value={ingredient.name}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "name", e.target.value)
+                  }
+                  onClick={() => handleNameFieldClick(index)}
+                  className={style.ingredients_name}
+                  readOnly
                 />
-                {ingredient.filteredOptions.map((option, i) => (
-                  <div
-                    key={i}
-                    className={style.option}
-                    onClick={() => handleOptionClick(index, option)}
-                  >
-                    {option}
+                {ingredient.showOptions && (
+                  <div className={style.ingredients_name_dropMenu}>
+                    <h3>재료 찾기</h3>
+                    <input
+                      type="text"
+                      placeholder="찾으실 재료를 입력해주세요"
+                      onChange={(e) => handleSearchChange(e, index)}
+                      onKeyDown={handleSearchKeyDown}
+                      className={style.ingredients_name_search}
+                    />
+
+                    {ingredient.filteredOptions.length > 0 &&
+                      ingredient.filteredOptions.map((option, i) => (
+                        <div
+                          key={i}
+                          onClick={() => handleOptionClick(index, option)}
+                          className={style.ingredients_name_list}
+                        >
+                          {option}
+                        </div>
+                      ))}
                   </div>
-                ))}
+                )}
               </div>
-            )}
-            <input
-              type="number"
-              name={`ingredient-quantity-${index}`}
-              id={`ingredient-quantity-${index}`}
-              className={style.ingredientQuantity}
-              placeholder="수량"
-              value={ingredient.quantity}
-              onChange={(e) =>
-                handleIngredientChange(index, "quantity", e.target.value)
-              }
-            />
-            <select
-              name={`ingredient-unit-${index}`}
-              id={`ingredient-unit-${index}`}
-              className={style.ingredientUnit}
-              value={ingredient.unit}
-              onChange={(e) =>
-                handleIngredientChange(index, "unit", e.target.value)
-              }
-            >
-              <option value="옵션1">옵션1</option>
-              <option value="옵션2">옵션2</option>
-              <option value="옵션3">옵션3</option>
-            </select>
-            <button
-              type="button"
-              className={style.deletIngredient}
-              onClick={() => handleRemoveIngredient(index)}
-              disabled={ingredients.length === 1}
-            >
-              제거
-            </button>
-          </div>
-        ))}
-        <button
-          type="button"
-          className={style.addIngredientBtn}
-          onClick={handleAddIngredient}
-        >
-          재료 추가
-        </button>
+              <div className={style.measureWrap}>
+                <input
+                  type="text"
+                  onInput={(e) => {
+                    e.target.value = e.target.value
+                      .replace(/[^0-9.]/g, "")
+                      .replace(/(\..*)\./g, "$1");
+                  }}
+                  name={`ingredient-quantity-${index}`}
+                  id={`ingredient-quantity-${index}`}
+                  placeholder="수량"
+                  value={ingredient.quantity}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "quantity", e.target.value)
+                  }
+                  className={style.ingredients_quantity}
+                />
+                <select
+                  name={`ingredient-unit-${index}`}
+                  id={`ingredient-unit-${index}`}
+                  value={ingredient.unit}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "unit", e.target.value)
+                  }
+                  className={style.ingredients_unit}
+                >
+                  <option value="옵션1">옵션1</option>
+                  <option value="옵션2">옵션2</option>
+                  <option value="옵션3">옵션3</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveIngredient(index)}
+                  disabled={ingredients.length === 1}
+                  className={style.delIngredientBtn}
+                >
+                  제거
+                </button>
+              </div>
+            </div>
+          ))}
 
-        <h3>만드는 방법</h3>
-        <textarea
-          name="instructions"
-          id="instructions"
-          value={instructions}
-          className={style.instructions}
-          onChange={(e) => setInstructions(e.target.value)}
-          onKeyDown={handleKeyDown}
-        ></textarea>
-
-        <button type="submit" className={style.uploadBtn}>
-          레시피 등록
+          <button
+            type="button"
+            onClick={handleAddIngredient}
+            className={style.addIngredientBtn}
+          >
+            재료 추가
+          </button>
+        </div>
+        <div className={style.instructionCon}>
+          <h3>만드는 방법</h3>
+          <textarea
+            name="instructions"
+            id="instructions"
+            placeholder="만드는 방법을 작성해주세요"
+            value={instructions}
+            onChange={(e) => setInstructions(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className={style.instructionInput}
+          ></textarea>
+        </div>
+        <button type="submit" className={style.submitBtn}>
+          업로드
         </button>
       </form>
     </main>
