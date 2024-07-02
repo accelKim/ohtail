@@ -1,0 +1,18 @@
+.calculator_input_wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.calculator_input_wrap > input {
+    height: 2rem;
+    width: 350px;
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 1rem;
+}
+.calculator_result_wrap{
+    margin-top: 1rem;
+}
+.calculator_result_wrap > h3 > span {
+    font-weight: bold;
+}
