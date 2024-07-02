@@ -26,6 +26,8 @@ import FeedDetailPage from './pages/feed/FeedDetailPage';
 import FavoritesTab from './pages/favorites/FavoritesTab'; // 임시 설정
 import MyRecipeTab from './pages/myRecipe/MyRecipeTab'; // 임시 설정
 import KakaoAuth from './pages/login/KakaoAuth';
+import KakaoLoginButton from './pages/login/KakaoLoginBtn';
+import Test from './pages/login/Test';
 
 function App() {
   return (
@@ -52,6 +54,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/oauth" element={<KakaoAuth />} />
+          <Route path="/loginKakao" element={<KakaoLoginButton />} />
+          <Route path="/test" element={<Test />} />
+
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:id" element={<FeedDetailPage />} />

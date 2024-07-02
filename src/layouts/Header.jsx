@@ -1,28 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(
+    '/default_profile_image.jpg'
+  );
+  const [nickname, setNickname] = useState('');
   const navigate = useNavigate();
 
-  // useEffect 훅 수정
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-      const profileImageUrl = localStorage.getItem('profileImage');
-      if (profileImageUrl) {
-        setProfileImage(profileImageUrl);
+    const checkLoggedIn = async () => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        // 일반 로그인인 경우
+        setIsLoggedIn(true);
+        const profileImageUrl = localStorage.getItem('profileImage');
+        const storedNickname = localStorage.getItem('nickname');
+
+        if (profileImageUrl) {
+          setProfileImage(profileImageUrl);
+        }
+        if (storedNickname) {
+          setNickname(storedNickname);
+        }
+      } else if (window.Kakao && window.Kakao.Auth) {
+        // 카카오톡으로 로그인한 경우
+        const accessToken = window.Kakao.Auth.getAccessToken();
+
+        if (accessToken) {
+          // Kakao API를 사용하여 사용자 정보를 가져옵니다.
+          try {
+            const response = await fetch('https://kapi.kakao.com/v2/user/me', {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-type':
+                  'application/x-www-form-urlencoded;charset=utf-8',
+              },
+            });
+
+            if (!response.ok) {
+              throw new Error(
+                '카카오 API로 사용자 정보를 가져오는 데 실패했습니다.'
+              );
+            }
+
+            const user = await response.json();
+            setProfileImage(user.properties.profile_image);
+            setNickname(user.properties.nickname);
+            setIsLoggedIn(true);
+
+            // 사용자 정보를 가져온 후 페이지 새로고침
+            window.location.reload();
+          } catch (error) {
+            console.error(
+              '카카오 사용자 정보를 가져오는 중 오류가 발생했습니다:',
+              error
+            );
+          }
+        }
+      } else {
+        setIsLoggedIn(false);
       }
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []); // isLoggedIn 상태가 변경될 때마다 useEffect 실행하지 않도록 수정
+    };
+
+    checkLoggedIn();
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -37,27 +84,19 @@ const Header = () => {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    // Kakao SDK 로그아웃
-    if (window.Kakao && window.Kakao.Auth) {
-      window.Kakao.Auth.logout(function () {
-        console.log('카카오 계정 로그아웃 완료');
-      });
-    }
-
-    // 로컬 스토리지에서 관련 정보 제거
-    localStorage.removeItem('userid');
+    // 로그아웃 관련 처리
     localStorage.removeItem('token');
     localStorage.removeItem('profileImage');
     localStorage.removeItem('nickname');
 
-    // 상태 초기화 및 리디렉션
     setIsLoggedIn(false);
-    setProfileImage('');
+    setProfileImage('/default_profile_image.jpg');
+    setNickname('');
     navigate('/');
   };
 
   const handleMenuLinkClick = () => {
-    setIsMenuOpen(false); // 메뉴 링크 클릭 시 메뉴 닫기
+    setIsMenuOpen(false);
   };
 
   return (
@@ -87,12 +126,12 @@ const Header = () => {
         </div>
         <h1>
           <Link to="/">
-            {/* 이미지 추가 */}
-            {/* <img src="" alt="" /> */}
+            {/* 로고 이미지 추가 */}
+            {/* <img src="" alt="로고" /> */}
           </Link>
         </h1>
         <div className={style.gnb}>
-          {!isLoggedIn && (
+          {!isLoggedIn ? (
             <div className={style.logoff}>
               <Link to="/login" onClick={handleMenuLinkClick}>
                 로그인
@@ -101,8 +140,7 @@ const Header = () => {
                 회원가입
               </Link>
             </div>
-          )}
-          {isLoggedIn && (
+          ) : (
             <div className={style.logon}>
               <div className={style.profileImg}>
                 <a href="#" onClick={openProfileMenu}>

@@ -98,6 +98,37 @@ const authenticateJWT = (req, res, next) => {
     res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
   }
 };
+// 이메일 중복 확인 API
+app.post('/api/check-email', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: '이미 사용중인 이메일입니다!' });
+    }
+
+    res.status(200).json({ message: '사용 가능한 이메일입니다!' });
+  } catch (error) {
+    console.error('Error checking email:', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 닉네임 중복 확인 API
+app.post('/api/check-nickname', async (req, res) => {
+  try {
+    const { nickname } = req.body;
+    const existingUser = await User.findOne({ nickname });
+    if (existingUser) {
+      return res.status(400).json({ message: '이미 존재하는 닉네임입니다!' });
+    }
+    res.status(200).json({ message: '사용 가능한 닉네임입니다!' });
+  } catch (error) {
+    console.error('Error checking nickname:', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
 
 // 회원가입
 app.post('/signup', async (req, res) => {
@@ -113,12 +144,12 @@ app.post('/signup', async (req, res) => {
   } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ success: false, message: '이미 존재하는 이메일입니다.' });
-    }
+    // const existingUser = await User.findOne({ email });
+    // if (existingUser) {
+    //   return res
+    //     .status(400)
+    //     .json({ success: false, message: '이미 존재하는 이메일입니다.' });
+    // }
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -175,14 +206,12 @@ app.post('/login', async (req, res) => {
     if (passwordMatch) {
       console.log('로그인 성공:', email);
       const token = generateAccessToken(user.userid);
-      res
-        .status(200)
-        .json({
-          message: '로그인 성공',
-          token,
-          userid: user.userid,
-          nickname: user.nickname,
-        });
+      res.status(200).json({
+        message: '로그인 성공',
+        token,
+        userid: user.userid,
+        nickname: user.nickname,
+      });
     } else {
       console.log('비밀번호가 일치하지 않습니다:', email);
       res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
