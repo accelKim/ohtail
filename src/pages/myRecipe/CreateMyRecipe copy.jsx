@@ -1,53 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
+import { useNavigate } from "react-router-dom";
 
-const EditMyRecipe = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+const CreateMyRecipe = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
-  const [newFiles, setNewFiles] = useState([]);
-  const [removedFiles, setRemovedFiles] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([
+    {
+      name: "",
+      quantity: "",
+      unit: "옵션1",
+      showOptions: false,
+      filteredOptions: [],
+    },
+  ]);
   const [instructions, setInstructions] = useState("");
   const [ingredientOptions, setIngredientOptions] = useState([]);
-  const [translatedIngredientOptions, setTranslatedIngredientOptions] =
-    useState([]);
-  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
-
-  useEffect(() => {
-    const fetchMyRecipe = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
-        if (!response.ok) {
-          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
-        }
-        const data = await response.json();
-        setTitle(data.title);
-        setDescription(data.description);
-        setFiles(data.files);
-
-        // 재료 이름 설정 및 번역 추가
-        const ingredientsData = await Promise.all(
-          data.ingredients.map(async (ingredient) => ({
-            ...ingredient,
-            originalName: ingredient.name, // 원래 이름 저장
-            translatedName: await translateText(ingredient.name), // 번역된 이름 저장
-            showOptions: false,
-            filteredOptions: [],
-          }))
-        );
-        setIngredients(ingredientsData);
-        setInstructions(data.instructions);
-      } catch (error) {
-        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
-      }
-    };
-
-    fetchMyRecipe();
-  }, [id]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -60,11 +30,7 @@ const EditMyRecipe = () => {
           (drink) => drink.strIngredient1
         );
 
-        // 재료 옵션 번역
-        const translatedOptions = await translateOptions(ingredientNames);
-
         setIngredientOptions(ingredientNames);
-        setTranslatedIngredientOptions(translatedOptions);
       } catch (error) {
         console.error("Error fetching ingredient options:", error);
       }
@@ -73,50 +39,17 @@ const EditMyRecipe = () => {
     fetchIngredients();
   }, []);
 
-  const translateText = async (text) => {
-    const response = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          q: text,
-          source: "en",
-          target: "ko",
-          format: "text",
-        }),
-      }
-    );
-    const data = await response.json();
-    return data.data.translations[0].translatedText;
-  };
-
-  const translateOptions = async (options) => {
-    const translatedOptions = await Promise.all(
-      options.map((option) => translateText(option))
-    );
-    return translatedOptions;
-  };
-
   const handleFileChange = (e) => {
-    const newAddedFiles = Array.from(e.target.files);
-    if (newFiles.length + newAddedFiles.length <= 3) {
-      setNewFiles([...newFiles, ...newAddedFiles]);
+    const newFiles = Array.from(e.target.files);
+    if (files.length + newFiles.length <= 3) {
+      setFiles([...files, ...newFiles]);
     } else {
       alert("이미지는 최대 3장까지만");
     }
   };
 
-  const handleRemoveFile = (index, isExistingFile) => {
-    if (isExistingFile) {
-      const fileToRemove = files[index];
-      setRemovedFiles([...removedFiles, fileToRemove]);
-      setFiles(files.filter((_, i) => i !== index));
-    } else {
-      setNewFiles(newFiles.filter((_, i) => i !== index));
-    }
+  const handleRemoveFile = (index) => {
+    setFiles(files.filter((_, i) => i !== index));
   };
 
   const handleIngredientChange = (index, field, value) => {
@@ -132,11 +65,8 @@ const EditMyRecipe = () => {
         name: "",
         quantity: "",
         unit: "옵션1",
-        translatedName: "",
-        originalName: "",
         showOptions: false,
         filteredOptions: [],
-        originalOptions: [],
       },
     ]);
   };
@@ -145,7 +75,7 @@ const EditMyRecipe = () => {
     setIngredients(ingredients.filter((_, i) => i !== index));
   };
 
-  const handleUpdateRecipe = async (e) => {
+  const handleCreateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
       alert("칵테일 이름 필수!!!!!!!!!!");
@@ -157,7 +87,7 @@ const EditMyRecipe = () => {
       return;
     }
 
-    if (files.length === 0 && newFiles.length === 0) {
+    if (files.length === 0) {
       alert("이미지 업로드 필수!!!!!!!!!!");
       return;
     }
@@ -165,7 +95,7 @@ const EditMyRecipe = () => {
     if (
       ingredients.some(
         (ingredient) =>
-          ingredient.originalName === "" || // Check originalName instead of name
+          ingredient.name === "" ||
           ingredient.quantity === "" ||
           ingredient.unit === ""
       )
@@ -179,45 +109,43 @@ const EditMyRecipe = () => {
       return;
     }
 
-    const token = localStorage.getItem("token");
-
     const formData = new FormData();
     formData.set("title", title);
     formData.set("description", description);
-    newFiles.forEach((file) => {
-      formData.append("files", file);
-    });
-    formData.set(
-      "existingFiles",
-      JSON.stringify(files.filter((file) => !removedFiles.includes(file)))
-    );
-    formData.set("removedFiles", JSON.stringify(removedFiles));
-    ingredients.forEach((ingredient, index) => {
-      formData.append(`ingredient_${index}_name`, ingredient.originalName); // Use originalName
-      formData.append(`ingredient_${index}_quantity`, ingredient.quantity);
-      formData.append(`ingredient_${index}_unit`, ingredient.unit);
-    });
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    for (let i = 0; i < ingredients.length; i++) {
+      formData.append(`ingredient_${i}_name`, ingredients[i].name);
+      formData.append(`ingredient_${i}_quantity`, ingredients[i].quantity);
+      formData.append(`ingredient_${i}_unit`, ingredients[i].unit);
+    }
     formData.set("instructions", instructions);
 
+    console.log({
+      title,
+      description,
+      files,
+      ingredients,
+      instructions,
+    });
+
+    const token = localStorage.getItem("token");
+
     try {
-      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-        method: "PUT",
+      const response = await fetch("http://localhost:8080/createMyRecipe", {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
-
       if (response.ok) {
-        navigate(`/myRecipe/${id}`);
-      } else {
-        const errorData = await response.json();
-        console.error("수정 요청 실패:", errorData);
-        throw new Error(errorData.message || "수정 중 오류 발생!!!!!");
+        navigate("/myRecipe");
       }
     } catch (error) {
-      console.error("수정 중 오류 발생!!!!!", error);
-      alert(error.message);
+      console.error("Error creating recipe:", error);
+      alert("레시피 생성 중 오류가 발생했습니다.");
     }
   };
 
@@ -238,39 +166,31 @@ const EditMyRecipe = () => {
     const newIngredients = [...ingredients];
     newIngredients[index].showOptions = !newIngredients[index].showOptions;
     newIngredients[index].filteredOptions = [];
-    newIngredients[index].originalOptions = [];
     setIngredients(newIngredients);
   };
 
-  const handleOptionClick = async (index, option, originalOption) => {
+  const handleOptionClick = (index, option) => {
     const newIngredients = [...ingredients];
-    newIngredients[index].originalName = originalOption; // Set originalName
-    newIngredients[index].name = originalOption; // Set name as well
+    newIngredients[index].name = option;
     newIngredients[index].showOptions = false;
-    const translatedName = await translateText(originalOption);
-    newIngredients[index].translatedName = translatedName; // Set translatedName
+
     setIngredients(newIngredients);
   };
 
-  const handleSearchChange = async (e, index) => {
+  const handleSearchChange = (e, index) => {
     const searchValue = e.target.value.toLowerCase();
-    const filtered = translatedIngredientOptions.filter((option) =>
+    const filtered = ingredientOptions.filter((option) =>
       option.toLowerCase().includes(searchValue)
     );
-    const originalOptions = filtered.map((option) => {
-      const originalIndex = translatedIngredientOptions.indexOf(option);
-      return ingredientOptions[originalIndex];
-    });
     const newIngredients = [...ingredients];
     newIngredients[index].filteredOptions = searchValue ? filtered : [];
-    newIngredients[index].originalOptions = searchValue ? originalOptions : [];
     setIngredients(newIngredients);
   };
 
   return (
     <main className={`mw ${style.main}`}>
-      <h2>나만의 레시피 수정🍸</h2>
-      <form onSubmit={handleUpdateRecipe}>
+      <h2>나만의 레시피 등록🍸</h2>
+      <form onSubmit={handleCreateRecipe} className={style.form}>
         <div className={style.titleCon}>
           <h3>칵테일 이름</h3>
           <input
@@ -283,6 +203,7 @@ const EditMyRecipe = () => {
             className={style.titleInput}
           />
         </div>
+
         <div className={style.descCon}>
           <h3>칵테일 소개</h3>
           <input
@@ -305,6 +226,7 @@ const EditMyRecipe = () => {
             이미지 추가
           </button>
         </div>
+
         <input
           type="file"
           name="files"
@@ -315,20 +237,13 @@ const EditMyRecipe = () => {
           className={style.fileInput}
         />
         <div className={style.imgPreview}>
-          {[0, 1, 2].map((index) => (
+          {[0, 1, 2].map((_, index) => (
             <div key={index} className={style.previewCon}>
               {files[index] ? (
                 <img
-                  src={`http://localhost:8080/${files[index]}`}
+                  src={URL.createObjectURL(files[index])}
                   alt={`Preview ${index}`}
-                  onClick={() => handleRemoveFile(index, true)}
-                  className={style.previewImg}
-                />
-              ) : newFiles[index] ? (
-                <img
-                  src={URL.createObjectURL(newFiles[index])}
-                  alt={`Preview new ${index}`}
-                  onClick={() => handleRemoveFile(index, false)}
+                  onClick={() => handleRemoveFile(index)}
                   className={style.previewImg}
                 />
               ) : (
@@ -347,10 +262,13 @@ const EditMyRecipe = () => {
                   name={`ingredient-name-${index}`}
                   id={`ingredient-name-${index}`}
                   placeholder="재료명"
-                  value={ingredient.translatedName} // Display translated name
+                  value={ingredient.name}
+                  onChange={(e) =>
+                    handleIngredientChange(index, "name", e.target.value)
+                  }
                   onClick={() => handleNameFieldClick(index)}
-                  readOnly
                   className={style.ingredients_name}
+                  readOnly
                 />
                 {ingredient.showOptions && (
                   <div className={style.ingredients_name_dropMenu}>
@@ -362,17 +280,12 @@ const EditMyRecipe = () => {
                       onKeyDown={handleSearchKeyDown}
                       className={style.ingredients_name_search}
                     />
+
                     {ingredient.filteredOptions.length > 0 &&
                       ingredient.filteredOptions.map((option, i) => (
                         <div
                           key={i}
-                          onClick={() =>
-                            handleOptionClick(
-                              index,
-                              option,
-                              ingredient.originalOptions[i]
-                            )
-                          }
+                          onClick={() => handleOptionClick(index, option)}
                           className={style.ingredients_name_list}
                         >
                           {option}
@@ -451,4 +364,4 @@ const EditMyRecipe = () => {
   );
 };
 
-export default EditMyRecipe;
+export default CreateMyRecipe;

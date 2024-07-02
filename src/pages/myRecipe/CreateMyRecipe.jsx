@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
 const CreateMyRecipe = () => {
   const [title, setTitle] = useState("");
@@ -11,13 +11,18 @@ const CreateMyRecipe = () => {
       name: "",
       quantity: "",
       unit: "옵션1",
-      showOptions: false,
+      translatedName: "",
+      originalName: "",
       filteredOptions: [],
+      originalOptions: [],
     },
   ]);
   const [instructions, setInstructions] = useState("");
   const [ingredientOptions, setIngredientOptions] = useState([]);
+  const [translatedIngredientOptions, setTranslatedIngredientOptions] =
+    useState([]);
   const navigate = useNavigate();
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -30,7 +35,11 @@ const CreateMyRecipe = () => {
           (drink) => drink.strIngredient1
         );
 
+        // Translate ingredient names
+        const translatedOptions = await translateOptions(ingredientNames);
+
         setIngredientOptions(ingredientNames);
+        setTranslatedIngredientOptions(translatedOptions);
       } catch (error) {
         console.error("Error fetching ingredient options:", error);
       }
@@ -38,6 +47,33 @@ const CreateMyRecipe = () => {
 
     fetchIngredients();
   }, []);
+
+  const translateText = async (text) => {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          q: text,
+          source: "en",
+          target: "ko",
+          format: "text",
+        }),
+      }
+    );
+    const data = await response.json();
+    return data.data.translations[0].translatedText;
+  };
+
+  const translateOptions = async (options) => {
+    const translatedOptions = await Promise.all(
+      options.map((option) => translateText(option))
+    );
+    return translatedOptions;
+  };
 
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
@@ -65,8 +101,10 @@ const CreateMyRecipe = () => {
         name: "",
         quantity: "",
         unit: "옵션1",
-        showOptions: false,
+        translatedName: "",
+        originalName: "",
         filteredOptions: [],
+        originalOptions: [],
       },
     ]);
   };
@@ -95,7 +133,7 @@ const CreateMyRecipe = () => {
     if (
       ingredients.some(
         (ingredient) =>
-          ingredient.name === "" ||
+          ingredient.originalName === "" ||
           ingredient.quantity === "" ||
           ingredient.unit === ""
       )
@@ -116,19 +154,11 @@ const CreateMyRecipe = () => {
       formData.append("files", files[i]);
     }
     for (let i = 0; i < ingredients.length; i++) {
-      formData.append(`ingredient_${i}_name`, ingredients[i].name);
+      formData.append(`ingredient_${i}_name`, ingredients[i].originalName);
       formData.append(`ingredient_${i}_quantity`, ingredients[i].quantity);
       formData.append(`ingredient_${i}_unit`, ingredients[i].unit);
     }
     formData.set("instructions", instructions);
-
-    console.log({
-      title,
-      description,
-      files,
-      ingredients,
-      instructions,
-    });
 
     const token = localStorage.getItem("token");
 
@@ -166,24 +196,32 @@ const CreateMyRecipe = () => {
     const newIngredients = [...ingredients];
     newIngredients[index].showOptions = !newIngredients[index].showOptions;
     newIngredients[index].filteredOptions = [];
+    newIngredients[index].originalOptions = [];
     setIngredients(newIngredients);
   };
 
-  const handleOptionClick = (index, option) => {
+  const handleOptionClick = async (index, option, originalOption) => {
     const newIngredients = [...ingredients];
-    newIngredients[index].name = option;
+    newIngredients[index].originalName = originalOption;
+    newIngredients[index].name = originalOption;
     newIngredients[index].showOptions = false;
-
+    const translatedName = await translateText(originalOption);
+    newIngredients[index].translatedName = translatedName;
     setIngredients(newIngredients);
   };
 
   const handleSearchChange = (e, index) => {
     const searchValue = e.target.value.toLowerCase();
-    const filtered = ingredientOptions.filter((option) =>
+    const filtered = translatedIngredientOptions.filter((option) =>
       option.toLowerCase().includes(searchValue)
     );
+    const originalOptions = filtered.map((option) => {
+      const originalIndex = translatedIngredientOptions.indexOf(option);
+      return ingredientOptions[originalIndex];
+    });
     const newIngredients = [...ingredients];
     newIngredients[index].filteredOptions = searchValue ? filtered : [];
+    newIngredients[index].originalOptions = searchValue ? originalOptions : [];
     setIngredients(newIngredients);
   };
 
@@ -262,13 +300,10 @@ const CreateMyRecipe = () => {
                   name={`ingredient-name-${index}`}
                   id={`ingredient-name-${index}`}
                   placeholder="재료명"
-                  value={ingredient.name}
-                  onChange={(e) =>
-                    handleIngredientChange(index, "name", e.target.value)
-                  }
+                  value={ingredient.translatedName} // 번역된 이름을 표시
                   onClick={() => handleNameFieldClick(index)}
-                  className={style.ingredients_name}
                   readOnly
+                  className={style.ingredients_name}
                 />
                 {ingredient.showOptions && (
                   <div className={style.ingredients_name_dropMenu}>
@@ -280,12 +315,17 @@ const CreateMyRecipe = () => {
                       onKeyDown={handleSearchKeyDown}
                       className={style.ingredients_name_search}
                     />
-
                     {ingredient.filteredOptions.length > 0 &&
                       ingredient.filteredOptions.map((option, i) => (
                         <div
                           key={i}
-                          onClick={() => handleOptionClick(index, option)}
+                          onClick={() =>
+                            handleOptionClick(
+                              index,
+                              option,
+                              ingredient.originalOptions[i]
+                            )
+                          }
                           className={style.ingredients_name_list}
                         >
                           {option}
@@ -335,7 +375,6 @@ const CreateMyRecipe = () => {
               </div>
             </div>
           ))}
-
           <button
             type="button"
             onClick={handleAddIngredient}
