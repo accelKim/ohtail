@@ -148,13 +148,6 @@ app.post('/signup', async (req, res) => {
   } = req.body;
 
   try {
-    // const existingUser = await User.findOne({ email });
-    // if (existingUser) {
-    //   return res
-    //     .status(400)
-    //     .json({ success: false, message: '이미 존재하는 이메일입니다.' });
-    // }
-
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     console.log('해싱된 비밀번호:', hashedPassword);

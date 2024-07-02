@@ -6,7 +6,7 @@ const Test = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({ properties: {} });
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const { nickname = '', profile_image = '' } = userInfo.properties || {};
+  const { nicknames = '', profile_image = '' } = userInfo.properties || {};
   console.log(userInfo);
 
   const getUserData = async (token) => {
@@ -48,7 +48,7 @@ const Test = () => {
         '로그인이 필요합니다.'
       ) : (
         <div>
-          카카오 사용자 이름 {nickname} /{' '}
+          카카오 사용자 이름 {nicknames} /{' '}
           <img
             src={profile_image}
             alt=""

@@ -30,7 +30,8 @@
   margin-top: 10px;
 }
 
-.createFeed input:nth-of-type(3) {
+.createFeed input:nth-of-type(3),
+.createFeed input:nth-of-type(2) {
   height: 500px;
   padding: 0 1rem;
   margin: 0.5rem;
@@ -85,7 +86,8 @@
 
 .deleteText {
   position: relative;
-  left: -10%;
+  bottom: 50px;
+  left: -40px;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 8px 12px;
@@ -93,6 +95,7 @@
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
+  text-align: center;
 }
 
 .imgPreview:hover .deleteText {

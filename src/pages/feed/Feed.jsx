@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import style from "../../styles/feed/Feed.module.css";
-import SearchBar from "../../components/feed/SearchBar";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import style from '../../styles/feed/Feed.module.css';
+import SearchBar from '../../components/feed/SearchBar';
+import { useNavigate } from 'react-router-dom';
 
 const Feed = () => {
   const [feedList, setFeedList] = useState([]);
   const [error, setError] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 추가
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
@@ -15,41 +16,46 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch("http://localhost:8080/feedList");
+      const response = await fetch('http://localhost:8080/feedList');
       if (!response.ok) {
-        throw new Error("피드를 가져오는데 실패했습니다");
+        throw new Error('피드를 가져오는데 실패했습니다');
       }
       const data = await response.json();
-      console.log("Fetched feeds:", data); // 데이터를 콘솔에 출력
+      console.log('Fetched feeds:', data); // 데이터를 콘솔에 출력
       setFeedList(data); // 가져온 데이터를 상태에 저장
     } catch (error) {
-      console.error("Error fetching feeds:", error);
+      console.error('Error fetching feeds:', error);
       setError(error.message); // 오류가 발생하면 오류 상태 설정
     }
   };
 
   const handleCreateFeedClick = () => {
     // 로그인 상태 확인
-    const isLoggedIn = localStorage.getItem("token") !== null; // 예시로 localStorage에서 token을 사용하여 로그인 상태 확인
+    const isLoggedIn = localStorage.getItem('token') !== null; // 예시로 localStorage에서 token을 사용하여 로그인 상태 확인
 
     if (!isLoggedIn) {
       // 로그인이 되어있지 않으면 로그인 페이지로 이동
-      navigate("/login");
+      navigate('/login');
     } else {
       // 로그인이 되어 있으면 createFeed 페이지로 이동
-      navigate("/createFeed");
+      navigate('/createFeed');
     }
   };
 
+  // 검색어를 기준으로 피드 필터링
+  const filteredFeeds = feedList.filter((feed) =>
+    feed.title.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
+
   return (
     <div className={style.wrap}>
-      <SearchBar />
+      <SearchBar onSearch={setSearchKeyword} />
       <div className={style.feed}>
         <div className={style.feedContainer}>
           {error ? (
             <p>오류: {error}</p> // 오류 메시지를 표시
-          ) : feedList.length > 0 ? (
-            feedList.map((feed) => (
+          ) : filteredFeeds.length > 0 ? (
+            filteredFeeds.map((feed) => (
               <Link
                 to={`/feedDetail/${feed._id}`} // 피드 url feed -> feedDetail로 변경
                 key={feed._id}
@@ -59,7 +65,7 @@ const Feed = () => {
               </Link>
             ))
           ) : (
-            <p>아직 피드가 없습니다</p> // 피드가 없을 때 메시지 표시
+            <p>검색 결과가 없습니다</p> // 검색 결과가 없을 때 메시지 표시
           )}
         </div>
       </div>
