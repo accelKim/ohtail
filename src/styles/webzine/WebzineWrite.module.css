@@ -8,6 +8,9 @@
   font-family: 'Pretendard-semiBold';
   font-size: 3.125em;
 }
+.write form img {
+  width: 150px;
+}
 .write form button {
   margin: 1rem auto 0;
   border: none;

@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import style from "../../styles/Main.module.css";
-import MainPageRacipe from "../../components/recipe/MainPageRacipe";
-import MainPageMyRecipe from "../../components/myRecipe/MainPageMyRecipe";
+import React, { Component } from 'react';
+import style from '../../styles/Main.module.css';
+import MainPageRacipe from '../../components/recipe/MainPageRacipe';
+import MainPageMyRecipe from '../../components/myRecipe/MainPageMyRecipe';
+import WebzineMain from '../../components/webzine/WebzineMain';
 import Calculator from "../../components/calculator/Calculator";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 export class Main extends Component {
   render() {
     return (
@@ -37,15 +38,7 @@ export class Main extends Component {
           </Link>
         </section>
         <section className="mw">
-          <div className="mainWebzine">
-            <h2>웹진 오테일 1호</h2>
-            <p>
-              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진
-              내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용
-              웹진 내용 웹진 내용 웹진 내용 웹진 내용 웹진 내용{" "}
-            </p>
-            <p>2024년 6월</p>
-          </div>
+          <WebzineMain />
           <div className="mainFeed">
             <h2>피드</h2>
           </div>
