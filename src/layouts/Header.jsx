@@ -1,130 +1,143 @@
 import React, { useEffect, useState } from 'react';
 import style from '../styles/Header.module.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-    const [profileImage, setProfileImage] = useState('');
-    const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [nickname, setNickname] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
+  const [userInfo, setUserInfo] = useState({ properties: {} });
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const { nicknames = '', profile_image = '' } = userInfo.properties || {};
+  console.log(userInfo);
+  const navigate = useNavigate();
 
-    // useEffect 훅 수정
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-            const profileImageUrl = localStorage.getItem('profileImage');
-            if (profileImageUrl) {
-                setProfileImage(profileImageUrl);
-            }
-        } else {
-            setIsLoggedIn(false);
+  const getUserData = async (token) => {
+    const response = await fetch(`https://kapi.kakao.com/v2/user/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    });
+    const user = await response.json();
+    setUserInfo(user, () => navigate('/'));
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          await getUserData(token);
+          setIsLoggedIn(true);
+        } catch (err) {
+          console.log(err);
+          localStorage.removeItem('token');
+          setToken(null);
         }
-    }, []); // isLoggedIn 상태가 변경될 때마다 useEffect 실행하지 않도록 수정
-    
-    useEffect(() => {
-        document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    }, [isMenuOpen]);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+      }
     };
+    fetchData();
+  }, [localStorage.getItem('token')]);
 
-    const openProfileMenu = (e) => {
-        e.preventDefault();
-        setIsProfileMenuOpen(!isProfileMenuOpen);
-    };
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen]);
 
-    const handleLogout = (e) => {
-        e.preventDefault();
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-        // Kakao SDK 로그아웃
-        if (window.Kakao && window.Kakao.Auth) {
-            window.Kakao.Auth.logout(function () {
-                console.log('카카오 계정 로그아웃 완료');
-            });
-        }
+  const openProfileMenu = (e) => {
+    e.preventDefault();
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
 
-        // 로컬 스토리지에서 관련 정보 제거
-        localStorage.removeItem('userid');
-        localStorage.removeItem('token');
-        localStorage.removeItem('profileImage');
-        localStorage.removeItem('nickname');
+  const handleLogout = (e) => {
+    e.preventDefault();
 
-        // 상태 초기화 및 리디렉션
-        setIsLoggedIn(false);
-        setProfileImage('');
-        navigate('/');
-    };
+    // 로그아웃 관련 처리
+    localStorage.removeItem('token');
+    localStorage.removeItem('profileImage');
+    localStorage.removeItem('nickname');
+    setUserInfo({ properties: {} });
+    setIsLoggedIn(false);
+    setProfileImage('/default_profile_image.jpg');
+    setNickname('');
+    navigate('/');
+  };
 
-    const handleMenuLinkClick = () => {
-        setIsMenuOpen(false); // 메뉴 링크 클릭 시 메뉴 닫기
-    };
+  const handleMenuLinkClick = () => {
+    setIsMenuOpen(false);
+  };
 
-    return (
-        <header className={style.hd}>
-            <div className="mw">
-                <div onClick={toggleMenu} className={`${style.ham} ${isMenuOpen ? style.on : ''}`}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
-                    <Link to="/recipe" onClick={handleMenuLinkClick}>
-                        공식레시피
-                    </Link>
-                    <Link to="/myRecipe" onClick={handleMenuLinkClick}>
-                        나만의레시피
-                    </Link>
-                    <Link to="/webzine" onClick={handleMenuLinkClick}>
-                        웹진
-                    </Link>
-                    <Link to="/feed" onClick={handleMenuLinkClick}>
-                        피드
-                    </Link>
-                </div>
-                <h1>
-                    <Link to="/">
-                        {/* 이미지 추가 */}
-                        {/* <img src="" alt="" /> */}
-                    </Link>
-                </h1>
-                <div className={style.gnb}>
-                    {!isLoggedIn && (
-                        <div className={style.logoff}>
-                            <Link to="/login" onClick={handleMenuLinkClick}>
-                                로그인
-                            </Link>
-                            <Link to="/signup" onClick={handleMenuLinkClick}>
-                                회원가입
-                            </Link>
-                        </div>
-                    )}
-                    {isLoggedIn && (
-                        <div className={style.logon}>
-                            <div className={style.profileImg}>
-                                <a href="#" onClick={openProfileMenu}>
-                                    <img src={profileImage} alt="프로필 이미지" />
-                                </a>
-                            </div>
-                            {isProfileMenuOpen && (
-                                <div className={`${style.toggleMenu} ${style.profile}`}>
-                                    <a href="#" onClick={handleLogout}>
-                                        로그아웃
-                                    </a>
-                                    <Link to="/myPage" onClick={handleMenuLinkClick}>
-                                        마이페이지
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
+  return (
+    <header className={style.hd}>
+      <div className="mw">
+        <div
+          onClick={toggleMenu}
+          className={`${style.ham} ${isMenuOpen ? style.on : ''}`}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className={`${style.hamMenu} ${isMenuOpen ? style.on : ''}`}>
+          <Link to="/recipe" onClick={handleMenuLinkClick}>
+            공식레시피
+          </Link>
+          <Link to="/myRecipe" onClick={handleMenuLinkClick}>
+            나만의레시피
+          </Link>
+          <Link to="/webzine" onClick={handleMenuLinkClick}>
+            웹진
+          </Link>
+          <Link to="/feed" onClick={handleMenuLinkClick}>
+            피드
+          </Link>
+        </div>
+        <h1>
+          <Link to="/">
+            {/* 이미지 추가 */}
+            {/* <img src="" alt="" /> */}
+          </Link>
+        </h1>
+        <div className={style.gnb}>
+          {!isLoggedIn && (
+            <div className={style.logoff}>
+              <Link to="/login" onClick={handleMenuLinkClick}>
+                로그인
+              </Link>
+              <Link to="/signup" onClick={handleMenuLinkClick}>
+                회원가입
+              </Link>
             </div>
-        </header>
-    );
+          )}
+          {isLoggedIn && (
+            <div className={style.logon}>
+              <div className={style.profileImg}>
+                <a href="#" onClick={openProfileMenu}>
+                  <img src={profile_image} alt="프로필 이미지" />
+                </a>
+              </div>
+              {isProfileMenuOpen && (
+                <div className={`${style.toggleMenu} ${style.profile}`}>
+                  <a href="#" onClick={handleLogout}>
+                    로그아웃
+                  </a>
+                  <Link to="/myPage" onClick={handleMenuLinkClick}>
+                    마이페이지
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
