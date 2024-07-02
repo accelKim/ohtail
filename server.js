@@ -16,7 +16,7 @@ const jwt = require('jsonwebtoken');
 const OpenAIApi = require('openai');
 const cookieParser = require('cookie-parser');
 const fs = require('fs').promises;
-
+const realFs = require('fs');
 const app = express();
 const port = 8080;
 
@@ -74,6 +74,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(
   '/uploadsMyRecipe',
   express.static(path.join(__dirname, 'uploadsMyRecipe'))
+);
+app.use(
+  '/webzineUploads',
+  express.static(path.join(__dirname, 'webzineUploads'))
 );
 
 app.use('/likes', likeRoutes);
@@ -292,6 +296,16 @@ app.post(
       const ingredients = [];
       const author = req.user.userid;
 
+      // 사용자 닉네임 조회
+      const user = await User.findOne({ userid: author });
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+      const authorNickname = user.nickname;
+
+      console.log('Author:', author);
+      console.log('Author Nickname:', authorNickname);
+
       for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
         ingredients.push({
           name: req.body[`ingredient_${i}_name`],
@@ -307,16 +321,17 @@ app.post(
         ingredients,
         instructions,
         author,
+        authorNickname,
       });
 
       await myRecipe.save();
       res.status(201).json(myRecipe);
     } catch (error) {
+      console.error('레시피 생성 중 오류 발생:', error);
       res.status(500).json({ message: error.message });
     }
   }
 );
-
 // 나만의 레시피 리스트
 
 app.get('/myRecipe', async (req, res) => {
@@ -397,6 +412,22 @@ app.delete('/myRecipe/:id', authenticateJWT, async (req, res) => {
   }
 });
 
+// 특정 사용자가 작성한 레시피 리스트
+app.get('/myRecipeTab', authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userid;
+    const recipes = await MyRecipe.find({ author: userId }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(recipes);
+  } catch (error) {
+    console.error('레시피 불러오기 중 오류 발생:', error);
+    res
+      .status(500)
+      .json({ message: '레시피 불러오기 중 오류가 발생했습니다.' });
+  }
+});
+
 // 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
   const userPrompt = req.body.userPrompt;
@@ -423,6 +454,7 @@ app.post('/chatbot', async (req, res) => {
 
 // Webzine
 app.get('/webzine', async (req, res) => {
+  // 웹진 리스트 조회 10개만 갖고오기
   const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
   res.json(webzineList);
 });
@@ -449,7 +481,7 @@ app.post(
     const ext = part[part.length - 1];
     const newPath = path + '.' + ext;
 
-    fs.renameSync(path, newPath);
+    realFs.renameSync(path, newPath);
 
     const { title, content } = req.body;
     const webzineDoc = await Webzine.create({
@@ -484,6 +516,50 @@ app.delete('/delWebzine/:id', async (req, res) => {
   await Webzine.findByIdAndDelete(id);
   res.json({ message: 'ok' });
 });
+
+// Webzine edit
+app.get('/webzineEdit/:id', async (req, res) => {
+  const { id } = req.params;
+  const webzineDoc = await Webzine.findById(id);
+  res.json(webzineDoc);
+});
+
+app.put(
+  '/webzineEdit/:id',
+  authenticateJWT,
+  webzineUpload.single('files'),
+  async (req, res) => {
+    const { id } = req.params;
+    let newPath = null;
+
+    if (req.file) {
+      const { path, originalname } = req.file;
+      const part = originalname.split('.');
+      const ext = part[part.length - 1];
+      newPath = path + '.' + ext;
+      realFs.renameSync(path, newPath);
+    }
+
+    const { title, summary, content } = req.body;
+    try {
+      const webzineDoc = await Webzine.findById(id);
+      if (!webzineDoc) {
+        return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
+      }
+
+      await Webzine.findByIdAndUpdate(id, {
+        title,
+        content,
+        cover: newPath ? newPath : webzineDoc.cover,
+      });
+
+      res.json({ message: 'ok' });
+    } catch (updateError) {
+      console.error('Error updating webzine: ', updateError);
+      res.status(500).json({ message: '웹진 업데이트 실패' });
+    }
+  }
+);
 
 // 피드 생성
 app.post(

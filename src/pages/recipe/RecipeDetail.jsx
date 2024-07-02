@@ -78,7 +78,13 @@ const RecipeDetail = () => {
     <div className={`${style.recipe_wrap} mw`}>
       <h1 className={style.recipe_title}>{cocktail.strDrink}</h1>
 
-      <div className={style.recipe_img_wrap}><img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} className={style.recipe_img}/></div>
+      <div className={style.recipe_img_wrap}>
+        <img
+          src={cocktail.strDrinkThumb}
+          alt={cocktail.strDrink}
+          className={style.recipe_img}
+        />
+      </div>
       <p className={style.recipe_contents}>{translatedInstructions}</p>
       <ul className={style.ingredient_wrap}>
         {translatedIngredients.map((item, index) => (
@@ -102,7 +108,8 @@ const RecipeDetail = () => {
       <LikeButton cocktailId={id} userId={userId} />
       {/* 즐겨찾기 버튼 추가  */}
       <FavoritesButton cocktailId={id} userId={userId} isExternal={true} />
-      <CommentSection cocktailId={id} userId={userId} />
+      {/* 댓글 타입 recipe 추가 */}
+      <CommentSection cocktailId={id} userId={userId} type="recipe" />
     </div>
   );
 };

@@ -23,11 +23,10 @@ import CreateFeed from './pages/feed/CreateFeed';
 import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
 import FeedDetailPage from './pages/feed/FeedDetailPage';
-import FavoritesTab from './pages/favorites/FavoritesTab'; // 임시 설정
-import MyRecipeTab from './pages/myRecipe/MyRecipeTab'; // 임시 설정
 import KakaoAuth from './pages/login/KakaoAuth';
 import KakaoLoginButton from './pages/login/KakaoLoginBtn';
 import Test from './pages/login/Test';
+import MyPage from './pages/myPage/MyPage';
 
 function App() {
   return (
@@ -44,12 +43,11 @@ function App() {
           <Route path="/myRecipe/:id" element={<MyRecipeDetail />} />
           <Route path="/createMyRecipe" element={<CreateMyRecipe />} />
           <Route path="/editMyRecipe/:id" element={<EditMyRecipe />} />
-          <Route path="/myRecipeTab" element={<MyRecipeTab />} />
           {/* 웹진 */}
           <Route path="/webzine" element={<Webzine />} />
           <Route path="/webzineDetail/:webzineId" element={<WebzineDetail />} />
           <Route path="/webzineWrite" element={<WebzineWrite />} />
-          <Route path="/webzineEdit" element={<WebzineEdit />} />
+          <Route path="/webzineEdit/:webzineId" element={<WebzineEdit />} />
           {/* 로그인, 회원가입 */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -59,12 +57,11 @@ function App() {
 
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:id" element={<FeedDetailPage />} />
+          <Route path="/feedDetail/:id" element={<FeedDetailPage />} />
           <Route path="/createFeed" element={<CreateFeed />} />
           <Route path="/feedEdit/:id" element={<FeedEdit />} />
-          {/* 마이페이지 생성 시 삭제 예정 탭 페이지 */}
-          <Route path="/favoritesTab" element={<FavoritesTab />} />
-          <Route path="/myRecipeTab" element={<MyRecipeTab />} />
+          {/* 마이페이지 */}
+          <Route path="/myPage" element={<MyPage />} />
         </Routes>
         <Chatbot />
         <Footer />

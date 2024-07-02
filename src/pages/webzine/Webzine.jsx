@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/webzine/Webzine.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
 
 const Webzine = () => {
-  const userToken = localStorage.getItem('token');
-  const [user, setUser] = useState(false);
+  const userId = localStorage.getItem('userid');
+  const [user, setUser] = useState(0);
+  const { webzineId } = useParams();
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${url}/webzineList`)
@@ -16,7 +18,6 @@ const Webzine = () => {
       .then((data) => setWebzineList(data));
   }, []);
 
-  //mongoDB에서 webzine 데이터 가져오기
   const fetchWebzineData = async () => {
     try {
       const response = await fetch(`${url}/webzine`, {
@@ -35,8 +36,8 @@ const Webzine = () => {
 
   useEffect(() => {
     fetchWebzineData();
-    setUser(!!userToken);
-  }, []);
+    setUser(userId);
+  }, [userId]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
@@ -97,7 +98,7 @@ const Webzine = () => {
               <>
                 웹진 오테일
                 <br />
-                로딩중
+                업데이트 중
               </>
             )}
           </h3>
@@ -110,16 +111,11 @@ const Webzine = () => {
         <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {/* user = true 라는 것은 token 정보가 있는 의미 */}
-            {user ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user === '10' ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
-            {webzineList.map((webzine) => (
-              <WebzineList
-                key={webzine.id}
-                webzine={webzine}
-                closeMenu={closeMenu}
-              />
+            {webzineList.map((webzine, i) => (
+              <WebzineList key={i} webzine={webzine} closeMenu={closeMenu} />
             ))}
           </ul>
         </div>
@@ -167,18 +163,9 @@ const Webzine = () => {
                 )}
               </p>
             </div>
-            <div>
-              {user ? (
-                <>
-                  <Link to="/WebzineEdit">수정</Link>
-                  <Link to="">삭제</Link>
-                </>
-              ) : null}
-            </div>
-            <button>0</button>
           </>
         ) : (
-          <p>웹진 최신호 로딩중...</p>
+          ''
         )}
       </div>
       <div className={style.noise}></div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,10 +7,45 @@ const CreateMyRecipe = () => {
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState([]);
   const [ingredients, setIngredients] = useState([
-    { name: "", quantity: "", unit: "옵션1" },
+    {
+      name: "",
+      quantity: "",
+      unit: "옵션1",
+      showOptions: false,
+      filteredOptions: [],
+    },
   ]);
   const [instructions, setInstructions] = useState("");
+  const [ingredientOptions, setIngredientOptions] = useState([]);
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAndTranslateIngredients = async () => {
+      try {
+        const response = await fetch(
+          "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+        );
+        const data = await response.json();
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+
+        const translatedNames = await Promise.all(
+          ingredientNames.map(async (name) => await translateText(name))
+        );
+
+        setIngredientOptions(translatedNames);
+      } catch (error) {
+        console.error(
+          "Error fetching and translating ingredient options:",
+          error
+        );
+      }
+    };
+
+    fetchAndTranslateIngredients();
+  }, []);
 
   // 이미지 추가 함수
   const handleFileChange = (e) => {
@@ -36,7 +71,16 @@ const CreateMyRecipe = () => {
 
   // 재료 필드 추가 함수
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
+    setIngredients([
+      ...ingredients,
+      {
+        name: "",
+        quantity: "",
+        unit: "옵션1",
+        showOptions: false,
+        filteredOptions: [],
+      },
+    ]);
   };
 
   // 재료 필드 제거 함수
@@ -126,6 +170,57 @@ const CreateMyRecipe = () => {
     }
   };
 
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
+  const handleNameFieldClick = (index) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].showOptions = true;
+    newIngredients[index].filteredOptions = ingredientOptions;
+    setIngredients(newIngredients);
+  };
+
+  const handleOptionClick = (index, option) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].name = option;
+    newIngredients[index].showOptions = false;
+
+    setIngredients(newIngredients);
+  };
+
+  const handleSearchChange = (e, index) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filtered = ingredientOptions.filter((option) =>
+      option.toLowerCase().includes(searchValue)
+    );
+    const newIngredients = [...ingredients];
+    newIngredients[index].filteredOptions = filtered;
+    setIngredients(newIngredients);
+  };
+
+  const translateText = async (text) => {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+          q: text,
+          source: "en",
+          target: "ko",
+          format: "text",
+        }),
+      }
+    );
+    const data = await response.json();
+    return data.data.translations[0].translatedText;
+  };
+
   return (
     <main className={`mw ${style.main}`}>
       <h2>나만의 레시피 등록</h2>
@@ -197,8 +292,28 @@ const CreateMyRecipe = () => {
               onChange={(e) =>
                 handleIngredientChange(index, "name", e.target.value)
               }
+              onClick={() => handleNameFieldClick(index)}
             />
-
+            {ingredient.showOptions && (
+              <div className={style.options}>
+                <input
+                  type="text"
+                  placeholder="재료 검색"
+                  onChange={(e) => handleSearchChange(e, index)}
+                  onKeyDown={handleSearchKeyDown}
+                  className={style.searchInput}
+                />
+                {ingredient.filteredOptions.map((option, i) => (
+                  <div
+                    key={i}
+                    className={style.option}
+                    onClick={() => handleOptionClick(index, option)}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="number"
               name={`ingredient-quantity-${index}`}

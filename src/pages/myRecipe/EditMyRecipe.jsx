@@ -11,9 +11,17 @@ const EditMyRecipe = () => {
   const [newFiles, setNewFiles] = useState([]);
   const [removedFiles, setRemovedFiles] = useState([]);
   const [ingredients, setIngredients] = useState([
-    { name: "", quantity: "", unit: "옵션1" },
+    {
+      name: "",
+      quantity: "",
+      unit: "옵션1",
+      showOptions: false,
+      filteredOptions: [],
+    },
   ]);
   const [instructions, setInstructions] = useState("");
+  const [ingredientOptions, setIngredientOptions] = useState([]);
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
     const fetchMyRecipe = async () => {
@@ -26,7 +34,17 @@ const EditMyRecipe = () => {
         setTitle(data.title);
         setDescription(data.description);
         setFiles(data.files);
-        setIngredients(data.ingredients);
+
+        // 번역된 재료 이름 설정
+        const translatedIngredients = await Promise.all(
+          data.ingredients.map(async (ingredient) => ({
+            ...ingredient,
+            name: await translateText(ingredient.name),
+            showOptions: false,
+            filteredOptions: [],
+          }))
+        );
+        setIngredients(translatedIngredients);
         setInstructions(data.instructions);
       } catch (error) {
         console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
@@ -35,6 +53,33 @@ const EditMyRecipe = () => {
 
     fetchMyRecipe();
   }, [id]);
+
+  useEffect(() => {
+    const fetchAndTranslateIngredients = async () => {
+      try {
+        const response = await fetch(
+          "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+        );
+        const data = await response.json();
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+
+        const translatedNames = await Promise.all(
+          ingredientNames.map(async (name) => await translateText(name))
+        );
+
+        setIngredientOptions(translatedNames);
+      } catch (error) {
+        console.error(
+          "Error fetching and translating ingredient options:",
+          error
+        );
+      }
+    };
+
+    fetchAndTranslateIngredients();
+  }, []);
 
   const handleUpdateRecipe = async (e) => {
     e.preventDefault();
@@ -131,14 +176,29 @@ const EditMyRecipe = () => {
     }
   };
 
-  const handleIngredientChange = (index, field, value) => {
+  const handleIngredientChange = async (index, field, value) => {
     const newIngredients = [...ingredients];
     newIngredients[index][field] = value;
+
+    if (field === "name") {
+      const translatedName = await translateText(value);
+      newIngredients[index].name = translatedName;
+    }
+
     setIngredients(newIngredients);
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: "", unit: "옵션1" }]);
+    setIngredients([
+      ...ingredients,
+      {
+        name: "",
+        quantity: "",
+        unit: "옵션1",
+        showOptions: false,
+        filteredOptions: [],
+      },
+    ]);
   };
 
   const handleRemoveIngredient = (index) => {
@@ -150,6 +210,51 @@ const EditMyRecipe = () => {
       e.preventDefault();
       setInstructions(instructions + "\n");
     }
+  };
+
+  const handleSearchChange = (e, index) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filtered = ingredientOptions.filter((option) =>
+      option.toLowerCase().includes(searchValue)
+    );
+    const newIngredients = [...ingredients];
+    newIngredients[index].filteredOptions = filtered;
+    setIngredients(newIngredients);
+  };
+
+  const handleNameFieldClick = (index) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index].showOptions = true;
+    newIngredients[index].filteredOptions = ingredientOptions;
+    setIngredients(newIngredients);
+  };
+
+  const handleOptionClick = async (index, option) => {
+    const newIngredients = [...ingredients];
+    const translatedName = await translateText(option);
+    newIngredients[index].name = translatedName;
+    newIngredients[index].showOptions = false;
+    setIngredients(newIngredients);
+  };
+
+  const translateText = async (text) => {
+    const response = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+          q: text,
+          source: "en",
+          target: "ko",
+          format: "text",
+        }),
+      }
+    );
+    const data = await response.json();
+    return data.data.translations[0].translatedText;
   };
 
   return (
@@ -230,8 +335,27 @@ const EditMyRecipe = () => {
               onChange={(e) =>
                 handleIngredientChange(index, "name", e.target.value)
               }
+              onClick={() => handleNameFieldClick(index)}
             />
-
+            {ingredient.showOptions && (
+              <div className={style.options}>
+                <input
+                  type="text"
+                  placeholder="재료 검색"
+                  onChange={(e) => handleSearchChange(e, index)}
+                  className={style.searchInput}
+                />
+                {ingredient.filteredOptions.map((option, i) => (
+                  <div
+                    key={i}
+                    className={style.option}
+                    onClick={() => handleOptionClick(index, option)}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="number"
               name={`ingredient-quantity-${index}`}

@@ -6,74 +6,31 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    '/default_profile_image.jpg'
-  );
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState(false);
+
+  const [profileImage, setProfileImage] = useState('');
   const navigate = useNavigate();
 
+  // useEffect 훅 수정
   useEffect(() => {
-    const checkLoggedIn = async () => {
-      const token = localStorage.getItem('token');
-
-      if (token) {
-        // 일반 로그인인 경우
-        setIsLoggedIn(true);
-        const profileImageUrl = localStorage.getItem('profileImage');
-        const storedNickname = localStorage.getItem('nickname');
-
-        if (profileImageUrl) {
-          setProfileImage(profileImageUrl);
-        }
-        if (storedNickname) {
-          setNickname(storedNickname);
-        }
-      } else if (window.Kakao && window.Kakao.Auth) {
-        // 카카오톡으로 로그인한 경우
-        const accessToken = window.Kakao.Auth.getAccessToken();
-
-        if (accessToken) {
-          // Kakao API를 사용하여 사용자 정보를 가져옵니다.
-          try {
-            const response = await fetch('https://kapi.kakao.com/v2/user/me', {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Content-type':
-                  'application/x-www-form-urlencoded;charset=utf-8',
-              },
-            });
-
-            if (!response.ok) {
-              throw new Error(
-                '카카오 API로 사용자 정보를 가져오는 데 실패했습니다.'
-              );
-            }
-
-            const user = await response.json();
-            setProfileImage(user.properties.profile_image);
-            setNickname(user.properties.nickname);
-            setIsLoggedIn(true);
-
-            // 사용자 정보를 가져온 후 페이지 새로고침
-            window.location.reload();
-          } catch (error) {
-            console.error(
-              '카카오 사용자 정보를 가져오는 중 오류가 발생했습니다:',
-              error
-            );
-          }
-        }
-      } else {
-        setIsLoggedIn(false);
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+      const profileImageUrl = localStorage.getItem('profileImage');
+      if (profileImageUrl) {
+        setProfileImage(profileImageUrl);
       }
-    };
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []); // isLoggedIn 상태가 변경될 때마다 useEffect 실행하지 않도록 수정
 
-    checkLoggedIn();
-  }, []);
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
   };
 
   const openProfileMenu = (e) => {
@@ -126,12 +83,12 @@ const Header = () => {
         </div>
         <h1>
           <Link to="/">
-            {/* 로고 이미지 추가 */}
-            {/* <img src="" alt="로고" /> */}
+            {/* 이미지 추가 */}
+            {/* <img src="" alt="" /> */}
           </Link>
         </h1>
         <div className={style.gnb}>
-          {!isLoggedIn ? (
+          {!isLoggedIn && (
             <div className={style.logoff}>
               <Link to="/login" onClick={handleMenuLinkClick}>
                 로그인
@@ -140,7 +97,8 @@ const Header = () => {
                 회원가입
               </Link>
             </div>
-          ) : (
+          )}
+          {isLoggedIn && (
             <div className={style.logon}>
               <div className={style.profileImg}>
                 <a href="#" onClick={openProfileMenu}>
@@ -152,7 +110,7 @@ const Header = () => {
                   <a href="#" onClick={handleLogout}>
                     로그아웃
                   </a>
-                  <Link to="/mypage" onClick={handleMenuLinkClick}>
+                  <Link to="/myPage" onClick={handleMenuLinkClick}>
                     마이페이지
                   </Link>
                 </div>
