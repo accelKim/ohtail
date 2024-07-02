@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(searchTerm);
+    onSearch(searchTerm); // 검색어를 상위 컴포넌트로 전달
   };
 
   const handleKeyPress = (e) => {

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../styles/signup/Login.module.css';
 import KakaoLoginButton from './KakaoLoginBtn';
+import { useNavigate } from 'react-router-dom';
+
+// import jwt from 'jsonwebtoken';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nickname, setNickname] = useState(''); // nickname 상태 추가
+  const [tokenExpired, setTokenExpired] = useState(false); // 토큰 만료 상태 추가
+  const navigate = useNavigate();
 
   const loginWithEmail = async (e) => {
     e.preventDefault();
@@ -37,6 +41,7 @@ const Login = () => {
         alert('사용자를 찾을 수 없습니다.');
       } else if (result.message === '비밀번호가 일치하지 않습니다.') {
         alert('비밀번호가 일치하지 않습니다.');
+      } else if (result.message === '토큰 만료') {
       } else {
         alert('로그인 실패!');
       }
@@ -65,10 +70,13 @@ const Login = () => {
         />
         <button type="submit">로그인</button>
       </form>
-      <div className={style.singupin}>
-        <button>
-          <Link to="/signup">회원가입</Link>
-        </button>
+      <div className={style.signupin}>
+        <div>
+          {' '}
+          <Link to="/signup" className={style.signupBtn}>
+            회원가입
+          </Link>
+        </div>
         <KakaoLoginButton />
       </div>
     </div>

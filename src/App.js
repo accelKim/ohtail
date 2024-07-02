@@ -24,6 +24,8 @@ import EditMyRecipe from './pages/myRecipe/EditMyRecipe';
 import Chatbot from './components/chatbot/Chatbot';
 import FeedDetailPage from './pages/feed/FeedDetailPage';
 import KakaoAuth from './pages/login/KakaoAuth';
+import KakaoLoginButton from './pages/login/KakaoLoginBtn';
+import Test from './pages/login/Test';
 import MyPage from './pages/myPage/MyPage';
 
 function App() {
@@ -50,6 +52,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/oauth" element={<KakaoAuth />} />
+          <Route path="/loginKakao" element={<KakaoLoginButton />} />
+          <Route path="/test" element={<Test />} />
+
           {/* 피드 */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/feedDetail/:id" element={<FeedDetailPage />} />

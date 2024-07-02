@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import style from '../../styles/calculator/calculator.module.css'
 const Calculator = () => {
     const [ingredients, setIngredients] = useState([{ name: '', volume: '', abv: '' }]);
     const [totalABV, setTotalABV] = useState(null);
@@ -34,7 +34,7 @@ const Calculator = () => {
         <div>
             <h2>칵테일 도수 계산기</h2>
             {ingredients.map((ingredient, index) => (
-                <div key={index}>
+                <div key={index} className={style.calculator_input_wrap}>
                     <input
                         type="text"
                         name="name"
@@ -62,8 +62,8 @@ const Calculator = () => {
             <button onClick={handleAddIngredient}>재료 추가</button>
             <button onClick={calculateABV}>도수 계산</button>
             {totalABV !== null && (
-                <div>
-                    <h3>칵테일 도수: {totalABV}%</h3>
+                <div className={style.calculator_result_wrap}>
+                    <h3>칵테일 도수: <span>{totalABV}</span>%</h3>
                 </div>
             )}
         </div>

@@ -3,10 +3,11 @@
 }
 
 .login form,
-.singupin {
+.signupin {
   max-width: 450px;
   margin: auto;
   text-align: center;
+  border: 1px solid red;
 }
 
 .login input {
@@ -17,8 +18,7 @@
   border: 1px solid black;
 }
 
-.login form button,
-.singupin button {
+.login form button {
   padding: 1rem;
   width: 100%;
   margin-top: 1rem;
@@ -31,10 +31,21 @@
   color: white;
 }
 
-.singupin button {
+.login .signupin > div {
   background-color: #f1f1f1;
 }
 
+
 .singupin > div > button {
   background-color: #ffe85b;
+
+.login .signupin > div {
+  padding: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 2px;
+}
+.login .signupin > div > * {
+  width: 100%;
 }

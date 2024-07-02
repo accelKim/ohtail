@@ -19,11 +19,9 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 10px;
-  overflow: scroll;
-  scrollbar-width: none;
+  overflow-y: auto;
 }
 
-/* 반응형 디자인: 화면 크기에 따라 그리드 열 수 변경 */
 @media (max-width: 1024px) {
   .feedContainer {
     grid-template-columns: repeat(2, 1fr);
@@ -90,7 +88,6 @@
     grid-template-columns: repeat(1, 1fr);
   }
   .feedImg img {
-    /* border: 1px solid red; */
     width: 300px;
     height: 300px;
     object-fit: cover;
