@@ -76,7 +76,7 @@
   transition: 0.5s;
   display: flex;
   gap: 2rem;
-  padding: 4rem;
+  padding: 4rem 2rem 4rem 4rem;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -435,4 +435,120 @@
 #webzine::-webkit-scrollbar-track,
 #webzine .listArea::-webkit-scrollbar-thumb {
   /* border-radius: 15px; */
+}
+
+@media (max-width: 1150px) {
+  #webzine.large {
+    font-size: 0.8em;
+  }
+  #webzine.large .optionArea div p::before {
+  }
+  #webzine.large .optionArea div p::after {
+  }
+}
+@media (max-width: 1050px) {
+  #webzine.large {
+    font-size: 0.7em;
+  }
+}
+@media (max-width: 900px) {
+  #webzine .optionArea div p {
+    padding-left: 55px;
+  }
+  #webzine .optionArea div p::before {
+    width: 40px;
+    height: 40px;
+  }
+  #webzine .optionArea div p::after {
+    width: 23px;
+    height: 23px;
+  }
+  #webzine .contArea {
+    margin: 125px auto;
+  }
+  #webzine .contArea h4,
+  #webzine .contArea > div:nth-of-type(1) {
+    margin-bottom: 80px;
+  }
+  #webzine .contArea > button {
+    width: 130px;
+    height: 130px;
+  }
+  #webzine.small .contArea > button {
+    width: 90px;
+    height: 90px;
+  }
+}
+@media (max-width: 700px) {
+  #webzine.small .optionArea div p {
+    padding-left: 35px;
+  }
+  #webzine.small .optionArea div p::before {
+    width: 25px;
+    height: 25px;
+  }
+  #webzine.small .optionArea div p::after {
+    width: 15px;
+    height: 15px;
+    left: 6px;
+  }
+  #webzine .contArea h4,
+  #webzine .contArea > div:nth-of-type(1) {
+    margin-bottom: 60px;
+  }
+  #webzine .contArea > button {
+    width: 115px;
+    height: 115px;
+  }
+  #webzine.small .contArea > button {
+    width: 80px;
+    height: 80px;
+  }
+  #webzine .listArea > div > button,
+  #webzine .listArea > div > a {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 600px) {
+  #webzine .optionArea {
+    gap: 3rem;
+    font-size: 1.5em;
+  }
+  #webzine .optionArea div p {
+    padding-left: 35px;
+  }
+  #webzine .optionArea div p::before {
+    width: 25px;
+    height: 25px;
+  }
+  #webzine .optionArea div p::after {
+    width: 15px;
+    height: 15px;
+    left: 6px;
+  }
+  #webzine .contArea {
+    margin: 100px auto;
+  }
+  #webzine .contArea h4 {
+    margin-bottom: 40px;
+    font-size: 3em;
+  }
+  #webzine .contArea > div:nth-of-type(1) {
+    margin-bottom: 40px;
+  }
+  #webzine .contArea > button {
+    width: 100px;
+    height: 100px;
+    margin-top: 2rem;
+  }
+  #webzine.small .contArea > button {
+    width: 70px;
+    height: 70px;
+  }
+  #webzine .listArea > div > button,
+  #webzine .listArea > div > a {
+    width: 80px;
+    height: 80px;
+  }
 }

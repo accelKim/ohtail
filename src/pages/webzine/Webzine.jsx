@@ -3,6 +3,8 @@ import style from '../../styles/webzine/Webzine.module.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../store/ref';
 import WebzineList from '../../components/webzine/WebzineList';
+import WebzineLikeButton from '../../components/like/WebzineLikeButton';
+import LikeButton from '../../components/like/LikeButton';
 
 const Webzine = () => {
   const userId = localStorage.getItem('userid');
@@ -167,6 +169,8 @@ const Webzine = () => {
         ) : (
           ''
         )}
+        {/* <button>0</button> */}
+        <WebzineLikeButton webzineId={webzineId} userId={userId} />
       </div>
       <div className={style.noise}></div>
     </div>

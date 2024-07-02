@@ -1,15 +1,10 @@
 .gridContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  list-style: none;
-  gap: 16px;
-  padding: 0;
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-rows: auto;
+  gap: 1rem;
 }
 
 .gridContainer > li {
-  flex: 1;
-  max-width: calc(25% - 16px);
   box-sizing: border-box;
 }

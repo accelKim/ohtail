@@ -2,8 +2,7 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 313px;
-  height: 313px;
+  border-radius: 5px;
 }
 
 .imageCon:hover .imageText {
@@ -18,7 +17,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 5px;
   transform: scale(1);
   transition: 0.5s;
 }
@@ -48,12 +46,12 @@
 }
 
 .imageText h3 {
-  font-family: "pretendard-medium";
+  font-family: 'pretendard-medium';
   font-size: 18px;
 }
 
 .imageText p {
-  font-family: "pretendard-right";
+  font-family: 'pretendard-right';
   font-size: 16px;
   color: #808080;
 }
