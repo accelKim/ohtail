@@ -1,10 +1,26 @@
+.actionBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.category {
+  width: 200px;
+}
+.noResult {
+  margin: 100px;
+  text-align: center;
+  color: #808080;
+  font-size: 18px;
+}
+
 .addBtn {
   height: 36px;
   padding: 0 1rem;
   color: var(--white);
   background-color: var(--black);
   border: 1px solid var(--black);
-  transition: 0.5s;
 }
 .addBtn:hover {
   background-color: var(--white);
@@ -14,8 +30,9 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
+  width: 100%;
   gap: 1rem;
 }
 
@@ -24,9 +41,22 @@
   border-radius: 5px;
 }
 
-.actionBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+@media (max-width: 600px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr; /* 2개 열로 변경 */
+  }
+
+  .actionBar {
+    flex-direction: column;
+  }
+
+  .category,
+  .addBtn {
+    width: 100%;
+    margin-bottom: 10px; /* 요소 간 간격 추가 */
+  }
+
+  .addBtn {
+    margin-bottom: 0; /* 마지막 요소는 간격 제거 */
+  }
 }
