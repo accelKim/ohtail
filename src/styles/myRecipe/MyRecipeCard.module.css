@@ -2,8 +2,6 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  width: 313px;
-  height: 313px;
 }
 
 .imgCon img {
@@ -20,12 +18,7 @@
   width: 100%;
   background: rgba(255, 255, 255, 0.7);
   color: var(--black);
-  text-align: left;
   padding: 1rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .imgText h3,
@@ -33,15 +26,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: block;
+  padding: 5px 0;
 }
 
 .imgText h3 {
-  font-family: "pretendard-medium";
-  font-size: 18px;
+  font-family: "pretendard-bold";
+  font-size: 20px;
 }
 
 .imgText span {
-  font-family: "pretendard-right";
-  font-size: 16px;
+  font-family: "pretendard-light";
+  font-size: 12px;
   color: #808080;
 }

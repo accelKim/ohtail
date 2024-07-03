@@ -46,6 +46,8 @@ const MyRecipeList = () => {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
+      } else if (sortOption === "mostLiked") {
+        filtered = filtered.sort((a, b) => b.likeCount - a.likeCount); // 좋아요순 정렬
       }
 
       setFilteredRecipeList(filtered);

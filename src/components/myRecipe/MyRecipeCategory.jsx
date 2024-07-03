@@ -4,7 +4,7 @@ import Select from "react-select";
 const MyRecipeCategory = ({ sortOption, onSortChange }) => {
   const sortOptions = [
     { value: "newest", label: "최신순" },
-    { value: "mostLiked", label: "좋아요순" },
+    // { value: "mostLiked", label: "좋아요순" },
   ];
 
   const handleChange = (selectedOption) => {
@@ -14,7 +14,7 @@ const MyRecipeCategory = ({ sortOption, onSortChange }) => {
   const customStyles = {
     container: (provided) => ({
       ...provided,
-      width: 150,
+      width: 200,
     }),
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
@@ -22,6 +22,7 @@ const CreateMyRecipe = () => {
   const [translatedIngredientOptions, setTranslatedIngredientOptions] =
     useState([]);
   const navigate = useNavigate();
+  const textareaRef = useRef(null);
   const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
@@ -225,35 +226,76 @@ const CreateMyRecipe = () => {
     setIngredients(newIngredients);
   };
 
+  const handleChangeTitle = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 30) {
+      setTitle(inputValue);
+    }
+  };
+
+  const handleChangeDesc = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 30) {
+      setDescription(inputValue);
+    }
+  };
+
+  const handleChangeInstruct = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.length <= 200) {
+      setInstructions(inputValue);
+    }
+    adjustTextareaHeight();
+  };
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [instructions]);
+
   return (
     <main className={`mw ${style.main}`}>
       <h2>나만의 레시피 등록🍸</h2>
       <form onSubmit={handleCreateRecipe} className={style.form}>
         <div className={style.titleCon}>
           <h3>칵테일 이름</h3>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            placeholder="칵테일 이름을 작성해주세요"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={style.titleInput}
-          />
+          <div className={style.inputWrapper}>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="칵테일 이름을 작성해주세요"
+              value={title}
+              onChange={handleChangeTitle}
+              maxLength={30}
+              className={style.titleInput}
+            />
+            <div className={style.charCount}>{title.length}/30</div>
+          </div>
         </div>
 
         <div className={style.descCon}>
           <h3>칵테일 소개</h3>
-          <input
-            type="text"
-            name="description"
-            id="description"
-            placeholder="칵테일 소개를 작성해주세요"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className={style.descInput}
-          />
+          <div className={style.inputWrapper}>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              placeholder="칵테일 소개를 작성해주세요"
+              value={description}
+              onChange={handleChangeDesc}
+              maxLength={30}
+              className={style.descInput}
+            />
+            <div className={style.charCount}>{description.length}/30</div>
+          </div>
         </div>
+
         <div className={style.imgUpload}>
           <h3>칵테일 이미지</h3>
           <button
@@ -391,15 +433,22 @@ const CreateMyRecipe = () => {
         </div>
         <div className={style.instructionCon}>
           <h3>만드는 방법</h3>
-          <textarea
-            name="instructions"
-            id="instructions"
-            placeholder="만드는 방법을 작성해주세요"
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={style.instructionInput}
-          ></textarea>
+          <div className={style.inputWrapper}>
+            <textarea
+              name="instructions"
+              id="instructions"
+              placeholder="만드는 방법을 작성해주세요"
+              value={instructions}
+              onChange={handleChangeInstruct}
+              maxLength={300}
+              onKeyDown={handleKeyDown}
+              className={style.instructionInput}
+              ref={textareaRef}
+            ></textarea>
+            <div className={style.charCount_instruct}>
+              {instructions.length}/300
+            </div>
+          </div>
         </div>
         <button type="submit" className={style.submitBtn}>
           업로드

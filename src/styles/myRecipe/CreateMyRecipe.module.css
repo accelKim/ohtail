@@ -10,18 +10,37 @@
 }
 
 /* 칵테일 이름, 소개 */
-
 .titleCon,
-.descCon {
+.descCon,
+.instructionCon {
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
 .titleInput,
-.descInput {
+.descInput,
+.instructionInput {
   width: 100%;
   padding: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.charCount {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #555;
+  pointer-events: none;
+  padding-left: 0.5rem;
 }
 
 /* 칵테일 이미지 */
@@ -106,6 +125,7 @@
 .ingredients_name {
   width: 100%;
   padding: 1rem;
+  cursor: pointer;
 }
 
 .ingredients_name_dropMenu {
@@ -145,6 +165,10 @@
   padding: 1rem;
 }
 
+.ingredients_unit {
+  cursor: pointer;
+}
+
 .delIngredientBtn {
   width: 100px;
 }
@@ -159,13 +183,23 @@
 /* 만드는 방법 */
 
 .instructionInput {
-  width: 100%;
-  box-sizing: border-box;
   height: 150px;
-  padding: 1.2rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
   resize: none;
+  padding: 1.5rem;
+  line-height: 1.5;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.charCount_instruct {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem; /* 부모 요소의 하단에서 일정 거리 */
+  font-size: 14px;
+  color: #555;
+  pointer-events: none;
+  background: white;
+  padding-left: 0.5rem;
 }
 
 /* 업로드 */

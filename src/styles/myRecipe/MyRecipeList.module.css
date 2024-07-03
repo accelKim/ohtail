@@ -14,8 +14,9 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(24%, 1fr));
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
+  width: 100%;
   gap: 1rem;
 }
 
@@ -29,4 +30,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr; /* 2개 열로 변경 */
+  }
 }
