@@ -27,9 +27,9 @@ export class Main extends Component {
         <section className="mw mainRecipe">
           <h2>공식레시피</h2>
           <MainPageRacipe />
-          <a href="#" className="btnMore">
+          <Link to="/recipe" className="btnMore">
             더보기<i className="fa-solid fa-caret-right"></i>
-          </a>
+          </Link>
         </section>
         <section className="mw mainMyRecipe">
           <h2>나만의 레시피</h2>
