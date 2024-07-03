@@ -46,6 +46,8 @@ const MyRecipeList = () => {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
+      } else if (sortOption === "mostLiked") {
+        filtered = filtered.sort((a, b) => b.likeCount - a.likeCount); // 좋아요순 정렬
       }
 
       setFilteredRecipeList(filtered);
@@ -97,7 +99,7 @@ const MyRecipeList = () => {
         </button>
       </div>
       {filteredRecipeList.length === 0 ? (
-        <p className={style.noResult}>검색 결과가 없습니다</p>
+        <p>레시피가 없습니다</p>
       ) : (
         <ul className={style.gridContainer}>
           {currentResults.map((myRecipe) => (

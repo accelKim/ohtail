@@ -95,6 +95,28 @@ const MyRecipeDetail = () => {
     return <p>로딩 중...</p>;
   }
 
+  const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("삭제 요청 실패:", errorData);
+        throw new Error(errorData.message || "삭제 중 오류 발생!!!!!");
+      }
+      console.log("레시피가 삭제되었습니다.");
+      navigate("/myRecipe");
+    } catch (error) {
+      console.error("삭제 중 오류 발생!!!!!", error);
+      alert(error.message);
+    }
+  };
+
   // 개행 처리를 위한 코드
   const formattedInstructions = myRecipe.instructions
     .split("\n")
@@ -173,11 +195,15 @@ const MyRecipeDetail = () => {
             <button className={style.editBtn} onClick={handleEdit}>
               수정
             </button>
-            <button className={style.delBtn}>삭제</button>
+            <button className={style.delBtn} onClick={handleDelete}>
+              삭제
+            </button>
           </div>
         )}
+
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
+
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
     </main>
   );
