@@ -250,17 +250,23 @@
   font-size: 3.125rem;
 }
 #webzine.large .contArea > div:nth-of-type(1) {
-  font-size: 1.55em;
+  font-size: 1.6em;
 }
-#webzine.large .contArea > button {
+#webzine.large .contArea > button,
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) button,
+#webzine.large .contArea > div:nth-of-type(4) button {
   width: 175px;
   height: 175px;
-  padding-top: 5.5rem;
-  font-size: 1.5em;
 }
-#webzine.large .contArea > button::before {
-  top: 0.7rem;
+#webzine.large .contArea > button::before,
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) button::before,
+#webzine.large .contArea > div:nth-of-type(4) button::before {
+  /* top: 0.7rem; */
   font-size: 5.5rem;
+}
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) span,
+#webzine.large .contArea > div:nth-of-type(4) span {
+  font-size: 1.5em;
 }
 #webzine.large .contArea > div:nth-of-type(2) {
   font-size: 1.55em;
@@ -326,7 +332,7 @@
   font-size: 1em;
 }
 #webzine.small .contArea > button::before {
-  top: 0.7rem;
+  /* top: 0.7rem; */
   font-size: 2.5rem;
 }
 #webzine.small .contArea > div:nth-of-type(2) {
@@ -335,6 +341,7 @@
 
 #webzine .contArea {
   margin: 200px auto;
+  max-width: inherit;
 }
 #webzine .contArea h4 {
   font-family: 'pretendard-extrabold';
@@ -441,14 +448,43 @@
   #webzine.large {
     font-size: 0.8em;
   }
-  #webzine.large .optionArea div p::before {
-  }
-  #webzine.large .optionArea div p::after {
+  #webzine .contArea {
+    margin: 150px auto;
   }
 }
 @media (max-width: 1050px) {
-  #webzine.large {
-    font-size: 0.7em;
+  #webzine.large .optionArea {
+    font-size: 3em;
+    gap: 4rem;
+  }
+  #webzine.large .optionArea div {
+    gap: 3rem;
+  }
+  #webzine.large .optionArea div p {
+    padding-left: 80px;
+  }
+  #webzine.large .optionArea div p::before {
+    width: 60px;
+    height: 60px;
+  }
+  #webzine.large .optionArea div p::after {
+    width: 35px;
+    height: 35px;
+  }
+  #webzine.large .contArea > button,
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.large .contArea > div:nth-of-type(4) button {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  #webzine.large .contArea > button::before,
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) button::before,
+  #webzine.large .contArea > div:nth-of-type(4) button::before {
+    font-size: 4.5rem !important;
+  }
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) span,
+  #webzine.large .contArea > div:nth-of-type(4) span {
+    font-size: 1.5em;
   }
 }
 @media (max-width: 900px) {
@@ -470,16 +506,56 @@
   #webzine .contArea > div:nth-of-type(1) {
     margin-bottom: 80px;
   }
-  #webzine .contArea > button {
-    width: 130px;
-    height: 130px;
+  #webzine .contArea > button,
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine .contArea > div:nth-of-type(4) button {
+    width: 130px !important;
+    height: 130px !important;
   }
-  #webzine.small .contArea > button {
-    width: 90px;
-    height: 90px;
+  #webzine.small .contArea > button,
+  #webzine.small .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.small .contArea > div:nth-of-type(4) button {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  #webzine.large .contArea > button,
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.large .contArea > div:nth-of-type(4) button {
+    width: 140px !important;
+    height: 140px !important;
+  }
+}
+@media (max-width: 800px) {
+  #webzine.large .optionArea {
+    font-size: 3em;
+    gap: 4rem;
+  }
+  #webzine.large .optionArea div {
+    gap: 3rem;
+  }
+  #webzine.large .optionArea div p {
+    padding-left: 65px;
+  }
+  #webzine.large .optionArea div p::before {
+    width: 50px;
+    height: 50px;
+  }
+  #webzine.large .optionArea div p::after {
+    width: 30px;
+    height: 30px;
+    left: 11px;
+  }
+  #webzine .contArea {
+    margin: 110px auto;
   }
 }
 @media (max-width: 700px) {
+  #webzine.large .optionArea {
+    gap: 3rem;
+  }
+  #webzine.large .optionArea div {
+    gap: 2rem;
+  }
   #webzine.small .optionArea div p {
     padding-left: 35px;
   }
@@ -496,13 +572,23 @@
   #webzine .contArea > div:nth-of-type(1) {
     margin-bottom: 60px;
   }
-  #webzine .contArea > button {
-    width: 115px;
-    height: 115px;
+  #webzine .contArea > button,
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine .contArea > div:nth-of-type(4) button {
+    width: 115px !important;
+    height: 115px !important;
   }
-  #webzine.small .contArea > button {
-    width: 80px;
-    height: 80px;
+  #webzine.small .contArea > button,
+  #webzine.small .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.small .contArea > div:nth-of-type(4) button {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  #webzine.large .contArea > button,
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.large .contArea > div:nth-of-type(4) button {
+    width: 130px !important;
+    height: 130px !important;
   }
   #webzine .listArea > div > button,
   #webzine .listArea > div > a {
@@ -527,8 +613,20 @@
     height: 15px;
     left: 6px;
   }
+  #webzine.large .optionArea div p {
+    padding-left: 55px;
+  }
+  #webzine.large .optionArea div p::before {
+    width: 40px;
+    height: 40px;
+  }
+  #webzine.large .optionArea div p::after {
+    width: 25px;
+    height: 25px;
+    left: 8.5px;
+  }
   #webzine .contArea {
-    margin: 100px auto;
+    margin: 80px auto;
   }
   #webzine .contArea h4 {
     margin-bottom: 40px;
@@ -537,18 +635,196 @@
   #webzine .contArea > div:nth-of-type(1) {
     margin-bottom: 40px;
   }
-  #webzine .contArea > button {
-    width: 100px;
-    height: 100px;
+  #webzine .contArea > button,
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine .contArea > div:nth-of-type(4) button {
+    width: 100px !important;
+    height: 100px !important;
     margin-top: 2rem;
   }
-  #webzine.small .contArea > button {
-    width: 70px;
-    height: 70px;
+  #webzine.small .contArea > button,
+  #webzine.small .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.small .contArea > div:nth-of-type(4) button {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  #webzine.large .contArea > button,
+  #webzine.large .contArea.likeBtn > div:nth-of-type(3) button,
+  #webzine.large .contArea > div:nth-of-type(4) button {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  #webzine .contArea.likeBtn > div:nth-of-type(3) span,
+  #webzine .contArea > div:nth-of-type(4) span {
+    bottom: 16px !important;
+  }
+  #webzine.small .contArea.likeBtn > div:nth-of-type(3) span,
+  #webzine.small .contArea > div:nth-of-type(4) span {
+    bottom: 11px !important;
   }
   #webzine .listArea > div > button,
   #webzine .listArea > div > a {
     width: 80px;
     height: 80px;
   }
+}
+@media (max-width: 550px) {
+  #webzine.large .optionArea div p {
+    padding-left: 40px;
+  }
+  #webzine.large .optionArea div p::before {
+    width: 30px;
+    height: 30px;
+  }
+  #webzine.large .optionArea div p::after {
+    width: 20px;
+    height: 20px;
+    left: 6px;
+  }
+}
+@media (max-width: 500px) {
+  #webzine.large .optionArea {
+    font-size: 2.5em;
+  }
+  #webzine.large .optionArea div {
+  }
+  #webzine.large .optionArea div p {
+  }
+  #webzine.large .optionArea div p::before {
+  }
+  #webzine.large .optionArea div p::after {
+  }
+}
+@media (max-width: 450px) {
+}
+
+/* 좋아요 */
+#webzine .contArea.likeBtn > div:nth-of-type(3) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Pretendard-Bold';
+  color: var(--white);
+}
+#webzine .contArea.likeBtn > div:nth-of-type(3) button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background-color: var(--black);
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  font-size: 0;
+  color: var(--white);
+}
+#webzine .contArea.likeBtn > div:nth-of-type(3) button::before {
+  content: '👍🏻';
+  position: absolute;
+  font-size: 4rem;
+  top: 1rem;
+}
+#webzine .contArea.likeBtn > div:nth-of-type(3) span {
+  position: absolute;
+  bottom: 23px;
+  margin: 0;
+  font-size: 1.25em;
+}
+#webzine.dark .contArea.likeBtn > div:nth-of-type(3) button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+}
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) button {
+  width: 175px;
+  height: 175px;
+}
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) button::before {
+  /* top: 0.7rem; */
+  font-size: 5.5rem;
+}
+#webzine.large .contArea.likeBtn > div:nth-of-type(3) span {
+  font-size: 1.5em;
+}
+#webzine.small .contArea.likeBtn > div:nth-of-type(3) button {
+  width: 100px;
+  height: 100px;
+}
+#webzine.small .contArea.likeBtn > div:nth-of-type(3) button::before {
+  /* top: 0.7rem; */
+  font-size: 2.5rem;
+}
+#webzine.small .contArea.likeBtn > div:nth-of-type(3) span {
+  font-size: 1em;
+  bottom: 17px;
+}
+/* ---------- */
+#webzine .contArea > div:nth-of-type(4) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Pretendard-Bold';
+  color: var(--white);
+}
+#webzine .contArea > div:nth-of-type(4) button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background-color: var(--black);
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  font-size: 0;
+  color: var(--white);
+}
+#webzine .contArea > div:nth-of-type(4) button::before {
+  content: '👍🏻';
+  position: absolute;
+  font-size: 4rem;
+  top: 1rem;
+}
+#webzine .contArea > div:nth-of-type(4) span {
+  position: absolute;
+  bottom: 23px;
+  margin: 0;
+  font-size: 1.25em;
+}
+#webzine.dark .contArea > div:nth-of-type(4) button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+}
+#webzine.large .contArea > div:nth-of-type(4) button {
+  width: 175px;
+  height: 175px;
+}
+#webzine.large .contArea > div:nth-of-type(4) button::before {
+  /* top: 0.7rem; */
+  font-size: 5.5rem;
+}
+#webzine.large .contArea > div:nth-of-type(4) span {
+  font-size: 1.5em;
+}
+#webzine.small .contArea > div:nth-of-type(4) button {
+  width: 100px;
+  height: 100px;
+}
+#webzine.small .contArea > div:nth-of-type(4) button::before {
+  /* top: 0.7rem; */
+  font-size: 2.5rem;
+}
+#webzine.small .contArea > div:nth-of-type(4) span {
+  font-size: 1em;
+  bottom: 17px;
 }

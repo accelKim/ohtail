@@ -142,8 +142,7 @@ const Webzine = () => {
           </div>
         </div>
       </div>
-
-      <div className={`mw ${style.contArea}`}>
+      <div className={`mw ${style.contArea} ${style.likeBtn}`}>
         {webzineData && webzineData.length > 0 ? (
           <>
             <div>
