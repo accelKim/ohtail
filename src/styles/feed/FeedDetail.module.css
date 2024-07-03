@@ -14,11 +14,15 @@
 }
 
 .feedDetail h3 {
-  width: 30%;
+  position: relative;
+  width: 80%;
   margin: 1rem 0 0 0;
   border-radius: 20px;
-  padding: 1rem 0;
+  padding: 1rem;
   font-size: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: start;
 }
 .feedDetail p {
   width: 30%;

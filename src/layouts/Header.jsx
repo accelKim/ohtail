@@ -6,12 +6,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [nickname, setNickname] = useState(false);
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState(
+    '/default_profile_image.jpg'
+  );
   const [userInfo, setUserInfo] = useState({ properties: {} });
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const { nicknames = '', profile_image = '' } = userInfo.properties || {};
-  console.log(userInfo);
   const navigate = useNavigate();
 
   const getUserData = async (token) => {
@@ -22,7 +20,7 @@ const Header = () => {
       },
     });
     const user = await response.json();
-    setUserInfo(user, () => navigate('/'));
+    setUserInfo(user);
   };
 
   useEffect(() => {
@@ -35,12 +33,13 @@ const Header = () => {
         } catch (err) {
           console.log(err);
           localStorage.removeItem('token');
-          setToken(null);
+          setUserInfo({ properties: {} });
+          setIsLoggedIn(false);
         }
       }
     };
     fetchData();
-  }, [localStorage.getItem('token')]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
@@ -48,11 +47,17 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    if (isProfileMenuOpen) {
+      setIsProfileMenuOpen(false);
+    }
   };
 
   const openProfileMenu = (e) => {
     e.preventDefault();
     setIsProfileMenuOpen(!isProfileMenuOpen);
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
   };
 
   const handleLogout = (e) => {
@@ -62,15 +67,20 @@ const Header = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('profileImage');
     localStorage.removeItem('nickname');
+    localStorage.removeItem('userid');
+
     setUserInfo({ properties: {} });
     setIsLoggedIn(false);
     setProfileImage('/default_profile_image.jpg');
-    setNickname('');
+    setIsProfileMenuOpen(false); // 프로필 메뉴 닫기
     navigate('/');
   };
 
   const handleMenuLinkClick = () => {
     setIsMenuOpen(false);
+    if (isProfileMenuOpen) {
+      setIsProfileMenuOpen(false);
+    }
   };
 
   return (
@@ -119,7 +129,7 @@ const Header = () => {
             <div className={style.logon}>
               <div className={style.profileImg}>
                 <a href="#" onClick={openProfileMenu}>
-                  <img src={profile_image} alt="프로필 이미지" />
+                  <img src={profileImage} alt="프로필 이미지" />
                 </a>
               </div>
               {isProfileMenuOpen && (

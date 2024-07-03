@@ -99,7 +99,7 @@ const FeedEdit = () => {
         setImgFile(null);
         setImgPreviewUrl('');
         setContent('');
-        navigate(`/feed/${id}`);
+        navigate(`/feedDetail/${id}`);
       } else {
         throw new Error('피드 수정에 실패했습니다.');
       }

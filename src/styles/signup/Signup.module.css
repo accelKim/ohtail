@@ -19,6 +19,9 @@
   border-radius: 10px;
   border: 1px solid var(--black);
 }
+.signup Select {
+  margin-top: 1rem;
+}
 
 .signup form button {
   padding: 1rem;
