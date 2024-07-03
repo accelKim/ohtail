@@ -35,6 +35,10 @@
   background-color: #f1f1f1;
 }
 
+
+.singupin > div > button {
+  background-color: #ffe85b;
+
 .login .signupin > div {
   padding: 1rem;
   width: 100%;
