@@ -13,6 +13,10 @@
   transition: 0.5s;
 }
 
+.imgCon:hover img {
+  transform: scale(1.1);
+}
+
 .imgText {
   position: absolute;
   bottom: 0;

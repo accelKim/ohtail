@@ -97,7 +97,7 @@ const MyRecipeList = () => {
         </button>
       </div>
       {filteredRecipeList.length === 0 ? (
-        <p>레시피가 없습니다</p>
+        <p className={style.noResult}>검색 결과가 없습니다</p>
       ) : (
         <ul className={style.gridContainer}>
           {currentResults.map((myRecipe) => (

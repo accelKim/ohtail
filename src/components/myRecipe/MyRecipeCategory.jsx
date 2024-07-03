@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import style from "../../styles/myRecipe/MyRecipeList.module.css";
 
 const MyRecipeCategory = ({ sortOption, onSortChange }) => {
   const sortOptions = [
@@ -11,21 +12,13 @@ const MyRecipeCategory = ({ sortOption, onSortChange }) => {
     onSortChange(selectedOption.value);
   };
 
-  const customStyles = {
-    container: (provided) => ({
-      ...provided,
-      width: 200,
-    }),
-  };
-
   return (
-    <div>
+    <div className={style.category}>
       <Select
         value={sortOptions.find((option) => option.value === sortOption)}
         options={sortOptions}
         placeholder="정렬"
         onChange={handleChange}
-        styles={customStyles}
       />
     </div>
   );
