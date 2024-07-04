@@ -146,7 +146,7 @@ const Webzine = () => {
         {webzineData && webzineData.length > 0 ? (
           <>
             <div>
-              <h4>{webzineData[0].title}</h4>
+              <h4>{webzineData[0].summary}</h4>
               <div
                 dangerouslySetInnerHTML={{ __html: webzineData[0].content }}
               ></div>

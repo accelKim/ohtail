@@ -178,7 +178,7 @@ const WebzineDetail = () => {
       </div>
       <div className={`mw ${style.contArea}`}>
         <div>
-          <h4>{webzineInfo?.title}</h4>
+          <h4>{webzineInfo?.summary}</h4>
           <div dangerouslySetInnerHTML={{ __html: webzineInfo?.content }}></div>
         </div>
         <div>

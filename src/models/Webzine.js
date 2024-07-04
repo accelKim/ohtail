@@ -4,6 +4,7 @@ const { Schema, model } = mongoose;
 const webzineSchema = new Schema(
   {
     title: String,
+    summary: String,
     content: String,
     cover: String,
     author: String,
