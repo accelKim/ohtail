@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
+import style from "../../../styles/myPage/FavoritesTab.module.css";
 
 const MyRecipeTab = () => {
   const [myPageRecipes, setMyPageRecipes] = useState([]);
@@ -28,9 +29,8 @@ const MyRecipeTab = () => {
   }, []);
 
   return (
-    <div>
-      <h2>내가 작성한 레시피</h2>
-      <ul>
+    <div className="mw">
+      <ul className={style.gridContainer}>
         {myPageRecipes.map((myRecipe) => (
           <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
         ))}
