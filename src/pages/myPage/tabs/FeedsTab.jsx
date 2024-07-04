@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import style from '../../../styles/feed/FeedsTab.module.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import style from "../../../styles/feed/FeedsTab.module.css";
 
 const FeedsTab = () => {
   const [feeds, setFeeds] = useState([]);
@@ -9,18 +9,18 @@ const FeedsTab = () => {
 
   useEffect(() => {
     // 로컬 스토리지에서 유저 ID 가져오기
-    const userId = localStorage.getItem('userid');
-    console.log('로컬 스토리지에서 가져온 userId:', userId); // 디버깅용 로그
+    const userId = localStorage.getItem("userid");
+    console.log("로컬 스토리지에서 가져온 userId:", userId); // 디버깅용 로그
     setCurrentUserId(userId);
 
     // 피드 데이터를 서버에서 가져오는 함수
     const fetchFeeds = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/feeds');
-        console.log('서버에서 가져온 피드 데이터:', response.data); // 디버깅용 로그
+        const response = await axios.get("http://localhost:8080/feeds");
+        console.log("서버에서 가져온 피드 데이터:", response.data); // 디버깅용 로그
         setFeeds(response.data);
       } catch (error) {
-        console.error('피드 데이터를 가져오는 중 오류 발생:', error);
+        console.error("피드 데이터를 가져오는 중 오류 발생:", error);
       }
     };
 

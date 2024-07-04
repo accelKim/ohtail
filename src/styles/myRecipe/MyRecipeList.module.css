@@ -36,11 +36,6 @@
   gap: 1rem;
 }
 
-.gridContainer > li {
-  overflow: hidden;
-  border-radius: 5px;
-}
-
 @media (max-width: 600px) {
   .gridContainer {
     grid-template-columns: 1fr 1fr; /* 2개 열로 변경 */

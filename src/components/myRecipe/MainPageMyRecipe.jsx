@@ -38,13 +38,11 @@ const MainPageMyRecipe = () => {
   }
 
   return (
-    <div className>
-      <ul className={style.gridContainer}>
-        {recentRecipes.map((recipe) => (
-          <MyRecipeCard key={recipe._id} myRecipe={recipe} />
-        ))}
-      </ul>
-    </div>
+    <ul className={style.gridContainer}>
+      {recentRecipes.map((recipe) => (
+        <MyRecipeCard key={recipe._id} myRecipe={recipe} />
+      ))}
+    </ul>
   );
 };
 
