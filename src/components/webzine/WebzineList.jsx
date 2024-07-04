@@ -11,7 +11,7 @@ const WebzineList = ({ webzine, closeMenu }) => {
         closeMenu();
       }}
     >
-      {webzine.title}
+      {webzine.summary}
     </li>
   );
 };

@@ -142,12 +142,11 @@ const Webzine = () => {
           </div>
         </div>
       </div>
-
-      <div className={`mw ${style.contArea}`}>
+      <div className={`mw ${style.contArea} ${style.likeBtn}`}>
         {webzineData && webzineData.length > 0 ? (
           <>
             <div>
-              <h4>{webzineData[0].title}</h4>
+              <h4>{webzineData[0].summary}</h4>
               <div
                 dangerouslySetInnerHTML={{ __html: webzineData[0].content }}
               ></div>

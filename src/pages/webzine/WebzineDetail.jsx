@@ -3,6 +3,8 @@ import style from '../../styles/webzine/Webzine.module.css';
 import { url } from '../../store/ref';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import WebzineList from '../../components/webzine/WebzineList';
+import WebzineLikeButton from '../../components/like/WebzineLikeButton';
+import LikeButton from '../../components/like/LikeButton';
 import { useSelector } from 'react-redux';
 
 const WebzineDetail = () => {
@@ -176,7 +178,7 @@ const WebzineDetail = () => {
       </div>
       <div className={`mw ${style.contArea}`}>
         <div>
-          <h4>{webzineInfo?.title}</h4>
+          <h4>{webzineInfo?.summary}</h4>
           <div dangerouslySetInnerHTML={{ __html: webzineInfo?.content }}></div>
         </div>
         <div>
@@ -189,8 +191,12 @@ const WebzineDetail = () => {
               <button onClick={editWebzine}>수정</button>
               <button onClick={delWebzine}>삭제</button>
             </>
-          ) : null}
+          ) : (
+            ''
+          )}
         </div>
+        {/* <button>0</button> */}
+        <WebzineLikeButton webzineId={webzineId} userId={userId} />
       </div>
       <div className={style.noise}></div>
     </div>

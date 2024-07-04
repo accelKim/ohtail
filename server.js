@@ -476,9 +476,10 @@ app.post(
 
     realFs.renameSync(path, newPath);
 
-    const { title, content } = req.body;
+    const { title, summary, content } = req.body;
     const webzineDoc = await Webzine.create({
       title,
+      summary,
       content,
       cover: newPath,
       author: req.user.userid,
@@ -542,6 +543,7 @@ app.put(
 
       await Webzine.findByIdAndUpdate(id, {
         title,
+        summary,
         content,
         cover: newPath ? newPath : webzineDoc.cover,
       });

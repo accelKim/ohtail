@@ -66,8 +66,8 @@
 }
 @font-face {
   font-family: 'JalnanGothic';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff')
-    format('woff');
+  src: url('../../public/fonts/JalnanGothic.otf');
+  src: url('../../public/fonts/JalnanGothicTTF.ttf');
   font-weight: normal;
   font-style: normal;
 }
