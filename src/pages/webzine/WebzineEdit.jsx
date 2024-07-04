@@ -8,6 +8,7 @@ const WebzineEdit = () => {
   const userToken = localStorage.getItem('token');
 
   const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
   const [files, setFiles] = useState(null);
   const [content, setContent] = useState('');
   const [cover, setCover] = useState('');
@@ -21,6 +22,7 @@ const WebzineEdit = () => {
       const result = await res.json();
       console.log(result);
       setTitle(result.title);
+      setSummary(result.summary);
       setContent(result.content);
       setCover(result.cover);
     };
@@ -32,6 +34,7 @@ const WebzineEdit = () => {
 
     const data = new FormData();
     data.set('title', title);
+    data.set('summary', summary);
     if (files?.[0]) {
       data.set('files', files?.[0]);
     }
@@ -70,6 +73,17 @@ const WebzineEdit = () => {
             setTitle(e.target.value);
           }}
           required
+        />
+        <label htmlFor="summary" hidden>
+          서브 타이틀
+        </label>
+        <input
+          type="text"
+          name="summary"
+          id="summary"
+          placeholder="서브 타이틀을 입력해 주세요."
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
         />
         <label htmlFor="file" hidden>
           썸네일
