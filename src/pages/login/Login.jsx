@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../styles/signup/Login.module.css';
 import KakaoLoginButton from './KakaoLoginBtn';
 import { useNavigate } from 'react-router-dom';
 
-// import jwt from 'jsonwebtoken';
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [tokenExpired, setTokenExpired] = useState(false); // 토큰 만료 상태 추가
   const navigate = useNavigate();
 
   const loginWithEmail = async (e) => {
     e.preventDefault();
+
+    // 아이디 또는 비밀번호가 입력되지 않은 경우 처리
+    if (!email) {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+
+    if (!password) {
+      alert('비밀번호를 입력해주세요.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -28,7 +37,7 @@ const Login = () => {
       }
 
       const result = await response.json();
-      console.log('서버 응답:', result); // 서버 응답 로그 추가
+      console.log('서버 응답:', result);
 
       if (result.message === '로그인 성공') {
         localStorage.setItem('userid', result.userid);
@@ -42,6 +51,7 @@ const Login = () => {
       } else if (result.message === '비밀번호가 일치하지 않습니다.') {
         alert('비밀번호가 일치하지 않습니다.');
       } else if (result.message === '토큰 만료') {
+        // 토큰 만료 처리
       } else {
         alert('로그인 실패!');
       }
