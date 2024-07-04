@@ -71,8 +71,12 @@ const FeedDetailPage = () => {
       <section className={style.button}>
         {userId && userId === feed.author && (
           <React.Fragment>
-            <button onClick={handleFeedDelete}>삭제</button>
-            <button onClick={handleEditClick}>수정</button>
+            <button onClick={handleEditClick}>
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button onClick={handleFeedDelete}>
+              <i class="fa-solid fa-trash"></i>
+            </button>
           </React.Fragment>
         )}
       </section>
