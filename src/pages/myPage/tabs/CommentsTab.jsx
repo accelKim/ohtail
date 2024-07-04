@@ -85,7 +85,6 @@ const CommentsTab = () => {
 
   return (
     <div>
-      <h2>내가 작성한 댓글</h2>
       <ul>
         {comments.map((comment) => (
           <li key={comment._id} onClick={() => handleCommentClick(comment)}>

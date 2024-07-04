@@ -193,10 +193,10 @@ const MyRecipeDetail = () => {
         userId.toString() === myRecipe.author.toString() && (
           <div className={style.btnCon}>
             <button className={style.editBtn} onClick={handleEdit}>
-              수정
+              <i class="fa-solid fa-pen-to-square"></i>
             </button>
             <button className={style.delBtn} onClick={handleDelete}>
-              삭제
+              <i class="fa-solid fa-trash"></i>
             </button>
           </div>
         )}
