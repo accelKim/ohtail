@@ -669,6 +669,18 @@ app.put('/feedEdit/:id', upload.single('imgFile'), async (req, res) => {
     res.status(500).json({ message: '피드 업데이트 중 오류가 발생했습니다.' });
   }
 });
+// 피드 데이터 가져오기
+app.get('/feeds', async (req, res) => {
+  try {
+    const feeds = await Feed.find().sort({ createdAt: -1 }); // 최신순으로 피드 데이터 가져오기
+    res.status(200).json(feeds);
+  } catch (error) {
+    console.error('피드 데이터를 가져오는 중 오류 발생:', error);
+    res
+      .status(500)
+      .json({ message: '피드 데이터를 가져오는 중 오류가 발생했습니다.' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

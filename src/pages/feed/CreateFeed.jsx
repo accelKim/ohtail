@@ -117,7 +117,7 @@ const CreateFeed = () => {
           )}
           {imgPreviewUrl && (
             <span className={style.deleteText} onClick={handleImageDelete}>
-              삭제
+              x
             </span>
           )}
         </div>
