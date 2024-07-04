@@ -1,11 +1,7 @@
 import React from "react";
 
 const FeedsTab = () => {
-  return (
-    <div>
-      <h2>피드</h2>
-    </div>
-  );
+  return <div className="mw"></div>;
 };
 
 export default FeedsTab;

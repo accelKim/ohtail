@@ -10,7 +10,7 @@ const CreateMyRecipe = () => {
     {
       name: "",
       quantity: "",
-      unit: "옵션1",
+      unit: "",
       translatedName: "",
       originalName: "",
       filteredOptions: [],
@@ -101,7 +101,7 @@ const CreateMyRecipe = () => {
       {
         name: "",
         quantity: "",
-        unit: "옵션1",
+        unit: "",
         translatedName: "",
         originalName: "",
         filteredOptions: [],
@@ -408,9 +408,18 @@ const CreateMyRecipe = () => {
                   }
                   className={style.ingredients_unit}
                 >
-                  <option value="옵션1">옵션1</option>
-                  <option value="옵션2">옵션2</option>
-                  <option value="옵션3">옵션3</option>
+                  <option value="" disabled selected>
+                    단위
+                  </option>
+                  <option value="ml">ml</option>
+                  <option value="dash">dash</option>
+                  <option value="tsp">tsp</option>
+                  <option value="drops">drops</option>
+                  <option value="gram">gram</option>
+                  <option value="개">개</option>
+                  <option value="slice">slice</option>
+                  <option value="peel">peel</option>
+                  <option value="leaves">leaves</option>
                 </select>
                 <button
                   type="button"
