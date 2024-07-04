@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../../styles/signup/Signup.module.css';
 import axios from 'axios';
 
@@ -20,38 +20,59 @@ const Signup = () => {
   const [errMessage8, setErrMessage8] = useState('');
   const [emailAvailable, setEmailAvailable] = useState(null);
 
+  const [instructions, setInstructions] = useState('');
+  const [ingredientOptions, setIngredientOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      try {
+        const response = await axios.get(
+          'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+        );
+        const data = response.data;
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+
+        setIngredientOptions(ingredientNames);
+      } catch (error) {
+        console.error('Error fetching ingredient options:', error);
+      }
+    };
+
+    fetchIngredients();
+  }, []);
+
   const handleEmailCheck = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/check-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      alert(data.message);
+      const response = await axios.post(
+        'http://localhost:8080/api/check-email',
+        {
+          email,
+        }
+      );
+      alert(response.data.message);
     } catch (error) {
       console.error('Error checking email:', error);
       alert('서버 오류');
     }
   };
+
   const handleNicknameCheck = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/check-nickname', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nickname }),
-      });
-      const data = await response.json();
-      alert(data.message);
+      const response = await axios.post(
+        'http://localhost:8080/api/check-nickname',
+        {
+          nickname,
+        }
+      );
+      alert(response.data.message);
     } catch (error) {
       console.error('Error checking nickname:', error);
       alert('서버 오류');
     }
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,7 +109,7 @@ const Signup = () => {
       setErrMessage6('');
     }
     if (!preferredIngredients) {
-      setErrMessage7('선호하는 재료를 입력해주세요.');
+      setErrMessage7('선호하는 재료를 선택해주세요.');
       return;
     } else {
       setErrMessage7('');
@@ -101,28 +122,21 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          phonenumber,
-          nickname,
-          drinkingFrequency,
-          preferredIngredients,
-          preferredAlcoholLevel,
-        }),
+      const response = await axios.post('http://localhost:8080/signup', {
+        email,
+        password,
+        phonenumber,
+        nickname,
+        drinkingFrequency,
+        preferredIngredients,
+        preferredAlcoholLevel,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert('회원가입 성공!');
         window.location.href = '/login';
       } else {
-        const result = await response.json();
-        alert(result.message || '회원가입 중 오류가 발생했습니다.');
+        alert(response.data.message || '회원가입 중 오류가 발생했습니다.');
       }
     } catch (error) {
       console.error('회원가입 요청 오류:', error);
@@ -146,6 +160,7 @@ const Signup = () => {
           이메일 중복 확인
         </button>
         {errMessage3 && <div className={style.errorMessage}>{errMessage3}</div>}
+
         <label>비밀번호</label>
         <input
           type="password"
@@ -161,6 +176,7 @@ const Signup = () => {
           required
         />
         {errMessage2 && <div className={style.errorMessage}>{errMessage2}</div>}
+
         <label>휴대폰 번호</label>
         <input
           type="text"
@@ -169,6 +185,7 @@ const Signup = () => {
           required
         />
         {errMessage4 && <div className={style.errorMessage}>{errMessage4}</div>}
+
         <label>닉네임</label>
         <input
           type="text"
@@ -187,21 +204,27 @@ const Signup = () => {
           onChange={(e) => setDrinkingFrequency(e.target.value)}
           required
         >
-          <option value="">없음</option>
+          <option value="">선택해주세요</option>
           <option value="rarely">1회~3회</option>
           <option value="occasionally">4회~6회</option>
           <option value="often">7회~10회</option>
-          <option value="often">10회이상</option>
+          <option value="very_often">10회 이상</option>
         </select>
         {errMessage6 && <div className={style.errorMessage}>{errMessage6}</div>}
 
         <label>선호 재료</label>
-        <input
-          type="text"
+        <select
           value={preferredIngredients}
           onChange={(e) => setPreferredIngredients(e.target.value)}
           required
-        />
+        >
+          <option value="">선택해주세요</option>
+          {ingredientOptions.map((ingredient) => (
+            <option key={ingredient} value={ingredient}>
+              {ingredient}
+            </option>
+          ))}
+        </select>
         {errMessage7 && <div className={style.errorMessage}>{errMessage7}</div>}
 
         <label>선호 도수</label>
@@ -210,7 +233,7 @@ const Signup = () => {
           onChange={(e) => setPreferredAlcoholLevel(e.target.value)}
           required
         >
-          <option value="">없음</option>
+          <option value="">선택해주세요</option>
           <option value="low">낮음</option>
           <option value="medium">보통</option>
           <option value="high">높음</option>
