@@ -38,7 +38,7 @@
   border-radius: 10px;
   width: 80%;
   height: 200px;
-  overflow: scroll;
+  /* overflow: scroll; */
   text-align: start;
   padding: 1rem 2rem;
 }
@@ -51,16 +51,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10%;
+  width: 20px;
   height: 30px;
-  background-color: var(--lightGray);
-  border-radius: 10px;
   top: -10px;
-  left: 65%;
-  margin: 0 1rem;
+  left: 80%;
+  margin: 0 1.5rem;
   transition: 0.5s;
-}
-
-.button > *:hover {
-  background-color: var(--gray);
+  background-color: transparent;
 }
