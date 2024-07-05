@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
 import RecipeCard from "../../../components/recipe/RecipeCard";
+import style from "../../../styles/myPage/RecipesTab.module.css";
 
 const FavoritesTab = () => {
   const [allRecipes, setAllRecipes] = useState([]);
@@ -89,9 +90,8 @@ const FavoritesTab = () => {
   }
 
   return (
-    <div>
-      <h2>즐겨찾기한 레시피</h2>
-      <ul>
+    <div className="mw">
+      <ul className={style.gridContainer}>
         {allRecipes.length > 0 ? (
           allRecipes
             .filter((recipe) => recipe !== null) // null 값 필터링

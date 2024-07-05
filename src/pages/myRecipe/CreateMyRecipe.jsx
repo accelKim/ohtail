@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
 const CreateMyRecipe = () => {
@@ -10,7 +12,7 @@ const CreateMyRecipe = () => {
     {
       name: "",
       quantity: "",
-      unit: "옵션1",
+      unit: "",
       translatedName: "",
       originalName: "",
       filteredOptions: [],
@@ -76,12 +78,39 @@ const CreateMyRecipe = () => {
     return translatedOptions;
   };
 
-  const handleFileChange = (e) => {
+  const resizeImage = (file) => {
+    return new Promise((resolve) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target.result;
+        img.onload = () => {
+          const ctx = canvas.getContext("2d");
+          canvas.width = 300;
+          canvas.height = 300;
+          ctx.drawImage(img, 0, 0, 300, 300);
+          canvas.toBlob((blob) => {
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            resolve(resizedFile);
+          }, file.type);
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (e) => {
     const newFiles = Array.from(e.target.files);
     if (files.length + newFiles.length <= 3) {
-      setFiles([...files, ...newFiles]);
+      const resizedFiles = await Promise.all(newFiles.map(resizeImage));
+      setFiles([...files, ...resizedFiles]);
     } else {
-      alert("이미지는 최대 3장까지만");
+      alert("칵테일 이미지 업로드는 최대 3장까지만 가능합니다");
     }
   };
 
@@ -101,7 +130,7 @@ const CreateMyRecipe = () => {
       {
         name: "",
         quantity: "",
-        unit: "옵션1",
+        unit: "",
         translatedName: "",
         originalName: "",
         filteredOptions: [],
@@ -117,17 +146,17 @@ const CreateMyRecipe = () => {
   const handleCreateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
-      alert("칵테일 이름 필수!!!!!!!!!!");
+      alert("칵테일 이름을 입력해주세요");
       return;
     }
 
     if (description === "") {
-      alert("칵테일 소개 필수!!!!!!!!!!");
+      alert("칵테일 소개를 입력해주세요");
       return;
     }
 
     if (files.length === 0) {
-      alert("이미지 업로드 필수!!!!!!!!!!");
+      alert("칵테일 이미지는 최소 1장이 필요합니다");
       return;
     }
 
@@ -139,12 +168,12 @@ const CreateMyRecipe = () => {
           ingredient.unit === ""
       )
     ) {
-      alert("재료 필드 입력 필수!!!!!!!!!!");
+      alert("재료를 입력해주세요");
       return;
     }
 
     if (instructions === "") {
-      alert("만드는 방법 입력 필수!!!!!!!!!!");
+      alert("만드는 방법을 입력해주세요");
       return;
     }
 
@@ -172,7 +201,18 @@ const CreateMyRecipe = () => {
         body: formData,
       });
       if (response.ok) {
-        navigate("/myRecipe");
+        toast.success("레시피가 등록되었습니다!", {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate("/myRecipe");
+        }, 1000); // 2초 후에 페이지 이동
       }
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -235,7 +275,7 @@ const CreateMyRecipe = () => {
 
   const handleChangeDesc = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.length <= 30) {
+    if (inputValue.length <= 100) {
       setDescription(inputValue);
     }
   };
@@ -289,10 +329,10 @@ const CreateMyRecipe = () => {
               placeholder="칵테일 소개를 작성해주세요"
               value={description}
               onChange={handleChangeDesc}
-              maxLength={30}
+              maxLength={100}
               className={style.descInput}
             />
-            <div className={style.charCount}>{description.length}/30</div>
+            <div className={style.charCount}>{description.length}/100</div>
           </div>
         </div>
 
@@ -408,9 +448,18 @@ const CreateMyRecipe = () => {
                   }
                   className={style.ingredients_unit}
                 >
-                  <option value="옵션1">옵션1</option>
-                  <option value="옵션2">옵션2</option>
-                  <option value="옵션3">옵션3</option>
+                  <option value="" disabled selected>
+                    단위
+                  </option>
+                  <option value="ml">ml</option>
+                  <option value="dash">dash</option>
+                  <option value="tsp">tsp</option>
+                  <option value="drops">drops</option>
+                  <option value="gram">gram</option>
+                  <option value="개">개</option>
+                  <option value="slice">slice</option>
+                  <option value="peel">peel</option>
+                  <option value="leaves">leaves</option>
                 </select>
                 <button
                   type="button"
@@ -454,6 +503,7 @@ const CreateMyRecipe = () => {
           업로드
         </button>
       </form>
+      <ToastContainer />
     </main>
   );
 };

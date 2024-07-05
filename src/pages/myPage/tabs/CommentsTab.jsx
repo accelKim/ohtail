@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import style from "../../../styles/myPage/CommentsTab.module.css";
 
 const CommentsTab = () => {
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -17,10 +20,16 @@ const CommentsTab = () => {
           `http://localhost:8080/comments/user?userId=${userId}`
         );
         const data = await response.json();
-        console.log("Response from server:", data);
-        setComments(data.comments);
+        if (response.ok) {
+          setComments(data.comments || []); // 데이터가 없을 경우 빈 배열로 설정
+        } else {
+          setError(data.error);
+        }
       } catch (error) {
         console.error("댓글을 가져오는 중 오류 발생:", error);
+        setError("댓글을 가져오는 중 오류가 발생했습니다.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,6 +37,7 @@ const CommentsTab = () => {
       fetchComments();
     } else {
       console.error("유효하지 않은 사용자 ID");
+      setLoading(false); // 유효하지 않은 사용자 ID일 때 로딩 상태 업데이트
     }
   }, [userId]);
 
@@ -59,7 +69,6 @@ const CommentsTab = () => {
       if (response.status === 200) {
         if (data) {
           if (comment.type === "recipe") {
-            // RecipeDetail 컴포넌트로 이동
             navigate(`/recipe/${comment.cocktailId}`, { state: { data } });
           } else {
             navigate(url);
@@ -83,14 +92,33 @@ const CommentsTab = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
-    <div>
-      <h2>내가 작성한 댓글</h2>
-      <ul>
+    <div className={style.container}>
+      <ul className={style.commentList}>
         {comments.map((comment) => (
-          <li key={comment._id} onClick={() => handleCommentClick(comment)}>
-            <p>{comment.text}</p>
-            <small>{new Date(comment.createdAt).toLocaleString()}</small>
+          <li key={comment._id} className={style.commentItem}>
+            <div>
+              <p className={style.commentTitle}>{comment.title}</p>
+              <p className={style.commentText}>{comment.text}</p>
+
+              <small className={style.commentDate}>
+                {/* {new Date(comment.createdAt).toLocaleDateString()} */}
+              </small>
+            </div>
+            <button
+              className={style.viewButton}
+              onClick={() => handleCommentClick(comment)}
+            >
+              본문보기
+            </button>
           </li>
         ))}
       </ul>

@@ -8,6 +8,7 @@ const WebzineWrite = () => {
   const userToken = localStorage.getItem('token');
   const [title, setTitle] = useState('');
   const [files, setFiles] = useState(null);
+  const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ const WebzineWrite = () => {
 
     const data = new FormData();
     data.set('title', title);
+    data.set('summary', summary);
     data.append('files', files[0]);
     data.append('content', content);
 
@@ -53,6 +55,17 @@ const WebzineWrite = () => {
             setTitle(e.target.value);
           }}
           required
+        />
+        <label htmlFor="summary" hidden>
+          서브 타이틀
+        </label>
+        <input
+          type="text"
+          name="summary"
+          id="summary"
+          placeholder="서브 타이틀을 입력해 주세요."
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
         />
         <label htmlFor="file" hidden>
           썸네일

@@ -39,6 +39,8 @@
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .charCount {
@@ -82,6 +84,7 @@
   border-radius: 10px;
   position: relative;
   margin-bottom: 40px;
+  border: 1px solid #ccc;
 }
 
 .previewImg {
@@ -124,6 +127,7 @@
   margin-bottom: 1rem;
   background-color: #f9f9f9;
   margin-bottom: 1rem;
+  border-radius: 10px;
 }
 
 /* 재료 검색 */
@@ -135,6 +139,8 @@
   width: 100%;
   padding: 1rem;
   cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .ingredients_name_dropMenu {
@@ -144,7 +150,8 @@
   padding: 1rem;
   z-index: 99;
   margin-top: 5px;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
 .ingredients_name_search {
@@ -152,10 +159,12 @@
   padding: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .ingredients_name_list {
-  border: 1px solid black;
+  border: 1px solid #ccc;
   padding: 1rem;
   margin-top: 0.5rem;
 }
@@ -178,6 +187,8 @@
 .ingredients_unit {
   flex: 1;
   padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .ingredients_unit {
@@ -204,12 +215,14 @@
   line-height: 1.5;
   font-size: 16px;
   overflow: hidden;
+  border-radius: 10px;
+  min-height: 200px;
 }
 
 .charCount_instruct {
   position: absolute;
   right: 1rem;
-  bottom: 1rem; /* 부모 요소의 하단에서 일정 거리 */
+  bottom: 1rem;
   font-size: 14px;
   color: #555;
   pointer-events: none;
@@ -225,4 +238,15 @@
   margin-left: auto;
   color: var(--white);
   background-color: var(--black);
+}
+
+@media (max-width: 800px) {
+  .previewCon {
+    width: 250px;
+    height: 150px;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
 }

@@ -1,0 +1,23 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  width: 100%;
+  gap: 1rem;
+  position: relative;
+}
+
+.reset_button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: -68px;
+  left: 150px;
+}
+
+@media (max-width: 600px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr; /* 2개 열로 변경 */
+  }
+}
