@@ -37,7 +37,6 @@ const Login = () => {
       }
 
       const result = await response.json();
-      console.log('서버 응답:', result);
 
       if (result.message === '로그인 성공') {
         localStorage.setItem('userid', result.userid);
