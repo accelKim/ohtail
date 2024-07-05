@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
-import style from "../../../styles/myPage/FavoritesTab.module.css";
+import style from "../../../styles/myPage/RecipesTab.module.css";
 
 const MyRecipeTab = () => {
   const [myPageRecipes, setMyPageRecipes] = useState([]);
