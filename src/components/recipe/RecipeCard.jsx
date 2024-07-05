@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import style from '../../styles/recipe/RecipeList.module.css'
+import style from "../../styles/recipe/RecipeCard.module.css";
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
 
@@ -9,13 +9,13 @@ const RecipeCard = ({ recipe }) => {
   };
 
   return (
-    <li onClick={handleCardClick} className={style.recipe_card}>
-        <figure>
-          <img src={recipe.strDrinkThumb} alt={recipe.strDrink} />
-          <figcaption>
-            <p>{recipe.strDrink}</p>
-          </figcaption>
-        </figure>
+    <li onClick={handleCardClick}>
+      <figure className={style.imgCon}>
+        <img src={recipe.strDrinkThumb} alt={recipe.strDrink} />
+        <figcaption className={style.imgText}>
+          <h3>{recipe.strDrink}</h3>
+        </figcaption>
+      </figure>
     </li>
   );
 };

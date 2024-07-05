@@ -61,6 +61,7 @@ const Header = () => {
     // 로그아웃 관련 처리
     localStorage.removeItem('token');
     localStorage.removeItem('profileImage');
+    localStorage.removeItem('userid');
     localStorage.removeItem('nickname');
     setUserInfo({ properties: {} });
     setIsLoggedIn(false);
