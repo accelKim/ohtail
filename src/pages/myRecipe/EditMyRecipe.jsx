@@ -107,7 +107,7 @@ const EditMyRecipe = () => {
     if (files.length + newFiles.length + newAddedFiles.length <= 3) {
       setNewFiles([...newFiles, ...newAddedFiles]);
     } else {
-      alert("이미지는 최대 3장까지만");
+      alert("칵테일 이미지 업로드는 최대 3장까지만 가능합니다");
     }
   };
 
@@ -151,17 +151,17 @@ const EditMyRecipe = () => {
   const handleUpdateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
-      alert("칵테일 이름 필수!!!!!!!!!!");
+      alert("칵테일 이름을 입력해주세요");
       return;
     }
 
     if (description === "") {
-      alert("칵테일 소개 필수!!!!!!!!!!");
+      alert("칵테일 소개를 입력해주세요");
       return;
     }
 
     if (files.length === 0 && newFiles.length === 0) {
-      alert("이미지 업로드 필수!!!!!!!!!!");
+      alert("칵테일 이미지는 최소 1장이 필요합니다");
       return;
     }
 
@@ -173,12 +173,12 @@ const EditMyRecipe = () => {
           ingredient.unit === ""
       )
     ) {
-      alert("재료 필드 입력 필수!!!!!!!!!!");
+      alert("재료를 입력해주세요");
       return;
     }
 
     if (instructions === "") {
-      alert("만드는 방법 입력 필수!!!!!!!!!!");
+      alert("만드는 방법을 입력해주세요");
       return;
     }
 
@@ -278,7 +278,7 @@ const EditMyRecipe = () => {
 
   const handleChangeDesc = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.length <= 30) {
+    if (inputValue.length <= 100) {
       setDescription(inputValue);
     }
   };
@@ -332,10 +332,10 @@ const EditMyRecipe = () => {
               placeholder="칵테일 소개를 작성해주세요"
               value={description}
               onChange={handleChangeDesc}
-              maxLength={30}
+              maxLength={100}
               className={style.descInput}
             />
-            <div className={style.charCount}>{description.length}/30</div>
+            <div className={style.charCount}>{description.length}/100</div>
           </div>
         </div>
         <div className={style.imgUpload}>

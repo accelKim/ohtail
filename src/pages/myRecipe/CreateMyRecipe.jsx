@@ -76,12 +76,39 @@ const CreateMyRecipe = () => {
     return translatedOptions;
   };
 
-  const handleFileChange = (e) => {
+  const resizeImage = (file) => {
+    return new Promise((resolve) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target.result;
+        img.onload = () => {
+          const ctx = canvas.getContext("2d");
+          canvas.width = 300;
+          canvas.height = 300;
+          ctx.drawImage(img, 0, 0, 300, 300);
+          canvas.toBlob((blob) => {
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            resolve(resizedFile);
+          }, file.type);
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (e) => {
     const newFiles = Array.from(e.target.files);
     if (files.length + newFiles.length <= 3) {
-      setFiles([...files, ...newFiles]);
+      const resizedFiles = await Promise.all(newFiles.map(resizeImage));
+      setFiles([...files, ...resizedFiles]);
     } else {
-      alert("이미지는 최대 3장까지만");
+      alert("칵테일 이미지 업로드는 최대 3장까지만 가능합니다");
     }
   };
 
@@ -117,17 +144,17 @@ const CreateMyRecipe = () => {
   const handleCreateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
-      alert("칵테일 이름 필수!!!!!!!!!!");
+      alert("칵테일 이름을 입력해주세요");
       return;
     }
 
     if (description === "") {
-      alert("칵테일 소개 필수!!!!!!!!!!");
+      alert("칵테일 소개를 입력해주세요");
       return;
     }
 
     if (files.length === 0) {
-      alert("이미지 업로드 필수!!!!!!!!!!");
+      alert("칵테일 이미지는 최소 1장이 필요합니다");
       return;
     }
 
@@ -139,12 +166,12 @@ const CreateMyRecipe = () => {
           ingredient.unit === ""
       )
     ) {
-      alert("재료 필드 입력 필수!!!!!!!!!!");
+      alert("재료를 입력해주세요");
       return;
     }
 
     if (instructions === "") {
-      alert("만드는 방법 입력 필수!!!!!!!!!!");
+      alert("만드는 방법을 입력해주세요");
       return;
     }
 
@@ -235,7 +262,7 @@ const CreateMyRecipe = () => {
 
   const handleChangeDesc = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.length <= 30) {
+    if (inputValue.length <= 100) {
       setDescription(inputValue);
     }
   };
@@ -289,10 +316,10 @@ const CreateMyRecipe = () => {
               placeholder="칵테일 소개를 작성해주세요"
               value={description}
               onChange={handleChangeDesc}
-              maxLength={30}
+              maxLength={100}
               className={style.descInput}
             />
-            <div className={style.charCount}>{description.length}/30</div>
+            <div className={style.charCount}>{description.length}/100</div>
           </div>
         </div>
 

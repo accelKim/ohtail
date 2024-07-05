@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, EffectCoverflow } from "swiper/modules";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
 import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
@@ -35,7 +36,6 @@ const MyRecipeDetail = () => {
         const data = await response.json();
         setMyRecipe(data);
 
-        // Fetch ingredient images
         const images = {};
         for (const ingredient of data.ingredients) {
           const imgResponse = await fetch(
@@ -44,12 +44,11 @@ const MyRecipeDetail = () => {
           if (imgResponse.ok) {
             images[ingredient.name] = imgResponse.url;
           } else {
-            images[ingredient.name] = null; // 이미지가 없을 경우
+            images[ingredient.name] = null;
           }
         }
         setIngredientImages(images);
 
-        // Translate ingredients
         Promise.all(
           data.ingredients.map(async (ingredient) => {
             const translatedName = await translateText(ingredient.name);
@@ -64,7 +63,7 @@ const MyRecipeDetail = () => {
     fetchMyRecipe();
   }, [id]);
 
-  const translateText = async (text, setState) => {
+  const translateText = async (text) => {
     const response = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
       {
@@ -81,9 +80,6 @@ const MyRecipeDetail = () => {
       }
     );
     const data = await response.json();
-    if (setState) {
-      setState(data.data.translations[0].translatedText);
-    }
     return data.data.translations[0].translatedText;
   };
 
@@ -117,7 +113,6 @@ const MyRecipeDetail = () => {
     }
   };
 
-  // 개행 처리를 위한 코드
   const formattedInstructions = myRecipe.instructions
     .split("\n")
     .map((line, index) => (
@@ -130,40 +125,30 @@ const MyRecipeDetail = () => {
   return (
     <main className={`mw ${style.main}`}>
       <h2 className={style.title}>{myRecipe.title}</h2>
-      <p className={style.authorNickname}>{myRecipe.authorNickname}</p>
-      <Swiper
-        slidesPerView={3}
-        centeredSlides={true}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-        }}
-        effect="coverflow"
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
-          slideShadows: false,
-        }}
-        modules={[Pagination, EffectCoverflow]}
-        className={style.mySwiper}
-      >
-        {myRecipe.files.map((file, index) => {
-          const imageUrl = `http://localhost:8080/${file}`;
-          console.log(`이미지 URL ${index}:`, imageUrl);
-          return (
-            <SwiperSlide key={index} className={style.swiperSlide}>
-              <img
-                src={imageUrl}
-                alt={`${myRecipe.title} 이미지 ${index + 1}`}
-                className={style.image}
-              />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-      <p className={style.desc}>{myRecipe.description}</p>
+      <p className={style.authorNickname}>@ {myRecipe.authorNickname}</p>
+      <div>
+        <Swiper
+          navigation={true}
+          pagination={{ dynamicBullets: true }}
+          modules={[Navigation, Pagination]}
+          className={style.mySwiper}
+        >
+          {myRecipe.files.map((file, index) => {
+            const imageUrl = `http://localhost:8080/${file}`;
+            return (
+              <SwiperSlide key={index} className={style.swiperSlide}>
+                <img
+                  src={imageUrl}
+                  alt={`${myRecipe.title} 이미지 ${index + 1}`}
+                  className={style.image}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+
+      <p className={style.desc}>"{myRecipe.description}"</p>
       <h3>재료 정보</h3>
       <ul className={style.ingredientCon}>
         {translatedIngredients.map((ingredient, index) => (
@@ -187,23 +172,20 @@ const MyRecipeDetail = () => {
       <div className={style.instructions}>
         <p>{formattedInstructions}</p>
       </div>
-
       {userId &&
         myRecipe.author &&
         userId.toString() === myRecipe.author.toString() && (
           <div className={style.btnCon}>
             <button className={style.editBtn} onClick={handleEdit}>
-              <i class="fa-solid fa-pen-to-square"></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
             <button className={style.delBtn} onClick={handleDelete}>
-              <i class="fa-solid fa-trash"></i>
+              <i className="fa-solid fa-trash"></i>
             </button>
           </div>
         )}
-
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
-
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
     </main>
   );

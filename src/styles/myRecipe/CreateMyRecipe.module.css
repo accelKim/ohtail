@@ -239,3 +239,14 @@
   color: var(--white);
   background-color: var(--black);
 }
+
+@media (max-width: 800px) {
+  .previewCon {
+    width: 250px;
+    height: 150px;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
+}
