@@ -447,8 +447,8 @@ app.post('/chatbot', async (req, res) => {
 
 // Webzine
 app.get('/webzine', async (req, res) => {
-  // 웹진 리스트 조회 10개만 갖고오기
-  const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
+  // 웹진 리스트 조회 10개만 갖고오기 .limit(10)
+  const webzineList = await Webzine.find().sort({ createdAt: -1 });
   res.json(webzineList);
 });
 
