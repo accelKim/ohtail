@@ -6,7 +6,6 @@ const KakaoLoginButton = () => {
   const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_JS_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code`;
 
   const handleKakaoLogin = () => {
-    console.log('카카오 로그인');
     window.location.href = link;
   };
 

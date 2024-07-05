@@ -7,6 +7,7 @@ const Counter = require('./src/store/Counter');
 const MyRecipe = require('./src/models/MyRecipe');
 const likeRoutes = require('./src/routes/likeRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
+const webzineLikeRoutes = require('./src/routes/webzineRoutes');
 const Feed = require('./src/store/Feed');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -82,6 +83,7 @@ app.use(
 
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
+app.use('/webzineLike', webzineLikeRoutes);
 
 const Webzine = require('./src/models/Webzine');
 const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
@@ -216,6 +218,49 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('로그인 중 오류 발생:', error);
     res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
+  }
+});
+
+// 특정 유저 정보 가져오기
+app.get('/user/:id', authenticateJWT, async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id, 10); // 숫자로 변환
+    console.log(`유저 정보 요청 받음: ${userId}`);
+    const user = await User.findOne({ userid: userId }).select('nickname');
+    if (!user) {
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('사용자 정보 불러오기 오류:', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 닉네임 업데이트
+app.put('/user/:id/nickname', authenticateJWT, async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id, 10); // 숫자로 변환
+    const { nickname } = req.body;
+
+    const user = await User.findOneAndUpdate(
+      { userid: userId },
+      { nickname },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+    }
+
+    res.status(200).json({
+      message: '닉네임이 성공적으로 업데이트되었습니다.',
+      nickname: user.nickname,
+    });
+  } catch (error) {
+    console.error('닉네임 업데이트 오류:', error);
+    res
+      .status(500)
+      .json({ message: '닉네임 업데이트 중 오류가 발생했습니다.' });
   }
 });
 
@@ -577,11 +622,20 @@ app.post(
       )}`;
       console.log('생성된 이미지 URL:', imageUrl);
 
+      // 작성자 정보 조회
+      const user = await User.findOne({
+        userid: req.user.userid,
+      });
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+
       const newFeed = new Feed({
         title,
         content,
         cover: imageUrl, // cover 필드에 이미지 URL 저장
         author: req.user.userid, // 작성자 정보 추가 (userid 사용)
+        authorNickname: user.nickname, // 작성자 닉네임 추가
       });
 
       await newFeed.save();
@@ -609,14 +663,24 @@ app.get('/feedList', async (req, res) => {
   }
 });
 
-// 피드 상세
 app.get('/feedDetail/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const feed = await Feed.findById(id).populate('author', 'userid'); // 작성자 정보 포함 (userid 사용)
+    let feed = await Feed.findById(id);
+    if (!feed) {
+      return res.status(404).json({ message: '피드를 찾을 수 없습니다.' });
+    }
+
+    const author = await User.findOne({ userid: feed.author });
+    if (author) {
+      feed = feed.toObject(); // feed 객체를 평범한 자바스크립트 객체로 변환
+      feed.authorNickname = author.nickname; // 작성자 닉네임 추가
+    }
+
     res.json(feed);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('피드 상세 조회 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 상세 조회 중 오류가 발생했습니다.' });
   }
 });
 

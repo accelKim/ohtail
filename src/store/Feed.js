@@ -10,6 +10,7 @@ const FeedSchema = new Schema({
     default: Date.now, // 기본값으로 현재 시간 사용
   },
   author: { type: String },
+  authorNickname: { type: String }, // 작성자 닉네임 필드 추가
 });
 
 const FeedModel = model('Feed', FeedSchema);
