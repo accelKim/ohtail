@@ -1,0 +1,289 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'Pretendard-Thin';
+  font-weight: 100;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-Thin.woff');
+  src: url('../../public/fonts/Pretendard-Thin.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-ExtraLight';
+  font-weight: 200;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-ExtraLight.woff');
+  src: url('../../public/fonts/Pretendard-ExtraLight.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Light';
+  font-weight: 300;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-Light.woff');
+  src: url('../../public/fonts/Pretendard-Light.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-Regular.woff');
+  src: url('../../public/fonts/Pretendard-Regular.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  font-weight: 500;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-Medium.woff');
+  src: url('../../public/fonts/Pretendard-Medium.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-SemiBold.woff');
+  src: url('../../public/fonts/Pretendard-SemiBold.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-Bold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-Bold.woff');
+  src: url('../../public/fonts/Pretendard-Bold.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  src: url('../../public/fonts/Pretendard-ExtraBold.woff');
+  src: url('../../public/fonts/Pretendard-ExtraBold.woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JalnanGothic';
+  src: url('../../public/fonts/JalnanGothic.otf');
+  src: url('../../public/fonts/JalnanGothicTTF.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --main-color: #6d4ee5;
+  --sub-color: #d7d1f9;
+  --white: #fff;
+  --black: #333;
+  --gray: #aaa;
+  --lightGray: #f0f0f0;
+
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+  color: var(--black);
+  letter-spacing: -0.03em;
+}
+
+.wrap {
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.mw {
+  width: calc(100% - 4rem);
+  max-width: 1300px;
+  margin: auto;
+}
+
+.wrap > .mw {
+  margin: 70px auto;
+}
+
+h1 {
+}
+h2 {
+  margin-bottom: 2rem;
+  font-family: 'pretendard-bold';
+  font-size: 2em;
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+input:focus {
+  outline: none;
+}
+input::placeholder {
+  color: #ccc;
+}
+
+/* 메인 */
+main section {
+  padding-bottom: 4rem;
+  position: relative;
+}
+main section:last-of-type {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+}
+main section .imgArea {
+  display: grid;
+  gap: 0;
+}
+main section .imgArea > * {
+  border: 1px solid blue;
+  height: 0;
+  padding-top: 100%;
+}
+main section .imgArea img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+main section .btnMore::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--main-color);
+  transition: 0.5s;
+}
+main section .btnMore {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  font-size: 0.9em;
+  transition: 0.5s;
+}
+main section .btnMore:hover {
+  color: var(--main-color);
+}
+main section .btnMore:hover::before {
+  transform: translateX(-50%) scale(1);
+}
+main section .btnMore i {
+  padding-left: 0.25rem;
+}
+.mainVisual {
+  width: 100%;
+  margin-bottom: 4rem;
+  padding: 10rem 0;
+  text-align: center;
+  font-family: 'pretendard-bold';
+  font-size: 2.5em;
+}
+
+.mainRecipe .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+}
+.mainMyRecipe .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+}
+.mainWebzine,
+.mainFeed {
+  flex: 1;
+}
+.mainWebzine {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.mainWebzine h2 {
+  font-size: 3em;
+}
+.mainWebzine > div:nth-of-type(1) {
+  padding-right: 5rem;
+  margin-bottom: 10rem;
+  font-family: 'pretendard-medium' !important;
+  font-size: 1.875em !important;
+  line-height: 1.4;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mainWebzine > div:nth-of-type(1) * {
+  background: transparent !important;
+}
+.mainWebzine > div:nth-of-type(1) img {
+  display: none !important;
+}
+.mainWebzine > p {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-family: 'pretendard-medium';
+  font-size: 1.875em;
+}
+.mainWebzine > div:nth-of-type(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.mainWebzine > div:nth-of-type(2) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+.mainWebzine:hover > div:nth-of-type(2) img {
+  transform: scale(1.1);
+}
+.mainFeed .imgArea {
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+}
+
+/* chatbot */
+.chatbot .user,
+.chatbot .bot {
+  width: fit-content;
+  max-width: 90%;
+  padding: 0.75rem 1rem;
+  line-height: 1.25;
+}
+.chatbot .user {
+  align-self: flex-end;
+  background-color: var(--white);
+  border-radius: 20px 20px 5px 20px;
+}
+.chatbot .bot {
+  align-self: flex-start;
+  background-color: var(--main-color);
+  color: var(--white);
+  border-radius: 5px 20px 20px 20px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    font-size: 0.9em;
+  }
+}
+@media (max-width: 700px) {
+  :root {
+    font-size: 0.8em;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    font-size: 0.7em;
+  }
+}

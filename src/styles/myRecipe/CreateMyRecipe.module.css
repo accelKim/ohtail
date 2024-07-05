@@ -1,0 +1,252 @@
+.main {
+  margin: 40px auto 70px auto !important;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.main h3 {
+  font-weight: bold;
+}
+.main input:focus {
+  border: 2px solid var(--black);
+}
+
+.main button:hover {
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+/* 칵테일 이름, 소개 */
+.titleCon,
+.descCon,
+.instructionCon {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.titleInput,
+.descInput,
+.instructionInput {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.charCount {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #555;
+  pointer-events: none;
+  padding-left: 0.5rem;
+}
+
+/* 칵테일 이미지 */
+.imgUpload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.imgUploadBtn {
+  width: 150px;
+  height: 30px;
+}
+
+.imgPreview {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.previewCon {
+  width: 430px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 40px;
+  border: 1px solid #ccc;
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.removeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fileInput {
+  display: none;
+}
+
+/* 재료 정보 */
+
+.ingredientsCon {
+  margin-bottom: 40px;
+}
+
+.ingredientsInput {
+  padding: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+/* 재료 검색 */
+.ingredients_name_Con {
+  position: relative;
+}
+
+.ingredients_name {
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.ingredients_name_dropMenu {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  z-index: 99;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.ingredients_name_search {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.ingredients_name_list {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.ingredients_name_list:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+/* 수량 단위 */
+.measureWrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ingredients_quantity,
+.ingredients_unit {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.ingredients_unit {
+  cursor: pointer;
+}
+
+.delIngredientBtn {
+  width: 100px;
+}
+
+.addIngredientBtn {
+  width: 130px;
+  height: 40px;
+  display: block;
+  margin-left: auto;
+}
+
+/* 만드는 방법 */
+
+.instructionInput {
+  height: 150px;
+  resize: none;
+  padding: 1.5rem;
+  line-height: 1.5;
+  font-size: 16px;
+  overflow: hidden;
+  border-radius: 10px;
+  min-height: 200px;
+}
+
+.charCount_instruct {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  font-size: 14px;
+  color: #555;
+  pointer-events: none;
+  background: white;
+  padding-left: 0.5rem;
+}
+
+/* 업로드 */
+.submitBtn {
+  width: 150px;
+  height: 60px;
+  display: block;
+  margin-left: auto;
+  color: var(--white);
+  background-color: var(--black);
+}
+
+@media (max-width: 800px) {
+  .previewCon {
+    width: 250px;
+    height: 150px;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
+}

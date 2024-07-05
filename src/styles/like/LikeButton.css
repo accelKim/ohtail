@@ -1,0 +1,44 @@
+.like-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.like-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.like-button.liked {
+  color: red;
+}
+
+.like-count {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.heart-animation {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+
+  font-size: 24px;
+  animation: heart-burst 1s ease-in-out forwards; /* forwards를 추가하여 애니메이션 후 상태를 유지 */
+}
+
+@keyframes heart-burst {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(2);
+  }
+}

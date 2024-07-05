@@ -1,0 +1,46 @@
+.signup h2 {
+  text-align: center;
+}
+
+.signup form {
+  max-width: 450px;
+  margin: auto;
+}
+.signup label {
+  position: relative;
+  top: 10px;
+}
+
+.signup input,
+.signup select {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--black);
+}
+.signup Select {
+  margin-top: 1rem;
+}
+
+.signup form button {
+  padding: 1rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--black);
+  color: white;
+  font-size: 1em;
+  transition: 0.3s;
+}
+.signup form button:hover {
+  background-color: var(--main-color);
+}
+.errorMessage,
+.errorMessage2 {
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: end;
+}
