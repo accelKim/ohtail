@@ -22,7 +22,7 @@ const WebzineWrite = () => {
     data.append('content', content);
 
     try {
-      const response = await fetch(`${url}/webzineWrite`, {
+      const response = await fetch(`${url}/webzine`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${userToken}`,

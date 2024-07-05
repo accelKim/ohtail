@@ -46,7 +46,7 @@ const Signup = () => {
   const handleEmailCheck = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/check-email',
+        'http://localhost:8080/auth/check-email',
         {
           email,
         }
@@ -61,7 +61,7 @@ const Signup = () => {
   const handleNicknameCheck = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/check-nickname',
+        'http://localhost:8080/auth/check-nickname',
         {
           nickname,
         }
@@ -122,7 +122,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/signup', {
+      const response = await axios.post('http://localhost:8080/auth/signup', {
         email,
         password,
         phonenumber,

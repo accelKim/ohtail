@@ -15,7 +15,7 @@ const Webzine = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${url}/webzineList`)
+    fetch(`${url}/webzines/list`)
       .then((res) => res.json())
       .then((data) => setWebzineList(data));
   }, []);

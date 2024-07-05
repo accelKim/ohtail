@@ -35,7 +35,7 @@ const WebzineDetail = () => {
   }, [userId]);
 
   useEffect(() => {
-    fetch(`${url}/webzineDetail/${webzineId}`)
+    fetch(`${url}/webzines/${webzineId}`)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -55,7 +55,7 @@ const WebzineDetail = () => {
   const [webzineList, setWebzineList] = useState([]);
 
   useEffect(() => {
-    fetch(`${url}/webzineList`)
+    fetch(`${url}/webzines/list`)
       .then((res) => res.json())
       .then((data) => setWebzineList(data));
   }, []);
@@ -111,10 +111,10 @@ const WebzineDetail = () => {
   });
 
   const editWebzine = () => {
-    navigate(`/webzineEdit/${webzineId}`);
+    navigate(`/webzines/${webzineId}/edit`);
   };
   const delWebzine = () => {
-    fetch(`${url}/delWebzine/${webzineId}`, {
+    fetch(`${url}/webzines/${webzineId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

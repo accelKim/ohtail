@@ -18,7 +18,7 @@ const WebzineEdit = () => {
 
   useEffect(() => {
     const getWebzine = async () => {
-      const res = await fetch(`${url}/webzineEdit/${webzineId}`);
+      const res = await fetch(`${url}/webzines/${webzineId}/edit`);
       const result = await res.json();
       console.log(result);
       setTitle(result.title);
@@ -40,7 +40,7 @@ const WebzineEdit = () => {
     }
     data.append('content', content);
 
-    const response = await fetch(`${url}/webzineEdit/${webzineId}`, {
+    const response = await fetch(`${url}/webzines/${webzineId}/edit`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${userToken}`,
