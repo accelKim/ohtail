@@ -7,6 +7,7 @@ const Counter = require("./src/store/Counter");
 const MyRecipe = require("./src/models/MyRecipe");
 const likeRoutes = require("./src/routes/likeRoutes");
 const commentRoutes = require("./src/routes/commentRoutes");
+const webzineLikeRoutes = require("./src/routes/webzineRoutes");
 const Feed = require("./src/store/Feed");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -82,6 +83,7 @@ app.use(
 
 app.use("/likes", likeRoutes);
 app.use("/comments", commentRoutes);
+app.use("/webzineLike", webzineLikeRoutes);
 
 const Webzine = require("./src/models/Webzine");
 const Favorite = require("./src/models/Favorite"); // Favorite 모델 불러오기
