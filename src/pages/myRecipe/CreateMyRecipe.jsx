@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
 const CreateMyRecipe = () => {
@@ -199,7 +201,18 @@ const CreateMyRecipe = () => {
         body: formData,
       });
       if (response.ok) {
-        navigate("/myRecipe");
+        toast.success("레시피가 등록되었습니다!", {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate("/myRecipe");
+        }, 1000); // 2초 후에 페이지 이동
       }
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -490,6 +503,7 @@ const CreateMyRecipe = () => {
           업로드
         </button>
       </form>
+      <ToastContainer />
     </main>
   );
 };

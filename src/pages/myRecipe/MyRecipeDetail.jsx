@@ -5,17 +5,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
 import FavoritesButton from "../../components/favorites/FavoritesButton";
+import CopyUrlButton from "../../components/copyUrl/CopyUrl";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [myRecipe, setMyRecipe] = useState(null);
   const [userId, setUserId] = useState(null);
-
   const [ingredientImages, setIngredientImages] = useState({});
   const [translatedIngredients, setTranslatedIngredients] = useState([]);
   const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
@@ -87,11 +89,11 @@ const MyRecipeDetail = () => {
     navigate(`/editMyRecipe/${myRecipe._id}`);
   };
 
-  if (!myRecipe) {
-    return <p>로딩 중...</p>;
-  }
-
   const handleDelete = async () => {
+    if (!window.confirm("레시피를 삭제하시겠습니까?")) {
+      return;
+    }
+
     const token = localStorage.getItem("token");
     try {
       const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
@@ -105,15 +107,25 @@ const MyRecipeDetail = () => {
         console.error("삭제 요청 실패:", errorData);
         throw new Error(errorData.message || "삭제 중 오류 발생!!!!!");
       }
-      console.log("레시피가 삭제되었습니다.");
-      navigate("/myRecipe");
+      toast.success("레시피가 삭제되었습니다!", {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        navigate("/myRecipe");
+      }, 1000); // 1초 후에 페이지 이동
     } catch (error) {
       console.error("삭제 중 오류 발생!!!!!", error);
       alert(error.message);
     }
   };
 
-  const formattedInstructions = myRecipe.instructions
+  const formattedInstructions = myRecipe?.instructions
     .split("\n")
     .map((line, index) => (
       <React.Fragment key={index}>
@@ -121,6 +133,10 @@ const MyRecipeDetail = () => {
         <br />
       </React.Fragment>
     ));
+
+  if (!myRecipe) {
+    return <p>로딩 중...</p>;
+  }
 
   return (
     <main className={`mw ${style.main}`}>
@@ -186,7 +202,9 @@ const MyRecipeDetail = () => {
         )}
       <LikeButton cocktailId={id} userId={userId} />
       <FavoritesButton cocktailId={id} userId={userId} />
+      <CopyUrlButton />
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
+      <ToastContainer />
     </main>
   );
 };

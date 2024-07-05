@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
 const EditMyRecipe = () => {
@@ -212,7 +214,18 @@ const EditMyRecipe = () => {
       });
 
       if (response.ok) {
-        navigate(`/myRecipe/${id}`);
+        toast.success("레시피를 수정했습니다!", {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate(`/myRecipe/${id}`);
+        }, 1000); // 1초 후에 페이지 이동
       } else {
         const errorData = await response.json();
         console.error("수정 요청 실패:", errorData);
@@ -518,6 +531,7 @@ const EditMyRecipe = () => {
           업로드
         </button>
       </form>
+      <ToastContainer />
     </main>
   );
 };
