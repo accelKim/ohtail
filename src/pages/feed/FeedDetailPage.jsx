@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../../styles/feed/FeedDetail.module.css';
 import LikeButton from '../../components/like/LikeButton';
 import CommentSection from '../../components/Comment/CommentSection';
@@ -19,6 +18,7 @@ const FeedDetailPage = () => {
           throw new Error('Failed to fetch feed detail');
         }
         const data = await response.json();
+        console.log('Feed data:', data); // 데이터 로드 확인용 로그
         setFeed(data);
       } catch (error) {
         console.error('Error fetching feed detail:', error);
@@ -65,23 +65,22 @@ const FeedDetailPage = () => {
       <section className={style.feedDetail}>
         <img src={feed.cover} alt="" />
         <h3>{feed.title}</h3>
-        <p>작성자 : {feed.author}</p>
+        <p>작성자 : {feed.authorNickname}</p>
         <div>{feed.content}</div>
       </section>
       <section className={style.button}>
         {userId && userId === feed.author && (
           <React.Fragment>
             <button onClick={handleEditClick}>
-              <i class="fa-solid fa-pen-to-square"></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
             <button onClick={handleFeedDelete}>
-              <i class="fa-solid fa-trash"></i>
+              <i className="fa-solid fa-trash"></i>
             </button>
           </React.Fragment>
         )}
       </section>
       <LikeButton cocktailId={id} userId={userId} />
-      {/* 댓글 타입 feed 추가 */}
       <CommentSection cocktailId={id} userId={userId} type="feed" />
     </div>
   );

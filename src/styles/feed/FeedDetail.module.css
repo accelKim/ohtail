@@ -9,8 +9,9 @@
 }
 
 .feedDetail img {
-  width: 50%;
-  height: cover;
+  width: 60%;
+  height: 700px;
+  object-fit: cover;
 }
 
 .feedDetail h3 {
@@ -58,4 +59,9 @@
   margin: 0 1.5rem;
   transition: 0.5s;
   background-color: transparent;
+}
+@media (max-width: 800px) {
+  .feedDetail img {
+    height: 300px;
+  }
 }

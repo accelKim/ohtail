@@ -575,11 +575,20 @@ app.post(
       )}`;
       console.log('생성된 이미지 URL:', imageUrl);
 
+      // 작성자 정보 조회
+      const user = await User.findOne({
+        userid: req.user.userid,
+      });
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+
       const newFeed = new Feed({
         title,
         content,
         cover: imageUrl, // cover 필드에 이미지 URL 저장
         author: req.user.userid, // 작성자 정보 추가 (userid 사용)
+        authorNickname: user.nickname, // 작성자 닉네임 추가
       });
 
       await newFeed.save();
@@ -611,10 +620,20 @@ app.get('/feedList', async (req, res) => {
 app.get('/feedDetail/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const feed = await Feed.findById(id).populate('author', 'userid'); // 작성자 정보 포함 (userid 사용)
+    const feed = await Feed.findById(id);
+    if (!feed) {
+      return res.status(404).json({ message: '피드를 찾을 수 없습니다.' });
+    }
+
+    const author = await User.findOne({ userid: feed.author });
+    if (author) {
+      feed._doc.authorNickname = author.nickname;
+    }
+
     res.json(feed);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('피드 상세 조회 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 상세 조회 중 오류가 발생했습니다.' });
   }
 });
 
