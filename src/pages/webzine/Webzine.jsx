@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import style from "../../styles/webzine/Webzine.module.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../store/ref";
 import WebzineList from "../../components/webzine/WebzineList";
 import WebzineLikeButton from "../../components/like/WebzineLikeButton";
-import LikeButton from "../../components/like/LikeButton";
 
 const Webzine = () => {
   const userId = localStorage.getItem("userid");
   const [user, setUser] = useState(0);
-  const { webzineId } = useParams();
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
   const navigate = useNavigate();
@@ -147,6 +145,13 @@ const Webzine = () => {
           <>
             <div>
               <h4>{webzineData[0].summary}</h4>
+              {/* 추가된 이미지 태그 */}
+              {webzineData[0].cover && (
+                <img
+                  src={`${url}/${webzineData[0].cover}`}
+                  alt="Webzine Cover"
+                />
+              )}
               <div
                 dangerouslySetInnerHTML={{ __html: webzineData[0].content }}
               ></div>
@@ -164,12 +169,11 @@ const Webzine = () => {
                 )}
               </p>
             </div>
+            <WebzineLikeButton webzineId={webzineData[0]._id} userId={userId} />
           </>
         ) : (
           ""
         )}
-        {/* <button>0</button> */}
-        <WebzineLikeButton webzineId={webzineId} userId={userId} />
       </div>
       <div className={style.noise}></div>
     </div>
