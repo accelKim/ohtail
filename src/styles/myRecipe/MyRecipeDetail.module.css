@@ -10,13 +10,15 @@
   font-weight: bold;
 }
 
-.mySwiper {
-  margin-bottom: 40px;
-
-  /* border: 1px solid red; */
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .swiperSlide .image {
-  width: 100%;
+  width: 420px;
+  height: 400px;
   border-radius: 10px;
 }
 
@@ -24,9 +26,11 @@
 .authorNickname {
   text-align: center;
 }
+
 .title {
   margin-bottom: 1rem;
 }
+
 .authorNickname {
   margin-bottom: 2rem;
   font-size: 1rem;
@@ -35,9 +39,10 @@
 
 .desc {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 40px 0;
+  font-size: 18px;
+  font-weight: bold;
 }
-
 .ingredientCon {
   margin-bottom: 40px;
 }
@@ -57,11 +62,16 @@
   font-weight: bold;
 }
 
+.ingredientItem > span {
+  padding-left: 1rem;
+}
+
 .measureWrap {
   display: flex;
   align-items: center;
   font-weight: bold;
 }
+
 .ingredientImg {
   height: 50px;
 }
@@ -69,12 +79,12 @@
 .instructions {
   display: flex;
   border: 1px solid var(--black);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 1rem auto;
   padding: 2.5rem;
   font-weight: bold;
   justify-content: center;
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .instructions p {
@@ -83,8 +93,6 @@
   white-space: pre-wrap;
   word-break: keep-all;
   word-wrap: break-word;
-  /* border: 1px solid red; */
-  /* padding: 3rem; */
   font-size: 18px;
   line-height: 2;
 }
@@ -93,7 +101,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .editBtn,
@@ -101,4 +109,28 @@
   width: 130px;
   height: 30px;
   border: none;
+}
+
+.editBtn:hover,
+.delBtn:hover {
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+@media (max-width: 900px) {
+  .swiperSlide .image {
+    width: 320px;
+    height: 100%;
+    border-radius: 10px;
+  }
+
+  .desc {
+    font-size: 14px;
+  }
+
+  .editBtn,
+  .delBtn {
+    flex: 1;
+  }
 }

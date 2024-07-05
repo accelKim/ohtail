@@ -14,7 +14,9 @@ const CreateFeed = () => {
     if (imgFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImgPreviewUrl(reader.result);
+        resizeImage(reader.result, 300, 300, (resizedUrl) => {
+          setImgPreviewUrl(resizedUrl);
+        });
       };
       reader.readAsDataURL(imgFile);
     } else {
@@ -32,6 +34,19 @@ const CreateFeed = () => {
   const handleImageDelete = () => {
     setImgFile(null);
     setImgPreviewUrl(null);
+  };
+
+  const resizeImage = (url, width, height, callback) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      callback(canvas.toDataURL());
+    };
   };
 
   const createNewFeed = async (e) => {

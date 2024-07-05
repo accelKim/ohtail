@@ -32,24 +32,21 @@ const FeedsTab = () => {
   });
 
   return (
-    <main className={style.wrap}>
-      <div className={style.feedsTab}>
-        <h2>피드</h2>
-        <div className={style.feedcon}>
-          {userFeeds.length > 0 ? (
-            userFeeds.map((feed) => (
-              <div key={feed._id} className={style.imgbox}>
-                <Link to={`/feedDetail/${feed._id}`} className={style.feedsImg}>
-                  {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p>작성한 피드가 없습니다.</p>
-          )}
-        </div>
-      </div>
-    </main>
+    <div className="mw">
+      <ul className={style.feedcon}>
+        {userFeeds.length > 0 ? (
+          userFeeds.map((feed) => (
+            <div key={feed._id} className={style.imgbox}>
+              <Link to={`/feedDetail/${feed._id}`} className={style.feedsImg}>
+                {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
+              </Link>
+            </div>
+          ))
+        ) : (
+          <p>작성한 피드가 없습니다.</p>
+        )}
+      </ul>
+    </div>
   );
 };
 

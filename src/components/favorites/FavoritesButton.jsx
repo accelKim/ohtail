@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -41,11 +42,11 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     checkFavorite();
   }, [cocktailId, isExternal]);
 
+  // 미로그인 처리
   const handleFavorite = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      console.log("로그인 유저만 이용할 수 있습니다");
-      alert("로그인 유저만 이용할 수 있습니다"); // 사용자에게도 알림
+      navigate("/login");
       return;
     }
 
