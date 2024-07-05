@@ -748,19 +748,6 @@ app.get('/feeds', async (req, res) => {
   }
 });
 
-// Static file declaration
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// API routes
-app.get('/api/hello', (req, res) => {
-  res.send({ message: 'Hello from the server!' });
-});
-
-// Serve static files
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
