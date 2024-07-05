@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
 import RecipeCard from "../../../components/recipe/RecipeCard";
-import style from "../../../styles/myPage/FavoritesTab.module.css";
+import style from "../../../styles/myPage/RecipesTab.module.css";
 
 const FavoritesTab = () => {
   const [allRecipes, setAllRecipes] = useState([]);

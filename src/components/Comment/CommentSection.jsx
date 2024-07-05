@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import style from "../../styles/comments/Comments.module.css";
 import {
   fetchComments,
@@ -8,9 +9,10 @@ import {
   updateComment,
 } from "../../store/commentSlice";
 
+// 마이페이지 댓글 조회를 위한 type 필드를 추가
 const CommentSection = ({ cocktailId, userId, type }) => {
-  // type 필드를 추가합니다.
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const comments = useSelector((state) => state.comments.comments);
   const [newComment, setNewComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null);
@@ -22,8 +24,18 @@ const CommentSection = ({ cocktailId, userId, type }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
     dispatch(submitComment({ cocktailId, userId, text: newComment, type }));
     setNewComment("");
+  };
+
+  const handleFocus = () => {
+    if (!userId) {
+      navigate("/login");
+    }
   };
 
   const handleDelete = (commentId) => {
@@ -55,6 +67,7 @@ const CommentSection = ({ cocktailId, userId, type }) => {
         <input
           type="text"
           value={newComment}
+          onFocus={handleFocus}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="댓글 내용을 입력하세요"
           className={style.comment_input}

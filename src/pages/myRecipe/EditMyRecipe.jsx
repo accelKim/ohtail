@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/myRecipe/CreateMyRecipe.module.css";
 
 const EditMyRecipe = () => {
@@ -107,7 +109,7 @@ const EditMyRecipe = () => {
     if (files.length + newFiles.length + newAddedFiles.length <= 3) {
       setNewFiles([...newFiles, ...newAddedFiles]);
     } else {
-      alert("이미지는 최대 3장까지만");
+      alert("칵테일 이미지 업로드는 최대 3장까지만 가능합니다");
     }
   };
 
@@ -151,17 +153,17 @@ const EditMyRecipe = () => {
   const handleUpdateRecipe = async (e) => {
     e.preventDefault();
     if (title === "") {
-      alert("칵테일 이름 필수!!!!!!!!!!");
+      alert("칵테일 이름을 입력해주세요");
       return;
     }
 
     if (description === "") {
-      alert("칵테일 소개 필수!!!!!!!!!!");
+      alert("칵테일 소개를 입력해주세요");
       return;
     }
 
     if (files.length === 0 && newFiles.length === 0) {
-      alert("이미지 업로드 필수!!!!!!!!!!");
+      alert("칵테일 이미지는 최소 1장이 필요합니다");
       return;
     }
 
@@ -173,12 +175,12 @@ const EditMyRecipe = () => {
           ingredient.unit === ""
       )
     ) {
-      alert("재료 필드 입력 필수!!!!!!!!!!");
+      alert("재료를 입력해주세요");
       return;
     }
 
     if (instructions === "") {
-      alert("만드는 방법 입력 필수!!!!!!!!!!");
+      alert("만드는 방법을 입력해주세요");
       return;
     }
 
@@ -212,7 +214,18 @@ const EditMyRecipe = () => {
       });
 
       if (response.ok) {
-        navigate(`/myRecipe/${id}`);
+        toast.success("레시피를 수정했습니다!", {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate(`/myRecipe/${id}`);
+        }, 1000); // 1초 후에 페이지 이동
       } else {
         const errorData = await response.json();
         console.error("수정 요청 실패:", errorData);
@@ -278,7 +291,7 @@ const EditMyRecipe = () => {
 
   const handleChangeDesc = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.length <= 30) {
+    if (inputValue.length <= 100) {
       setDescription(inputValue);
     }
   };
@@ -332,10 +345,10 @@ const EditMyRecipe = () => {
               placeholder="칵테일 소개를 작성해주세요"
               value={description}
               onChange={handleChangeDesc}
-              maxLength={30}
+              maxLength={100}
               className={style.descInput}
             />
-            <div className={style.charCount}>{description.length}/30</div>
+            <div className={style.charCount}>{description.length}/100</div>
           </div>
         </div>
         <div className={style.imgUpload}>
@@ -518,6 +531,7 @@ const EditMyRecipe = () => {
           업로드
         </button>
       </form>
+      <ToastContainer />
     </main>
   );
 };
