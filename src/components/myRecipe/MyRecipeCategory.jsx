@@ -5,7 +5,7 @@ import style from "../../styles/myRecipe/MyRecipeList.module.css";
 const MyRecipeCategory = ({ sortOption, onSortChange }) => {
   const sortOptions = [
     { value: "newest", label: "최신순" },
-    // { value: "mostLiked", label: "좋아요순" },
+    { value: "mostLiked", label: "좋아요순" },
   ];
 
   const handleChange = (selectedOption) => {
