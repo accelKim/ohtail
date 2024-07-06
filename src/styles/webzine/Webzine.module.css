@@ -328,6 +328,9 @@
   margin-bottom: 50px;
   font-size: 1em;
 }
+#webzine .contArea > div:nth-of-type(1) img {
+  width: 100%;
+}
 #webzine.small .contArea > button {
   width: 100px;
   height: 100px;
