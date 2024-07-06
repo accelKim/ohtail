@@ -1,7 +1,16 @@
-.mainFeed ul > * {
-  width: 80%;
-  padding: 0.5rem;
-  white-space: nowrap; /* 넘치는 텍스트 줄바꿈 방지 */
-  overflow: hidden; /* 넘치는 부분 숨김 처리 */
-  text-overflow: ellipsis; /* 넘치는 텍스트 ... 으로 처리 */
+.feedItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.feedTitle {
+  font-weight: bold;
+}
+
+.feedDate {
+  font-size: 0.9rem;
+  color: gray;
+  text-align: end;
 }
