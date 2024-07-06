@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import style from "../../styles/webzine/Webzine.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { url } from "../../store/ref";
-import WebzineList from "../../components/webzine/WebzineList";
-import WebzineLikeButton from "../../components/like/WebzineLikeButton";
+import React, { useEffect, useState } from 'react';
+import style from '../../styles/webzine/Webzine.module.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { url } from '../../store/ref';
+import WebzineList from '../../components/webzine/WebzineList';
+import WebzineLikeButton from '../../components/like/WebzineLikeButton';
 
 const Webzine = () => {
-  const userId = localStorage.getItem("userid");
+  const userId = localStorage.getItem('userid');
   const [user, setUser] = useState(0);
   const [webzineList, setWebzineList] = useState([]);
   const [webzineData, setWebzineData] = useState(null);
@@ -21,16 +21,16 @@ const Webzine = () => {
   const fetchWebzineData = async () => {
     try {
       const response = await fetch(`${url}/webzine`, {
-        method: "GET",
+        method: 'GET',
       });
       if (response.ok) {
         const data = await response.json();
         setWebzineData(data);
       } else {
-        console.error("webzine area error");
+        console.error('webzine area error');
       }
     } catch (error) {
-      console.error("webzine area error", error);
+      console.error('webzine area error', error);
     }
   };
 
@@ -41,7 +41,7 @@ const Webzine = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState(() => {
-    const savedOptions = localStorage.getItem("selectedOptions");
+    const savedOptions = localStorage.getItem('selectedOptions');
     return savedOptions ? JSON.parse(savedOptions) : [];
   });
 
@@ -55,7 +55,7 @@ const Webzine = () => {
 
   const toggleOption = (option) => {
     setSelectedOptions((prevOptions) => {
-      const sizeOptions = ["small", "large"];
+      const sizeOptions = ['small', 'large'];
 
       let newOptions;
       if (prevOptions.includes(option)) {
@@ -70,7 +70,7 @@ const Webzine = () => {
         }
       }
 
-      localStorage.setItem("selectedOptions", JSON.stringify(newOptions));
+      localStorage.setItem('selectedOptions', JSON.stringify(newOptions));
 
       return newOptions;
     });
@@ -78,7 +78,7 @@ const Webzine = () => {
 
   useEffect(() => {
     const webzine = document.getElementById(style.webzine);
-    const classes = selectedOptions.map((option) => style[option]).join(" ");
+    const classes = selectedOptions.map((option) => style[option]).join(' ');
     webzine.className = `${style.webzine} ${classes}`;
   }, [selectedOptions]);
 
@@ -108,10 +108,10 @@ const Webzine = () => {
             닫기
           </Link>
         </div>
-        <div className={`${style.listArea} ${isOpen ? style.on : ""}`}>
+        <div className={`${style.listArea} ${isOpen ? style.on : ''}`}>
           <div>
             <button onClick={closeMenu}>닫기</button>
-            {user === "10" ? <Link to="/WebzineWrite">글쓰기</Link> : null}
+            {user === '10' ? <Link to="/WebzineWrite">글쓰기</Link> : null}
           </div>
           <ul>
             {webzineList.map((webzine, i) => (
@@ -124,17 +124,17 @@ const Webzine = () => {
         <div className={style.optionArea}>
           <p>보기 옵션</p>
           <div>
-            {["dark", "large", "small"].map((option) => (
+            {['dark', 'large', 'small'].map((option) => (
               <p
                 key={option}
-                className={selectedOptions.includes(option) ? style.on : ""}
+                className={selectedOptions.includes(option) ? style.on : ''}
                 onClick={() => toggleOption(option)}
               >
-                {option === "dark"
-                  ? "어둡게"
-                  : option === "large"
-                  ? "크게"
-                  : "작게"}
+                {option === 'dark'
+                  ? '어둡게'
+                  : option === 'large'
+                  ? '크게'
+                  : '작게'}
               </p>
             ))}
           </div>
@@ -160,11 +160,11 @@ const Webzine = () => {
               <p>{webzineData[0].nickname}</p>
               <p>
                 {new Date(webzineData[0].createdAt).toLocaleDateString(
-                  "ko-KR",
+                  'ko-KR',
                   {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                   }
                 )}
               </p>
@@ -172,7 +172,7 @@ const Webzine = () => {
             <WebzineLikeButton webzineId={webzineData[0]._id} userId={userId} />
           </>
         ) : (
-          ""
+          ''
         )}
       </div>
       <div className={style.noise}></div>

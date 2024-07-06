@@ -144,3 +144,22 @@
   white-space: nowrap;
   box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
 }
+
+@media (max-width: 1200px) {
+  .hd .hamMenu {
+    padding: 6rem;
+  }
+  .hd .hamMenu > a {
+    font-size: 2.5em;
+  }
+}
+@media (max-width: 900px) {
+  .hd .hamMenu {
+    padding: 4rem;
+  }
+}
+@media (max-width: 800px) {
+  .hd .hamMenu {
+    width: 100%;
+  }
+}
