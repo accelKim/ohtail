@@ -19,7 +19,10 @@ const cookieParser = require('cookie-parser');
 const fs = require('fs').promises;
 const realFs = require('fs');
 const app = express();
-const port = process.env.PORT || 5001;
+const port = 8080;
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -456,8 +459,8 @@ app.post('/chatbot', async (req, res) => {
 
 // Webzine
 app.get('/webzine', async (req, res) => {
-    // 웹진 리스트 조회 10개만 갖고오기
-    const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
+    // 웹진 리스트 조회 10개만 갖고오기 .limit(10)
+    const webzineList = await Webzine.find().sort({ createdAt: -1 });
     res.json(webzineList);
 });
 
@@ -568,7 +571,7 @@ app.post(
             await fs.rename(tempPath, newPath);
 
             const { title, content } = req.body;
-            const imageUrl = `http://localhost:5001/uploads/${path.basename(newPath)}`;
+            const imageUrl = `http://localhost:8080/uploads/${path.basename(newPath)}`;
             console.log('생성된 이미지 URL:', imageUrl);
 
             // 작성자 정보 조회
@@ -652,7 +655,7 @@ app.put('/feedEdit/:id', upload.single('imgFile'), async (req, res) => {
 
             // 파일 이동 및 이름 변경
             await fs.rename(filePath, newPath);
-            updatedFields.cover = `http://localhost:5001/${newPath}`; // 파일 경로를 URL 형태로 설정
+            updatedFields.cover = `http://localhost:8080/${newPath}`; // 파일 경로를 URL 형태로 설정
         }
 
         // 피드 제목과 내용 업데이트
@@ -689,10 +692,12 @@ app.get('/feeds', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
+// 로컬 테스트를 위한 서버 시작
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  }
 // Static file declaration
 app.use(express.static(path.join(__dirname, 'public')));
 

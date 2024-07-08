@@ -1,65 +1,65 @@
-[debug] [2024-07-06T05:19:50.403Z] ----------------------------------------------------------------------
-[debug] [2024-07-06T05:19:50.405Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2024-07-06T05:19:50.405Z] CLI Version:   13.13.0
-[debug] [2024-07-06T05:19:50.405Z] Platform:      win32
-[debug] [2024-07-06T05:19:50.405Z] Node Version:  v20.11.1
-[debug] [2024-07-06T05:19:50.406Z] Time:          Sat Jul 06 2024 14:19:50 GMT+0900 (대한민국 표준시)
-[debug] [2024-07-06T05:19:50.406Z] ----------------------------------------------------------------------
+[debug] [2024-07-08T09:53:20.988Z] ----------------------------------------------------------------------
+[debug] [2024-07-08T09:53:20.990Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-07-08T09:53:20.991Z] CLI Version:   13.13.0
+[debug] [2024-07-08T09:53:20.991Z] Platform:      win32
+[debug] [2024-07-08T09:53:20.991Z] Node Version:  v20.11.1
+[debug] [2024-07-08T09:53:20.991Z] Time:          Mon Jul 08 2024 18:53:20 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-08T09:53:20.991Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2024-07-06T05:19:50.450Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-07-06T05:19:50.450Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
-[debug] [2024-07-06T05:19:50.451Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
-[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:19:51.505Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
-[debug] [2024-07-06T05:19:51.505Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:19:51.505Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
-[debug] [2024-07-06T05:19:51.505Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:19:52.745Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
-[debug] [2024-07-06T05:19:52.745Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:19:52.746Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:19:53.189Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:19:53.189Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[debug] [2024-07-08T09:53:21.035Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-08T09:53:21.035Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
+[debug] [2024-07-08T09:53:21.036Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-08T09:53:21.037Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
+[debug] [2024-07-08T09:53:21.037Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:53:21.037Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-08T09:53:22.086Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
+[debug] [2024-07-08T09:53:22.086Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-08T09:53:22.086Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-07-08T09:53:22.087Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-08T09:53:23.306Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-07-08T09:53:23.306Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-08T09:53:23.307Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-08T09:53:23.753Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-08T09:53:23.754Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
 [info] 
 [info] === Deploying to 'ohtail-d03f2'...
 [info] 
 [info] i  deploying functions, hosting 
-[debug] [2024-07-06T05:19:53.192Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:19:53.450Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:19:53.450Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[debug] [2024-07-08T09:53:23.756Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-08T09:53:24.017Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-08T09:53:24.018Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
 [info] i  functions: preparing codebase default for deployment 
 [info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
 [info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
 [info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
-[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
-[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
-[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
-[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
-[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:19:54.806Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
-[debug] [2024-07-06T05:19:54.806Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
-[debug] [2024-07-06T05:19:54.818Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
-[debug] [2024-07-06T05:19:54.818Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
+[debug] [2024-07-08T09:53:24.019Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-07-08T09:53:24.019Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:53:24.020Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-07-08T09:53:24.020Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:53:24.020Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
+[debug] [2024-07-08T09:53:24.020Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:53:24.021Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
+[debug] [2024-07-08T09:53:24.021Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:53:25.344Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
+[debug] [2024-07-08T09:53:25.344Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-07-08T09:53:25.345Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
+[debug] [2024-07-08T09:53:25.345Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
 [info] +  functions: required API cloudbuild.googleapis.com is enabled 
-[debug] [2024-07-06T05:19:54.907Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
-[debug] [2024-07-06T05:19:54.908Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
+[debug] [2024-07-08T09:53:25.375Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
+[debug] [2024-07-08T09:53:25.375Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
 [info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
-[debug] [2024-07-06T05:19:54.914Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
-[debug] [2024-07-06T05:19:54.914Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2024-07-08T09:53:25.405Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
+[debug] [2024-07-08T09:53:25.405Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
 [info] +  functions: required API cloudfunctions.googleapis.com is enabled 
-[debug] [2024-07-06T05:19:54.915Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
-[debug] [2024-07-06T05:19:55.192Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
-[debug] [2024-07-06T05:19:55.192Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
-[debug] [2024-07-06T05:19:55.192Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
-[debug] [2024-07-06T05:19:55.614Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
-[debug] [2024-07-06T05:19:55.614Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
-[debug] [2024-07-06T05:19:55.615Z] Validating nodejs source
+[debug] [2024-07-08T09:53:25.406Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
+[debug] [2024-07-08T09:53:25.710Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
+[debug] [2024-07-08T09:53:25.710Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
+[debug] [2024-07-08T09:53:25.710Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
+[debug] [2024-07-08T09:53:26.148Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
+[debug] [2024-07-08T09:53:26.149Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
+[debug] [2024-07-08T09:53:26.149Z] Validating nodejs source
 [warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-[debug] [2024-07-06T05:19:56.559Z] > [functions] package.json contents: {
+[debug] [2024-07-08T09:53:27.750Z] > [functions] package.json contents: {
   "name": "ohtail",
   "version": "0.1.0",
   "private": true,
@@ -81,7 +81,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "firebase-admin": "^12.2.0",
     "firebase-functions": "^5.0.1",
     "i18next": "^23.11.5",
     "jsonwebtoken": "^9.0.2",
@@ -103,10 +102,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "react-start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "firebase deploy",
-    "serve": "firebase serve --only functions,hosting"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -128,27 +128,24 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
-  "engines": {
-    "node": "16"
   }
 }
-[debug] [2024-07-06T05:19:56.560Z] Building nodejs source
+[debug] [2024-07-08T09:53:27.751Z] Building nodejs source
 [info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
-[debug] [2024-07-06T05:19:56.561Z] Could not find functions.yaml. Must use http discovery
-[debug] [2024-07-06T05:19:56.566Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
-[info] Serving at port 8057
+[debug] [2024-07-08T09:53:27.752Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-08T09:53:27.757Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
+[info] Serving at port 8989
 
 [error] node:events:496
       throw er; // Unhandled 'error' event
       ^
 
-Error: listen EADDRINUSE: address already in use :::5001
+Error: listen EADDRINUSE: address already in use :::8989
     at Server.setupListenHandle [as _listen2] (node:net:1872:16)
     at listenInCluster (node:net:1920:12)
     at Server.listen (node:net:2008:7)
     at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
-    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
+    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:696:5)
     at Module._compile (node:internal/modules/cjs/loader:1376:14)
     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
     at Module.load (node:internal/modules/cjs/loader:1207:32)
@@ -161,13 +158,13 @@ Emitted 'error' event on Server instance at:
   errno: -4091,
   syscall: 'listen',
   address: '::',
-  port: 5001
+  port: 8989
 }
 
 Node.js v20.11.1
 
-[debug] [2024-07-06T05:19:57.183Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8057/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8057/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
-[debug] [2024-07-06T05:19:57.407Z] FetchError: request to http://127.0.0.1:8057/__/functions.yaml failed, reason: read ECONNRESET
+[debug] [2024-07-08T09:53:28.693Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8989/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8989/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
+[debug] [2024-07-08T09:53:28.914Z] FetchError: request to http://127.0.0.1:8989/__/functions.yaml failed, reason: read ECONNRESET
     at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
     at ClientRequest.emit (node:events:518:28)
     at ClientRequest.emit (node:domain:488:12)
@@ -179,68 +176,73 @@ Node.js v20.11.1
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 [error] 
 [error] Error: An unexpected error has occurred.
-[debug] [2024-07-06T05:20:54.936Z] ----------------------------------------------------------------------
-[debug] [2024-07-06T05:20:54.938Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2024-07-06T05:20:54.938Z] CLI Version:   13.13.0
-[debug] [2024-07-06T05:20:54.938Z] Platform:      win32
-[debug] [2024-07-06T05:20:54.938Z] Node Version:  v20.11.1
-[debug] [2024-07-06T05:20:54.938Z] Time:          Sat Jul 06 2024 14:20:54 GMT+0900 (대한민국 표준시)
-[debug] [2024-07-06T05:20:54.938Z] ----------------------------------------------------------------------
+[debug] [2024-07-08T09:55:58.674Z] ----------------------------------------------------------------------
+[debug] [2024-07-08T09:55:58.676Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-07-08T09:55:58.676Z] CLI Version:   13.13.0
+[debug] [2024-07-08T09:55:58.676Z] Platform:      win32
+[debug] [2024-07-08T09:55:58.676Z] Node Version:  v20.11.1
+[debug] [2024-07-08T09:55:58.676Z] Time:          Mon Jul 08 2024 18:55:58 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-08T09:55:58.676Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2024-07-06T05:20:54.980Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-07-06T05:20:54.980Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
-[debug] [2024-07-06T05:20:54.980Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
-[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:20:56.027Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
-[debug] [2024-07-06T05:20:56.027Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:20:56.027Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
-[debug] [2024-07-06T05:20:56.027Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:20:57.256Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
-[debug] [2024-07-06T05:20:57.256Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:20:57.257Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:20:57.679Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:20:57.679Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[debug] [2024-07-08T09:55:58.717Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-08T09:55:58.717Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
+[debug] [2024-07-08T09:55:58.717Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-08T09:55:58.718Z] > refreshing access token with scopes: []
+[debug] [2024-07-08T09:55:58.719Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-07-08T09:55:58.719Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-07-08T09:55:58.996Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-07-08T09:55:58.997Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-07-08T09:55:59.007Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
+[debug] [2024-07-08T09:55:59.007Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:55:59.007Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-08T09:56:00.092Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
+[debug] [2024-07-08T09:56:00.092Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-08T09:56:00.092Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-07-08T09:56:00.092Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-08T09:56:01.320Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-07-08T09:56:01.320Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-08T09:56:01.320Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-08T09:56:01.775Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-08T09:56:01.775Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
 [info] 
 [info] === Deploying to 'ohtail-d03f2'...
 [info] 
 [info] i  deploying functions, hosting 
-[debug] [2024-07-06T05:20:57.682Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:20:57.991Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:20:57.991Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[debug] [2024-07-08T09:56:01.777Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-08T09:56:02.045Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-08T09:56:02.045Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
 [info] i  functions: preparing codebase default for deployment 
 [info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
 [info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
 [info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
-[debug] [2024-07-06T05:20:57.993Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
-[debug] [2024-07-06T05:20:57.993Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
-[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
-[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:20:57.995Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
-[debug] [2024-07-06T05:20:57.995Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:20:59.341Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
-[debug] [2024-07-06T05:20:59.341Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
-[debug] [2024-07-06T05:20:59.352Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
-[debug] [2024-07-06T05:20:59.352Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
-[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
-[debug] [2024-07-06T05:20:59.490Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
-[debug] [2024-07-06T05:20:59.490Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
+[debug] [2024-07-08T09:56:02.046Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-07-08T09:56:02.046Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:56:02.047Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-07-08T09:56:02.047Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:56:02.048Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
+[debug] [2024-07-08T09:56:02.048Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:56:02.048Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
+[debug] [2024-07-08T09:56:02.048Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-08T09:56:03.388Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
+[debug] [2024-07-08T09:56:03.388Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
 [info] +  functions: required API cloudbuild.googleapis.com is enabled 
-[debug] [2024-07-06T05:20:59.503Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
-[debug] [2024-07-06T05:20:59.503Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
+[debug] [2024-07-08T09:56:03.404Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
+[debug] [2024-07-08T09:56:03.404Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-07-08T09:56:03.417Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
+[debug] [2024-07-08T09:56:03.417Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-07-08T09:56:03.546Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
+[debug] [2024-07-08T09:56:03.546Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
 [info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
-[debug] [2024-07-06T05:20:59.503Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
-[debug] [2024-07-06T05:20:59.794Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
-[debug] [2024-07-06T05:20:59.795Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
-[debug] [2024-07-06T05:20:59.795Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
-[debug] [2024-07-06T05:21:00.226Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
-[debug] [2024-07-06T05:21:00.226Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
-[debug] [2024-07-06T05:21:00.227Z] Validating nodejs source
+[debug] [2024-07-08T09:56:03.546Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
+[debug] [2024-07-08T09:56:03.808Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
+[debug] [2024-07-08T09:56:03.808Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
+[debug] [2024-07-08T09:56:03.808Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
+[debug] [2024-07-08T09:56:04.238Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
+[debug] [2024-07-08T09:56:04.238Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
+[debug] [2024-07-08T09:56:04.239Z] Validating nodejs source
 [warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-[debug] [2024-07-06T05:21:01.384Z] > [functions] package.json contents: {
+[debug] [2024-07-08T09:56:05.844Z] > [functions] package.json contents: {
   "name": "ohtail",
   "version": "0.1.0",
   "private": true,
@@ -262,7 +264,6 @@ Node.js v20.11.1
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "firebase-admin": "^12.2.0",
     "firebase-functions": "^5.0.1",
     "i18next": "^23.11.5",
     "jsonwebtoken": "^9.0.2",
@@ -284,10 +285,11 @@ Node.js v20.11.1
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "react-start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "firebase deploy",
-    "serve": "firebase serve --only functions,hosting"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -309,235 +311,308 @@ Node.js v20.11.1
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
-  "engines": {
-    "node": "16"
   }
 }
-[debug] [2024-07-06T05:21:01.384Z] Building nodejs source
+[debug] [2024-07-08T09:56:05.845Z] Building nodejs source
 [info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
-[debug] [2024-07-06T05:21:01.385Z] Could not find functions.yaml. Must use http discovery
-[debug] [2024-07-06T05:21:01.391Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
-[info] Serving at port 8521
+[debug] [2024-07-08T09:56:05.845Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-08T09:56:05.851Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
+[info] Serving at port 8533
 
-[error] node:events:496
-      throw er; // Unhandled 'error' event
-      ^
+[info] Server is running on port 8080
 
-Error: listen EADDRINUSE: address already in use :::5001
-    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
-    at listenInCluster (node:net:1920:12)
-    at Server.listen (node:net:2008:7)
-    at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
-    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
-    at Module._compile (node:internal/modules/cjs/loader:1376:14)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
-    at Module.load (node:internal/modules/cjs/loader:1207:32)
-    at Module._load (node:internal/modules/cjs/loader:1023:12)
-    at Module.require (node:internal/modules/cjs/loader:1235:19)
-Emitted 'error' event on Server instance at:
-    at emitErrorNT (node:net:1899:8)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
-  code: 'EADDRINUSE',
-  errno: -4091,
-  syscall: 'listen',
-  address: '::',
-  port: 5001
-}
+[debug] [2024-07-08T09:56:06.715Z] Got response from /__/functions.yaml {"endpoints":{"api":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"api"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] MongoDB 연결 성공
 
-Node.js v20.11.1
-
-[debug] [2024-07-06T05:21:02.003Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8521/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8521/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
-[debug] [2024-07-06T05:21:02.224Z] FetchError: request to http://127.0.0.1:8521/__/functions.yaml failed, reason: read ECONNRESET
-    at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
-    at ClientRequest.emit (node:events:518:28)
-    at ClientRequest.emit (node:domain:488:12)
-    at Socket.socketErrorListener (node:_http_client:495:9)
-    at Socket.emit (node:events:518:28)
-    at Socket.emit (node:domain:488:12)
-    at emitErrorNT (node:internal/streams/destroy:169:8)
-    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
-[error] 
-[error] Error: An unexpected error has occurred.
-[debug] [2024-07-06T05:21:47.961Z] ----------------------------------------------------------------------
-[debug] [2024-07-06T05:21:47.963Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2024-07-06T05:21:47.964Z] CLI Version:   13.13.0
-[debug] [2024-07-06T05:21:47.964Z] Platform:      win32
-[debug] [2024-07-06T05:21:47.964Z] Node Version:  v20.11.1
-[debug] [2024-07-06T05:21:47.964Z] Time:          Sat Jul 06 2024 14:21:47 GMT+0900 (대한민국 표준시)
-[debug] [2024-07-06T05:21:47.964Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2024-07-06T05:21:48.007Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-07-06T05:21:48.008Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
-[debug] [2024-07-06T05:21:48.008Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
-[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:21:49.055Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
-[debug] [2024-07-06T05:21:49.055Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
-[debug] [2024-07-06T05:21:49.055Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
-[debug] [2024-07-06T05:21:49.055Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:21:50.287Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
-[debug] [2024-07-06T05:21:50.287Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2024-07-06T05:21:50.288Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:21:50.710Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:21:50.710Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] i  functions: Loaded environment variables from .env. 
+[info] i  functions: preparing . directory for uploading... 
+[info] i  functions: packaged C:\Users\김원호\Desktop\code\ohtail (84.01 MB) for uploading 
+[debug] [2024-07-08T09:56:20.025Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/-/functions [none]
+[debug] [2024-07-08T09:56:20.720Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/-/functions 200
+[debug] [2024-07-08T09:56:20.720Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/-/functions {"functions":[{"name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"ohtail-d03f2@appspot.gserviceaccount.com","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"f2ba9ba9c628c7bd41ceda9521e71192ae85842d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/180d99d9-8154-4744-949f-a6361c5fdfbc.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}}]}
+[debug] [2024-07-08T09:56:20.720Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/ohtail-d03f2/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2024-07-08T09:56:22.080Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/ohtail-d03f2/locations/-/functions 200
+[debug] [2024-07-08T09:56:22.080Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/ohtail-d03f2/locations/-/functions {}
+[debug] [2024-07-08T09:56:22.082Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-08T09:56:22.477Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-08T09:56:22.477Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[debug] [2024-07-08T09:56:22.479Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ohtail-d03f2/versions [none]
+[debug] [2024-07-08T09:56:22.480Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ohtail-d03f2/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-07-08T09:56:23.335Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ohtail-d03f2/versions 200
+[debug] [2024-07-08T09:56:23.335Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/ohtail-d03f2/versions {"name":"projects/519414677311/sites/ohtail-d03f2/versions/30c511ba42402c07","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2024-07-08T09:56:23.336Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2024-07-08T09:56:23.336Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions:generateUploadUrl {}
+[debug] [2024-07-08T09:56:24.189Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2024-07-08T09:56:24.189Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D"}
+[debug] [2024-07-08T09:56:24.190Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip GoogleAccessId=service-519414677311%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D
+[debug] [2024-07-08T09:56:24.190Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip [stream]
+[debug] [2024-07-08T09:56:30.107Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip 200
+[debug] [2024-07-08T09:56:30.107Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip [omitted]
+[info] +  functions: . folder uploaded successfully 
+[info] i  hosting[ohtail-d03f2]: beginning deploy... 
+[info] i  hosting[ohtail-d03f2]: found 71 files in public 
+[debug] [2024-07-08T09:56:30.121Z] [hosting] uploading with 200 concurrency
+[debug] [2024-07-08T09:56:30.604Z] [hosting] hash cache [cHVibGlj] stored for 71 files
+[debug] [2024-07-08T09:56:30.605Z] [hosting][hash queue][FINAL] {"max":475,"min":0,"avg":218.94366197183098,"active":0,"complete":71,"success":71,"errored":0,"retried":0,"total":71,"elapsed":482}
+[debug] [2024-07-08T09:56:30.605Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/519414677311/sites/ohtail-d03f2/versions/30c511ba42402c07:populateFiles [none]
+[debug] [2024-07-08T09:56:30.605Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/519414677311/sites/ohtail-d03f2/versions/30c511ba42402c07:populateFiles {"files":{"/robots.txt":"b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5","/manifest.json":"4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10","/index.html":"b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84","/asset-manifest.json":"a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11","/logo192.png":"79e2b749561016bc8af300ea19f48347ceed3cb1a54f48ae456172eca45e08f0","/favicon.ico":"27edce7be5922cf0bef7d4136f69b5bfbdd5bf8c13c7b026f71187d41a00aa7d","/logo512.png":"212b102aa09e51b3b3e06647e81f7801a61333e171f6582e8124379aabccb41d","/static/js/main.8afff899.js.LICENSE.txt":"35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a","/static/js/main.f69ef420.js.LICENSE.txt":"35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a","/static/js/main.0fc36f73.js.LICENSE.txt":"35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a","/static/js/main.02b52795.js.LICENSE.txt":"001ee6ae575c2730b3a34c80edc820b3a3bc5fbbe8ec2f78a7de37ec652f27c1","/img/search.svg":"e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da","/img/kakao_login_large_wide.png":"92b5ed383d3d73ce9f4b9abdd1c7159514022a2cc30d1e13ef0d6fda3c2de6bb","/img/createButton.svg":"6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351","/img/kakao_login_medium_narrow.png":"de2ac619a2bbff80085d0be41b0efcb3e5d7ba56a4b2bb709a08bdb983bb18fc","/img/createButton.png":"1f0c3e68cb85ca1f9a56d26ff59bcab7c677389042b9b82e17f9d6c0ea61cb9c","/static/media/logo.f0bba28d1968d0c72b82.png":"9382d7ab0d4e0ab602a50332ebac27f3644fc957baba71cfe9a7642346586746","/static/css/main.9f5e5527.css":"4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc","/img/logo2.png":"2042cd532f03f98a056d2a4d266ba8fd43edcb7c536f470b45ba922422314b93","/img/.gitkeep":"46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e","/fonts/JalnanGothicTTF.ttf":"1a187a84aa3e060d6e3f39ef26b174ae16c01afba7d726caf684f04f66938d7d\r","/fonts/JalnanGothic.otf":"de920e51f26e04b1011fe12e029bb219fa35406574d690b42c4430f9f75f72f3\r","/img/logo.png":"9382d7ab0d4e0ab602a50332ebac27f3644fc957baba71cfe9a7642346586746","/static/css/main.39ea3e3f.css":"1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b","/static/css/main.9f5e5527.css.map":"630580f36743d867d9d350d4001313ddf077f5575fa0ae835661d84f576cf489","/static/css/main.39ea3e3f.css.map":"4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1","/static/js/main.0fc36f73.js":"d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8","/static/js/main.f69ef420.js":"72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4","/static/js/main.8afff899.js":"b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a","/static/js/main.02b52795.js":"c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7","/static/media/Pretendard-Thin.bb7cedf4446fa24dda9d.woff2":"3078e841bd3ce8667117820299bace1d28db0d5b066b9505c973e97d1a942b60","/fonts/Pretendard-Thin.woff2":"3078e841bd3ce8667117820299bace1d28db0d5b066b9505c973e97d1a942b60","/static/media/Pretendard-ExtraLight.6a3dddfd84c05761ef44.woff2":"29466d4a74a797d0255033b0ed67df507f6fcafe46a5335dae2f252b7338e9b9","/static/media/Pretendard-Light.1fc5521353ec20635e8e.woff2":"bf4aa10939914c5a975952e950c26d29f29667bd6f131b8890a0733727362ca8","/static/media/Pretendard-Regular.38bed7de46e7b9049ced.woff2":"7fe3c42636043f746c5af2091ea84368d10b42807847f4528b2c8cd7ec877218","/static/media/Pretendard-Medium.a9645bebe1a0010e66dc.woff2":"f6189f3361e7f4bc89e5af9b1ed99c33697491c418d779322c5c4d4e934a1e5d","/static/media/Pretendard-SemiBold.d5ded8ad2884e7855bb1.woff2":"cd47fa1e40aeab4c22a7526122ecfc78d22c90828f87d244d4fe49bc43ebd820","/static/media/Pretendard-Bold.0c6f5e225ff28f456183.woff2":"d72988f61c5f5d43bbab02bc13d3ce35845df14b743e2aea24eb9904d055f5de","/fonts/Pretendard-ExtraLight.woff2":"29466d4a74a797d0255033b0ed67df507f6fcafe46a5335dae2f252b7338e9b9","/static/media/Pretendard-ExtraBold.26df84c2b3b8cb8a4b0c.woff2":"0cfaf0bb4d3a5d53a663b93751a38f034e57a56c94145af1a8e89fe7c7b7258b","/fonts/Pretendard-Regular.woff2":"7fe3c42636043f746c5af2091ea84368d10b42807847f4528b2c8cd7ec877218","/fonts/Pretendard-Light.woff2":"bf4aa10939914c5a975952e950c26d29f29667bd6f131b8890a0733727362ca8","/fonts/Pretendard-Medium.woff2":"f6189f3361e7f4bc89e5af9b1ed99c33697491c418d779322c5c4d4e934a1e5d","/fonts/Pretendard-SemiBold.woff2":"cd47fa1e40aeab4c22a7526122ecfc78d22c90828f87d244d4fe49bc43ebd820","/fonts/Pretendard-ExtraBold.woff2":"0cfaf0bb4d3a5d53a663b93751a38f034e57a56c94145af1a8e89fe7c7b7258b","/fonts/Pretendard-Bold.woff2":"d72988f61c5f5d43bbab02bc13d3ce35845df14b743e2aea24eb9904d055f5de","/static/media/JalnanGothic.f6dc7d5d4b8c2f4fbff9.otf":"de920e51f26e04b1011fe12e029bb219fa35406574d690b42c4430f9f75f72f3","/fonts/Pretendard-Black.woff2":"e16bd8b8448031cb0421fea280d47cb8292f186bc8c5497c64035532a9afe93c","/static/media/Pretendard-Thin.e7b3f421a3a379ef4137.woff":"8016598b0ad8d5d6e2c095879ad2e8f248fe9725b38cba1b270ae1f5a55cf73b","/static/media/Pretendard-ExtraLight.caca3ea2e764095a60e9.woff":"af46d6ad294d25df5381b3b69b76afe6965012c99fc9fe29f68b9f885e0ae81c","/static/media/Pretendard-Regular.303253288b0ba99db532.woff":"35fcafa63809b8e73ca232d8b3a5738dd1c2b54ffa5db2299a6c94a36773efec","/fonts/Pretendard-Thin.woff":"8016598b0ad8d5d6e2c095879ad2e8f248fe9725b38cba1b270ae1f5a55cf73b","/static/media/Pretendard-SemiBold.9f6b39f88e7e6a3fd0b2.woff":"5341ed784ea9c3499241eb42c3a4763b8de7a68e25f7e29184d99356311ae361","/static/media/Pretendard-Medium.edd5e28caa1cc4a9e0b7.woff":"049885cc10135303e3ff81bde93b51df7a85d8677559e542da301892899f3e73","/static/media/Pretendard-Light.7d1a33b829142e833fb9.woff":"4d395cfe0762ce6c8bd4c2feb08c2285fcd25eed14f14b9beea218643419ff07","/static/media/Pretendard-Bold.1f1dbbbf311ffffcc770.woff":"2812d9ac445b9f9167038eb2ba80aaa2fb6de15b694e2c49b6efe4ca813326eb","/static/media/Pretendard-ExtraBold.f6491e200d1fb5c5917b.woff":"482e16518e1a6df6fb850774061dcb731c4c3be37457e6402c6a069d6ee68a07","/fonts/Pretendard-ExtraLight.woff":"af46d6ad294d25df5381b3b69b76afe6965012c99fc9fe29f68b9f885e0ae81c","/fonts/Pretendard-Regular.woff":"35fcafa63809b8e73ca232d8b3a5738dd1c2b54ffa5db2299a6c94a36773efec","/fonts/Pretendard-SemiBold.woff":"5341ed784ea9c3499241eb42c3a4763b8de7a68e25f7e29184d99356311ae361","/fonts/Pretendard-Medium.woff":"049885cc10135303e3ff81bde93b51df7a85d8677559e542da301892899f3e73","/fonts/Pretendard-Light.woff":"4d395cfe0762ce6c8bd4c2feb08c2285fcd25eed14f14b9beea218643419ff07","/fonts/Pretendard-ExtraBold.woff":"482e16518e1a6df6fb850774061dcb731c4c3be37457e6402c6a069d6ee68a07","/static/media/JalnanGothicTTF.ee2433c2e715c14112c3.ttf":"1a187a84aa3e060d6e3f39ef26b174ae16c01afba7d726caf684f04f66938d7d","/fonts/Pretendard-Bold.woff":"2812d9ac445b9f9167038eb2ba80aaa2fb6de15b694e2c49b6efe4ca813326eb","/fonts/Pretendard-Black.woff":"97b25d7ac30b2ca89a56bdeb64eb2ca8daa955b6aed352dd54a2c376fa2b327a","/static/js/main.0fc36f73.js.map":"d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4","/static/js/main.8afff899.js.map":"2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711","/static/js/main.f69ef420.js.map":"711e031ff4f9e82a1fec89cd0cce8830c77255182da7e3d09433c12e1b27a0b4","/static/js/main.02b52795.js.map":"0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e","/img/test.png":"3e4c35f01df38b78d85f7e34b70583d38bb00fe07862a9b62cc893aa15c4516e"}}
+[debug] [2024-07-08T09:56:31.245Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/519414677311/sites/ohtail-d03f2/versions/30c511ba42402c07:populateFiles 200
+[debug] [2024-07-08T09:56:31.246Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/519414677311/sites/ohtail-d03f2/versions/30c511ba42402c07:populateFiles {"uploadRequiredHashes":["72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4","4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc","4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1","b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84","a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11","0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e","d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8","c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7","35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a","b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5","d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4","6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351","2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711","e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da","4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10","1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b","b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files"}
+[debug] [2024-07-08T09:56:31.247Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4 [none]
+[debug] [2024-07-08T09:56:31.247Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4 [stream]
+[debug] [2024-07-08T09:56:31.248Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc [none]
+[debug] [2024-07-08T09:56:31.248Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc [stream]
+[debug] [2024-07-08T09:56:31.248Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1 [none]
+[debug] [2024-07-08T09:56:31.248Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1 [stream]
+[debug] [2024-07-08T09:56:31.249Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84 [none]
+[debug] [2024-07-08T09:56:31.249Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84 [stream]
+[debug] [2024-07-08T09:56:31.249Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11 [none]
+[debug] [2024-07-08T09:56:31.249Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11 [stream]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e [none]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e [stream]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8 [none]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8 [stream]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7 [none]
+[debug] [2024-07-08T09:56:31.250Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7 [stream]
+[debug] [2024-07-08T09:56:31.251Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a [none]
+[debug] [2024-07-08T09:56:31.251Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a [stream]
+[debug] [2024-07-08T09:56:31.251Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5 [none]
+[debug] [2024-07-08T09:56:31.251Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5 [stream]
+[debug] [2024-07-08T09:56:31.252Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4 [none]
+[debug] [2024-07-08T09:56:31.252Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4 [stream]
+[debug] [2024-07-08T09:56:31.252Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351 [none]
+[debug] [2024-07-08T09:56:31.252Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351 [stream]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711 [none]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711 [stream]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da [none]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da [stream]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10 [none]
+[debug] [2024-07-08T09:56:31.253Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10 [stream]
+[debug] [2024-07-08T09:56:31.254Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b [none]
+[debug] [2024-07-08T09:56:31.254Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b [stream]
+[debug] [2024-07-08T09:56:31.254Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a [none]
+[debug] [2024-07-08T09:56:31.254Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a [stream]
+[debug] [2024-07-08T09:56:31.255Z] [hosting][populate queue][FINAL] {"max":644,"min":644,"avg":644,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":652}
+[debug] [2024-07-08T09:56:31.255Z] [hosting] uploads queued: 17
+[debug] [2024-07-08T09:56:32.489Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10 200
+[debug] [2024-07-08T09:56:32.490Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4368aeaf848ae2e048765562c289452f33ad2a175c4b1951ea8bdf2ada0d5b10 [stream]
+[debug] [2024-07-08T09:56:32.490Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5 200
+[debug] [2024-07-08T09:56:32.490Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5 [stream]
+[debug] [2024-07-08T09:56:32.531Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351 200
+[debug] [2024-07-08T09:56:32.531Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/6acb7c9e136ab220c872ba798794d6d62cd4e5a8439b063b42711a4fc8306351 [stream]
+[debug] [2024-07-08T09:56:32.537Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da 200
+[debug] [2024-07-08T09:56:32.537Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/e3a181e8e672e4892d4b69d6f6b59ed746ae82d95040a4f218a700429cc008da [stream]
+[debug] [2024-07-08T09:56:32.582Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a 200
+[debug] [2024-07-08T09:56:32.582Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/35c4358fe659ecdaa6c49e345da23c310ac16f0f745664ff171d458f9d6e8c2a [stream]
+[debug] [2024-07-08T09:56:32.617Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc 200
+[debug] [2024-07-08T09:56:32.617Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4d629c8f9105083252c9fface38c290f39781bebd5780a064b31f161c30bfadc [stream]
+[debug] [2024-07-08T09:56:32.650Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b 200
+[debug] [2024-07-08T09:56:32.650Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/1ae362f2fcaa1cbe9ce2b72f7e3996b2f58b37813acff122bb88e80b3c5fc20b [stream]
+[debug] [2024-07-08T09:56:32.666Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1 200
+[debug] [2024-07-08T09:56:32.666Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/4fa1863ab57582ab69dd42020daf2ba7273f890262b27754ad86ebc9bd68ecb1 [stream]
+[debug] [2024-07-08T09:56:32.745Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7 200
+[debug] [2024-07-08T09:56:32.745Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/c0fe70464fee7ad352e08fd5c23ed99bbef4af20914494e47d115607ac893ad7 [stream]
+[debug] [2024-07-08T09:56:32.747Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11 200
+[debug] [2024-07-08T09:56:32.747Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/a0235f6feec75be7e8d0f19d572a8edbf97de25bddeaadffcb31bfff86dedc11 [stream]
+[debug] [2024-07-08T09:56:32.807Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a 200
+[debug] [2024-07-08T09:56:32.807Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b97657e26e72826e2e3e1d9754540d714b352f49b48d45ec8250eb6bc9ad712a [stream]
+[debug] [2024-07-08T09:56:32.839Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84 200
+[debug] [2024-07-08T09:56:32.840Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/b8dcc930d508859de72a28ba5a806d562e3a656fa9b7e888a53c452125d6bb84 [stream]
+[debug] [2024-07-08T09:56:32.980Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e 200
+[debug] [2024-07-08T09:56:32.980Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/0961a2a653969bcd05e80b3034b6cd4928dfd7db2fcc2a91fdfe89c1d311ae0e [stream]
+[debug] [2024-07-08T09:56:33.179Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4 200
+[debug] [2024-07-08T09:56:33.179Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d1175882ec06b7d33adb959281718f793c22977d3bc0ee8cb579263e8d5980d4 [stream]
+[debug] [2024-07-08T09:56:33.414Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4 200
+[debug] [2024-07-08T09:56:33.414Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/72a0ec6dbdcee86be8ce31f5b9b9e01c3a264fbe3e6ef66f8a2e44a7a2299ae4 [stream]
+[debug] [2024-07-08T09:56:33.981Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8 200
+[debug] [2024-07-08T09:56:33.981Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/d237986f770470b9cd0b16f7a3f589fac76f9213f1e61046f0d38946a1f3c0a8 [stream]
+[debug] [2024-07-08T09:56:34.399Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711 200
+[debug] [2024-07-08T09:56:34.399Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/ohtail-d03f2/versions/30c511ba42402c07/files/2acd4687a397a6c77cf7b5017d889ac7e24a49a9cae54fa492fafd453dabc711 [stream]
+[debug] [2024-07-08T09:56:34.399Z] [hosting][upload queue][FINAL] {"max":3152,"min":1243,"avg":1674.5882352941176,"active":0,"complete":17,"success":17,"errored":0,"retried":0,"total":17,"elapsed":3153}
+[info] +  hosting[ohtail-d03f2]: file upload complete 
+[debug] [2024-07-08T09:56:34.400Z] [hosting] deploy completed after 4291ms
+[info] i  functions: updating Node.js 16 (1st Gen) function api(us-central1)... 
+[debug] [2024-07-08T09:56:34.402Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions/api updateMask=name%2CsourceUploadUrl%2CentryPoint%2Cruntime%2CdockerRegistry%2Clabels%2ChttpsTrigger.securityLevel%2CminInstances%2CmaxInstances%2CingressSettings%2CenvironmentVariables%2CserviceAccountEmail%2CavailableMemoryMb%2Ctimeout%2CvpcConnector%2CvpcConnectorEgressSettings%2CsourceToken%2CbuildEnvironmentVariables
+[debug] [2024-07-08T09:56:34.402Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions/api {"name":"projects/ohtail-d03f2/locations/us-central1/functions/api","sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","entryPoint":"api","runtime":"nodejs16","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"httpsTrigger":{"securityLevel":"SECURE_ALWAYS"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
+[debug] [2024-07-08T09:56:35.420Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions/api 200
+[debug] [2024-07-08T09:56:35.420Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v1/projects/ohtail-d03f2/locations/us-central1/functions/api {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z"}}
+[debug] [2024-07-08T09:56:35.420Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:35.963Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:35.963Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z"}}
+[debug] [2024-07-08T09:56:36.465Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:56:36.466Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:36.980Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:36.980Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:56:37.988Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:56:37.988Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:38.457Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:38.457Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:56:40.469Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:56:40.469Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:40.789Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:40.789Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:56:44.793Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:56:44.793Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:45.129Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:45.129Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:56:53.136Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:56:53.136Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:56:53.773Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:56:53.773Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:03.784Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:03.784Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:04.401Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:04.401Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:14.403Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:14.403Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:15.030Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:15.030Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:25.037Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:25.037Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:25.467Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:25.467Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:35.469Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:35.469Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:35.994Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:35.994Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:45.997Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:45.997Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:46.435Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:46.436Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:57:56.437Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:57:56.437Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:57:57.052Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:57:57.053Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:07.056Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:07.056Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:58:07.504Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:58:07.505Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:17.508Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:17.508Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:58:18.170Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:58:18.170Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:28.185Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:28.186Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:58:28.671Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:58:28.671Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:38.674Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:38.674Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:58:39.340Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:58:39.340Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:49.341Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:49.341Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:58:49.969Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:58:49.969Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","sourceToken":"7a51371f-8b99-4c74-8872-573bdb3d87b6","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:58:49.970Z] Got source token 7a51371f-8b99-4c74-8872-573bdb3d87b6 for region us-central1
+[debug] [2024-07-08T09:58:59.975Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:58:59.975Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:59:00.601Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:59:00.601Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","sourceToken":"7a51371f-8b99-4c74-8872-573bdb3d87b6","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:59:00.601Z] Got source token 7a51371f-8b99-4c74-8872-573bdb3d87b6 for region us-central1
+[debug] [2024-07-08T09:59:10.612Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:59:10.613Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:59:11.239Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:59:11.239Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:56:36Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","sourceToken":"7a51371f-8b99-4c74-8872-573bdb3d87b6","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"}}
+[debug] [2024-07-08T09:59:11.239Z] Got source token 7a51371f-8b99-4c74-8872-573bdb3d87b6 for region us-central1
+[debug] [2024-07-08T09:59:21.244Z] [update-default-us-central1-api] Retrying task index 0
+[debug] [2024-07-08T09:59:21.245Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ [none]
+[debug] [2024-07-08T09:59:21.853Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ 200
+[debug] [2024-07-08T09:59:21.853Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ {"name":"operations/b2h0YWlsLWQwM2YyL3VzLWNlbnRyYWwxL2FwaS9BMkE0a181WG5oTQ","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v1.OperationMetadataV1","target":"projects/ohtail-d03f2/locations/us-central1/functions/api","type":"UPDATE_FUNCTION","request":{"@type":"type.googleapis.com/google.cloud.functions.v1.CloudFunction","name":"projects/ohtail-d03f2/locations/us-central1/functions/api","httpsTrigger":{"url":"https://us-central1-ohtail-d03f2.cloudfunctions.net/api","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"api","updateTime":"2024-07-05T13:50:16.512Z","versionId":"1","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"13f1bdfe1926d9dac727d405d8a5e2fa26a427dc"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-564378426362.us-central1.cloudfunctions.appspot.com/f5dc5f1a-8c2a-4997-9c87-fc2c6157c09d.zip?GoogleAccessId=service-519414677311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1720434385&Signature=ZBOgEZ6QowKndW1iDahD9OYGacCvi92wFTg9%2BHqrTxWcEYI6hfNX7r93168SceyUGXU4CwO3FvmeV1gET2BkQvp3K822KgWdIRgl8qEjgJ1xwhgTB%2FbZMvs2AW3DsD53KPSpIKxSk%2FbfX8Ej4XdCrWyGyje7QokYEQIgBsLyutFT8ecQ%2FeghuNglYbAwrOSVX70uwQygIpYikiFSCOXWUGHGC33ZUWXKawa98RYmrgTYm%2BpP411wqMjEwg5zu6aqsoHerjkBLDIBkLXYNNZZbdRjAx8O8S9m3c%2FsWoNXL4D1wQEhIur53sE1sh0nwOUIsSTDpMD7VEMyNHm39s2%2FZw%3D%3D","environmentVariables":{"REACT_APP_TRANSLATE_API_KEY":"AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o","REACT_APP_CHATBOT_API_KEY":"sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl","FIREBASE_CONFIG":"{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}","GCLOUD_PROJECT":"ohtail-d03f2","EVENTARC_CLOUD_EVENT_SOURCE":"projects/ohtail-d03f2/locations/us-central1/functions/api"},"runtime":"nodejs16","buildId":"06d01d0e-1993-48f6-9c2c-0af08a5b72a9","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/519414677311/locations/us-central1/builds/06d01d0e-1993-48f6-9c2c-0af08a5b72a9","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},"versionId":"2","updateTime":"2024-07-08T09:59:17Z","buildId":"2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb","sourceToken":"7a51371f-8b99-4c74-8872-573bdb3d87b6","buildName":"projects/519414677311/locations/us-central1/builds/2bf4eefd-3da4-4a97-a1f3-aeaa8f8f80eb"},"done":true,"error":{"code":3,"message":"Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nIs there a syntax error in your code?\nDetailed stack trace: Error: EROFS: read-only file system, mkdir '/workspace/uploads'\n    at Object.mkdirSync (node:fs:1382:3)\n    at Function.sync (/workspace/node_modules/mkdirp/index.js:74:13)\n    at new DiskStorage (/workspace/node_modules/multer/storage/disk.js:21:12)\n    at module.exports (/workspace/node_modules/multer/storage/disk.js:65:10)\n    at new Multer (/workspace/node_modules/multer/index.js:15:20)\n    at multer (/workspace/node_modules/multer/index.js:95:12)\n    at Object.<anonymous> (/workspace/index.js:59:16)\n    at Module._compile (node:internal/modules/cjs/loader:1198:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)\n    at Module.load (node:internal/modules/cjs/loader:1076:32)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."}}
+[debug] [2024-07-08T09:59:21.853Z] Got source token 7a51371f-8b99-4c74-8872-573bdb3d87b6 for region us-central1
+[error] Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.
+Is there a syntax error in your code?
+Detailed stack trace: Error: EROFS: read-only file system, mkdir '/workspace/uploads'
+    at Object.mkdirSync (node:fs:1382:3)
+    at Function.sync (/workspace/node_modules/mkdirp/index.js:74:13)
+    at new DiskStorage (/workspace/node_modules/multer/storage/disk.js:21:12)
+    at module.exports (/workspace/node_modules/multer/storage/disk.js:65:10)
+    at new Multer (/workspace/node_modules/multer/index.js:15:20)
+    at multer (/workspace/node_modules/multer/index.js:95:12)
+    at Object.<anonymous> (/workspace/index.js:59:16)
+    at Module._compile (node:internal/modules/cjs/loader:1198:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)
+    at Module.load (node:internal/modules/cjs/loader:1076:32)
+Could not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.
+[debug] [2024-07-08T09:59:21.858Z] Total Function Deployment time: 167453
+[debug] [2024-07-08T09:59:21.858Z] 1 Functions Deployed
+[debug] [2024-07-08T09:59:21.858Z] 1 Functions Errored
+[debug] [2024-07-08T09:59:21.858Z] 0 Function Deployments Aborted
+[debug] [2024-07-08T09:59:21.858Z] Average Function Deployment time: 167453
 [info] 
-[info] === Deploying to 'ohtail-d03f2'...
-[info] 
-[info] i  deploying functions, hosting 
-[debug] [2024-07-06T05:21:50.712Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
-[debug] [2024-07-06T05:21:51.005Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
-[debug] [2024-07-06T05:21:51.005Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
-[info] i  functions: preparing codebase default for deployment 
-[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
-[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
-[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
-[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
-[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
-[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
-[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
-[debug] [2024-07-06T05:21:51.009Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
-[debug] [2024-07-06T05:21:52.355Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
-[debug] [2024-07-06T05:21:52.355Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
-[info] +  functions: required API cloudbuild.googleapis.com is enabled 
-[debug] [2024-07-06T05:21:52.363Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
-[debug] [2024-07-06T05:21:52.363Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
-[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
-[debug] [2024-07-06T05:21:52.653Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
-[debug] [2024-07-06T05:21:52.653Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
-[debug] [2024-07-06T05:21:52.673Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
-[debug] [2024-07-06T05:21:52.673Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
-[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
-[debug] [2024-07-06T05:21:52.674Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
-[debug] [2024-07-06T05:21:52.949Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
-[debug] [2024-07-06T05:21:52.950Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
-[debug] [2024-07-06T05:21:52.950Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
-[debug] [2024-07-06T05:21:53.380Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
-[debug] [2024-07-06T05:21:53.380Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
-[debug] [2024-07-06T05:21:53.381Z] Validating nodejs source
-[warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-[debug] [2024-07-06T05:21:54.945Z] > [functions] package.json contents: {
-  "name": "ohtail",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
-    "@google-cloud/translate": "^8.3.0",
-    "@reduxjs/toolkit": "^2.2.5",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.2",
-    "babel-loader": "^9.1.3",
-    "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "firebase-admin": "^12.2.0",
-    "firebase-functions": "^5.0.1",
-    "i18next": "^23.11.5",
-    "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
-    "mongoose": "^8.4.1",
-    "multer": "^1.4.5-lts.1",
-    "openai": "^4.51.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-i18next": "^14.1.2",
-    "react-kakao-login": "^2.1.1",
-    "react-quill": "^2.0.0",
-    "react-redux": "^9.1.2",
-    "react-router-dom": "^6.23.1",
-    "react-scripts": "5.0.1",
-    "react-select": "^5.8.0",
-    "react-toastify": "^10.0.5",
-    "swiper": "^11.1.4",
-    "web-vitals": "^2.1.4"
+[info] Functions deploy had errors with the following functions:
+	api(us-central1)
+[debug] [2024-07-08T09:59:22.087Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[info] i  functions: cleaning up build files... 
+[debug] [2024-07-08T09:59:22.088Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/repositories/gcf-artifacts/packages/api [none]
+[debug] [2024-07-08T09:59:22.089Z] >>> [apiv2][query] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list [none]
+[debug] [2024-07-08T09:59:22.703Z] <<< [apiv2][status] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list 404
+[debug] [2024-07-08T09:59:22.704Z] <<< [apiv2][body] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-07-08T09:59:22.704Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-07-08T09:59:22.720Z] >>> [apiv2][query] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list [none]
+[debug] [2024-07-08T09:59:22.982Z] <<< [apiv2][status] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list 404
+[debug] [2024-07-08T09:59:22.983Z] <<< [apiv2][body] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-07-08T09:59:22.983Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-07-08T09:59:23.093Z] >>> [apiv2][query] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list [none]
+[debug] [2024-07-08T09:59:23.345Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/repositories/gcf-artifacts/packages/api 200
+[debug] [2024-07-08T09:59:23.345Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/repositories/gcf-artifacts/packages/api {"name":"projects/ohtail-d03f2/locations/us-central1/operations/99ae0a17-4706-4200-bb1f-6a1c53b99cf4","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"}}
+[debug] [2024-07-08T09:59:23.345Z] >>> [apiv2][query] GET https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/operations/99ae0a17-4706-4200-bb1f-6a1c53b99cf4 [none]
+[debug] [2024-07-08T09:59:23.351Z] <<< [apiv2][status] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list 404
+[debug] [2024-07-08T09:59:23.351Z] <<< [apiv2][body] GET https://us.gcr.io/v2/ohtail-d03f2/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-07-08T09:59:23.351Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-07-08T09:59:24.403Z] <<< [apiv2][status] GET https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/operations/99ae0a17-4706-4200-bb1f-6a1c53b99cf4 200
+[debug] [2024-07-08T09:59:24.403Z] <<< [apiv2][body] GET https://artifactregistry.googleapis.com/v1beta2/projects/ohtail-d03f2/locations/us-central1/operations/99ae0a17-4706-4200-bb1f-6a1c53b99cf4 {"name":"projects/ohtail-d03f2/locations/us-central1/operations/99ae0a17-4706-4200-bb1f-6a1c53b99cf4","metadata":{"@type":"type.googleapis.com/google.devtools.artifactregistry.v1beta2.OperationMetadata"},"done":true,"response":{"@type":"type.googleapis.com/google.protobuf.Empty"}}
+[warn] !  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/ohtail-d03f2/us/gcf 
+[debug] [2024-07-08T09:59:24.404Z] Functions deploy failed.
+[debug] [2024-07-08T09:59:24.404Z] {
+  "endpoint": {
+    "id": "api",
+    "project": "ohtail-d03f2",
+    "region": "us-central1",
+    "entryPoint": "api",
+    "platform": "gcfv1",
+    "runtime": "nodejs16",
+    "httpsTrigger": {},
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "vpc": null,
+    "environmentVariables": {
+      "REACT_APP_TRANSLATE_API_KEY": "AIzaSyAhwZLdPEn3-pjnH2GTrE2UViZ-LpWUN-o",
+      "REACT_APP_CHATBOT_API_KEY": "sk-proj-2ZrTPnspRj3LK4UrT6wxT3BlbkFJ27fekktnjzWratHe4cSl",
+      "FIREBASE_CONFIG": "{\"projectId\":\"ohtail-d03f2\",\"storageBucket\":\"ohtail-d03f2.appspot.com\"}",
+      "GCLOUD_PROJECT": "ohtail-d03f2",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/ohtail-d03f2/locations/us-central1/functions/api"
+    },
+    "codebase": "default",
+    "securityLevel": "SECURE_ALWAYS",
+    "targetedByOnly": false,
+    "hash": "13f1bdfe1926d9dac727d405d8a5e2fa26a427dc",
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    }
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "firebase deploy",
-    "serve": "firebase serve --only functions,hosting"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
-  "engines": {
-    "node": "16"
+  "op": "update",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nIs there a syntax error in your code?\nDetailed stack trace: Error: EROFS: read-only file system, mkdir '/workspace/uploads'\n    at Object.mkdirSync (node:fs:1382:3)\n    at Function.sync (/workspace/node_modules/mkdirp/index.js:74:13)\n    at new DiskStorage (/workspace/node_modules/multer/storage/disk.js:21:12)\n    at module.exports (/workspace/node_modules/multer/storage/disk.js:65:10)\n    at new Multer (/workspace/node_modules/multer/index.js:15:20)\n    at multer (/workspace/node_modules/multer/index.js:95:12)\n    at Object.<anonymous> (/workspace/index.js:59:16)\n    at Module._compile (node:internal/modules/cjs/loader:1198:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)\n    at Module.load (node:internal/modules/cjs/loader:1076:32)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.",
+    "original": {
+      "code": 3,
+      "message": "Function failed on loading user code. This is likely due to a bug in the user code. Error message: Provided module can't be loaded.\nIs there a syntax error in your code?\nDetailed stack trace: Error: EROFS: read-only file system, mkdir '/workspace/uploads'\n    at Object.mkdirSync (node:fs:1382:3)\n    at Function.sync (/workspace/node_modules/mkdirp/index.js:74:13)\n    at new DiskStorage (/workspace/node_modules/multer/storage/disk.js:21:12)\n    at module.exports (/workspace/node_modules/multer/storage/disk.js:65:10)\n    at new Multer (/workspace/node_modules/multer/index.js:15:20)\n    at multer (/workspace/node_modules/multer/index.js:95:12)\n    at Object.<anonymous> (/workspace/index.js:59:16)\n    at Module._compile (node:internal/modules/cjs/loader:1198:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1252:10)\n    at Module.load (node:internal/modules/cjs/loader:1076:32)\nCould not load the function, shutting down.. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation."
+    },
+    "status": 3,
+    "code": 3
   }
 }
-[debug] [2024-07-06T05:21:54.945Z] Building nodejs source
-[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
-[debug] [2024-07-06T05:21:54.947Z] Could not find functions.yaml. Must use http discovery
-[debug] [2024-07-06T05:21:54.952Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
-[info] Serving at port 8711
-
-[error] node:events:496
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE: address already in use :::5001
-    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
-    at listenInCluster (node:net:1920:12)
-    at Server.listen (node:net:2008:7)
-    at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
-    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
-    at Module._compile (node:internal/modules/cjs/loader:1376:14)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
-    at Module.load (node:internal/modules/cjs/loader:1207:32)
-    at Module._load (node:internal/modules/cjs/loader:1023:12)
-    at Module.require (node:internal/modules/cjs/loader:1235:19)
-Emitted 'error' event on Server instance at:
-    at emitErrorNT (node:net:1899:8)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
-  code: 'EADDRINUSE',
-  errno: -4091,
-  syscall: 'listen',
-  address: '::',
-  port: 5001
-}
-
-Node.js v20.11.1
-
-[debug] [2024-07-06T05:21:55.581Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8711/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8711/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
-[debug] [2024-07-06T05:21:55.806Z] FetchError: request to http://127.0.0.1:8711/__/functions.yaml failed, reason: read ECONNRESET
-    at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
-    at ClientRequest.emit (node:events:518:28)
-    at ClientRequest.emit (node:domain:488:12)
-    at Socket.socketErrorListener (node:_http_client:495:9)
-    at Socket.emit (node:events:518:28)
-    at Socket.emit (node:domain:488:12)
-    at emitErrorNT (node:internal/streams/destroy:169:8)
-    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[debug] [2024-07-08T09:59:24.483Z] Error: Failed to update function api in region us-central1
+    at C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:52:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Fabricator.updateV1Function (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:352:32)
+    at async Fabricator.updateEndpoint (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:152:13)
+    at async handle (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:89:17)
 [error] 
-[error] Error: An unexpected error has occurred.
+[error] Error: There was an error deploying functions
