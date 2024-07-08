@@ -23,7 +23,7 @@ const EditMyRecipe = () => {
   useEffect(() => {
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/myRecipe/${id}`);
+        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -205,7 +205,7 @@ const EditMyRecipe = () => {
     formData.set("instructions", instructions);
 
     try {
-      const response = await fetch(`http://localhost:5001/myRecipe/${id}`, {
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -376,7 +376,7 @@ const EditMyRecipe = () => {
               {files[index] ? (
                 <>
                   <img
-                    src={`http://localhost:5001/${files[index]}`}
+                    src={`http://localhost:8080/${files[index]}`}
                     alt={`Preview ${index}`}
                     className={style.previewImg}
                   />

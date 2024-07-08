@@ -31,7 +31,7 @@ const MyRecipeDetail = () => {
 
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/myRecipe/${id}`);
+        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -96,7 +96,7 @@ const MyRecipeDetail = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:5001/myRecipe/${id}`, {
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -150,7 +150,7 @@ const MyRecipeDetail = () => {
           className={style.mySwiper}
         >
           {myRecipe.files.map((file, index) => {
-            const imageUrl = `http://localhost:5001/${file}`;
+            const imageUrl = `http://localhost:8080/${file}`;
             return (
               <SwiperSlide key={index} className={style.swiperSlide}>
                 <img

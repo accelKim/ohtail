@@ -14,7 +14,7 @@ const MyRecipeCard = ({ myRecipe }) => {
         {myRecipe.files && myRecipe.files.length > 0 && (
           <figure className={style.imgCon}>
             <img
-              src={`http://localhost:5001/${myRecipe.files[0]}`}
+              src={`http://localhost:8080/${myRecipe.files[0]}`}
               alt={myRecipe.title}
             />
             <figcaption className={style.imgText}>
