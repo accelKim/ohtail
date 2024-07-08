@@ -9,7 +9,7 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     const checkFavorite = async () => {
       try {
         const token = localStorage.getItem("token");
-        let url = "http://localhost:8080/favorites";
+        let url = "http://localhost:5001/favorites";
         if (token) {
           const response = await fetch(url, {
             headers: {
@@ -52,7 +52,7 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
 
     try {
       const method = isFavorited ? "DELETE" : "POST";
-      const response = await fetch("http://localhost:8080/favorite", {
+      const response = await fetch("http://localhost:5001/favorite", {
         method,
         headers: {
           Authorization: `Bearer ${token}`,

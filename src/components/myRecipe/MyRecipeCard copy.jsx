@@ -14,7 +14,7 @@ const MyRecipeCard = ({ myRecipe }) => {
     const fetchLikeCount = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/likes?cocktailId=${myRecipe._id}`
+          `http://localhost:5001/likes?cocktailId=${myRecipe._id}`
         );
         if (!response.ok) {
           throw new Error("좋아요 불러오기 실패!!!");

@@ -1,0 +1,543 @@
+[debug] [2024-07-06T05:19:50.403Z] ----------------------------------------------------------------------
+[debug] [2024-07-06T05:19:50.405Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-07-06T05:19:50.405Z] CLI Version:   13.13.0
+[debug] [2024-07-06T05:19:50.405Z] Platform:      win32
+[debug] [2024-07-06T05:19:50.405Z] Node Version:  v20.11.1
+[debug] [2024-07-06T05:19:50.406Z] Time:          Sat Jul 06 2024 14:19:50 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-06T05:19:50.406Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-06T05:19:50.450Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-06T05:19:50.450Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
+[debug] [2024-07-06T05:19:50.451Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
+[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:19:50.452Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:19:51.505Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
+[debug] [2024-07-06T05:19:51.505Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:19:51.505Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-07-06T05:19:51.505Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:19:52.745Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-07-06T05:19:52.745Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:19:52.746Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:19:53.189Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:19:53.189Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] 
+[info] === Deploying to 'ohtail-d03f2'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2024-07-06T05:19:53.192Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:19:53.450Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:19:53.450Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-07-06T05:19:53.452Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
+[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
+[debug] [2024-07-06T05:19:53.453Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:19:54.806Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
+[debug] [2024-07-06T05:19:54.806Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-07-06T05:19:54.818Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
+[debug] [2024-07-06T05:19:54.818Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-07-06T05:19:54.907Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
+[debug] [2024-07-06T05:19:54.908Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-07-06T05:19:54.914Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
+[debug] [2024-07-06T05:19:54.914Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-07-06T05:19:54.915Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
+[debug] [2024-07-06T05:19:55.192Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
+[debug] [2024-07-06T05:19:55.192Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
+[debug] [2024-07-06T05:19:55.192Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
+[debug] [2024-07-06T05:19:55.614Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
+[debug] [2024-07-06T05:19:55.614Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
+[debug] [2024-07-06T05:19:55.615Z] Validating nodejs source
+[warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[debug] [2024-07-06T05:19:56.559Z] > [functions] package.json contents: {
+  "name": "ohtail",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@google-cloud/translate": "^8.3.0",
+    "@reduxjs/toolkit": "^2.2.5",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "babel-loader": "^9.1.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.1",
+    "i18next": "^23.11.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.51.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.1.2",
+    "react-kakao-login": "^2.1.1",
+    "react-quill": "^2.0.0",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
+    "swiper": "^11.1.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "firebase deploy",
+    "serve": "firebase serve --only functions,hosting"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "engines": {
+    "node": "16"
+  }
+}
+[debug] [2024-07-06T05:19:56.560Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-07-06T05:19:56.561Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-06T05:19:56.566Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
+[info] Serving at port 8057
+
+[error] node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5001
+    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+    at listenInCluster (node:net:1920:12)
+    at Server.listen (node:net:2008:7)
+    at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1899:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5001
+}
+
+Node.js v20.11.1
+
+[debug] [2024-07-06T05:19:57.183Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8057/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8057/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
+[debug] [2024-07-06T05:19:57.407Z] FetchError: request to http://127.0.0.1:8057/__/functions.yaml failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
+    at ClientRequest.emit (node:events:518:28)
+    at ClientRequest.emit (node:domain:488:12)
+    at Socket.socketErrorListener (node:_http_client:495:9)
+    at Socket.emit (node:events:518:28)
+    at Socket.emit (node:domain:488:12)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-07-06T05:20:54.936Z] ----------------------------------------------------------------------
+[debug] [2024-07-06T05:20:54.938Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-07-06T05:20:54.938Z] CLI Version:   13.13.0
+[debug] [2024-07-06T05:20:54.938Z] Platform:      win32
+[debug] [2024-07-06T05:20:54.938Z] Node Version:  v20.11.1
+[debug] [2024-07-06T05:20:54.938Z] Time:          Sat Jul 06 2024 14:20:54 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-06T05:20:54.938Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-06T05:20:54.980Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-06T05:20:54.980Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
+[debug] [2024-07-06T05:20:54.980Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
+[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:20:54.982Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:20:56.027Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
+[debug] [2024-07-06T05:20:56.027Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:20:56.027Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-07-06T05:20:56.027Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:20:57.256Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-07-06T05:20:57.256Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:20:57.257Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:20:57.679Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:20:57.679Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] 
+[info] === Deploying to 'ohtail-d03f2'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2024-07-06T05:20:57.682Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:20:57.991Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:20:57.991Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-07-06T05:20:57.993Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-07-06T05:20:57.993Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
+[debug] [2024-07-06T05:20:57.994Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:20:57.995Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
+[debug] [2024-07-06T05:20:57.995Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:20:59.341Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
+[debug] [2024-07-06T05:20:59.341Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-07-06T05:20:59.352Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
+[debug] [2024-07-06T05:20:59.352Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-07-06T05:20:59.490Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
+[debug] [2024-07-06T05:20:59.490Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-07-06T05:20:59.503Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
+[debug] [2024-07-06T05:20:59.503Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-07-06T05:20:59.503Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
+[debug] [2024-07-06T05:20:59.794Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
+[debug] [2024-07-06T05:20:59.795Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
+[debug] [2024-07-06T05:20:59.795Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
+[debug] [2024-07-06T05:21:00.226Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
+[debug] [2024-07-06T05:21:00.226Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
+[debug] [2024-07-06T05:21:00.227Z] Validating nodejs source
+[warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[debug] [2024-07-06T05:21:01.384Z] > [functions] package.json contents: {
+  "name": "ohtail",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@google-cloud/translate": "^8.3.0",
+    "@reduxjs/toolkit": "^2.2.5",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "babel-loader": "^9.1.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.1",
+    "i18next": "^23.11.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.51.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.1.2",
+    "react-kakao-login": "^2.1.1",
+    "react-quill": "^2.0.0",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
+    "swiper": "^11.1.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "firebase deploy",
+    "serve": "firebase serve --only functions,hosting"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "engines": {
+    "node": "16"
+  }
+}
+[debug] [2024-07-06T05:21:01.384Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-07-06T05:21:01.385Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-06T05:21:01.391Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
+[info] Serving at port 8521
+
+[error] node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5001
+    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+    at listenInCluster (node:net:1920:12)
+    at Server.listen (node:net:2008:7)
+    at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1899:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5001
+}
+
+Node.js v20.11.1
+
+[debug] [2024-07-06T05:21:02.003Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8521/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8521/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
+[debug] [2024-07-06T05:21:02.224Z] FetchError: request to http://127.0.0.1:8521/__/functions.yaml failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
+    at ClientRequest.emit (node:events:518:28)
+    at ClientRequest.emit (node:domain:488:12)
+    at Socket.socketErrorListener (node:_http_client:495:9)
+    at Socket.emit (node:events:518:28)
+    at Socket.emit (node:domain:488:12)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-07-06T05:21:47.961Z] ----------------------------------------------------------------------
+[debug] [2024-07-06T05:21:47.963Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-07-06T05:21:47.964Z] CLI Version:   13.13.0
+[debug] [2024-07-06T05:21:47.964Z] Platform:      win32
+[debug] [2024-07-06T05:21:47.964Z] Node Version:  v20.11.1
+[debug] [2024-07-06T05:21:47.964Z] Time:          Sat Jul 06 2024 14:21:47 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-06T05:21:47.964Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-06T05:21:48.007Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-06T05:21:48.008Z] > authorizing via signed-in user (dnjsgh567877@gmail.com)
+[debug] [2024-07-06T05:21:48.008Z] [iam] checking project ohtail-d03f2 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions [none]
+[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:21:48.009Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:21:49.055Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions 200
+[debug] [2024-07-06T05:21:49.055Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ohtail-d03f2:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-07-06T05:21:49.055Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-07-06T05:21:49.055Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:21:50.287Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-07-06T05:21:50.287Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ohtail-d03f2/serviceAccounts/ohtail-d03f2@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-07-06T05:21:50.288Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:21:50.710Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:21:50.710Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] 
+[info] === Deploying to 'ohtail-d03f2'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2024-07-06T05:21:50.712Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 [none]
+[debug] [2024-07-06T05:21:51.005Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 200
+[debug] [2024-07-06T05:21:51.005Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2 {"projectId":"ohtail-d03f2","projectNumber":"519414677311","displayName":"ohtail","name":"projects/ohtail-d03f2","resources":{"hostingSite":"ohtail-d03f2"},"state":"ACTIVE","etag":"1_8334607c-53f9-4670-89fa-ba19d50f1532"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-07-06T05:21:51.007Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [none]
+[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:21:51.008Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [none]
+[debug] [2024-07-06T05:21:51.009Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ohtail-d03f2
+[debug] [2024-07-06T05:21:52.355Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com 200
+[debug] [2024-07-06T05:21:52.355Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-07-06T05:21:52.363Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com 200
+[debug] [2024-07-06T05:21:52.363Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-07-06T05:21:52.653Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com 200
+[debug] [2024-07-06T05:21:52.653Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-07-06T05:21:52.673Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com 200
+[debug] [2024-07-06T05:21:52.673Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ohtail-d03f2/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-07-06T05:21:52.674Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig [none]
+[debug] [2024-07-06T05:21:52.949Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig 200
+[debug] [2024-07-06T05:21:52.950Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ohtail-d03f2/adminSdkConfig {"projectId":"ohtail-d03f2","storageBucket":"ohtail-d03f2.appspot.com"}
+[debug] [2024-07-06T05:21:52.950Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs [none]
+[debug] [2024-07-06T05:21:53.380Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs 200
+[debug] [2024-07-06T05:21:53.380Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ohtail-d03f2/configs {}
+[debug] [2024-07-06T05:21:53.381Z] Validating nodejs source
+[warn] !  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[debug] [2024-07-06T05:21:54.945Z] > [functions] package.json contents: {
+  "name": "ohtail",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@google-cloud/translate": "^8.3.0",
+    "@reduxjs/toolkit": "^2.2.5",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
+    "babel-loader": "^9.1.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.2.0",
+    "firebase-functions": "^5.0.1",
+    "i18next": "^23.11.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.51.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^14.1.2",
+    "react-kakao-login": "^2.1.1",
+    "react-quill": "^2.0.0",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
+    "swiper": "^11.1.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "firebase deploy",
+    "serve": "firebase serve --only functions,hosting"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "engines": {
+    "node": "16"
+  }
+}
+[debug] [2024-07-06T05:21:54.945Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-07-06T05:21:54.947Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-07-06T05:21:54.952Z] Found firebase-functions binary at 'C:\Users\김원호\Desktop\code\ohtail\node_modules\.bin\firebase-functions'
+[info] Serving at port 8711
+
+[error] node:events:496
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5001
+    at Server.setupListenHandle [as _listen2] (node:net:1872:16)
+    at listenInCluster (node:net:1920:12)
+    at Server.listen (node:net:2008:7)
+    at Function.listen (C:\Users\김원호\Desktop\code\ohtail\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\김원호\Desktop\code\ohtail\index.js:692:5)
+    at Module._compile (node:internal/modules/cjs/loader:1376:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+    at Module.load (node:internal/modules/cjs/loader:1207:32)
+    at Module._load (node:internal/modules/cjs/loader:1023:12)
+    at Module.require (node:internal/modules/cjs/loader:1235:19)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1899:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5001
+}
+
+Node.js v20.11.1
+
+[debug] [2024-07-06T05:21:55.581Z] Failed to call quitquitquit. This often means the server failed to start request to http://localhost:8711/__/quitquitquit failed, reason:  {"message":"request to http://localhost:8711/__/quitquitquit failed, reason: ","type":"system","errno":"ECONNREFUSED","code":"ECONNREFUSED"}
+[debug] [2024-07-06T05:21:55.806Z] FetchError: request to http://127.0.0.1:8711/__/functions.yaml failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\김원호\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1501:11)
+    at ClientRequest.emit (node:events:518:28)
+    at ClientRequest.emit (node:domain:488:12)
+    at Socket.socketErrorListener (node:_http_client:495:9)
+    at Socket.emit (node:events:518:28)
+    at Socket.emit (node:domain:488:12)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: An unexpected error has occurred.
