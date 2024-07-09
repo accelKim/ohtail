@@ -29,8 +29,10 @@ app.use(bodyParser.json());
 
 // CORS 설정
 const corsOptions = {
-    origin: apiUrl,
+    origin: '*',
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
 };
 
 app.use(cors(corsOptions));
