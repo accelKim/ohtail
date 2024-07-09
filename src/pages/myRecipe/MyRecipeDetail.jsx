@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,23 +11,7 @@ import style from '../../styles/myRecipe/MyRecipeDetail.module.css';
 import LikeButton from '../../components/like/LikeButton';
 import CommentSection from '../../components/Comment/CommentSection';
 import FavoritesButton from '../../components/favorites/FavoritesButton';
-import CopyUrlButton from '../../components/copyUrl/CopyUrl';
-=======
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Navigation, Pagination } from "swiper/modules";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
-import LikeButton from "../../components/like/LikeButton";
-import CommentSection from "../../components/Comment/CommentSection";
-import FavoritesButton from "../../components/favorites/FavoritesButton";
-import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
->>>>>>> c243940e34ca28b71ac5cb1b78e65ea529262a69
+import CopyUrlButton from '../../components/copyUrl/CopyUrlButton';
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -166,8 +149,8 @@ const MyRecipeDetail = () => {
         modules={[Navigation, Pagination]}
         className={style.mySwiper}
         style={{
-          "--swiper-pagination-color": "#f0f0f0",
-          "--swiper-navigation-color": "#6d4ee5",
+          '--swiper-pagination-color': '#f0f0f0',
+          '--swiper-navigation-color': '#6d4ee5',
         }}
       >
         {myRecipe.files.map((file, index) => {
