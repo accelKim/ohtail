@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
 import style from "../../styles/myRecipe/MainPageMyRecipe.module.css";
-const apiUrl = process.env.REACT_APP_API_URL;
+
 const MainPageMyRecipe = () => {
   const [recentRecipes, setRecentRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ const MainPageMyRecipe = () => {
   useEffect(() => {
     const fetchRecentRecipes = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/myRecipe`);
+        const response = await fetch("http://localhost:8080/myRecipe");
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!");
         }

@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Navigation, Pagination } from 'swiper/modules';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import style from '../../styles/myRecipe/MyRecipeDetail.module.css';
-import LikeButton from '../../components/like/LikeButton';
-import CommentSection from '../../components/Comment/CommentSection';
-import FavoritesButton from '../../components/favorites/FavoritesButton';
-import CopyUrlButton from '../../components/copyUrl/CopyUrlButton';
-const apiUrl = process.env.REACT_APP_API_URL;
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
+import LikeButton from "../../components/like/LikeButton";
+import CommentSection from "../../components/Comment/CommentSection";
+import FavoritesButton from "../../components/favorites/FavoritesButton";
+import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -24,17 +23,17 @@ const MyRecipeDetail = () => {
   const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+      const payload = JSON.parse(atob(token.split(".")[1]));
       setUserId(payload.userid);
     }
 
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/myRecipe/${id}`);
+        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
-          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
+          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
         const data = await response.json();
         setMyRecipe(data);
@@ -59,7 +58,7 @@ const MyRecipeDetail = () => {
           })
         ).then((translated) => setTranslatedIngredients(translated));
       } catch (error) {
-        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
+        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
     };
 
@@ -70,15 +69,15 @@ const MyRecipeDetail = () => {
     const response = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
+          "Content-Type": "application/json; charset=utf-8",
         },
         body: JSON.stringify({
           q: text,
-          source: 'en',
-          target: 'ko',
-          format: 'text',
+          source: "en",
+          target: "ko",
+          format: "text",
         }),
       }
     );
@@ -91,13 +90,13 @@ const MyRecipeDetail = () => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('레시피를 삭제하시겠습니까?')) {
+    if (!window.confirm("레시피를 삭제하시겠습니까?")) {
       return;
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${apiUrl}/api/myRecipe/${id}`, {
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -105,11 +104,11 @@ const MyRecipeDetail = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('삭제 요청 실패:', errorData);
-        throw new Error(errorData.message || '삭제 중 오류 발생!!!!!');
+        console.error("삭제 요청 실패:", errorData);
+        throw new Error(errorData.message || "삭제 중 오류 발생!!!!!");
       }
-      toast.success('레시피가 삭제되었습니다!', {
-        position: 'bottom-center',
+      toast.success("레시피가 삭제되었습니다!", {
+        position: "bottom-center",
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -118,16 +117,16 @@ const MyRecipeDetail = () => {
         progress: undefined,
       });
       setTimeout(() => {
-        navigate('/myRecipe');
+        navigate("/myRecipe");
       }, 1000); // 1초 후에 페이지 이동
     } catch (error) {
-      console.error('삭제 중 오류 발생!!!!!', error);
+      console.error("삭제 중 오류 발생!!!!!", error);
       alert(error.message);
     }
   };
 
   const formattedInstructions = myRecipe?.instructions
-    .split('\n')
+    .split("\n")
     .map((line, index) => (
       <React.Fragment key={index}>
         {line}
@@ -150,8 +149,8 @@ const MyRecipeDetail = () => {
         modules={[Navigation, Pagination]}
         className={style.mySwiper}
         style={{
-          '--swiper-pagination-color': '#f0f0f0',
-          '--swiper-navigation-color': '#6d4ee5',
+          "--swiper-pagination-color": "#f0f0f0",
+          "--swiper-navigation-color": "#6d4ee5",
         }}
       >
         {myRecipe.files.map((file, index) => {
@@ -204,11 +203,9 @@ const MyRecipeDetail = () => {
             </button>
           </div>
         )}
-      <div className={style.clientBtnArea}>
-        <FavoritesButton cocktailId={id} userId={userId} />
-        <LikeButton cocktailId={id} userId={userId} />
-        <CopyUrlButton />
-      </div>
+      <LikeButton cocktailId={id} userId={userId} type="myRecipe" />
+      <FavoritesButton cocktailId={id} userId={userId} />
+      <CopyUrlButton />
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
       <ToastContainer />
     </main>

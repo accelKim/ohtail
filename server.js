@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const corsOptions = {
-    origin: `${apiUrl}`,
+    origin: `http://localhost:3000`,
     credentials: true,
 };
 

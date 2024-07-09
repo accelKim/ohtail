@@ -5,7 +5,6 @@ import SearchBar from "../../components/myRecipe/SearchBar";
 import MyRecipeCategory from "../../components/myRecipe/MyRecipeCategory";
 import Pagination from "../../components/pagination/Pagination";
 import style from "../../styles/myRecipe/MyRecipeList.module.css";
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const MyRecipeList = () => {
   const [myRecipeList, setMyRecipeList] = useState([]);
@@ -21,7 +20,7 @@ const MyRecipeList = () => {
   useEffect(() => {
     const fetchMyRecipes = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/myRecipe`);
+        const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -31,7 +30,7 @@ const MyRecipeList = () => {
         const recipesWithLikes = await Promise.all(
           data.map(async (recipe) => {
             const likeResponse = await fetch(
-              `${apiUrl}/api/likes?cocktailId=${recipe._id}&type=myRecipe`
+              `http://localhost:8080/likes?cocktailId=${recipe._id}&type=myRecipe`
             );
             if (likeResponse.ok) {
               const likeData = await likeResponse.json();
