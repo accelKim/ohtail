@@ -31,7 +31,10 @@ const MyRecipeDetail = () => {
 
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
+        const response = await fetch(
+          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`
+        );
+        // const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -96,12 +99,16 @@ const MyRecipeDetail = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`,
+        {
+          // const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
         const errorData = await response.json();
         console.error("삭제 요청 실패:", errorData);
