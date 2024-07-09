@@ -1,40 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import style from "../../styles/comments/Comments.module.css";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import style from '../../styles/comments/Comments.module.css';
 import {
   fetchComments,
   submitComment,
   deleteComment,
   updateComment,
-} from "../../store/commentSlice";
+} from '../../store/commentSlice';
 
 // 마이페이지 댓글 조회를 위한 type 필드를 추가
 const CommentSection = ({ cocktailId, userId, type }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comments = useSelector((state) => state.comments.comments);
-  const [newComment, setNewComment] = useState("");
+  const [newComment, setNewComment] = useState('');
   const [editCommentId, setEditCommentId] = useState(null);
-  const [editCommentText, setEditCommentText] = useState("");
+  const [editCommentText, setEditCommentText] = useState('');
 
   useEffect(() => {
     dispatch(fetchComments({ cocktailId }));
-  }, [dispatch, cocktailId]);
+  }, [dispatch, cocktailId, comments]); // comments를 의존성 배열에 추가
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!userId) {
-      navigate("/login");
+      navigate('/login');
       return;
     }
     dispatch(submitComment({ cocktailId, userId, text: newComment, type }));
-    setNewComment("");
+    setNewComment('');
   };
 
   const handleFocus = () => {
     if (!userId) {
-      navigate("/login");
+      navigate('/login');
     }
   };
 
@@ -53,15 +53,15 @@ const CommentSection = ({ cocktailId, userId, type }) => {
       updateComment({ commentId: editCommentId, text: editCommentText })
     );
     setEditCommentId(null);
-    setEditCommentText("");
+    setEditCommentText('');
   };
 
   return (
-    <div>
+    <div className={style.commentArea}>
       <h3 className={style.comment_title}>댓글</h3>
       <form
         onSubmit={handleSubmit}
-        style={{ marginBottom: "20px" }}
+        style={{ marginBottom: '20px' }}
         className={style.comment_input_wrap}
       >
         <input
@@ -93,11 +93,11 @@ const CommentSection = ({ cocktailId, userId, type }) => {
               </form>
             ) : (
               <div className={style.comment_wrap}>
-                <small>작성자: {comment.userId}</small>
-                {(comment.userId === userId ||
-                  comment.userId?.toString() === userId?.toString()) && (
-                  <div className={style.comment_content_wrap}>
-                    <p className={style.comment_content}>{comment.text}</p>
+                <small>{comment.userId}</small>
+                <div className={style.comment_content_wrap}>
+                  <p className={style.comment_content}>{comment.text}</p>
+                  {(comment.userId === userId ||
+                    comment.userId?.toString() === userId?.toString()) && (
                     <div>
                       <button
                         onClick={() => handleEdit(comment._id, comment.text)}
@@ -108,8 +108,8 @@ const CommentSection = ({ cocktailId, userId, type }) => {
                         삭제
                       </button>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
           </li>
