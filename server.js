@@ -23,7 +23,6 @@ const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
 const { Configuration, OpenAIApi } = require('openai');
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -32,6 +31,12 @@ const corsOptions = {
     origin: apiUrl,
     credentials: true,
 };
+
+// 테스트용 엔드포인트
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'API is working!' });
+    console.log({ message: 'API is working!' });
+});
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -72,7 +77,6 @@ app.post('/chatbot', async (req, res) => {
         res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
     }
 });
-
 
 // Google Cloud Storage 설정
 const storage = new Storage({
