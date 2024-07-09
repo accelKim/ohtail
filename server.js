@@ -26,8 +26,9 @@ const OpenAIApi = require('openai');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// CORS 설정
 const corsOptions = {
-    origin: `${apiUrl}`,
+    origin: apiUrl,
     credentials: true,
 };
 
