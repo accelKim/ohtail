@@ -33,6 +33,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(express.json());
 
 mongoose
     .connect(
@@ -50,19 +51,19 @@ const openai = new OpenAIApi({
 // 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
     const userPrompt = req.body.userPrompt;
-    const roleBasedProppt = '당신은 고객님들을 위한 친절한 바텐더입니다.';
+    const roleBasedPrompt = '당신은 고객님들을 위한 친절한 바텐더입니다.';
     try {
-        const response = await openai.chat.completions.create({
+        const response = await openai.createChatCompletion({
             model: 'gpt-3.5-turbo',
             messages: [
-                { role: 'system', content: roleBasedProppt },
+                { role: 'system', content: roleBasedPrompt },
                 { role: 'user', content: userPrompt },
             ],
             max_tokens: 100,
         });
 
-        console.log(response.choices[0].message.content);
-        res.send(response.choices[0].message.content);
+        console.log(response.data.choices[0].message.content);
+        res.send(response.data.choices[0].message.content);
     } catch (error) {
         console.error('OpenAI API 호출 오류:', error);
         res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
