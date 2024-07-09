@@ -48,7 +48,7 @@ const openai = new OpenAIApi({
 });
 
 // 챗봇 엔드포인트
-app.post('/chatbot', async (req, res) => {
+app.post('/api/chatbot', async (req, res) => {
     const userPrompt = req.body.userPrompt;
     const roleBasedProppt = '당신은 고객님들을 위한 친절한 바텐더입니다.';
     try {
