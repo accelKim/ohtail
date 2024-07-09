@@ -19,13 +19,15 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const realFs = require("fs");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
+const apiUrl = process.env.REACT_APP_API_URL;
+const OpenAIApi = require("openai");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: `${apiUrl}`,
   credentials: true,
 };
 
@@ -39,6 +41,35 @@ mongoose
   )
   .then(() => console.log("MongoDB 연결 성공"))
   .catch((err) => console.error("MongoDB 연결 실패:", err));
+
+// OpenAI API 설정
+const openai = new OpenAIApi({
+  apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
+});
+
+// 챗봇 엔드포인트
+app.post("/chatbot", async (req, res) => {
+  const userPrompt = req.body.userPrompt;
+  const roleBasedProppt = "당신은 고객님들을 위한 친절한 바텐더입니다.";
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: roleBasedProppt },
+        { role: "user", content: userPrompt },
+      ],
+      max_tokens: 100,
+    });
+
+    console.log(response.choices[0].message.content);
+    res.send(response.choices[0].message.content);
+  } catch (error) {
+    console.error("OpenAI API 호출 오류:", error);
+    res
+      .status(500)
+      .json({ message: "OpenAI API 호출 중 오류가 발생했습니다." });
+  }
+});
 
 // Google Cloud Storage 설정
 const storage = new Storage({
@@ -786,6 +817,12 @@ app.get("/feeds", async (req, res) => {
       .status(500)
       .json({ message: "피드 데이터를 가져오는 중 오류가 발생했습니다." });
   }
+});
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.listen(port, () => {
