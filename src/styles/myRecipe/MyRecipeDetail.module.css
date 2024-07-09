@@ -1,13 +1,10 @@
 .main {
-  margin: 40px auto 70px auto !important;
-  padding: 2rem;
-  border-radius: 10px;
-  /* box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1); */
+  text-align: left;
 }
 
 .main h3 {
-  text-align: center;
-  font-weight: bold;
+  margin-bottom: 1rem;
+  font-family: 'Pretendard-Medium';
 }
 
 .swiperSlide {
@@ -39,32 +36,31 @@
 
 .desc {
   text-align: center;
-  margin: 40px 0;
+  margin: 40px 0 60px;
   font-size: 18px;
-  font-weight: bold;
 }
-.ingredientCon {
-  margin-bottom: 40px;
+
+.ingredientCon,
+.instructions {
+  margin-bottom: 60px;
 }
 
 .ingredientItem {
   border-radius: 2rem;
-  margin: 1rem auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid var(--black);
-  padding: 0.5rem 1rem;
-  max-width: 600px;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
 }
 
 .ingredientItem span {
   font-weight: bold;
 }
 
-.ingredientItem > span {
+/* .ingredientItem > span {
   padding-left: 1rem;
-}
+} */
 
 .measureWrap {
   display: flex;
@@ -74,17 +70,14 @@
 
 .ingredientImg {
   height: 50px;
+  display: none;
 }
 
 .instructions {
-  display: flex;
+  padding: 1rem 2rem;
   border: 1px solid var(--black);
   border-radius: 5px;
-  margin: 1rem auto;
-  padding: 2.5rem;
-  font-weight: bold;
-  justify-content: center;
-  max-width: 1000px;
+  min-height: 200px;
 }
 
 .instructions p {
@@ -116,6 +109,15 @@
   background-color: var(--white);
   border: 1px solid var(--black);
   color: var(--black);
+}
+
+.clientBtnArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.clientBtnArea > * {
 }
 
 @media (max-width: 900px) {

@@ -160,7 +160,7 @@ main section .btnMore::before {
 }
 main section .btnMore {
   position: absolute;
-  top: 17px;
+  top: 9px;
   right: 0;
   font-size: 0.9em;
   transition: 0.5s;
