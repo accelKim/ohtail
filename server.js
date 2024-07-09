@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
+  origin: "http://localhost:8080",
   credentials: true,
 };
 

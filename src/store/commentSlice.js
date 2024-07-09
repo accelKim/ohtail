@@ -6,7 +6,7 @@ export const fetchComments = createAsyncThunk(
   "comments/fetchComments",
   async ({ cocktailId }) => {
     const response = await axios.get(
-      `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/comments?cocktailId=${cocktailId}`
+      `http://localhost:8080/comments?cocktailId=${cocktailId}`
     );
     return response.data.comments;
   }
@@ -16,7 +16,7 @@ export const submitComment = createAsyncThunk(
   "comments/submitComment",
   async ({ cocktailId, userId, text, type }) => {
     // type 필드를 추가
-    const response = await axios.post("https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/comments", {
+    const response = await axios.post("http://localhost:8080/comments", {
       cocktailId,
       userId,
       text,
@@ -29,7 +29,7 @@ export const submitComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   "comments/deleteComment",
   async ({ commentId }) => {
-    await axios.delete(`https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/comments/${commentId}`);
+    await axios.delete(`http://localhost:8080/comments/${commentId}`);
     return commentId;
   }
 );
@@ -38,7 +38,7 @@ export const updateComment = createAsyncThunk(
   "comments/updateComment",
   async ({ commentId, text }) => {
     const response = await axios.put(
-      `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/comments/${commentId}`,
+      `http://localhost:8080/comments/${commentId}`,
       { text }
     );
     return response.data.comment;
