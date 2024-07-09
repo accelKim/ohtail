@@ -13,7 +13,7 @@ const Chatbot = () => {
         try {
             const userMessage = { role: 'user', content: message };
             setChatHistory((prevHistory) => [...prevHistory, userMessage]);
-            const response = await axios.post('http://ohtail:80/chatbot', {
+            const response = await axios.post('https://ohtail:80/chatbot', {
                 userPrompt: message,
             });
             const botMessage = { role: 'bot', content: response.data };
