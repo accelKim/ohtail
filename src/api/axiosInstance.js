@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api',
+  baseURL: 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
