@@ -210,9 +210,11 @@ const MyRecipeDetail = () => {
             </button>
           </div>
         )}
-      <LikeButton cocktailId={id} userId={userId} type="myRecipe" />
-      <FavoritesButton cocktailId={id} userId={userId} />
-      <CopyUrlButton />
+      <div className={style.clientBtnArea}>
+        <FavoritesButton cocktailId={id} userId={userId} />
+        <LikeButton cocktailId={id} userId={userId} />
+        <CopyUrlButton />
+      </div>
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
       <ToastContainer />
     </main>
