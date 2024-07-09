@@ -278,68 +278,82 @@ app.put("/user/:id/nickname", authenticateJWT, async (req, res) => {
 });
 
 // 즐겨찾기 추가
-app.post("/favorite", authenticateJWT, async (req, res) => {
-  try {
-    const { cocktailId, userId, isExternal } = req.body;
-    if (!cocktailId || !userId) {
-      return res
-        .status(400)
-        .json({ message: "cocktailId와 userId가 필요합니다." });
-    }
+app.post(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/favorite",
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      const { cocktailId, userId, isExternal } = req.body;
+      if (!cocktailId || !userId) {
+        return res
+          .status(400)
+          .json({ message: "cocktailId와 userId가 필요합니다." });
+      }
 
-    const existingFavorite = await Favorite.findOne({
-      userId,
-      cocktailId,
-      isExternal,
-    });
-    if (existingFavorite) {
-      return res.status(400).json({ message: "이미 즐겨찾기된 레시피입니다." });
-    }
+      const existingFavorite = await Favorite.findOne({
+        userId,
+        cocktailId,
+        isExternal,
+      });
+      if (existingFavorite) {
+        return res
+          .status(400)
+          .json({ message: "이미 즐겨찾기된 레시피입니다." });
+      }
 
-    const newFavorite = new Favorite({ userId, cocktailId, isExternal });
-    await newFavorite.save();
-    res.status(201).json(newFavorite);
-  } catch (error) {
-    console.error("즐겨찾기 추가 중 오류 발생:", error);
-    res.status(500).json({ message: error.message });
+      const newFavorite = new Favorite({ userId, cocktailId, isExternal });
+      await newFavorite.save();
+      res.status(201).json(newFavorite);
+    } catch (error) {
+      console.error("즐겨찾기 추가 중 오류 발생:", error);
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 즐겨찾기 삭제
-app.delete("/favorite", authenticateJWT, async (req, res) => {
-  try {
-    const { cocktailId, userId, isExternal } = req.body;
-    if (!cocktailId || !userId) {
-      return res
-        .status(400)
-        .json({ message: "cocktailId와 userId가 필요합니다." });
-    }
+app.delete(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/favorite",
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      const { cocktailId, userId, isExternal } = req.body;
+      if (!cocktailId || !userId) {
+        return res
+          .status(400)
+          .json({ message: "cocktailId와 userId가 필요합니다." });
+      }
 
-    await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
-    res.status(200).json({ message: "즐겨찾기가 삭제되었습니다." });
-  } catch (error) {
-    console.error("즐겨찾기 삭제 중 오류 발생:", error);
-    res.status(500).json({ message: error.message });
+      await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
+      res.status(200).json({ message: "즐겨찾기가 삭제되었습니다." });
+    } catch (error) {
+      console.error("즐겨찾기 삭제 중 오류 발생:", error);
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 즐겨찾기 리스트
-app.get("/favorites", authenticateJWT, async (req, res) => {
-  try {
-    const userId = req.user.userid;
-    const favorites = await Favorite.find({ userId });
-    res.status(200).json(favorites);
-  } catch (error) {
-    console.error("Error fetching favorites:", error);
-    res.status(500).json({ message: error.message });
+app.get(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/favorites",
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      const userId = req.user.userid;
+      const favorites = await Favorite.find({ userId });
+      res.status(200).json(favorites);
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 나만의 레시피 생성
 const myRecipeUpload = multer({ storage: multer.memoryStorage() });
 
 app.post(
-  "/createMyRecipe",
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/createMyRecipe",
   authenticateJWT,
   myRecipeUpload.array("files", 3),
   async (req, res) => {
@@ -406,28 +420,34 @@ app.post(
 );
 
 // 나만의 레시피 리스트
-app.get("/myRecipe", async (req, res) => {
-  try {
-    const recipes = await MyRecipe.find().sort({ createdAt: -1 });
-    res.status(200).json(recipes);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+app.get(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe",
+  async (req, res) => {
+    try {
+      const recipes = await MyRecipe.find().sort({ createdAt: -1 });
+      res.status(200).json(recipes);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 나만의 레시피 상세
-app.get("/myRecipe/:id", async (req, res) => {
-  try {
-    const myRecipe = await MyRecipe.findById(req.params.id);
-    res.status(200).json(myRecipe);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+app.get(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/:id",
+  async (req, res) => {
+    try {
+      const myRecipe = await MyRecipe.findById(req.params.id);
+      res.status(200).json(myRecipe);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 나만의 레시피 수정
 app.put(
-  "/myRecipe/:id",
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/:id",
   authenticateJWT,
   myRecipeUpload.array("files", 3),
   async (req, res) => {
@@ -495,30 +515,38 @@ app.put(
 );
 
 // 나만의 레시피 삭제
-app.delete("/myRecipe/:id", authenticateJWT, async (req, res) => {
-  try {
-    await MyRecipe.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "레시피가 삭제되었습니다." });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+app.delete(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/:id",
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      await MyRecipe.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: "레시피가 삭제되었습니다." });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // 특정 사용자가 작성한 레시피 리스트
-app.get("/myRecipeTab", authenticateJWT, async (req, res) => {
-  try {
-    const userId = req.user.userid;
-    const recipes = await MyRecipe.find({ author: userId }).sort({
-      createdAt: -1,
-    });
-    res.status(200).json(recipes);
-  } catch (error) {
-    console.error("레시피 불러오기 중 오류 발생:", error);
-    res
-      .status(500)
-      .json({ message: "레시피 불러오기 중 오류가 발생했습니다." });
+app.get(
+  "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipeTab",
+  authenticateJWT,
+  async (req, res) => {
+    try {
+      const userId = req.user.userid;
+      const recipes = await MyRecipe.find({ author: userId }).sort({
+        createdAt: -1,
+      });
+      res.status(200).json(recipes);
+    } catch (error) {
+      console.error("레시피 불러오기 중 오류 발생:", error);
+      res
+        .status(500)
+        .json({ message: "레시피 불러오기 중 오류가 발생했습니다." });
+    }
   }
-});
+);
 
 // 웹진 업로드 설정
 const webzineUpload = multer({ storage: multer.memoryStorage() });
