@@ -41,7 +41,8 @@
 }
 
 .ingredientCon,
-.instructions {
+.instructions,
+.clientBtnArea {
   margin-bottom: 60px;
 }
 
