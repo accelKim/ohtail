@@ -21,7 +21,8 @@ const realFs = require('fs');
 const app = express();
 const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
-const OpenAIApi = require('openai');
+const { Configuration, OpenAIApi } = require('openai');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,9 +46,10 @@ mongoose
     .catch((err) => console.error('MongoDB 연결 실패:', err));
 
 // OpenAI API 설정
-const openai = new OpenAIApi({
+const configuration = new Configuration({
     apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
+const openai = new OpenAIApi(configuration);
 
 // 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
@@ -70,6 +72,7 @@ app.post('/chatbot', async (req, res) => {
         res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
     }
 });
+
 
 // Google Cloud Storage 설정
 const storage = new Storage({
