@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const realFs = require("fs");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -787,6 +787,14 @@ app.get("/feeds", async (req, res) => {
       .json({ message: "피드 데이터를 가져오는 중 오류가 발생했습니다." });
   }
 });
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
