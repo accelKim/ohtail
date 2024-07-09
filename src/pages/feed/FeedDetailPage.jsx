@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/feed/FeedDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
-import CopyUrlButton from "../../components/copyUrl/CopyUrl";
+import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
 
 const FeedDetailPage = () => {
   const { id } = useParams();
@@ -93,7 +93,7 @@ const FeedDetailPage = () => {
           </React.Fragment>
         )}
       </section>
-      <LikeButton cocktailId={id} userId={userId} />
+      <LikeButton cocktailId={id} userId={userId} type="feed" />
       <CopyUrlButton />
       <CommentSection cocktailId={id} userId={userId} type="feed" />
       <ToastContainer />

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,6 +13,22 @@ import LikeButton from '../../components/like/LikeButton';
 import CommentSection from '../../components/Comment/CommentSection';
 import FavoritesButton from '../../components/favorites/FavoritesButton';
 import CopyUrlButton from '../../components/copyUrl/CopyUrl';
+=======
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
+import LikeButton from "../../components/like/LikeButton";
+import CommentSection from "../../components/Comment/CommentSection";
+import FavoritesButton from "../../components/favorites/FavoritesButton";
+import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
+>>>>>>> c243940e34ca28b71ac5cb1b78e65ea529262a69
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -142,27 +159,30 @@ const MyRecipeDetail = () => {
     <main className={`mw ${style.main}`}>
       <h2 className={style.title}>{myRecipe.title}</h2>
       <p className={style.authorNickname}>@ {myRecipe.authorNickname}</p>
-      <div>
-        <Swiper
-          navigation={true}
-          pagination={{ dynamicBullets: true }}
-          modules={[Navigation, Pagination]}
-          className={style.mySwiper}
-        >
-          {myRecipe.files.map((file, index) => {
-            const imageUrl = `http://localhost:8080/${file}`;
-            return (
-              <SwiperSlide key={index} className={style.swiperSlide}>
-                <img
-                  src={imageUrl}
-                  alt={`${myRecipe.title} 이미지 ${index + 1}`}
-                  className={style.image}
-                />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </div>
+
+      <Swiper
+        navigation={true}
+        pagination={{ dynamicBullets: true }}
+        modules={[Navigation, Pagination]}
+        className={style.mySwiper}
+        style={{
+          "--swiper-pagination-color": "#f0f0f0",
+          "--swiper-navigation-color": "#6d4ee5",
+        }}
+      >
+        {myRecipe.files.map((file, index) => {
+          const imageUrl = `http://localhost:8080/${file}`;
+          return (
+            <SwiperSlide key={index} className={style.swiperSlide}>
+              <img
+                src={imageUrl}
+                alt={`${myRecipe.title} 이미지 ${index + 1}`}
+                className={style.image}
+              />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
 
       <p className={style.desc}>"{myRecipe.description}"</p>
       <h3>재료 정보</h3>

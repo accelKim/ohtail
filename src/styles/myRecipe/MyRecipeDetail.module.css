@@ -102,13 +102,12 @@
   width: 130px;
   height: 30px;
   border: none;
+  background-color: transparent;
 }
 
 .editBtn:hover,
 .delBtn:hover {
-  background-color: var(--white);
-  border: 1px solid var(--black);
-  color: var(--black);
+  color: red;
 }
 
 .clientBtnArea {
@@ -129,10 +128,5 @@
 
   .desc {
     font-size: 14px;
-  }
-
-  .editBtn,
-  .delBtn {
-    flex: 1;
   }
 }
