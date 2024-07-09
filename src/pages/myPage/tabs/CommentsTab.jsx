@@ -17,7 +17,8 @@ const CommentsTab = () => {
       console.log("Fetching comments for userId:", userId);
       try {
         const response = await fetch(
-          `http://localhost:8080/comments/user?userId=${userId}`
+          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/comments/user?userId=${userId}`
+          // `http://localhost:8080/comments/user?userId=${userId}`
         );
         const data = await response.json();
         if (response.ok) {
@@ -62,7 +63,10 @@ const CommentsTab = () => {
 
     try {
       const response = await fetch(
-        isExternal ? url : `http://localhost:8080${url}`
+        isExternal
+          ? url
+          : `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api${url}`
+        // isExternal ? url : `http://localhost:8080${url}`
       );
       const data = await response.json();
       console.log("Response:", data);
