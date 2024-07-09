@@ -193,13 +193,17 @@ const CreateMyRecipe = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("http://localhost:8080/createMyRecipe", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/createMyRecipe",
+        {
+          // const response = await fetch("http://localhost:8080/createMyRecipe", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
       if (response.ok) {
         toast.success("레시피가 등록되었습니다!", {
           position: "bottom-center",
