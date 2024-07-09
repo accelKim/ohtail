@@ -12,7 +12,8 @@ const WebzineDetail = () => {
   const [webzineInfo, setWebzineInfo] = useState(null);
   const [webzineData, setWebzineData] = useState(null);
   const navigate = useNavigate();
-  //mongoDB에서 webzine 데이터 가져오기
+
+  // 웹진 데이터 가져오기
   const fetchWebzineData = async () => {
     try {
       const response = await fetch(`${url}/webzine`, {
@@ -177,6 +178,10 @@ const WebzineDetail = () => {
       <div className={`mw ${style.contArea}`}>
         <div>
           <h4>{webzineInfo?.summary}</h4>
+          {/* 추가된 이미지 태그 */}
+          {webzineInfo?.cover && (
+            <img src={`${url}/${webzineInfo.cover}`} alt="Webzine Cover" />
+          )}
           <div dangerouslySetInnerHTML={{ __html: webzineInfo?.content }}></div>
         </div>
         <div>

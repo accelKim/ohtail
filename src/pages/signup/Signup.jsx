@@ -19,6 +19,7 @@ const Signup = () => {
   const [errMessage7, setErrMessage7] = useState('');
   const [errMessage8, setErrMessage8] = useState('');
   const [emailAvailable, setEmailAvailable] = useState(null);
+  const [isEmailChecked, setIsEmailChecked] = useState(false); // 이메일 중복 확인 상태 추가
 
   const [instructions, setInstructions] = useState('');
   const [ingredientOptions, setIngredientOptions] = useState([]);
@@ -47,14 +48,22 @@ const Signup = () => {
     try {
       const response = await axios.post(
         'http://localhost:8080/api/check-email',
-        {
-          email,
-        }
+        { email }
       );
-      alert(response.data.message);
+      alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
+      setEmailAvailable(response.data.available);
+      setIsEmailChecked(true); // 이메일 중복 확인 완료 시 상태 변경
     } catch (error) {
-      console.error('Error checking email:', error);
-      alert('서버 오류');
+      if (error.response) {
+        alert(error.response.data.message);
+        setEmail('');
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        alert('서버 응답이 없습니다.');
+      } else {
+        console.error('Error setting up the request:', error.message);
+        alert('요청을 설정하는 중 문제가 발생했습니다.');
+      }
     }
   };
 
@@ -75,6 +84,11 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isEmailChecked) {
+      alert('이메일 중복 확인을 먼저 해주세요.');
+      return;
+    }
 
     if (password !== passwordcon) {
       setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -193,9 +207,6 @@ const Signup = () => {
           onChange={(e) => setNickname(e.target.value)}
           required
         />
-        <button type="button" onClick={handleNicknameCheck}>
-          닉네임 중복 확인
-        </button>
         {errMessage5 && <div className={style.errorMessage}>{errMessage5}</div>}
 
         <label>음주 빈도</label>
@@ -240,7 +251,9 @@ const Signup = () => {
         </select>
         {errMessage8 && <div className={style.errorMessage}>{errMessage8}</div>}
 
-        <button type="submit">회원가입</button>
+        <button type="submit" disabled={!emailAvailable}>
+          회원가입
+        </button>
       </form>
     </div>
   );

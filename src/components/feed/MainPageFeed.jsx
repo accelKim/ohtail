@@ -33,7 +33,7 @@ const MainPageFeed = () => {
       <div>
         {sortedFeeds.map((feed) => (
           <Link
-            to={`/feed/${feed._id}`}
+            to={`/feedDetail/${feed._id}`}
             key={feed._id}
             className={style.feedItem}
           >

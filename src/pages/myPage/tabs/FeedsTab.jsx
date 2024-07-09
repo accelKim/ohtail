@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import style from '../../../styles/feed/FeedsTab.module.css';
+import styles from '../../../styles/feed/FeedsTab.module.css'; // 스타일을 styles로 가져옴
 
 const FeedsTab = () => {
   const [feeds, setFeeds] = useState([]);
@@ -26,11 +26,11 @@ const FeedsTab = () => {
   const userFeeds = feeds.filter((feed) => feed.author === currentUserId);
 
   return (
-    <div className={style.feedsTabcon}>
+    <div className={styles.feedsTabcon}>
       {userFeeds.length > 0 ? (
         userFeeds.map((feed) => (
           <div key={feed._id}>
-            <Link to={`/feedDetail/${feed._id}`} className={style.feedsTabImg}>
+            <Link to={`/feedDetail/${feed._id}`} className={styles.feedsTabImg}>
               {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
             </Link>
           </div>
