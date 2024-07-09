@@ -10,6 +10,9 @@
 .comment_input_wrap {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 5px;
   /* display: flex;
   justify-content: center;
   align-items: center;
@@ -17,8 +20,6 @@
 }
 .comment_input {
   border: none;
-  border-radius: 5px;
-  padding: 1rem;
   /* flex: 1;
   border-radius: 2rem;
   padding: 1rem;
