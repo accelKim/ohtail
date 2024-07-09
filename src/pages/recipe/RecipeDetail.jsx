@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
 import FavoritesButton from "../../components/favorites/FavoritesButton";
+import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
 import style from "../../styles/recipe/RecipeDetail.module.css";
 
 const RecipeDetail = () => {
@@ -105,9 +106,10 @@ const RecipeDetail = () => {
           </li>
         ))}
       </ul>
-      <LikeButton cocktailId={id} userId={userId} />
+      <LikeButton cocktailId={id} userId={userId} type="recipe" />
       {/* 즐겨찾기 버튼 추가  */}
       <FavoritesButton cocktailId={id} userId={userId} isExternal={true} />
+      <CopyUrlButton />
       {/* 댓글 타입 recipe 추가 */}
       <CommentSection cocktailId={id} userId={userId} type="recipe" />
     </div>

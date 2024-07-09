@@ -26,18 +26,23 @@ const FeedsTab = () => {
   const userFeeds = feeds.filter((feed) => feed.author === currentUserId);
 
   return (
-    <div className={styles.feedsTabcon}>
-      {userFeeds.length > 0 ? (
-        userFeeds.map((feed) => (
-          <div key={feed._id}>
-            <Link to={`/feedDetail/${feed._id}`} className={styles.feedsTabImg}>
-              {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
-            </Link>
-          </div>
-        ))
-      ) : (
-        <p>작성한 피드가 없습니다.</p>
-      )}
+    <div className="mw">
+      <div className={styles.feedsTabcon}>
+        {userFeeds.length > 0 ? (
+          userFeeds.map((feed) => (
+            <div key={feed._id}>
+              <Link
+                to={`/feedDetail/${feed._id}`}
+                className={styles.feedsTabImg}
+              >
+                {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
+              </Link>
+            </div>
+          ))
+        ) : (
+          <p>작성한 피드가 없습니다.</p>
+        )}
+      </div>
     </div>
   );
 };
