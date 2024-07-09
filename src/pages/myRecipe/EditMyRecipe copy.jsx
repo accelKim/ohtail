@@ -376,7 +376,7 @@ const EditMyRecipe = () => {
               {files[index] ? (
                 <>
                   <img
-                    src={files[index]} // GCS URL을 직접 사용
+                    src={`http://localhost:8080/${files[index]}`}
                     alt={`Preview ${index}`}
                     className={style.previewImg}
                   />

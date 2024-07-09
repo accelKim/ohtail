@@ -154,7 +154,7 @@ const MyRecipeDetail = () => {
         }}
       >
         {myRecipe.files.map((file, index) => {
-          const imageUrl = file; // GCS URL을 직접 사용
+          const imageUrl = `http://localhost:8080/${file}`;
           return (
             <SwiperSlide key={index} className={style.swiperSlide}>
               <img

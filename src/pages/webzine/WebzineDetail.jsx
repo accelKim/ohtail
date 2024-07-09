@@ -180,7 +180,7 @@ const WebzineDetail = () => {
           <h4>{webzineInfo?.summary}</h4>
           {/* 추가된 이미지 태그 */}
           {webzineInfo?.cover && (
-            <img src={`${url}/${webzineInfo.cover}`} alt="Webzine Cover" />
+            <img src={webzineInfo.cover} alt="Webzine Cover" />
           )}
           <div dangerouslySetInnerHTML={{ __html: webzineInfo?.content }}></div>
         </div>
