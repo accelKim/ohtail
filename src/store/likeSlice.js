@@ -5,7 +5,7 @@ export const fetchLikeStatus = createAsyncThunk(
   "likes/fetchLikeStatus",
   async ({ cocktailId, userId, type }) => {
     const response = await api.get(
-      `/likes?cocktailId=${cocktailId}&userId=${userId}&type=${type}`
+      `/api/likes?cocktailId=${cocktailId}&userId=${userId}&type=${type}`
     );
     return response.data;
   }
@@ -14,7 +14,7 @@ export const fetchLikeStatus = createAsyncThunk(
 export const toggleLikeStatus = createAsyncThunk(
   "likes/toggleLikeStatus",
   async ({ cocktailId, userId, type, liked }) => {
-    const response = await api.post("/likes", {
+    const response = await api.post("api/likes", {
       cocktailId,
       userId,
       type,

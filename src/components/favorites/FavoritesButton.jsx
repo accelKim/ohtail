@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -9,7 +11,7 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
     const checkFavorite = async () => {
       try {
         const token = localStorage.getItem('token');
-        let url = 'http://localhost:8080/favorites';
+        let url = `${apiUrl}/api/favorites`;
         if (token) {
           const response = await fetch(url, {
             headers: {
@@ -52,7 +54,7 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
 
     try {
       const method = isFavorited ? 'DELETE' : 'POST';
-      const response = await fetch('http://localhost:8080/favorite', {
+      const response = await fetch(`${apiUrl}/api/favorite`, {
         method,
         headers: {
           Authorization: `Bearer ${token}`,
