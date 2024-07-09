@@ -20,7 +20,7 @@ const CommentSection = ({ cocktailId, userId, type }) => {
 
   useEffect(() => {
     dispatch(fetchComments({ cocktailId }));
-  }, [dispatch, cocktailId]);
+  }, [dispatch, cocktailId, comments]); // comments를 의존성 배열에 추가
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,11 +93,11 @@ const CommentSection = ({ cocktailId, userId, type }) => {
               </form>
             ) : (
               <div className={style.comment_wrap}>
-                <small>작성자: {comment.userId}</small>
-                {(comment.userId === userId ||
-                  comment.userId?.toString() === userId?.toString()) && (
-                  <div className={style.comment_content_wrap}>
-                    <p className={style.comment_content}>{comment.text}</p>
+                <small>{comment.userId}</small>
+                <div className={style.comment_content_wrap}>
+                  <p className={style.comment_content}>{comment.text}</p>
+                  {(comment.userId === userId ||
+                    comment.userId?.toString() === userId?.toString()) && (
                     <div>
                       <button
                         onClick={() => handleEdit(comment._id, comment.text)}
@@ -108,8 +108,8 @@ const CommentSection = ({ cocktailId, userId, type }) => {
                         삭제
                       </button>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
           </li>

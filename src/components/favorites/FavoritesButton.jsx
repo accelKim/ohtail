@@ -78,7 +78,11 @@ const FavoritesButton = ({ cocktailId, userId, isExternal = false }) => {
 
   return (
     <button onClick={handleFavorite}>
-      {isFavorited ? '즐겨찾기 취소' : '즐겨찾기'}
+      {isFavorited ? (
+        <i className="fa-regular fa-star"></i>
+      ) : (
+        <i className="fa-solid fa-star"></i>
+      )}
     </button>
   );
 };

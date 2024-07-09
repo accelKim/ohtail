@@ -272,11 +272,6 @@ main section .btnMore i {
   border-radius: 5px 20px 20px 20px;
 }
 
-/* @media (max-width: 900px) {
-  :root {
-    font-size: 0.95em;
-  }
-} */
 @media (max-width: 700px) {
   :root {
     font-size: 0.95em;

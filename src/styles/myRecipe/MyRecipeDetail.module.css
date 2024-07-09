@@ -117,7 +117,41 @@
   justify-content: center;
   gap: 1rem;
 }
-.clientBtnArea > * {
+.clientBtnArea button {
+  width: 75px;
+  height: 75px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 100%;
+  font-size: 1.25em;
+  background-color: #f9f9f9;
+}
+.clientBtnArea > div:nth-of-type(1) {
+  position: relative;
+}
+.clientBtnArea > div:nth-of-type(1) button {
+  position: relative;
+  color: #f9f9f9;
+}
+.clientBtnArea > div:nth-of-type(1) button::before {
+  content: '♥';
+  font-size: 1.35em;
+  color: var(--black);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.clientBtnArea > div:nth-of-type(1) span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding-top: 40px;
+  font-family: 'Pretendard-Medium';
+  font-size: 0.7em;
 }
 
 @media (max-width: 900px) {
