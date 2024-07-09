@@ -15,7 +15,7 @@ const MyRecipeCard = ({ myRecipe }) => {
         {myRecipe.files && myRecipe.files.length > 0 && (
           <figure className={style.imgCon}>
             <img
-              src={`http://localhost:8080/${myRecipe.files[0]}`}
+              src={myRecipe.files[0]} // GCS URL을 직접 사용
               alt={myRecipe.title}
             />
             <figcaption className={style.imgText}>

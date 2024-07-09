@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import style from '../../styles/webzine/WebzineMain.module.css';
-import { url } from '../../store/ref';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import style from "../../styles/webzine/WebzineMain.module.css";
+import { url } from "../../store/ref";
+import { useNavigate } from "react-router-dom";
 
 const WebzineMain = () => {
   const [webzineData, setWebzineData] = useState(null);
@@ -10,16 +10,16 @@ const WebzineMain = () => {
   const fetchWebzineData = async () => {
     try {
       const response = await fetch(`${url}/webzine`, {
-        method: 'GET',
+        method: "GET",
       });
       if (response.ok) {
         const data = await response.json();
         setWebzineData(data);
       } else {
-        console.error('webzine area error');
+        console.error("webzine area error");
       }
     } catch (error) {
-      console.error('webzine area error', error);
+      console.error("webzine area error", error);
     }
   };
 
@@ -28,7 +28,7 @@ const WebzineMain = () => {
   }, []);
 
   const webzineClick = () => {
-    navigate('/webzine');
+    navigate("/webzine");
   };
 
   return (
@@ -40,16 +40,16 @@ const WebzineMain = () => {
             dangerouslySetInnerHTML={{ __html: webzineData[0]?.content }}
           ></div>
           <p>
-            {new Date(webzineData[0].createdAt).toLocaleDateString('ko-KR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+            {new Date(webzineData[0].createdAt).toLocaleDateString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })}
           </p>
           <div>
             {webzineData[0].cover && (
               <img
-                src={`${url}/${webzineData[0].cover}`}
+                src={webzineData[0].cover}
                 alt={webzineData[0].title}
                 className={style.cover}
               />
