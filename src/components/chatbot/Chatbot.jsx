@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import style from '../../styles/Chatbot.module.css';
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const Chatbot = () => {
   const [message, setMessage] = useState('');
@@ -14,7 +13,7 @@ const Chatbot = () => {
     try {
       const userMessage = { role: 'user', content: message };
       setChatHistory((prevHistory) => [...prevHistory, userMessage]);
-      const response = await axios.post(`${apiUrl}/api/chatbot`, {
+      const response = await axios.post(`'http://localhost:8080/chatbot'`, {
         userPrompt: message,
       });
       const botMessage = { role: 'bot', content: response.data };

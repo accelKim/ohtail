@@ -99,16 +99,12 @@ const MyRecipeDetail = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(
-        `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`,
-        {
-          // const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         const errorData = await response.json();
         console.error("삭제 요청 실패:", errorData);
@@ -210,11 +206,9 @@ const MyRecipeDetail = () => {
             </button>
           </div>
         )}
-      <div className={style.clientBtnArea}>
-        <FavoritesButton cocktailId={id} userId={userId} />
-        <LikeButton cocktailId={id} userId={userId} />
-        <CopyUrlButton />
-      </div>
+      <LikeButton cocktailId={id} userId={userId} type="myRecipe" />
+      <FavoritesButton cocktailId={id} userId={userId} />
+      <CopyUrlButton />
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
       <ToastContainer />
     </main>
