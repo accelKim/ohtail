@@ -42,8 +42,8 @@ mongoose
 
 // Google Cloud Storage 설정
 const storage = new Storage({
-  keyFilename: path.join(__dirname, "vertical-set-428902-u5-78e087eb934e.json"),
-  projectId: "vertical-set-428902-u5",
+  keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
+  projectId: process.env.GCS_PROJECT_ID,
 });
 
 const bucket = storage.bucket("ohtail");
