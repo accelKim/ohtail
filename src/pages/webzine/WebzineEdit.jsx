@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { url } from '../../store/ref';
-import style from '../../styles/webzine/WebzineWrite.module.css';
-import WebzineEditor from './WebzineEditor';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { url } from "../../store/ref";
+import style from "../../styles/webzine/WebzineWrite.module.css";
+import WebzineEditor from "./WebzineEditor";
+import { useNavigate, useParams } from "react-router-dom";
 
 const WebzineEdit = () => {
-  const userToken = localStorage.getItem('token');
+  const userToken = localStorage.getItem("token");
 
-  const [title, setTitle] = useState('');
-  const [summary, setSummary] = useState('');
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
   const [files, setFiles] = useState(null);
-  const [content, setContent] = useState('');
-  const [cover, setCover] = useState('');
+  const [content, setContent] = useState("");
+  const [cover, setCover] = useState("");
 
   const navigate = useNavigate();
   const { webzineId } = useParams();
@@ -33,29 +33,29 @@ const WebzineEdit = () => {
     e.preventDefault();
 
     const data = new FormData();
-    data.set('title', title);
-    data.set('summary', summary);
+    data.set("title", title);
+    data.set("summary", summary);
     if (files?.[0]) {
-      data.set('files', files?.[0]);
+      data.set("files", files[0]);
     }
-    data.append('content', content);
+    data.append("content", content);
 
-    const response = await fetch(`${url}/webzineEdit/${webzineId}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-      body: data,
-    });
     try {
+      const response = await fetch(`${url}/webzineEdit/${webzineId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: data,
+      });
       const result = await response.json();
       if (response.ok) {
         navigate(`/webzineDetail/${webzineId}`);
       } else {
-        console.error('Failed to update webzine: ', result.message);
+        console.error("Failed to update webzine: ", result.message);
       }
     } catch (error) {
-      console.error('Error parsing JSON: ', error);
+      console.error("Error updating webzine: ", error);
     }
   };
 
@@ -95,7 +95,7 @@ const WebzineEdit = () => {
           onChange={(e) => setFiles(e.target.files)}
         />
         <p className={style.smallImgCon}>
-          <img src={`${url}/${cover}`} alt={title} />
+          <img src={cover} alt={title} />
         </p>
         <label htmlFor="content" hidden></label>
         <WebzineEditor content={content} setContent={setContent} />

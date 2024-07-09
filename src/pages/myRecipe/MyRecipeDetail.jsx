@@ -11,7 +11,7 @@ import style from "../../styles/myRecipe/MyRecipeDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
 import FavoritesButton from "../../components/favorites/FavoritesButton";
-import CopyUrlButton from "../../components/copyUrl/CopyUrl";
+import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
 
 const MyRecipeDetail = () => {
   const { id } = useParams();
@@ -142,27 +142,30 @@ const MyRecipeDetail = () => {
     <main className={`mw ${style.main}`}>
       <h2 className={style.title}>{myRecipe.title}</h2>
       <p className={style.authorNickname}>@ {myRecipe.authorNickname}</p>
-      <div>
-        <Swiper
-          navigation={true}
-          pagination={{ dynamicBullets: true }}
-          modules={[Navigation, Pagination]}
-          className={style.mySwiper}
-        >
-          {myRecipe.files.map((file, index) => {
-            const imageUrl = `http://localhost:8080/${file}`;
-            return (
-              <SwiperSlide key={index} className={style.swiperSlide}>
-                <img
-                  src={imageUrl}
-                  alt={`${myRecipe.title} 이미지 ${index + 1}`}
-                  className={style.image}
-                />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </div>
+
+      <Swiper
+        navigation={true}
+        pagination={{ dynamicBullets: true }}
+        modules={[Navigation, Pagination]}
+        className={style.mySwiper}
+        style={{
+          "--swiper-pagination-color": "#f0f0f0",
+          "--swiper-navigation-color": "#6d4ee5",
+        }}
+      >
+        {myRecipe.files.map((file, index) => {
+          const imageUrl = file; // GCS URL을 직접 사용
+          return (
+            <SwiperSlide key={index} className={style.swiperSlide}>
+              <img
+                src={imageUrl}
+                alt={`${myRecipe.title} 이미지 ${index + 1}`}
+                className={style.image}
+              />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
 
       <p className={style.desc}>"{myRecipe.description}"</p>
       <h3>재료 정보</h3>
@@ -200,7 +203,7 @@ const MyRecipeDetail = () => {
             </button>
           </div>
         )}
-      <LikeButton cocktailId={id} userId={userId} />
+      <LikeButton cocktailId={id} userId={userId} type="myRecipe" />
       <FavoritesButton cocktailId={id} userId={userId} />
       <CopyUrlButton />
       <CommentSection cocktailId={id} userId={userId} type="myRecipe" />
