@@ -11,7 +11,7 @@ const MyRecipeList = () => {
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [sortOption, setSortOption] = useState(
     localStorage.getItem("sortOption") || "newest"
-  ); // 로컬 스토리지에서 정렬 옵션을 읽어옴
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
@@ -25,8 +25,24 @@ const MyRecipeList = () => {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
         const data = await response.json();
-        setMyRecipeList(data);
-        setFilteredRecipeList(data); // 필터된 목록 초기화
+
+        // 각 레시피에 좋아요 수를 추가
+        const recipesWithLikes = await Promise.all(
+          data.map(async (recipe) => {
+            const likeResponse = await fetch(
+              `http://localhost:8080/likes?cocktailId=${recipe._id}&type=myRecipe`
+            );
+            if (likeResponse.ok) {
+              const likeData = await likeResponse.json();
+              return { ...recipe, likeCount: likeData.likeCount };
+            } else {
+              return { ...recipe, likeCount: 0 };
+            }
+          })
+        );
+
+        setMyRecipeList(recipesWithLikes);
+        setFilteredRecipeList(recipesWithLikes);
       } catch (error) {
         console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
       }
@@ -46,16 +62,18 @@ const MyRecipeList = () => {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
+      } else if (sortOption === "mostLiked") {
+        filtered = filtered.sort((a, b) => b.likeCount - a.likeCount);
       }
 
       setFilteredRecipeList(filtered);
-      setCurrentPage(1); // 검색어 변경 시 첫 페이지로 이동
+      setCurrentPage(1);
     },
     [myRecipeList, sortOption]
   );
 
   useEffect(() => {
-    handleSearch(searchTerm); // 검색어 유지하며 정렬
+    handleSearch(searchTerm);
   }, [handleSearch, searchTerm, sortOption]);
 
   const handleButtonClick = () => {
@@ -69,7 +87,7 @@ const MyRecipeList = () => {
 
   const handleSortChange = (value) => {
     setSortOption(value);
-    localStorage.setItem("sortOption", value); // 로컬 스토리지에 정렬 옵션 저장
+    localStorage.setItem("sortOption", value);
   };
 
   const handleClick = (page) => {
@@ -81,7 +99,7 @@ const MyRecipeList = () => {
   const currentResults = filteredRecipeList.slice(
     indexOfFirstItem,
     indexOfLastItem
-  ); // 현재 페이지에 표시할 항목들
+  );
 
   return (
     <main className="mw">
