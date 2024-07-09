@@ -10,10 +10,7 @@ const MainPageMyRecipe = () => {
   useEffect(() => {
     const fetchRecentRecipes = async () => {
       try {
-        const response = await fetch(
-          "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe"
-        );
-        // const response = await fetch("http://localhost:8080/myRecipe");
+        const response = await fetch("http://localhost:8080/myRecipe");
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!");
         }
