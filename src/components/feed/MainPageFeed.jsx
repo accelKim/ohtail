@@ -30,13 +30,22 @@ const MainPageFeed = () => {
   return (
     <div className={style.mainFeed}>
       {error && <p>Error: {error}</p>}
-      <ul>
+      <div>
         {sortedFeeds.map((feed) => (
-          <li key={feed._id} className={style.feedList}>
-            <Link to={`/feedDetail/${feed._id}`}>{feed.title}</Link>
-          </li>
+          <Link
+            to={`/feedDetail/${feed._id}`}
+            key={feed._id}
+            className={style.feedItem}
+          >
+            <div className={style.feedContent}>
+              <span className={style.feedTitle}>{feed.title}</span>
+            </div>
+            <span className={style.feedDate}>
+              {new Date(feed.createdAt).toLocaleDateString()}
+            </span>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

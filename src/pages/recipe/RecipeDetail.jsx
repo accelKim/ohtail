@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import LikeButton from "../../components/like/LikeButton";
-import CommentSection from "../../components/Comment/CommentSection";
-import FavoritesButton from "../../components/favorites/FavoritesButton";
-import style from "../../styles/recipe/RecipeDetail.module.css";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import LikeButton from '../../components/like/LikeButton';
+import CommentSection from '../../components/Comment/CommentSection';
+import FavoritesButton from '../../components/favorites/FavoritesButton';
+import CopyUrlButton from '../../components/copyUrl/CopyUrlButton';
+import style from '../../styles/recipe/RecipeDetail.module.css';
 
 const RecipeDetail = () => {
   const { id } = useParams();
   const [cocktail, setCocktail] = useState(null);
-  const [translatedInstructions, setTranslatedInstructions] = useState("");
+  const [translatedInstructions, setTranslatedInstructions] = useState('');
   const [translatedIngredients, setTranslatedIngredients] = useState([]);
   const [userId, setUserId] = useState(null);
   const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
   useEffect(() => {
     //로컬에서 유저아이디 가져오기 추후 토큰으로 변경예정
-    const storedUserId = localStorage.getItem("userid");
+    const storedUserId = localStorage.getItem('userid');
     setUserId(storedUserId);
 
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -27,13 +28,13 @@ const RecipeDetail = () => {
       .then((cocktail) => {
         translateText(cocktail.strInstructions, setTranslatedInstructions);
         const ingredients = Object.keys(cocktail)
-          .filter((key) => key.startsWith("strIngredient") && cocktail[key])
+          .filter((key) => key.startsWith('strIngredient') && cocktail[key])
           .map((key) => {
-            const index = key.replace("strIngredient", "");
+            const index = key.replace('strIngredient', '');
             const measure = cocktail[`strMeasure${index}`];
             return {
               ingredient: cocktail[key],
-              measure: measure || "to taste",
+              measure: measure || 'to taste',
             };
           });
 
@@ -44,22 +45,22 @@ const RecipeDetail = () => {
           })
         ).then((translated) => setTranslatedIngredients(translated));
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => console.error('Error fetching data:', error));
   }, [id]);
 
   const translateText = async (text, setState) => {
     const response = await fetch(
       `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
+          'Content-Type': 'application/json; charset=utf-8',
         },
         body: JSON.stringify({
           q: text,
-          source: "en",
-          target: "ko",
-          format: "text",
+          source: 'en',
+          target: 'ko',
+          format: 'text',
         }),
       }
     );
@@ -77,7 +78,6 @@ const RecipeDetail = () => {
   return (
     <div className={`${style.recipe_wrap} mw`}>
       <h1 className={style.recipe_title}>{cocktail.strDrink}</h1>
-
       <div className={style.recipe_img_wrap}>
         <img
           src={cocktail.strDrinkThumb}
@@ -105,9 +105,12 @@ const RecipeDetail = () => {
           </li>
         ))}
       </ul>
-      <LikeButton cocktailId={id} userId={userId} />
-      {/* 즐겨찾기 버튼 추가  */}
-      <FavoritesButton cocktailId={id} userId={userId} isExternal={true} />
+      <div className={style.clientBtnArea}>
+        {/* 즐겨찾기 버튼 추가  */}
+        <FavoritesButton cocktailId={id} userId={userId} isExternal={true} />
+        <LikeButton cocktailId={id} userId={userId} type="recipe" />
+        <CopyUrlButton />
+      </div>
       {/* 댓글 타입 recipe 추가 */}
       <CommentSection cocktailId={id} userId={userId} type="recipe" />
     </div>

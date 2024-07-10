@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import style from '../../styles/feed/CreateFeed.module.css';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateFeed = () => {
   const [title, setTitle] = useState('');
@@ -14,7 +16,9 @@ const CreateFeed = () => {
     if (imgFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImgPreviewUrl(reader.result);
+        resizeImage(reader.result, 300, 300, (resizedUrl) => {
+          setImgPreviewUrl(resizedUrl);
+        });
       };
       reader.readAsDataURL(imgFile);
     } else {
@@ -32,6 +36,19 @@ const CreateFeed = () => {
   const handleImageDelete = () => {
     setImgFile(null);
     setImgPreviewUrl(null);
+  };
+
+  const resizeImage = (url, width, height, callback) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      callback(canvas.toDataURL());
+    };
   };
 
   const createNewFeed = async (e) => {
@@ -61,22 +78,31 @@ const CreateFeed = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch('http://localhost:8080/createFeed', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: data,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/createFeed',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: data,
+          credentials: 'include',
+        }
+      );
 
       if (response.ok) {
-        alert('피드가 성공적으로 생성되었습니다.');
-        setTitle('');
-        setImgFile(null);
-        setImgPreviewUrl(null);
-        setContent('');
-        navigate('/feed');
+        toast.success('피드가 생성되었습니다.', {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate('/feed');
+        }, 1000); // 1초 후에 페이지 이동
       } else {
         throw new Error('피드 생성에 실패했습니다.');
       }
@@ -131,6 +157,7 @@ const CreateFeed = () => {
         />
         <button type="submit">업로드</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

@@ -16,7 +16,9 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch('http://localhost:8080/feedList');
+      const response = await fetch(
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedList'
+      );
       if (!response.ok) {
         throw new Error('피드를 가져오는데 실패했습니다');
       }
@@ -48,27 +50,27 @@ const Feed = () => {
   );
 
   return (
-    <div className={style.wrap}>
+    <div className="mw">
       <SearchBar onSearch={setSearchKeyword} />
-      <div className={style.feed}>
-        <div className={style.feedContainer}>
-          {error ? (
-            <p>오류: {error}</p> // 오류 메시지를 표시
-          ) : filteredFeeds.length > 0 ? (
-            filteredFeeds.map((feed) => (
-              <Link
-                to={`/feedDetail/${feed._id}`} // 피드 url feed -> feedDetail로 변경
-                key={feed._id}
-                className={style.feedImg}
-              >
-                <img src={feed.cover} alt={feed.title} />
-              </Link>
-            ))
-          ) : (
-            <p>검색 결과가 없습니다</p> // 검색 결과가 없을 때 메시지 표시
-          )}
-        </div>
+      {/* <div className={style.feed}> */}
+      <div className={style.feedContainer}>
+        {error ? (
+          <p>오류: {error}</p>
+        ) : filteredFeeds.length > 0 ? (
+          filteredFeeds.map((feed) => (
+            <Link
+              to={`/feedDetail/${feed._id}`}
+              key={feed._id}
+              className={style.feedImg}
+            >
+              <img src={feed.cover} alt={feed.title} />
+            </Link>
+          ))
+        ) : (
+          <p>검색 결과가 없습니다</p>
+        )}
       </div>
+      {/* </div> */}
       <button className={style.createButton} onClick={handleCreateFeedClick}>
         <div className={style.plusIcon}></div>
       </button>

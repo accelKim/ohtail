@@ -1,143 +1,229 @@
-require("dotenv").config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const User = require("./src/store/User");
-const Counter = require("./src/store/Counter");
-const MyRecipe = require("./src/models/MyRecipe");
-const likeRoutes = require("./src/routes/likeRoutes");
-const commentRoutes = require("./src/routes/commentRoutes");
-const webzineLikeRoutes = require("./src/routes/webzineRoutes");
-const Feed = require("./src/store/Feed");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const multer = require("multer");
-const path = require("path");
-const jwt = require("jsonwebtoken");
-const OpenAIApi = require("openai");
-const cookieParser = require("cookie-parser");
-const fs = require("fs").promises;
-const realFs = require("fs");
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const User = require('./src/store/User');
+const Counter = require('./src/store/Counter');
+const MyRecipe = require('./src/models/MyRecipe');
+const likeRoutes = require('./src/routes/likeRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
+const webzineLikeRoutes = require('./src/routes/webzineRoutes');
+const Feed = require('./src/store/Feed');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const multer = require('multer');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+const { Storage } = require('@google-cloud/storage');
+const cookieParser = require('cookie-parser');
+const fs = require('fs').promises;
+const realFs = require('fs');
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
+const apiUrl = process.env.REACT_APP_API_URL;
+const OpenAIApi = require('openai');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+<<<<<<< HEAD
+  origin: 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
   credentials: true,
+=======
+    origin: `http://localhost:3000`,
+    credentials: true,
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 };
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
+
 mongoose
+<<<<<<< HEAD
   .connect(
-    "mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
     {}
   )
-  .then(() => console.log("MongoDB 연결 성공"))
-  .catch((err) => console.error("MongoDB 연결 실패:", err));
+  .then(() => console.log('MongoDB 연결 성공'))
+  .catch((err) => console.error('MongoDB 연결 실패:', err));
+
+// Google Cloud Storage 설정
+const storage = new Storage({
+  keyFilename: path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json'),
+  projectId: 'vertical-set-428902-u5',
+=======
+    .connect(
+        'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+        {}
+    )
+    .then(() => console.log('MongoDB 연결 성공'))
+    .catch((err) => console.error('MongoDB 연결 실패:', err));
 
 // OpenAI API 설정
 const openai = new OpenAIApi({
-  apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
+    apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+// 챗봇 엔드포인트
+app.post('/chatbot', async (req, res) => {
+    const userPrompt = req.body.userPrompt;
+    const roleBasedProppt = '당신은 고객님들을 위한 친절한 바텐더입니다.';
+    try {
+        const response = await openai.chat.completions.create({
+            model: 'gpt-3.5-turbo',
+            messages: [
+                { role: 'system', content: roleBasedProppt },
+                { role: 'user', content: userPrompt },
+            ],
+            max_tokens: 100,
+        });
+
+        console.log(response.choices[0].message.content);
+        res.send(response.choices[0].message.content);
+    } catch (error) {
+        console.error('OpenAI API 호출 오류:', error);
+        res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
+    }
 });
 
-const upload = multer({ dest: "uploads/" });
-
-// myRecipeStorage 및 myRecipeUpload 추가
-const myRecipeStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploadsMyRecipe/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+// Google Cloud Storage 설정
+const storage = new Storage({
+    keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
+    projectId: process.env.GCS_PROJECT_ID,
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
-const myRecipeUpload = multer({ storage: myRecipeStorage });
+const bucket = storage.bucket('ohtail');
 
 const generateAccessToken = (userid) => {
-  return jwt.sign({ userid }, "your_secret_key", { expiresIn: "3h" });
+<<<<<<< HEAD
+  return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
 };
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(
-  "/uploadsMyRecipe",
-  express.static(path.join(__dirname, "uploadsMyRecipe"))
+  '/uploadsMyRecipe',
+  express.static(path.join(__dirname, 'uploadsMyRecipe'))
 );
 app.use(
-  "/webzineUploads",
-  express.static(path.join(__dirname, "webzineUploads"))
+  '/webzineUploads',
+  express.static(path.join(__dirname, 'webzineUploads'))
 );
+=======
+    return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
+};
 
-app.use("/likes", likeRoutes);
-app.use("/comments", commentRoutes);
-app.use("/webzineLike", webzineLikeRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploadsMyRecipe', express.static(path.join(__dirname, 'uploadsMyRecipe')));
+app.use('/webzineUploads', express.static(path.join(__dirname, 'webzineUploads')));
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-const Webzine = require("./src/models/Webzine");
-const Favorite = require("./src/models/Favorite"); // Favorite 모델 불러오기
+app.use('/likes', likeRoutes);
+app.use('/comments', commentRoutes);
+app.use('/webzineLike', webzineLikeRoutes);
 
-//사용자 인증 미들웨어
+const Webzine = require('./src/models/Webzine');
+const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
+
+// 사용자 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
-  const token = req.header("Authorization");
+<<<<<<< HEAD
+  const token = req.header('Authorization');
   if (!token) {
-    return res.status(401).json({ message: "로그인이 필요합니다." });
+    return res.status(401).json({ message: '로그인이 필요합니다.' });
   }
   try {
-    const decoded = jwt.verify(token.split(" ")[1], "your_secret_key");
+    const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
     req.user = decoded;
-    console.log("Decoded token:", decoded);
+    console.log('Decoded token:', decoded);
     next();
   } catch (error) {
-    console.error("토큰 인증 실패:", error);
-    res.status(401).json({ message: "유효하지 않은 토큰입니다." });
+    console.error('토큰 인증 실패:', error);
+    res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
   }
+=======
+    const token = req.header('Authorization');
+    if (!token) {
+        return res.status(401).json({ message: '로그인이 필요합니다.' });
+    }
+    try {
+        const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
+        req.user = decoded;
+        console.log('Decoded token:', decoded);
+        next();
+    } catch (error) {
+        console.error('토큰 인증 실패:', error);
+        res.status(401).json({ message: '유효하지 않은 토큰입니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 };
+
 // 이메일 중복 확인 API
-app.post("/api/check-email", async (req, res) => {
+app.post('/api/check-email', async (req, res) => {
+<<<<<<< HEAD
   try {
     const { email } = req.body;
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({ message: "이미 사용중인 이메일입니다!" });
+      return res.status(400).json({ message: '이미 사용중인 이메일입니다!' });
     }
 
-    res.status(200).json({ message: "사용 가능한 이메일입니다!" });
+    res.status(200).json({ message: '사용 가능한 이메일입니다!' });
   } catch (error) {
-    console.error("Error checking email:", error);
-    res.status(500).json({ message: "서버 오류" });
+    console.error('Error checking email:', error);
+    res.status(500).json({ message: '서버 오류' });
   }
+=======
+    try {
+        const { email } = req.body;
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({ message: '이미 사용중인 이메일입니다!' });
+        }
+
+        res.status(200).json({ message: '사용 가능한 이메일입니다!' });
+    } catch (error) {
+        console.error('Error checking email:', error);
+        res.status(500).json({ message: '서버 오류' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 닉네임 중복 확인 API
-app.post("/api/check-nickname", async (req, res) => {
+app.post('/api/check-nickname', async (req, res) => {
+<<<<<<< HEAD
   try {
     const { nickname } = req.body;
     const existingUser = await User.findOne({ nickname });
     if (existingUser) {
-      return res.status(400).json({ message: "이미 존재하는 닉네임입니다!" });
+      return res.status(400).json({ message: '이미 존재하는 닉네임입니다!' });
     }
-    res.status(200).json({ message: "사용 가능한 닉네임입니다!" });
+    res.status(200).json({ message: '사용 가능한 닉네임입니다!' });
   } catch (error) {
-    console.error("Error checking nickname:", error);
-    res.status(500).json({ message: "서버 오류" });
+    console.error('Error checking nickname:', error);
+    res.status(500).json({ message: '서버 오류' });
   }
+=======
+    try {
+        const { nickname } = req.body;
+        const existingUser = await User.findOne({ nickname });
+        if (existingUser) {
+            return res.status(400).json({ message: '이미 존재하는 닉네임입니다!' });
+        }
+        res.status(200).json({ message: '사용 가능한 닉네임입니다!' });
+    } catch (error) {
+        console.error('Error checking nickname:', error);
+        res.status(500).json({ message: '서버 오류' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 회원가입
-app.post("/signup", async (req, res) => {
+app.post('/signup', async (req, res) => {
+<<<<<<< HEAD
   const {
     userid,
     password,
@@ -152,93 +238,180 @@ app.post("/signup", async (req, res) => {
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    console.log("해싱된 비밀번호:", hashedPassword);
+    console.log('해싱된 비밀번호:', hashedPassword);
 
     const counter = await Counter.findByIdAndUpdate(
-      { _id: "userId" },
+      { _id: 'userId' },
       { $inc: { sequence_value: 1 } },
       { new: true, upsert: true }
     );
+=======
+    const {
+        userid,
+        password,
+        email,
+        phonenumber,
+        nickname,
+        drinkingFrequency,
+        preferredIngredients,
+        preferredAlcoholLevel,
+    } = req.body;
 
-    const newUser = new User({
-      userid: counter.sequence_value,
-      password: hashedPassword,
-      email,
-      phonenumber,
-      nickname,
-      drinkingFrequency,
-      preferredIngredients,
-      preferredAlcoholLevel,
-    });
+    try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        console.log('해싱된 비밀번호:', hashedPassword);
 
-    await newUser.save();
+        const counter = await Counter.findByIdAndUpdate(
+            { _id: 'userId' },
+            { $inc: { sequence_value: 1 } },
+            { new: true, upsert: true }
+        );
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
+        const newUser = new User({
+            userid: counter.sequence_value,
+            password: hashedPassword,
+            email,
+            phonenumber,
+            nickname,
+            drinkingFrequency,
+            preferredIngredients,
+            preferredAlcoholLevel,
+        });
+
+        await newUser.save();
+
+<<<<<<< HEAD
     res.status(200).json({ success: true });
   } catch (error) {
-    console.error("회원가입 오류:", error);
+    console.error('회원가입 오류:', error);
     res.status(500).json({
       success: false,
-      message: "회원가입 중 오류가 발생했습니다.",
+      message: '회원가입 중 오류가 발생했습니다.',
       error: error.message,
     });
   }
+=======
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('회원가입 오류:', error);
+        res.status(500).json({
+            success: false,
+            message: '회원가입 중 오류가 발생했습니다.',
+            error: error.message,
+        });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 로그인
-app.post("/login", async (req, res) => {
+app.post('/login', async (req, res) => {
+<<<<<<< HEAD
   const { email, password } = req.body;
 
   try {
-    console.log("로그인 요청 받음:", { email, password });
+    console.log('로그인 요청 받음:', { email, password });
 
     const user = await User.findOne({ email });
-    console.log("사용자 찾기 결과:", user);
+    console.log('사용자 찾기 결과:', user);
 
     if (!user) {
-      console.log("사용자를 찾을 수 없습니다:", email);
-      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+      console.log('사용자를 찾을 수 없습니다:', email);
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-    console.log("비밀번호 비교 결과:", passwordMatch);
+    console.log('비밀번호 비교 결과:', passwordMatch);
 
     if (passwordMatch) {
-      console.log("로그인 성공:", email);
+      console.log('로그인 성공:', email);
       const token = generateAccessToken(user.userid);
       res.status(200).json({
-        message: "로그인 성공",
+        message: '로그인 성공',
         token,
         userid: user.userid,
         nickname: user.nickname,
       });
     } else {
-      console.log("비밀번호가 일치하지 않습니다:", email);
-      res.status(401).json({ message: "비밀번호가 일치하지 않습니다." });
+      console.log('비밀번호가 일치하지 않습니다:', email);
+      res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
     }
   } catch (error) {
-    console.error("로그인 중 오류 발생:", error);
-    res.status(500).json({ message: "로그인 중 오류가 발생했습니다." });
+    console.error('로그인 중 오류 발생:', error);
+    res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
   }
+=======
+    const { email, password } = req.body;
+
+    try {
+        console.log('로그인 요청 받음:', { email, password });
+
+        const user = await User.findOne({ email });
+        console.log('사용자 찾기 결과:', user);
+
+        if (!user) {
+            console.log('사용자를 찾을 수 없습니다:', email);
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        console.log('비밀번호 비교 결과:', passwordMatch);
+
+        if (passwordMatch) {
+            console.log('로그인 성공:', email);
+            const token = generateAccessToken(user.userid);
+            res.status(200).json({
+                message: '로그인 성공',
+                token,
+                userid: user.userid,
+                nickname: user.nickname,
+            });
+        } else {
+            console.log('비밀번호가 일치하지 않습니다:', email);
+            res.status(401).json({ message: '비밀번호가 일치하지 않습니다.' });
+        }
+    } catch (error) {
+        console.error('로그인 중 오류 발생:', error);
+        res.status(500).json({ message: '로그인 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 특정 유저 정보 가져오기
-app.get("/user/:id", authenticateJWT, async (req, res) => {
+app.get('/user/:id', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const userId = parseInt(req.params.id, 10); // 숫자로 변환
     console.log(`유저 정보 요청 받음: ${userId}`);
-    const user = await User.findOne({ userid: userId }).select("nickname");
+    const user = await User.findOne({ userid: userId }).select('nickname');
     if (!user) {
-      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
     }
     res.status(200).json(user);
   } catch (error) {
-    console.error("사용자 정보 불러오기 오류:", error);
-    res.status(500).json({ message: "서버 오류" });
+    console.error('사용자 정보 불러오기 오류:', error);
+    res.status(500).json({ message: '서버 오류' });
   }
+=======
+    try {
+        const userId = parseInt(req.params.id, 10); // 숫자로 변환
+        console.log(`유저 정보 요청 받음: ${userId}`);
+        const user = await User.findOne({ userid: userId }).select('nickname');
+        if (!user) {
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('사용자 정보 불러오기 오류:', error);
+        res.status(500).json({ message: '서버 오류' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 닉네임 업데이트
-app.put("/user/:id/nickname", authenticateJWT, async (req, res) => {
+app.put('/user/:id/nickname', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const userId = parseInt(req.params.id, 10); // 숫자로 변환
     const { nickname } = req.body;
@@ -249,29 +422,49 @@ app.put("/user/:id/nickname", authenticateJWT, async (req, res) => {
       { new: true }
     );
     if (!user) {
-      return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
     }
 
     res.status(200).json({
-      message: "닉네임이 성공적으로 업데이트되었습니다.",
+      message: '닉네임이 성공적으로 업데이트되었습니다.',
       nickname: user.nickname,
     });
   } catch (error) {
-    console.error("닉네임 업데이트 오류:", error);
+    console.error('닉네임 업데이트 오류:', error);
     res
       .status(500)
-      .json({ message: "닉네임 업데이트 중 오류가 발생했습니다." });
+      .json({ message: '닉네임 업데이트 중 오류가 발생했습니다.' });
   }
+=======
+    try {
+        const userId = parseInt(req.params.id, 10); // 숫자로 변환
+        const { nickname } = req.body;
+
+        const user = await User.findOneAndUpdate({ userid: userId }, { nickname }, { new: true });
+        if (!user) {
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+
+        res.status(200).json({
+            message: '닉네임이 성공적으로 업데이트되었습니다.',
+            nickname: user.nickname,
+        });
+    } catch (error) {
+        console.error('닉네임 업데이트 오류:', error);
+        res.status(500).json({ message: '닉네임 업데이트 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 즐겨찾기 추가
-app.post("/favorite", authenticateJWT, async (req, res) => {
+app.post('/favorite', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const { cocktailId, userId, isExternal } = req.body;
     if (!cocktailId || !userId) {
       return res
         .status(400)
-        .json({ message: "cocktailId와 userId가 필요합니다." });
+        .json({ message: 'cocktailId와 userId가 필요합니다.' });
     }
 
     const existingFavorite = await Favorite.findOne({
@@ -280,82 +473,197 @@ app.post("/favorite", authenticateJWT, async (req, res) => {
       isExternal,
     });
     if (existingFavorite) {
-      return res.status(400).json({ message: "이미 즐겨찾기된 레시피입니다." });
+      return res.status(400).json({ message: '이미 즐겨찾기된 레시피입니다.' });
     }
 
     const newFavorite = new Favorite({ userId, cocktailId, isExternal });
     await newFavorite.save();
     res.status(201).json(newFavorite);
   } catch (error) {
-    console.error("즐겨찾기 추가 중 오류 발생:", error);
+    console.error('즐겨찾기 추가 중 오류 발생:', error);
     res.status(500).json({ message: error.message });
   }
+=======
+    try {
+        const { cocktailId, userId, isExternal } = req.body;
+        if (!cocktailId || !userId) {
+            return res.status(400).json({ message: 'cocktailId와 userId가 필요합니다.' });
+        }
+
+        const existingFavorite = await Favorite.findOne({
+            userId,
+            cocktailId,
+            isExternal,
+        });
+        if (existingFavorite) {
+            return res.status(400).json({ message: '이미 즐겨찾기된 레시피입니다.' });
+        }
+
+        const newFavorite = new Favorite({ userId, cocktailId, isExternal });
+        await newFavorite.save();
+        res.status(201).json(newFavorite);
+    } catch (error) {
+        console.error('즐겨찾기 추가 중 오류 발생:', error);
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 즐겨찾기 삭제
-app.delete("/favorite", authenticateJWT, async (req, res) => {
+app.delete('/favorite', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const { cocktailId, userId, isExternal } = req.body;
     if (!cocktailId || !userId) {
       return res
         .status(400)
-        .json({ message: "cocktailId와 userId가 필요합니다." });
+        .json({ message: 'cocktailId와 userId가 필요합니다.' });
     }
 
     await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
-    res.status(200).json({ message: "즐겨찾기가 삭제되었습니다." });
+    res.status(200).json({ message: '즐겨찾기가 삭제되었습니다.' });
   } catch (error) {
-    console.error("즐겨찾기 삭제 중 오류 발생:", error);
+    console.error('즐겨찾기 삭제 중 오류 발생:', error);
     res.status(500).json({ message: error.message });
   }
+=======
+    try {
+        const { cocktailId, userId, isExternal } = req.body;
+        if (!cocktailId || !userId) {
+            return res.status(400).json({ message: 'cocktailId와 userId가 필요합니다.' });
+        }
+
+        await Favorite.findOneAndDelete({ userId, cocktailId, isExternal });
+        res.status(200).json({ message: '즐겨찾기가 삭제되었습니다.' });
+    } catch (error) {
+        console.error('즐겨찾기 삭제 중 오류 발생:', error);
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 즐겨찾기 리스트
-app.get("/favorites", authenticateJWT, async (req, res) => {
+app.get('/favorites', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const userId = req.user.userid;
     const favorites = await Favorite.find({ userId });
     res.status(200).json(favorites);
   } catch (error) {
-    console.error("Error fetching favorites:", error);
+    console.error('Error fetching favorites:', error);
     res.status(500).json({ message: error.message });
   }
+=======
+    try {
+        const userId = req.user.userid;
+        const favorites = await Favorite.find({ userId });
+        res.status(200).json(favorites);
+    } catch (error) {
+        console.error('Error fetching favorites:', error);
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 나만의 레시피 생성
-app.post(
-  "/createMyRecipe",
-  authenticateJWT,
-  myRecipeUpload.array("files", 3),
-  async (req, res) => {
-    try {
-      const { title, description, instructions } = req.body;
-      const files = req.files.map((file) => file.path);
-      const ingredients = [];
-      const author = req.user.userid;
+const myRecipeUpload = multer({ storage: multer.memoryStorage() });
 
+<<<<<<< HEAD
+app.post(
+  '/createMyRecipe',
+  authenticateJWT,
+  myRecipeUpload.array('files', 3),
+  async (req, res) => {
+=======
+app.post('/createMyRecipe', authenticateJWT, myRecipeUpload.array('files', 3), async (req, res) => {
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+    try {
+        const { title, description, instructions } = req.body;
+        const files = req.files;
+        const ingredients = [];
+        const author = req.user.userid;
+
+<<<<<<< HEAD
       // 사용자 닉네임 조회
       const user = await User.findOne({ userid: author });
       if (!user) {
-        return res.status(404).json({ message: "사용자를 찾을 수 없습니다." });
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
       }
       const authorNickname = user.nickname;
 
-      console.log("Author:", author);
-      console.log("Author Nickname:", authorNickname);
+      console.log('Author:', author);
+      console.log('Author Nickname:', authorNickname);
+=======
+        // 사용자 닉네임 조회
+        const user = await User.findOne({ userid: author });
+        if (!user) {
+            return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+        }
+        const authorNickname = user.nickname;
 
-      for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
-        ingredients.push({
-          name: req.body[`ingredient_${i}_name`],
-          quantity: req.body[`ingredient_${i}_quantity`],
-          unit: req.body[`ingredient_${i}_unit`],
+        console.log('Author:', author);
+        console.log('Author Nickname:', authorNickname);
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+        for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
+            ingredients.push({
+                name: req.body[`ingredient_${i}_name`],
+                quantity: req.body[`ingredient_${i}_quantity`],
+                unit: req.body[`ingredient_${i}_unit`],
+            });
+        }
+
+        const uploadedFiles = await Promise.all(
+            files.map(async (file) => {
+                const blob = bucket.file(Date.now() + path.extname(file.originalname));
+                const blobStream = blob.createWriteStream({
+                    resumable: false,
+                });
+
+                await new Promise((resolve, reject) => {
+                    blobStream.on('finish', resolve);
+                    blobStream.on('error', reject);
+                    blobStream.end(file.buffer);
+                });
+
+                return `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+            })
+        );
+
+        const myRecipe = new MyRecipe({
+            title,
+            description,
+            files: uploadedFiles,
+            ingredients,
+            instructions,
+            author,
+            authorNickname,
         });
-      }
+
+<<<<<<< HEAD
+      const uploadedFiles = await Promise.all(
+        files.map(async (file) => {
+          const blob = bucket.file(
+            Date.now() + path.extname(file.originalname)
+          );
+          const blobStream = blob.createWriteStream({
+            resumable: false,
+          });
+
+          await new Promise((resolve, reject) => {
+            blobStream.on('finish', resolve);
+            blobStream.on('error', reject);
+            blobStream.end(file.buffer);
+          });
+
+          return `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        })
+      );
 
       const myRecipe = new MyRecipe({
         title,
         description,
-        files,
+        files: uploadedFiles,
         ingredients,
         instructions,
         author,
@@ -365,25 +673,40 @@ app.post(
       await myRecipe.save();
       res.status(201).json(myRecipe);
     } catch (error) {
-      console.error("레시피 생성 중 오류 발생:", error);
+      console.error('레시피 생성 중 오류 발생:', error);
       res.status(500).json({ message: error.message });
+=======
+        await myRecipe.save();
+        res.status(201).json(myRecipe);
+    } catch (error) {
+        console.error('레시피 생성 중 오류 발생:', error);
+        res.status(500).json({ message: error.message });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
     }
-  }
-);
-// 나만의 레시피 리스트
+});
 
-app.get("/myRecipe", async (req, res) => {
+// 나만의 레시피 리스트
+app.get('/myRecipe', async (req, res) => {
+<<<<<<< HEAD
   try {
     const recipes = await MyRecipe.find().sort({ createdAt: -1 });
     res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+=======
+    try {
+        const recipes = await MyRecipe.find().sort({ createdAt: -1 });
+        res.status(200).json(recipes);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 나만의 레시피 상세
-
-app.get("/myRecipe/:id", async (req, res) => {
+app.get('/myRecipe/:id', async (req, res) => {
+<<<<<<< HEAD
   try {
     const myRecipe = await MyRecipe.findById(req.params.id);
     res.status(200).json(myRecipe);
@@ -394,64 +717,106 @@ app.get("/myRecipe/:id", async (req, res) => {
 
 // 나만의 레시피 수정
 app.put(
-  "/myRecipe/:id",
+  '/myRecipe/:id',
   authenticateJWT,
-  myRecipeUpload.array("files", 3),
+  myRecipeUpload.array('files', 3),
   async (req, res) => {
+=======
     try {
-      const { title, description, instructions } = req.body;
-      const newFiles = req.files.map((file) => file.path);
-      const existingFiles = JSON.parse(req.body.existingFiles);
-      const removedFiles = JSON.parse(req.body.removedFiles);
-      const ingredients = [];
-
-      for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
-        ingredients.push({
-          name: req.body[`ingredient_${i}_name`],
-          quantity: req.body[`ingredient_${i}_quantity`],
-          unit: req.body[`ingredient_${i}_unit`],
-        });
-      }
-
-      // 기존 파일에서 삭제된 파일 제외
-      const updatedFiles = existingFiles.filter(
-        (file) => !removedFiles.includes(file)
-      );
-      const allFiles = [...updatedFiles, ...newFiles];
-
-      const updatedRecipe = {
-        title,
-        description,
-        files: allFiles,
-        ingredients,
-        instructions,
-      };
-
-      const result = await MyRecipe.findByIdAndUpdate(
-        req.params.id,
-        updatedRecipe,
-        { new: true }
-      );
-
-      res.status(200).json(result);
+        const myRecipe = await MyRecipe.findById(req.params.id);
+        res.status(200).json(myRecipe);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
-  }
-);
+});
+
+// 나만의 레시피 수정
+app.put('/myRecipe/:id', authenticateJWT, myRecipeUpload.array('files', 3), async (req, res) => {
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+    try {
+        const { title, description, instructions } = req.body;
+        const newFiles = req.files;
+        const existingFiles = JSON.parse(req.body.existingFiles);
+        const removedFiles = JSON.parse(req.body.removedFiles);
+        const ingredients = [];
+
+        for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
+            ingredients.push({
+                name: req.body[`ingredient_${i}_name`],
+                quantity: req.body[`ingredient_${i}_quantity`],
+                unit: req.body[`ingredient_${i}_unit`],
+            });
+        }
+
+        // 기존 파일에서 삭제된 파일 제외
+        const updatedFiles = existingFiles.filter((file) => !removedFiles.includes(file));
+
+        // 새 파일 업로드
+        const uploadedNewFiles = await Promise.all(
+            newFiles.map(async (file) => {
+                const blob = bucket.file(Date.now() + path.extname(file.originalname));
+                const blobStream = blob.createWriteStream({
+                    resumable: false,
+                });
+
+<<<<<<< HEAD
+          await new Promise((resolve, reject) => {
+            blobStream.on('finish', resolve);
+            blobStream.on('error', reject);
+            blobStream.end(file.buffer);
+          });
+=======
+                await new Promise((resolve, reject) => {
+                    blobStream.on('finish', resolve);
+                    blobStream.on('error', reject);
+                    blobStream.end(file.buffer);
+                });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+                return `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+            })
+        );
+
+        const allFiles = [...updatedFiles, ...uploadedNewFiles];
+
+        const updatedRecipe = {
+            title,
+            description,
+            files: allFiles,
+            ingredients,
+            instructions,
+        };
+
+        const result = await MyRecipe.findByIdAndUpdate(req.params.id, updatedRecipe, { new: true });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // 나만의 레시피 삭제
-app.delete("/myRecipe/:id", authenticateJWT, async (req, res) => {
+app.delete('/myRecipe/:id', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     await MyRecipe.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "레시피가 삭제되었습니다." });
+    res.status(200).json({ message: '레시피가 삭제되었습니다.' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+=======
+    try {
+        await MyRecipe.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: '레시피가 삭제되었습니다.' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 특정 사용자가 작성한 레시피 리스트
-app.get("/myRecipeTab", authenticateJWT, async (req, res) => {
+app.get('/myRecipeTab', authenticateJWT, async (req, res) => {
+<<<<<<< HEAD
   try {
     const userId = req.user.userid;
     const recipes = await MyRecipe.find({ author: userId }).sort({
@@ -459,237 +824,483 @@ app.get("/myRecipeTab", authenticateJWT, async (req, res) => {
     });
     res.status(200).json(recipes);
   } catch (error) {
-    console.error("레시피 불러오기 중 오류 발생:", error);
+    console.error('레시피 불러오기 중 오류 발생:', error);
     res
       .status(500)
-      .json({ message: "레시피 불러오기 중 오류가 발생했습니다." });
+      .json({ message: '레시피 불러오기 중 오류가 발생했습니다.' });
   }
+=======
+    try {
+        const userId = req.user.userid;
+        const recipes = await MyRecipe.find({ author: userId }).sort({
+            createdAt: -1,
+        });
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error('레시피 불러오기 중 오류 발생:', error);
+        res.status(500).json({ message: '레시피 불러오기 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
-// 챗봇 엔드포인트
-app.post("/chatbot", async (req, res) => {
-  const userPrompt = req.body.userPrompt;
-  const roleBasedProppt = "당신은 고객님들을 위한 친절한 바텐더입니다.";
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: roleBasedProppt },
-        { role: "user", content: userPrompt },
-      ],
-      max_tokens: 100,
-    });
+// 웹진 업로드 설정
+const webzineUpload = multer({ storage: multer.memoryStorage() });
 
-    console.log(response.choices[0].message.content);
-    res.send(response.choices[0].message.content);
-  } catch (error) {
-    console.error("OpenAI API 호출 오류:", error);
-    res
-      .status(500)
-      .json({ message: "OpenAI API 호출 중 오류가 발생했습니다." });
-  }
-});
-
-// Webzine
-app.get("/webzine", async (req, res) => {
-  // 웹진 리스트 조회 10개만 갖고오기
-  const webzineList = await Webzine.find().sort({ createdAt: -1 }).limit(10);
-  res.json(webzineList);
-});
-
-// Webzine write
-const webzineUpload = multer({
-  dest: "webzineUploads/",
-});
-
+// 웹진 생성
+<<<<<<< HEAD
 app.post(
-  "/webzineWrite",
-  webzineUpload.single("files"),
+  '/webzineWrite',
+  webzineUpload.single('files'),
   authenticateJWT,
   async (req, res) => {
-    console.log("webzineWrite 사용자 정보 확인: --- ", req.user);
-    console.log(
-      "webzine test req.body: ",
-      JSON.parse(JSON.stringify(req.body))
-    );
-    console.log("webzine test req.file: ", req.file);
+=======
+app.post('/webzineWrite', webzineUpload.single('files'), authenticateJWT, async (req, res) => {
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+    try {
+        const { title, summary, content } = req.body;
+        const file = req.file;
 
-    const { path, originalname } = req.file;
-    const part = originalname.split(".");
-    const ext = part[part.length - 1];
-    const newPath = path + "." + ext;
+        const blob = bucket.file(Date.now() + path.extname(file.originalname));
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+        });
 
-    realFs.renameSync(path, newPath);
+<<<<<<< HEAD
+      await new Promise((resolve, reject) => {
+        blobStream.on('finish', resolve);
+        blobStream.on('error', reject);
+        blobStream.end(file.buffer);
+      });
+=======
+        await new Promise((resolve, reject) => {
+            blobStream.on('finish', resolve);
+            blobStream.on('error', reject);
+            blobStream.end(file.buffer);
+        });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-    const { title, summary, content } = req.body;
-    const webzineDoc = await Webzine.create({
-      title,
-      summary,
-      content,
-      cover: newPath,
-      author: req.user.userid,
-      nickname: "오테일",
-    });
-    res.json(webzineDoc);
+        const coverUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+
+<<<<<<< HEAD
+      const webzineDoc = await Webzine.create({
+        title,
+        summary,
+        content,
+        cover: coverUrl,
+        author: req.user.userid,
+        nickname: '오테일',
+      });
+      res.json(webzineDoc);
+    } catch (error) {
+      console.error('웹진 생성 중 오류 발생:', error);
+      res.status(500).json({ message: error.message });
+=======
+        const webzineDoc = await Webzine.create({
+            title,
+            summary,
+            content,
+            cover: coverUrl,
+            author: req.user.userid,
+            nickname: '오테일',
+        });
+        res.json(webzineDoc);
+    } catch (error) {
+        console.error('웹진 생성 중 오류 발생:', error);
+        res.status(500).json({ message: error.message });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+    }
+});
+
+// 웹진 첫 진입 페이지
+app.get('/webzine', async (req, res) => {
+<<<<<<< HEAD
+  try {
+    const webzineData = await Webzine.find().sort({ createdAt: -1 });
+    res.status(200).json(webzineData);
+  } catch (error) {
+    console.error('웹진 데이터 가져오기 오류:', error);
+    res
+      .status(500)
+      .json({ message: '웹진 데이터를 가져오는 중 오류가 발생했습니다.' });
   }
-);
+=======
+    try {
+        const webzineData = await Webzine.find().sort({ createdAt: -1 });
+        res.status(200).json(webzineData);
+    } catch (error) {
+        console.error('웹진 데이터 가져오기 오류:', error);
+        res.status(500).json({ message: '웹진 데이터를 가져오는 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+});
 
-// Webzine list
-app.get("/webzineList", async (req, res) => {
-  console.log("요청");
+// 웹진 리스트
+app.get('/webzineList', async (req, res) => {
+<<<<<<< HEAD
+  console.log('요청');
   const webzineList = await Webzine.find().sort({ createdAt: -1 });
   res.json(webzineList);
   console.log(webzineList);
+=======
+    console.log('요청');
+    const webzineList = await Webzine.find().sort({ createdAt: -1 });
+    res.json(webzineList);
+    console.log(webzineList);
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
-// Webzine detail
-app.get("/webzineDetail/:id", async (req, res) => {
+// 웹진 상세
+app.get('/webzineDetail/:id', async (req, res) => {
+<<<<<<< HEAD
   const { id } = req.params;
   const webzineDoc = await Webzine.findById(id);
   res.json(webzineDoc);
+=======
+    const { id } = req.params;
+    const webzineDoc = await Webzine.findById(id);
+    res.json(webzineDoc);
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
-// Webzine delete
-app.delete("/delWebzine/:id", async (req, res) => {
+// 웹진 삭제
+app.delete('/delWebzine/:id', async (req, res) => {
+<<<<<<< HEAD
   const { id } = req.params;
   await Webzine.findByIdAndDelete(id);
-  res.json({ message: "ok" });
+  res.json({ message: 'ok' });
+=======
+    const { id } = req.params;
+    await Webzine.findByIdAndDelete(id);
+    res.json({ message: 'ok' });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
-// Webzine edit
-app.get("/webzineEdit/:id", async (req, res) => {
+// 웹진 수정 정보 가져오기
+app.get('/webzineEdit/:id', async (req, res) => {
+<<<<<<< HEAD
   const { id } = req.params;
-  const webzineDoc = await Webzine.findById(id);
-  res.json(webzineDoc);
+  try {
+    const webzineDoc = await Webzine.findById(id);
+    if (!webzineDoc) {
+      return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
+    }
+    res.status(200).json(webzineDoc);
+  } catch (error) {
+    console.error('웹진 수정 상세 정보 가져오기 오류:', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
 });
 
+// 웹진 수정
 app.put(
-  "/webzineEdit/:id",
+  '/webzineEdit/:id',
   authenticateJWT,
-  webzineUpload.single("files"),
+  webzineUpload.single('files'),
   async (req, res) => {
+=======
+    const { id } = req.params;
+    try {
+        const webzineDoc = await Webzine.findById(id);
+        if (!webzineDoc) {
+            return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
+        }
+        res.status(200).json(webzineDoc);
+    } catch (error) {
+        console.error('웹진 수정 상세 정보 가져오기 오류:', error);
+        res.status(500).json({ message: '서버 오류' });
+    }
+});
+
+// 웹진 수정
+app.put('/webzineEdit/:id', authenticateJWT, webzineUpload.single('files'), async (req, res) => {
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
     const { id } = req.params;
     let newPath = null;
 
     if (req.file) {
-      const { path, originalname } = req.file;
-      const part = originalname.split(".");
-      const ext = part[part.length - 1];
-      newPath = path + "." + ext;
-      realFs.renameSync(path, newPath);
+        const { originalname, buffer } = req.file;
+        const blob = bucket.file(Date.now() + path.extname(originalname));
+        const blobStream = blob.createWriteStream({
+            resumable: false,
+        });
+
+<<<<<<< HEAD
+      await new Promise((resolve, reject) => {
+        blobStream.on('finish', resolve);
+        blobStream.on('error', reject);
+        blobStream.end(buffer);
+      });
+=======
+        await new Promise((resolve, reject) => {
+            blobStream.on('finish', resolve);
+            blobStream.on('error', reject);
+            blobStream.end(buffer);
+        });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+        newPath = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
     }
 
     const { title, summary, content } = req.body;
     try {
+<<<<<<< HEAD
       const webzineDoc = await Webzine.findById(id);
       if (!webzineDoc) {
-        return res.status(404).json({ message: "웹진을 찾을 수 없습니다." });
+        return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
       }
+=======
+        const webzineDoc = await Webzine.findById(id);
+        if (!webzineDoc) {
+            return res.status(404).json({ message: '웹진을 찾을 수 없습니다.' });
+        }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-      await Webzine.findByIdAndUpdate(id, {
-        title,
-        summary,
-        content,
-        cover: newPath ? newPath : webzineDoc.cover,
-      });
+        await Webzine.findByIdAndUpdate(id, {
+            title,
+            summary,
+            content,
+            cover: newPath ? newPath : webzineDoc.cover,
+        });
 
-      res.json({ message: "ok" });
+<<<<<<< HEAD
+      res.json({ message: 'ok' });
     } catch (updateError) {
-      console.error("Error updating webzine: ", updateError);
-      res.status(500).json({ message: "웹진 업데이트 실패" });
+      console.error('Error updating webzine: ', updateError);
+      res.status(500).json({ message: '웹진 업데이트 실패' });
+=======
+        res.json({ message: 'ok' });
+    } catch (updateError) {
+        console.error('Error updating webzine: ', updateError);
+        res.status(500).json({ message: '웹진 업데이트 실패' });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
     }
-  }
-);
+});
+
+// 피드 업로드 설정
+const feedUpload = multer({ storage: multer.memoryStorage() });
 
 // 피드 생성
 app.post(
-  "/createFeed",
+<<<<<<< HEAD
+  '/createFeed',
   authenticateJWT,
-  upload.single("imgFile"), // 기존 multer 설정 유지
+  feedUpload.single('imgFile'), // 기존 multer 설정 유지
   async (req, res) => {
     try {
-      const { originalname } = req.file;
-      const tempPath = req.file.path;
-      const ext = path.extname(originalname);
-      const newPath = tempPath + ext;
+      const { originalname, buffer } = req.file;
+=======
+    '/createFeed',
+    authenticateJWT,
+    feedUpload.single('imgFile'), // 기존 multer 설정 유지
+    async (req, res) => {
+        try {
+            const { originalname, buffer } = req.file;
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-      // 파일명을 변경
-      await fs.rename(tempPath, newPath);
+            const blob = bucket.file(Date.now() + path.extname(originalname));
+            const blobStream = blob.createWriteStream({
+                resumable: false,
+            });
 
-      const { title, content } = req.body;
-      const imageUrl = `http://localhost:8080/uploads/${path.basename(
-        newPath
-      )}`;
-      console.log("생성된 이미지 URL:", imageUrl);
-
-      const newFeed = new Feed({
-        title,
-        content,
-        cover: imageUrl, // cover 필드에 이미지 URL 저장
-        author: req.user.userid, // 작성자 정보 추가 (userid 사용)
+<<<<<<< HEAD
+      await new Promise((resolve, reject) => {
+        blobStream.on('finish', resolve);
+        blobStream.on('error', reject);
+        blobStream.end(buffer);
       });
+=======
+            await new Promise((resolve, reject) => {
+                blobStream.on('finish', resolve);
+                blobStream.on('error', reject);
+                blobStream.end(buffer);
+            });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-      await newFeed.save();
+            const imageUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
 
+            const { title, content } = req.body;
+
+<<<<<<< HEAD
+      // 작성자 정보 조회
+      const user = await User.findOne({
+        userid: req.user.userid,
+      });
+      if (!user) {
+        return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+      }
+=======
+            // 작성자 정보 조회
+            const user = await User.findOne({
+                userid: req.user.userid,
+            });
+            if (!user) {
+                return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+            }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+            const newFeed = new Feed({
+                title,
+                content,
+                cover: imageUrl, // cover 필드에 이미지 URL 저장
+                author: req.user.userid, // 작성자 정보 추가 (userid 사용)
+                authorNickname: user.nickname, // 작성자 닉네임 추가
+            });
+
+            await newFeed.save();
+
+<<<<<<< HEAD
       res
         .status(200)
-        .json({ message: "피드가 성공적으로 생성되었습니다.", newFeed });
+        .json({ message: '피드가 성공적으로 생성되었습니다.', newFeed });
     } catch (error) {
-      console.error("피드 생성 중 오류 발생:", error);
-      res.status(500).json({ message: "피드 생성 중 오류가 발생했습니다." });
+      console.error('피드 생성 중 오류 발생:', error);
+      res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
+=======
+            res.status(200).json({ message: '피드가 성공적으로 생성되었습니다.', newFeed });
+        } catch (error) {
+            console.error('피드 생성 중 오류 발생:', error);
+            res.status(500).json({ message: '피드 생성 중 오류가 발생했습니다.' });
+        }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
     }
-  }
 );
 
 // 피드 리스트
-app.get("/feedList", async (req, res) => {
+app.get('/feedList', async (req, res) => {
+<<<<<<< HEAD
   try {
     const feedList = await Feed.find().sort({ createdAt: -1 });
     res.json(feedList);
   } catch (error) {
-    console.error("피드 리스트를 가져오는 중 오류 발생:", error);
+    console.error('피드 리스트를 가져오는 중 오류 발생:', error);
     res
       .status(500)
-      .json({ message: "피드 리스트를 가져오는 중 오류가 발생했습니다." });
+      .json({ message: '피드 리스트를 가져오는 중 오류가 발생했습니다.' });
   }
 });
 
-// 피드 상세
-app.get("/feedDetail/:id", async (req, res) => {
+app.get('/feedDetail/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const feed = await Feed.findById(id).populate("author", "userid"); // 작성자 정보 포함 (userid 사용)
+    let feed = await Feed.findById(id);
+    if (!feed) {
+      return res.status(404).json({ message: '피드를 찾을 수 없습니다.' });
+    }
+=======
+    try {
+        const feedList = await Feed.find().sort({ createdAt: -1 });
+        res.json(feedList);
+    } catch (error) {
+        console.error('피드 리스트를 가져오는 중 오류 발생:', error);
+        res.status(500).json({ message: '피드 리스트를 가져오는 중 오류가 발생했습니다.' });
+    }
+});
+
+app.get('/feedDetail/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        let feed = await Feed.findById(id);
+        if (!feed) {
+            return res.status(404).json({ message: '피드를 찾을 수 없습니다.' });
+        }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+        const author = await User.findOne({ userid: feed.author });
+        if (author) {
+            feed = feed.toObject(); // feed 객체를 평범한 자바스크립트 객체로 변환
+            feed.authorNickname = author.nickname; // 작성자 닉네임 추가
+        }
+
+<<<<<<< HEAD
     res.json(feed);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('피드 상세 조회 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 상세 조회 중 오류가 발생했습니다.' });
   }
+=======
+        res.json(feed);
+    } catch (error) {
+        console.error('피드 상세 조회 중 오류 발생:', error);
+        res.status(500).json({ message: '피드 상세 조회 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 피드 삭제
-app.delete("/feedDelete/:id", async (req, res) => {
+app.delete('/feedDelete/:id', async (req, res) => {
+<<<<<<< HEAD
   const { id } = req.params;
   console.log(id);
   await Feed.findByIdAndDelete(id);
-  res.json({ message: "ok" });
+  res.json({ message: 'ok' });
+=======
+    const { id } = req.params;
+    console.log(id);
+    await Feed.findByIdAndDelete(id);
+    res.json({ message: 'ok' });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 });
 
 // 피드 수정
-app.put("/feedEdit/:id", upload.single("imgFile"), async (req, res) => {
+app.put('/feedEdit/:id', feedUpload.single('imgFile'), async (req, res) => {
+<<<<<<< HEAD
   const { id } = req.params;
+=======
+    const { id } = req.params;
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
 
-  try {
-    let updatedFields = {};
+    try {
+        let updatedFields = {};
 
-    // 이미지 파일이 업로드된 경우
-    if (req.file) {
-      const { originalname, path: filePath } = req.file; // path 변수명을 filePath로 변경
-      const ext = path.extname(originalname); // 확장자 추출
-      const newPath = path.join("uploads", `${id}${ext}`); // 새로운 파일 경로 설정
+        // 이미지 파일이 업로드된 경우
+        if (req.file) {
+            const { originalname, buffer } = req.file;
 
-      // 파일 이동 및 이름 변경
-      await fs.rename(filePath, newPath);
-      updatedFields.cover = `http://localhost:8080/${newPath}`; // 파일 경로를 URL 형태로 설정
+            const blob = bucket.file(Date.now() + path.extname(originalname));
+            const blobStream = blob.createWriteStream({
+                resumable: false,
+            });
+
+<<<<<<< HEAD
+      await new Promise((resolve, reject) => {
+        blobStream.on('finish', resolve);
+        blobStream.on('error', reject);
+        blobStream.end(buffer);
+      });
+=======
+            await new Promise((resolve, reject) => {
+                blobStream.on('finish', resolve);
+                blobStream.on('error', reject);
+                blobStream.end(buffer);
+            });
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+
+            updatedFields.cover = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        }
+
+        // 피드 제목과 내용 업데이트
+        if (req.body.title) {
+            updatedFields.title = req.body.title;
+        }
+        if (req.body.content) {
+            updatedFields.content = req.body.content;
+        }
+
+        // 데이터베이스 업데이트
+        const updatedFeed = await Feed.findByIdAndUpdate(id, updatedFields, {
+            new: true,
+        });
+
+        if (!updatedFeed) {
+            return res.status(404).json({ message: '해당 피드를 찾을 수 없습니다.' });
+        }
+
+        res.status(200).json({ message: '피드가 성공적으로 업데이트되었습니다.', updatedFeed });
+    } catch (error) {
+        console.error('피드 업데이트 중 오류 발생:', error);
+        res.status(500).json({ message: '피드 업데이트 중 오류가 발생했습니다.' });
     }
+<<<<<<< HEAD
 
     // 피드 제목과 내용 업데이트
     if (req.body.title) {
@@ -705,30 +1316,48 @@ app.put("/feedEdit/:id", upload.single("imgFile"), async (req, res) => {
     });
 
     if (!updatedFeed) {
-      return res.status(404).json({ message: "해당 피드를 찾을 수 없습니다." });
+      return res.status(404).json({ message: '해당 피드를 찾을 수 없습니다.' });
     }
 
     res
       .status(200)
-      .json({ message: "피드가 성공적으로 업데이트되었습니다.", updatedFeed });
+      .json({ message: '피드가 성공적으로 업데이트되었습니다.', updatedFeed });
   } catch (error) {
-    console.error("피드 업데이트 중 오류 발생:", error);
-    res.status(500).json({ message: "피드 업데이트 중 오류가 발생했습니다." });
+    console.error('피드 업데이트 중 오류 발생:', error);
+    res.status(500).json({ message: '피드 업데이트 중 오류가 발생했습니다.' });
   }
 });
 // 피드 데이터 가져오기
-app.get("/feeds", async (req, res) => {
+app.get('/feeds', async (req, res) => {
   try {
     const feeds = await Feed.find().sort({ createdAt: -1 }); // 최신순으로 피드 데이터 가져오기
     res.status(200).json(feeds);
   } catch (error) {
-    console.error("피드 데이터를 가져오는 중 오류 발생:", error);
+    console.error('피드 데이터를 가져오는 중 오류 발생:', error);
     res
       .status(500)
-      .json({ message: "피드 데이터를 가져오는 중 오류가 발생했습니다." });
+      .json({ message: '피드 데이터를 가져오는 중 오류가 발생했습니다.' });
   }
+=======
+});
+// 피드 데이터 가져오기
+app.get('/feeds', async (req, res) => {
+    try {
+        const feeds = await Feed.find().sort({ createdAt: -1 }); // 최신순으로 피드 데이터 가져오기
+        res.status(200).json(feeds);
+    } catch (error) {
+        console.error('피드 데이터를 가져오는 중 오류 발생:', error);
+        res.status(500).json({ message: '피드 데이터를 가져오는 중 오류가 발생했습니다.' });
+    }
+>>>>>>> 06a17754c81e6f5f5666e7855689b3c7976eca79
+});
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });

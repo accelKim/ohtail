@@ -328,6 +328,9 @@
   margin-bottom: 50px;
   font-size: 1em;
 }
+#webzine .contArea > div:nth-of-type(1) img {
+  width: 100%;
+}
 #webzine.small .contArea > button {
   width: 100px;
   height: 100px;
@@ -522,6 +525,9 @@
   #webzine .contArea > div:nth-of-type(1) {
     margin-bottom: 80px;
   }
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button::before {
+    font-size: 3.5rem !important;
+  }
   #webzine .contArea > button,
   #webzine .contArea.likeBtn > div:nth-of-type(3) button,
   #webzine .contArea > div:nth-of-type(4) button {
@@ -593,6 +599,9 @@
   #webzine .contArea h4,
   #webzine .contArea > div:nth-of-type(1) {
     margin-bottom: 60px;
+  }
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button::before {
+    font-size: 3rem !important;
   }
   #webzine .contArea > button,
   #webzine .contArea.likeBtn > div:nth-of-type(3) button,

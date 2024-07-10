@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import style from '../../styles/feed/CreateFeed.module.css';
 
 const FeedEdit = () => {
@@ -25,7 +27,7 @@ const FeedEdit = () => {
         if (response.ok) {
           const data = await response.json();
           setTitle(data.title);
-          setImgPreviewUrl(data.imgUrl); // 이미지 URL을 받아와서 미리보기에 표시
+          setImgPreviewUrl(data.cover); // imgUrl -> cover 변경, 이미지 URL을 받아와서 미리보기에 표시
           setContent(data.content);
         } else {
           throw new Error('피드 정보를 가져오는데 실패했습니다.');
@@ -67,6 +69,7 @@ const FeedEdit = () => {
       return;
     }
     if (!imgFile && !imgPreviewUrl) {
+      // 이미지 파일과 미리보기 URL이 모두 없는 경우 체크
       alert('이미지를 선택하세요');
       document.getElementById('imgFile').focus();
       return;
@@ -84,22 +87,31 @@ const FeedEdit = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8080/feedEdit/${id}`, {
-        method: 'PUT', // 또는 'PATCH'로 변경
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedEdit/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+          credentials: 'include',
+        }
+      );
 
       if (response.ok) {
-        alert('피드가 성공적으로 수정되었습니다.');
-        setTitle('');
-        setImgFile(null);
-        setImgPreviewUrl('');
-        setContent('');
-        navigate(`/feedDetail/${id}`);
+        toast.success('피드가 성공적으로 수정되었습니다.', {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+        setTimeout(() => {
+          navigate(`/feedDetail/${id}`);
+        }, 1000); // 1초 후에 페이지 이동
       } else {
         throw new Error('피드 수정에 실패했습니다.');
       }
@@ -133,12 +145,12 @@ const FeedEdit = () => {
           />
         </div>
         <div className={style.imgPreview}>
-          {imgPreviewUrl ? (
+          {imgPreviewUrl ? ( // 이미지 URL이 있는 경우 미리보기 표시
             <img src={imgPreviewUrl} alt="이미지 미리보기" />
           ) : (
             <span>이미지를 선택해 주세요</span>
           )}
-          {imgPreviewUrl && (
+          {imgPreviewUrl && ( // 이미지 URL이 있는 경우 삭제 버튼 표시
             <span className={style.deleteText} onClick={handleImageDelete}>
               x
             </span>
@@ -154,6 +166,7 @@ const FeedEdit = () => {
         />
         <button type="submit">수정하기</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
