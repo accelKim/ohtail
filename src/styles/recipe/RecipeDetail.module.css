@@ -14,7 +14,7 @@
 }
 .recipe_contents {
   text-align: center;
-  font-weight: bold;
+  line-height: 1.5;
 }
 .ingredient_wrap {
   width: calc(100% - 2rem);

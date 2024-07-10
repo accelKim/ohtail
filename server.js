@@ -622,19 +622,24 @@ app.put(
     let newPath = null;
 
     if (req.file) {
-      const { originalname, buffer } = req.file;
-      const blob = bucket.file(Date.now() + path.extname(originalname));
-      const blobStream = blob.createWriteStream({
-        resumable: false,
-      });
+      try {
+        const { originalname, buffer } = req.file;
+        const blob = bucket.file(Date.now() + path.extname(originalname));
+        const blobStream = blob.createWriteStream({
+          resumable: false,
+        });
 
-      await new Promise((resolve, reject) => {
-        blobStream.on('finish', resolve);
-        blobStream.on('error', reject);
-        blobStream.end(buffer);
-      });
+        await new Promise((resolve, reject) => {
+          blobStream.on('finish', resolve);
+          blobStream.on('error', reject);
+          blobStream.end(buffer);
+        });
 
-      newPath = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        newPath = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+      } catch (uploadError) {
+        console.error('파일 업로드 중 오류 발생:', uploadError);
+        return res.status(500).json({ message: '파일 업로드 실패' });
+      }
     }
 
     const { title, summary, content } = req.body;
@@ -653,7 +658,7 @@ app.put(
 
       res.json({ message: 'ok' });
     } catch (updateError) {
-      console.error('Error updating webzine: ', updateError);
+      console.error('웹진 업데이트 중 오류 발생:', updateError);
       res.status(500).json({ message: '웹진 업데이트 실패' });
     }
   }

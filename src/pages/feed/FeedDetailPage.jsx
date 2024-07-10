@@ -48,6 +48,7 @@ const FeedDetailPage = () => {
         const response = await fetch(`http://localhost:8080/feedDelete/${id}`, {
           method: 'DELETE',
         });
+
         const res = await response.json();
         if (res.message === 'ok') {
           toast.success('피드가 삭제되었습니다!', {

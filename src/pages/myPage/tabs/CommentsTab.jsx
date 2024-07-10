@@ -18,7 +18,6 @@ const CommentsTab = () => {
       try {
         const response = await fetch(
           `http://localhost:8080/comments/user?userId=${userId}`
-          // `http://localhost:8080/comments/user?userId=${userId}`
         );
         const data = await response.json();
         if (response.ok) {
@@ -89,7 +88,7 @@ const CommentsTab = () => {
         alert('해당 게시글이 삭제되었습니다.');
       } else {
         console.error('게시글을 가져오는 중 오류 발생:', error.message);
-        alert('게시글을 가져오는 중 오류가 발생했습니다.');
+        alert('게시글이 삭제되었습니다.');
       }
     }
   };

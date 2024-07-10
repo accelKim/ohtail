@@ -10,7 +10,6 @@ const MyRecipeTab = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8080/myRecipeTab', {
-          // const response = await fetch("http://localhost:8080/myRecipeTab", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
