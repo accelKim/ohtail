@@ -20,4 +20,4 @@ RUN npm run build
 CMD ["node", "server.js"]
 
 # 포트 설정
-EXPOSE 5000
+EXPOSE 8080

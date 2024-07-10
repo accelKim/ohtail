@@ -12,7 +12,7 @@ const MainPageFeed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch(`${apiUrl}/feedList`);
+      const response = await fetch(`http://localhost:5000/feedList`);
       if (!response.ok) {
         throw new Error("Failed to fetch feeds");
       }

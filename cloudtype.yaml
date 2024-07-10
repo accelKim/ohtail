@@ -4,4 +4,4 @@ services:
   - name: web
     dockerfile_path: Dockerfile
     build_dir: .
-    port: 5000
+    port: 8080

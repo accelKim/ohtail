@@ -19,7 +19,7 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const realFs = require("fs");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
 const OpenAIApi = require("openai");
 
@@ -33,14 +33,17 @@ const openai = new OpenAIApi({
 // CORS 설정
 const corsOptions = {
     origin: [
-        // 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        // 'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        // 'http://localhost:5000/',
-        // 'http://localhost:3000/',
-        true
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/',
+        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/',
+        'http://localhost:8080/',
+        'http://localhost:3000/',
     ],
     credentials: true,
 };
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(express.json());
 
 // 테스트용 엔드포인트
 app.get('/api/test', (req, res) => {
@@ -48,9 +51,7 @@ app.get('/api/test', (req, res) => {
     console.log({ message: 'API is working!' });
 });
 
-app.use(cors(corsOptions));
-app.use(cookieParser());
-app.use(express.json());
+
 
 app.post('/chatbot', async (req, res) => {
     const userPrompt = req.body.userPrompt;
