@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import style from "../../styles/feed/CreateFeed.module.css";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const FeedEdit = () => {
   const { id } = useParams();
   const [title, setTitle] = useState("");
@@ -16,7 +16,7 @@ const FeedEdit = () => {
     const fetchFeed = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:8080/feedDetail/${id}`, {
+        const response = await fetch(`${apiUrl}/api/feedDetail/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const FeedEdit = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/feedEdit/${id}`, {
+      const response = await fetch(`${apiUrl}/api/feedEdit/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

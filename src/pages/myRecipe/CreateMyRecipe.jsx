@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from '../../styles/myRecipe/CreateMyRecipe.module.css';
+const apiUrl = process.env.REACT_APP_API_URL
 
 const CreateMyRecipe = () => {
     const [title, setTitle] = useState('');
@@ -180,7 +181,7 @@ const CreateMyRecipe = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch('http://localhost:8080/createMyRecipe', {
+            const response = await fetch(`${apiUrl}/api/createMyRecipe`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

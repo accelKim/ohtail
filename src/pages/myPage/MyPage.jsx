@@ -4,7 +4,7 @@ import MyRecipeTab from "./tabs/MyRecipeTab";
 import FeedsTab from "./tabs/FeedsTab";
 import CommentsTab from "./tabs/CommentsTab";
 import style from "../../styles/myPage/MyPage.module.css";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState("favorites");
   const [nickname, setNickname] = useState("");
@@ -23,7 +23,7 @@ const MyPage = () => {
         const userId = JSON.parse(atob(token.split(".")[1])).userid; // 토큰에서 userid 추출
         console.log("추출된 userId:", userId);
 
-        const response = await fetch(`http://localhost:8080/user/${userId}`, {
+        const response = await fetch(`${apiUrl}/api/user/${userId}`, {
           // const response = await fetch(`http://localhost:8080/user/${userId}`, {
           method: "GET",
           headers: {
@@ -63,7 +63,7 @@ const MyPage = () => {
 
       const userId = JSON.parse(atob(token.split(".")[1])).userid;
       const response = await fetch(
-        `http://localhost:8080/user/${userId}/nickname`,
+        `${apiUrl}/api/user/${userId}/nickname`,
 
         {
           method: "PUT",

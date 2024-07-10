@@ -12,7 +12,7 @@ import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
 import FavoritesButton from "../../components/favorites/FavoritesButton";
 import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const MyRecipeDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const MyRecipeDetail = () => {
 
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
+        const response = await fetch(`${apiUrl}/api/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -96,7 +96,7 @@ const MyRecipeDetail = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+      const response = await fetch(`${apiUrl}/api/myRecipe/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

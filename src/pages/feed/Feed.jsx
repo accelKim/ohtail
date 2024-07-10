@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import style from "../../styles/feed/Feed.module.css";
 import SearchBar from "../../components/feed/SearchBar";
 import { useNavigate } from "react-router-dom";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const Feed = () => {
   const [feedList, setFeedList] = useState([]);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch("http://localhost:8080/feedList");
+      const response = await fetch(`${apiUrl}/api/feedList`);
       if (!response.ok) {
         throw new Error("피드를 가져오는데 실패했습니다");
       }

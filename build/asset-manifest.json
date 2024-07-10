@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.17a03ede.css",
-    "main.js": "/static/js/main.a8080adf.js",
+    "main.js": "/static/js/main.ee8d8088.js",
     "static/media/JalnanGothicTTF.ttf": "/static/media/JalnanGothicTTF.ee2433c2e715c14112c3.ttf",
     "static/media/JalnanGothic.otf": "/static/media/JalnanGothic.f6dc7d5d4b8c2f4fbff9.otf",
     "static/media/Pretendard-ExtraBold.woff": "/static/media/Pretendard-ExtraBold.f6491e200d1fb5c5917b.woff",
@@ -23,10 +23,10 @@
     "static/media/logo.png": "/static/media/logo.f0bba28d1968d0c72b82.png",
     "index.html": "/index.html",
     "main.17a03ede.css.map": "/static/css/main.17a03ede.css.map",
-    "main.a8080adf.js.map": "/static/js/main.a8080adf.js.map"
+    "main.ee8d8088.js.map": "/static/js/main.ee8d8088.js.map"
   },
   "entrypoints": [
     "static/css/main.17a03ede.css",
-    "static/js/main.a8080adf.js"
+    "static/js/main.ee8d8088.js"
   ]
 }

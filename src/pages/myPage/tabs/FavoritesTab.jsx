@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
 import RecipeCard from "../../../components/recipe/RecipeCard";
 import style from "../../../styles/myPage/RecipesTab.module.css";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const FavoritesTab = () => {
   const [allRecipes, setAllRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const FavoritesTab = () => {
     const fetchFavorites = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/favorites", {
+        const response = await fetch(`${apiUrl}/api/favorites`, {
           // const response = await fetch("http://localhost:8080/favorites", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const FavoritesTab = () => {
     const fetchInternalRecipe = async (cocktailId) => {
       try {
         const response = await fetch(
-          `http://localhost:8080/myRecipe/${cocktailId}`
+          `${apiUrl}/api/myRecipe/${cocktailId}`
         );
         if (!response.ok) {
           throw new Error(

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../../../styles/myPage/CommentsTab.module.css";
+const apiUrl = process.env.REACT_APP_API_URL
 
 const CommentsTab = () => {
   const [comments, setComments] = useState([]);
@@ -17,7 +18,7 @@ const CommentsTab = () => {
       console.log("Fetching comments for userId:", userId);
       try {
         const response = await fetch(
-          `http://localhost:8080/comments/user?userId=${userId}`
+          `${apiUrl}/api/comments/user?userId=${userId}`
         );
         const data = await response.json();
         if (response.ok) {
@@ -64,7 +65,7 @@ const CommentsTab = () => {
       const response = await fetch(
         isExternal
           ? url
-          : `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api${url}`
+          : `${apiUrl}/api/${url}`
         // isExternal ? url : `http://localhost:8080${url}`
       );
       const data = await response.json();

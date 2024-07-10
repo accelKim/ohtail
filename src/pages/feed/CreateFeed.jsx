@@ -3,6 +3,7 @@ import style from "../../styles/feed/CreateFeed.module.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+const apiUrl = process.env.REACT_APP_API_URL
 
 const CreateFeed = () => {
   const [title, setTitle] = useState("");
@@ -78,7 +79,7 @@ const CreateFeed = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8080/createFeed", {
+      const response = await fetch(`${apiUrl}/api/createFeed`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
 import style from "../../../styles/myPage/RecipesTab.module.css";
-
+const apiUrl = process.env.REACT_APP_API_URL
 const MyRecipeTab = () => {
   const [myPageRecipes, setMyPageRecipes] = useState([]);
 
@@ -9,7 +9,7 @@ const MyRecipeTab = () => {
     const fetchMyPageRecipes = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/myRecipeTab", {
+        const response = await fetch(`${apiUrl}/api/myRecipeTab`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -6,6 +6,7 @@ import style from "../../styles/feed/FeedDetail.module.css";
 import LikeButton from "../../components/like/LikeButton";
 import CommentSection from "../../components/Comment/CommentSection";
 import CopyUrlButton from "../../components/copyUrl/CopyUrlButton";
+const apiUrl = process.env.REACT_APP_API_URL
 
 const FeedDetailPage = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const FeedDetailPage = () => {
   useEffect(() => {
     const fetchFeedDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/feedDetail/${id}`);
+        const response = await fetch(`${apiUrl}/api/feedDetail/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch feed detail");
         }

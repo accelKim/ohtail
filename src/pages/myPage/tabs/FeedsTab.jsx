@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "../../../styles/feed/FeedsTab.module.css"; // 스타일을 styles로 가져옴
-
+const apiUrl = process.env.REACT_APP_API_URL
 const FeedsTab = () => {
   const [feeds, setFeeds] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -14,7 +14,7 @@ const FeedsTab = () => {
 
     const fetchFeeds = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/feeds");
+        const response = await axios.get(`${apiUrl}/api/feeds`);
 
         setFeeds(response.data);
       } catch (error) {

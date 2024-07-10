@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const REACT_APP_KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
-  const REDIRECT_URL = 'http://localhost:3000/oauth';
+  const REDIRECT_URL = 'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/oauth';
 
   const navigate = useNavigate();
 
