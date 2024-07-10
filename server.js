@@ -28,7 +28,11 @@ app.use(bodyParser.json());
 
 // CORS 설정
 const corsOptions = {
-    origin: apiUrl,
+    origin: [
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'http://localhost:8080',
+    ],
     credentials: true,
 };
 
