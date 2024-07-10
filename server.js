@@ -34,17 +34,20 @@ const openai = new OpenAIApi({
 // CORS 설정
 const corsOptions = {
     origin: [
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        'http://localhost:8080/',
-        'http://localhost:3000/',
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'http://localhost:8080',
+        'http://localhost:3000',
     ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+    allowedHeaders: 'Content-Type, Authorization',
 };
 
 app.use(cors(corsOptions));
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
+app.options('*', cors(corsOptions)); 
 // Helmet 보안 헤더 설정
 app.use(helmet());
 

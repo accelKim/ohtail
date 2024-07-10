@@ -14,10 +14,11 @@ const Chatbot = () => {
             const userMessage = { role: 'user', content: message };
             setChatHistory((prevHistory) => [...prevHistory, userMessage]);
             const response = await axios.post(`${apiUrl}/api/chatbot`, {
-                // const response = await axios.post(`https://localhost:5000/chatbot`, {
                 userPrompt: message,
+            }, {
+                withCredentials: true // withCredentials 옵션 추가
             });
-            const botMessage = { role: 'bot', content: response.data };
+            const botMessage = { role: 'bot', content: response.data.message };
             setChatHistory((prevHistory) => [...prevHistory, botMessage]);
             setMessage('');
         } catch (error) {
