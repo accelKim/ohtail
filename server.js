@@ -18,11 +18,9 @@ const { Storage } = require('@google-cloud/storage');
 const cookieParser = require('cookie-parser');
 const fs = require('fs').promises;
 const realFs = require('fs');
-const helmet = require('helmet');
 const app = express();
 const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
-const OpenAIApi = require('openai');
 const OpenAIApi = require('openai');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,9 +31,34 @@ const openai = new OpenAIApi({
 });
 
 // 환경 변수로부터 파일 생성
-const keyFileContent = process.env.GCS_KEYFILE_CONTENT;
-const keyFilePath = path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json');
-fs.writeFileSync(keyFilePath, Buffer.from(keyFileContent, 'base64'));
+async function createKeyFile() {
+    try {
+        const keyFilePath = path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json');
+        
+        // 파일 존재 여부 확인
+        if (realFs.existsSync(keyFilePath)) {
+            console.log('Key file already exists, skipping creation.');
+            return;
+        }
+
+        const keyFileContent = process.env.GCS_KEYFILE_CONTENT;
+        if (!keyFileContent) {
+            console.error('Environment variable GCS_KEYFILE_CONTENT is not set');
+            return;
+        }
+
+        console.log('keyFileContent:', keyFileContent);
+        console.log('keyFilePath:', keyFilePath);
+
+        await fs.writeFile(keyFilePath, Buffer.from(keyFileContent, 'base64'));
+        console.log('File written successfully');
+    } catch (err) {
+        console.error('Error writing file:', err);
+    }
+}
+
+// 서버 시작 시 파일 생성 함수 호출
+createKeyFile();
 
 // CORS 설정
 const corsOptions = {
@@ -88,14 +111,6 @@ mongoose
     .then(() => console.log('MongoDB 연결 성공'))
     .catch((err) => console.error('MongoDB 연결 실패:', err));
 
-mongoose
-    .connect(
-        'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-        {}
-    )
-    .then(() => console.log('MongoDB 연결 성공'))
-    .catch((err) => console.error('MongoDB 연결 실패:', err));
-
 // Google Cloud Storage 설정
 const storage = new Storage({
     keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
@@ -103,7 +118,6 @@ const storage = new Storage({
 });
 
 const bucket = storage.bucket('ohtail');
-
 
 const generateAccessToken = (userid) => {
     return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
@@ -116,12 +130,7 @@ app.use('/webzineUploads', express.static(path.join(__dirname, 'webzineUploads')
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
 app.use('/webzineLike', webzineLikeRoutes);
-app.use('/likes', likeRoutes);
-app.use('/comments', commentRoutes);
-app.use('/webzineLike', webzineLikeRoutes);
 
-const Webzine = require('./src/models/Webzine');
-const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
 const Webzine = require('./src/models/Webzine');
 const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
 
@@ -793,7 +802,7 @@ app.get('/feeds', async (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
