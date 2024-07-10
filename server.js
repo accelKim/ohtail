@@ -31,6 +31,11 @@ const openai = new OpenAIApi({
     apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
 
+// 환경 변수로부터 파일 생성
+const keyFileContent = process.env.GCS_KEYFILE_CONTENT;
+const keyFilePath = path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json');
+fs.writeFileSync(keyFilePath, Buffer.from(keyFileContent, 'base64'));
+
 // CORS 설정
 const corsOptions = {
     origin: [
