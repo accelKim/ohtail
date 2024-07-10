@@ -15,8 +15,6 @@ const Chatbot = () => {
             setChatHistory((prevHistory) => [...prevHistory, userMessage]);
             const response = await axios.post(`${apiUrl}/chatbot`, {
                 userPrompt: message,
-            }, {
-                withCredentials: true // withCredentials 옵션 추가
             });
             const botMessage = { role: 'bot', content: response.data.message };
             setChatHistory((prevHistory) => [...prevHistory, botMessage]);
