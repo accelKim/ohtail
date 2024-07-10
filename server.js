@@ -34,7 +34,7 @@ const openai = new OpenAIApi({
 async function createKeyFile() {
     try {
         const keyFilePath = path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json');
-        
+
         // 파일 존재 여부 확인
         if (realFs.existsSync(keyFilePath)) {
             console.log('Key file already exists, skipping creation.');
@@ -57,8 +57,47 @@ async function createKeyFile() {
     }
 }
 
-// 서버 시작 시 파일 생성 함수 호출
-createKeyFile();
+// Google Cloud Storage 설정 함수
+async function setupGCS() {
+    const keyFilePath = await createKeyFile();
+    if (!keyFilePath) {
+        return null;
+    }
+
+    const storage = new Storage({
+        keyFilename: keyFilePath,
+        projectId: process.env.GCS_PROJECT_ID,
+    });
+
+    return storage.bucket('ohtail');
+}
+
+// 파일 업로드 함수
+async function uploadFileToGCS(filePath, destination) {
+    try {
+        const bucket = await setupGCS();
+        if (!bucket) {
+            console.error('Failed to setup Google Cloud Storage');
+            return;
+        }
+
+        await bucket.upload(filePath, {
+            destination: destination,
+            resumable: false,  // Disable resumable uploads to avoid stream issues
+            validation: 'crc32c', // Ensure file integrity
+        });
+        console.log(`${filePath} uploaded to ${bucket.name}/${destination}`);
+    } catch (error) {
+        console.error('Error uploading file to Google Cloud Storage:', error);
+    }
+}
+
+// 서버 시작 시 파일 생성 및 업로드 함수 호출
+createKeyFile().then((keyFilePath) => {
+    if (keyFilePath) {
+        uploadFileToGCS(keyFilePath, 'vertical-set-428902-u5-78e087eb934e.json');
+    }
+});
 
 // CORS 설정
 const corsOptions = {
@@ -112,12 +151,12 @@ mongoose
     .catch((err) => console.error('MongoDB 연결 실패:', err));
 
 // Google Cloud Storage 설정
-const storage = new Storage({
-    keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
-    projectId: process.env.GCS_PROJECT_ID,
-});
+// const storage = new Storage({
+//     keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
+//     projectId: process.env.GCS_PROJECT_ID,
+// });
 
-const bucket = storage.bucket('ohtail');
+// const bucket = storage.bucket('ohtail');
 
 const generateAccessToken = (userid) => {
     return jwt.sign({ userid }, 'your_secret_key', { expiresIn: '3h' });
