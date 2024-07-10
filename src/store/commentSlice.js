@@ -1,12 +1,13 @@
 // commentsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+const apiUrl = process.env.REACT_APP_API_URL || 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api';
 
 export const fetchComments = createAsyncThunk(
   "comments/fetchComments",
   async ({ cocktailId }) => {
     const response = await axios.get(
-      `http://localhost:8080/comments?cocktailId=${cocktailId}`
+      `${apiUrl}/comments?cocktailId=${cocktailId}`
     );
     return response.data.comments;
   }
@@ -16,7 +17,7 @@ export const submitComment = createAsyncThunk(
   "comments/submitComment",
   async ({ cocktailId, userId, text, type }) => {
     // type 필드를 추가
-    const response = await axios.post("http://localhost:8080/comments", {
+    const response = await axios.post(`${apiUrl}/comments`, {
       cocktailId,
       userId,
       text,
@@ -29,7 +30,7 @@ export const submitComment = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   "comments/deleteComment",
   async ({ commentId }) => {
-    await axios.delete(`http://localhost:8080/comments/${commentId}`);
+    await axios.delete(`${apiUrl}/comments/${commentId}`);
     return commentId;
   }
 );
@@ -38,7 +39,7 @@ export const updateComment = createAsyncThunk(
   "comments/updateComment",
   async ({ commentId, text }) => {
     const response = await axios.put(
-      `http://localhost:8080/comments/${commentId}`,
+      `${apiUrl}/comments/${commentId}`,
       { text }
     );
     return response.data.comment;
