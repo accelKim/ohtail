@@ -9,26 +9,30 @@ const MainPageMyRecipe = () => {
 
   useEffect(() => {
     const fetchRecentRecipes = async () => {
-      try {
-        // const response = await fetch("http://localhost:8080/myRecipe");
-        const response = await fetch(`${apiUrl}/api/myRecipe`);
-        if (!response.ok) {
-          throw new Error("레시피를 가져오는 중 오류 발생!");
+        try {
+            const response = await fetch(`${apiUrl}/myRecipe`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (!response.ok) {
+                throw new Error("레시피를 가져오는 중 오류 발생!");
+            }
+            const data = await response.json();
+            const sortedData = data.sort(
+                (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
+            setRecentRecipes(sortedData.slice(0, 4));
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
-        const data = await response.json();
-        const sortedData = data.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-        setRecentRecipes(sortedData.slice(0, 4));
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
     };
 
     fetchRecentRecipes();
-  }, []);
+}, [apiUrl]);
 
   if (loading) {
     return <p>로딩 중...</p>;

@@ -34,10 +34,10 @@ const openai = new OpenAIApi({
 // CORS 설정
 const corsOptions = {
     origin: [
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/',
-        'http://localhost:8080/',
-        'http://localhost:3000/',
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app',
+        'http://localhost:8080',
+        'http://localhost:3000',
     ],
     credentials: true,
 };
