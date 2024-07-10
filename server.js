@@ -29,13 +29,15 @@ app.use(bodyParser.json());
 const openai = new OpenAIApi({
     apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
-  
+
 // CORS 설정
 const corsOptions = {
     origin: [
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app',
-        'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app',
-        'http://localhost:8080',
+        // 'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/',
+        // 'https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app/',
+        // 'http://localhost:5000/',
+        // 'http://localhost:3000/',
+        true
     ],
     credentials: true,
 };
@@ -49,7 +51,6 @@ app.get('/api/test', (req, res) => {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-
 
 app.post('/chatbot', async (req, res) => {
     const userPrompt = req.body.userPrompt;
