@@ -13,7 +13,9 @@ const FeedsTab = () => {
 
     const fetchFeeds = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/feeds');
+        const response = await axios.get(
+          'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feeds'
+        );
         setFeeds(response.data);
       } catch (error) {
         console.error('피드 데이터를 가져오는 중 오류 발생:', error);

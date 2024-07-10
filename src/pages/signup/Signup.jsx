@@ -47,7 +47,7 @@ const Signup = () => {
   const handleEmailCheck = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/check-email',
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-email',
         { email }
       );
       alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
@@ -70,7 +70,7 @@ const Signup = () => {
   const handleNicknameCheck = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/check-nickname',
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-nickname',
         {
           nickname,
         }
@@ -136,15 +136,18 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/signup', {
-        email,
-        password,
-        phonenumber,
-        nickname,
-        drinkingFrequency,
-        preferredIngredients,
-        preferredAlcoholLevel,
-      });
+      const response = await axios.post(
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/signup',
+        {
+          email,
+          password,
+          phonenumber,
+          nickname,
+          drinkingFrequency,
+          preferredIngredients,
+          preferredAlcoholLevel,
+        }
+      );
 
       if (response.status === 200) {
         alert('회원가입 성공!');

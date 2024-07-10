@@ -12,7 +12,9 @@ const MainPageFeed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch('http://localhost:8080/feedList');
+      const response = await fetch(
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/feedList'
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch feeds');
       }
