@@ -23,6 +23,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
 const OpenAIApi = require('openai');
+const OpenAIApi = require('openai');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -87,12 +88,21 @@ mongoose
     .then(() => console.log('MongoDB 연결 성공'))
     .catch((err) => console.error('MongoDB 연결 실패:', err));
 
+mongoose
+    .connect(
+        'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+        {}
+    )
+    .then(() => console.log('MongoDB 연결 성공'))
+    .catch((err) => console.error('MongoDB 연결 실패:', err));
+
 // Google Cloud Storage 설정
 const storage = new Storage({
     keyFilename: path.join(__dirname, process.env.GCS_KEYFILE),
     projectId: process.env.GCS_PROJECT_ID,
 });
 
+const bucket = storage.bucket('ohtail');
 const bucket = storage.bucket('ohtail');
 
 const generateAccessToken = (userid) => {
@@ -106,7 +116,12 @@ app.use('/webzineUploads', express.static(path.join(__dirname, 'webzineUploads')
 app.use('/likes', likeRoutes);
 app.use('/comments', commentRoutes);
 app.use('/webzineLike', webzineLikeRoutes);
+app.use('/likes', likeRoutes);
+app.use('/comments', commentRoutes);
+app.use('/webzineLike', webzineLikeRoutes);
 
+const Webzine = require('./src/models/Webzine');
+const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
 const Webzine = require('./src/models/Webzine');
 const Favorite = require('./src/models/Favorite'); // Favorite 모델 불러오기
 
@@ -777,6 +792,7 @@ app.get('/feeds', async (req, res) => {
     }
 });
 
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('*', (req, res) => {
