@@ -18,6 +18,7 @@ const { Storage } = require("@google-cloud/storage");
 const cookieParser = require("cookie-parser");
 const fs = require("fs").promises;
 const realFs = require("fs");
+const helmet = require('helmet');
 const app = express();
 const port = process.env.PORT || 8080;
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -44,6 +45,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
+// Helmet 보안 헤더 설정
+app.use(helmet());
 
 // 테스트용 엔드포인트
 app.get('/api/test', (req, res) => {
