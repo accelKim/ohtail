@@ -19,7 +19,7 @@ const cookieParser = require('cookie-parser');
 const fs = require('fs').promises;
 const realFs = require('fs');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5000;
 const apiUrl = process.env.REACT_APP_API_URL;
 const { Configuration, OpenAIApi } = require('openai');
 

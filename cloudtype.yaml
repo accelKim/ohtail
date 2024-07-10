@@ -1,11 +1,7 @@
-version: '1.0'
-
-build:
-  commands:
-    - docker build -t my-app .
-
-deploy:
-  web:
-    image: my-app
-    port: 8080
-    command: node server.js
+version: 1
+name: ohtail
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    build_dir: .
+    port: 5000

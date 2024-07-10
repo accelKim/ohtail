@@ -1,23 +1,23 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14-alpine
+# 베이스 이미지 설정
+FROM node:14
 
-# Set the working directory
-WORKDIR /app
+# 앱 디렉토리 생성
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# 앱 의존성 복사
 COPY package*.json ./
 
-# Install dependencies
+# 의존성 설치
 RUN npm install
 
-# Copy the rest of the application code
+# 앱 소스 코드 복사
 COPY . .
 
-# Build the React app
+# 클라이언트 빌드
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 80
-
-# Start the server
+# 서버 실행
 CMD ["node", "server.js"]
+
+# 포트 설정
+EXPOSE 5000
