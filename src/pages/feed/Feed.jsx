@@ -16,9 +16,7 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedList'
-      );
+      const response = await fetch('http://localhost:8080/feedList');
       if (!response.ok) {
         throw new Error('피드를 가져오는데 실패했습니다');
       }

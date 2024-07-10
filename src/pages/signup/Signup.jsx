@@ -46,10 +46,9 @@ const Signup = () => {
 
   const handleEmailCheck = async () => {
     try {
-      const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-email',
-        { email }
-      );
+      const response = await axios.post('http://localhost:8080/check-email', {
+        email,
+      });
       alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
       setEmailAvailable(response.data.available);
       setIsEmailChecked(true); // 이메일 중복 확인 완료 시 상태 변경
@@ -70,7 +69,7 @@ const Signup = () => {
   const handleNicknameCheck = async () => {
     try {
       const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-nickname',
+        'http://localhost:8080/check-nickname',
         {
           nickname,
         }

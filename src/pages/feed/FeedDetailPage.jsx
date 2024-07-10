@@ -16,9 +16,7 @@ const FeedDetailPage = () => {
   useEffect(() => {
     const fetchFeedDetail = async () => {
       try {
-        const response = await fetch(
-          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedDetail/${id}`
-        );
+        const response = await fetch(`http://localhost:8080/feedDetail/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch feed detail');
         }
@@ -47,12 +45,9 @@ const FeedDetailPage = () => {
     const confirmDelete = window.confirm('피드를 삭제하시겠습니까?');
     if (confirmDelete) {
       try {
-        const response = await fetch(
-          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedDelete/${id}`,
-          {
-            method: 'DELETE',
-          }
-        );
+        const response = await fetch(`http://localhost:8080/feedDelete/${id}`, {
+          method: 'DELETE',
+        });
         const res = await response.json();
         if (res.message === 'ok') {
           toast.success('피드가 삭제되었습니다!', {

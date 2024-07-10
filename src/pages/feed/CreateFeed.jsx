@@ -78,17 +78,14 @@ const CreateFeed = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/createFeed',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: data,
-          credentials: 'include',
-        }
-      );
+      const response = await fetch('http://localhost:8080/createFeed', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: data,
+        credentials: 'include',
+      });
 
       if (response.ok) {
         toast.success('피드가 생성되었습니다.', {
