@@ -46,19 +46,11 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
-mongoose
-    .connect(
-        'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-        {}
-    )
-    .then(() => console.log('MongoDB 연결 성공'))
-    .catch((err) => console.error('MongoDB 연결 실패:', err));
-
 // OpenAI API 설정
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+  });
+  const openai = new OpenAIApi(configuration);
 
 // 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
@@ -81,6 +73,16 @@ app.post('/chatbot', async (req, res) => {
         res.status(500).json({ message: 'OpenAI API 호출 중 오류가 발생했습니다.' });
     }
 });
+
+mongoose
+    .connect(
+        'mongodb+srv://ohtail:wCvHp9yQNPDK7wOp@cluster0.yzwdj7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+        {}
+    )
+    .then(() => console.log('MongoDB 연결 성공'))
+    .catch((err) => console.error('MongoDB 연결 실패:', err));
+
+
 
 // Google Cloud Storage 설정
 const storage = new Storage({
