@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import styles from '../../../styles/feed/FeedsTab.module.css'; // 스타일을 styles로 가져옴
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "../../../styles/feed/FeedsTab.module.css"; // 스타일을 styles로 가져옴
 
 const FeedsTab = () => {
   const [feeds, setFeeds] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userid');
+    const userId = localStorage.getItem("userid");
 
     setCurrentUserId(userId);
 
     const fetchFeeds = async () => {
       try {
-        const response = await axios.get(
-          'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feeds'
-        );
-        // const response = await axios.get('http://localhost:8080/feeds');
+        const response = await axios.get("http://localhost:8080/feeds");
 
         setFeeds(response.data);
       } catch (error) {
-        console.error('피드 데이터를 가져오는 중 오류 발생:', error);
+        console.error("피드 데이터를 가져오는 중 오류 발생:", error);
       }
     };
 

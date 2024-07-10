@@ -14,7 +14,7 @@ const MainPageFeed = () => {
     try {
       const response = await fetch(`${apiUrl}/feedList`);
       if (!response.ok) {
-        throw new Error('Failed to fetch feeds');
+        throw new Error("Failed to fetch feeds");
       }
       const data = await response.json();
       setFeeds(data);
