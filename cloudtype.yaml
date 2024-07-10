@@ -1,0 +1,11 @@
+version: '1.0'
+
+build:
+  commands:
+    - docker build -t my-app .
+
+deploy:
+  web:
+    image: my-app
+    port: 8080
+    command: node server.js
