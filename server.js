@@ -83,7 +83,7 @@ async function uploadFileToGCS(filePath, destination) {
 
         await bucket.upload(filePath, {
             destination: destination,
-            resumable: false,  // Disable resumable uploads to avoid stream issues
+            resumable: false, // Disable resumable uploads to avoid stream issues
             validation: 'crc32c', // Ensure file integrity
         });
         console.log(`${filePath} uploaded to ${bucket.name}/${destination}`);
@@ -841,7 +841,6 @@ app.get('/feeds', async (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
-
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));

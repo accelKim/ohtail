@@ -48,7 +48,7 @@ const Signup = () => {
   const handleEmailCheck = async () => {
     try {
       const response = await axios.post(
-        `${apiUrl}/check-email`,
+        `${apiUrl}/api/check-email`,
         { email }
       );
       alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
@@ -71,7 +71,7 @@ const Signup = () => {
   const handleNicknameCheck = async () => {
     try {
       const response = await axios.post(
-        `${apiUrl}/check-nickname`,
+        `${apiUrl}/api/check-nickname`,
         {
           nickname,
         }
@@ -138,7 +138,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/signup',
+        `${apiUrl}/signup`,
         {
           email,
           password,
