@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useCallback } from "react";
-import MyRecipeCard from "../../components/myRecipe/MyRecipeCard";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "../../components/myRecipe/SearchBar";
-import MyRecipeCategory from "../../components/myRecipe/MyRecipeCategory";
-import Pagination from "../../components/pagination/Pagination";
-import style from "../../styles/myRecipe/MyRecipeList.module.css";
+import React, { useEffect, useState, useCallback } from 'react';
+import MyRecipeCard from '../../components/myRecipe/MyRecipeCard';
+import { useNavigate } from 'react-router-dom';
+import SearchBar from '../../components/myRecipe/SearchBar';
+import MyRecipeCategory from '../../components/myRecipe/MyRecipeCategory';
+import Pagination from '../../components/pagination/Pagination';
+import style from '../../styles/myRecipe/MyRecipeList.module.css';
 
 const MyRecipeList = () => {
   const [myRecipeList, setMyRecipeList] = useState([]);
   const [filteredRecipeList, setFilteredRecipeList] = useState([]);
   const [sortOption, setSortOption] = useState(
-    localStorage.getItem("sortOption") || "newest"
+    localStorage.getItem('sortOption') || 'newest'
   );
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const MyRecipeList = () => {
         // );
         const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
-          throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
+          throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
         }
         const data = await response.json();
 
@@ -48,7 +48,7 @@ const MyRecipeList = () => {
         setMyRecipeList(recipesWithLikes);
         setFilteredRecipeList(recipesWithLikes);
       } catch (error) {
-        console.error("레시피를 가져오는 중 오류 발생!!!!!", error);
+        console.error('레시피를 가져오는 중 오류 발생!!!!!', error);
       }
     };
 
@@ -62,11 +62,11 @@ const MyRecipeList = () => {
         recipe.title.toLowerCase().includes(term.toLowerCase())
       );
 
-      if (sortOption === "newest") {
+      if (sortOption === 'newest') {
         filtered = filtered.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-      } else if (sortOption === "mostLiked") {
+      } else if (sortOption === 'mostLiked') {
         filtered = filtered.sort((a, b) => b.likeCount - a.likeCount);
       }
 
@@ -81,17 +81,17 @@ const MyRecipeList = () => {
   }, [handleSearch, searchTerm, sortOption]);
 
   const handleButtonClick = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (token) {
-      navigate("/createMyRecipe");
+      navigate('/createMyRecipe');
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   };
 
   const handleSortChange = (value) => {
     setSortOption(value);
-    localStorage.setItem("sortOption", value);
+    localStorage.setItem('sortOption', value);
   };
 
   const handleClick = (page) => {

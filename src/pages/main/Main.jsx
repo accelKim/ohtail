@@ -6,6 +6,7 @@ import MainPageMyRecipe from '../../components/myRecipe/MainPageMyRecipe';
 import WebzineMain from '../../components/webzine/WebzineMain';
 import Calculator from '../../components/calculator/Calculator';
 import { Link } from 'react-router-dom';
+
 export class Main extends Component {
   render() {
     return (

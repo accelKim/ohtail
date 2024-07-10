@@ -1,46 +1,45 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import style from "../../../styles/feed/FeedsTab.module.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import styles from '../../../styles/feed/FeedsTab.module.css'; // 스타일을 styles로 가져옴
 
 const FeedsTab = () => {
   const [feeds, setFeeds] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userid");
+    const userId = localStorage.getItem('userid');
 
     setCurrentUserId(userId);
 
     const fetchFeeds = async () => {
       try {
         const response = await axios.get(
-          "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feeds"
+          'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feeds'
         );
         // const response = await axios.get('http://localhost:8080/feeds');
 
         setFeeds(response.data);
       } catch (error) {
-        console.error("피드 데이터를 가져오는 중 오류 발생:", error);
+        console.error('피드 데이터를 가져오는 중 오류 발생:', error);
       }
     };
 
     fetchFeeds();
   }, []);
 
-  const userFeeds = feeds.filter((feed) => {
-    const isAuthor = feed.author === currentUserId;
-
-    return isAuthor;
-  });
+  const userFeeds = feeds.filter((feed) => feed.author === currentUserId);
 
   return (
     <div className="mw">
-      <ul className={style.feedcon}>
+      <div className={styles.feedsTabcon}>
         {userFeeds.length > 0 ? (
           userFeeds.map((feed) => (
-            <div key={feed._id} className={style.imgbox}>
-              <Link to={`/feedDetail/${feed._id}`} className={style.feedsImg}>
+            <div key={feed._id}>
+              <Link
+                to={`/feedDetail/${feed._id}`}
+                className={styles.feedsTabImg}
+              >
                 {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
               </Link>
             </div>
@@ -48,7 +47,7 @@ const FeedsTab = () => {
         ) : (
           <p>작성한 피드가 없습니다.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };

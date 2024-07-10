@@ -24,19 +24,23 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
+      console.log('서버 응답:', result);
 
       if (result.message === '로그인 성공') {
         localStorage.setItem('userid', result.userid);
