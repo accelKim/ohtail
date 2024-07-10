@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import style from '../../styles/feed/Feed.module.css';
-import SearchBar from '../../components/feed/SearchBar';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import style from "../../styles/feed/Feed.module.css";
+import SearchBar from "../../components/feed/SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Feed = () => {
   const [feedList, setFeedList] = useState([]);
   const [error, setError] = useState(null);
-  const [searchKeyword, setSearchKeyword] = useState(''); // 검색어 상태 추가
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색어 상태 추가
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
@@ -16,31 +16,29 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feedList'
-      );
+      const response = await fetch("http://localhost:8080/feedList");
       if (!response.ok) {
-        throw new Error('피드를 가져오는데 실패했습니다');
+        throw new Error("피드를 가져오는데 실패했습니다");
       }
       const data = await response.json();
-      console.log('Fetched feeds:', data); // 데이터를 콘솔에 출력
+      console.log("Fetched feeds:", data); // 데이터를 콘솔에 출력
       setFeedList(data); // 가져온 데이터를 상태에 저장
     } catch (error) {
-      console.error('Error fetching feeds:', error);
+      console.error("Error fetching feeds:", error);
       setError(error.message); // 오류가 발생하면 오류 상태 설정
     }
   };
 
   const handleCreateFeedClick = () => {
     // 로그인 상태 확인
-    const isLoggedIn = localStorage.getItem('token') !== null; // 예시로 localStorage에서 token을 사용하여 로그인 상태 확인
+    const isLoggedIn = localStorage.getItem("token") !== null; // 예시로 localStorage에서 token을 사용하여 로그인 상태 확인
 
     if (!isLoggedIn) {
       // 로그인이 되어있지 않으면 로그인 페이지로 이동
-      navigate('/login');
+      navigate("/login");
     } else {
       // 로그인이 되어 있으면 createFeed 페이지로 이동
-      navigate('/createFeed');
+      navigate("/createFeed");
     }
   };
 

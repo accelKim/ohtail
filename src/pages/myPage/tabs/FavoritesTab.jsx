@@ -12,15 +12,12 @@ const FavoritesTab = () => {
     const fetchFavorites = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(
-          "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/favorites",
-          {
-            // const response = await fetch("http://localhost:8080/favorites", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:8080/favorites", {
+          // const response = await fetch("http://localhost:8080/favorites", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch favorites");
@@ -68,8 +65,7 @@ const FavoritesTab = () => {
     const fetchInternalRecipe = async (cocktailId) => {
       try {
         const response = await fetch(
-          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${cocktailId}`
-          // `http://localhost:8080/myRecipe/${cocktailId}`
+          `http://localhost:8080/myRecipe/${cocktailId}`
         );
         if (!response.ok) {
           throw new Error(
