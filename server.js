@@ -21,11 +21,15 @@ const realFs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
 const apiUrl = process.env.REACT_APP_API_URL;
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAIApi = require('openai');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const openai = new OpenAIApi({
+    apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
+});
+  
 // CORS 설정
 const corsOptions = {
     origin: [
@@ -46,13 +50,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
-// OpenAI API 설정
-const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
 
-// 챗봇 엔드포인트
 app.post('/chatbot', async (req, res) => {
     const userPrompt = req.body.userPrompt;
     const roleBasedPrompt = '당신은 고객님들을 위한 친절한 바텐더입니다.';
@@ -81,8 +79,6 @@ mongoose
     )
     .then(() => console.log('MongoDB 연결 성공'))
     .catch((err) => console.error('MongoDB 연결 실패:', err));
-
-
 
 // Google Cloud Storage 설정
 const storage = new Storage({
