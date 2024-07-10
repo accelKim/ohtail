@@ -9,15 +9,11 @@ const MyRecipeTab = () => {
     const fetchMyPageRecipes = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(
-          "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipeTab",
-          {
-            // const response = await fetch("http://localhost:8080/myRecipeTab", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:8080/myRecipeTab", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error("레시피 불러오기 실패!!!!!");
         }
