@@ -9,6 +9,7 @@ const FeedsTab = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem('userid');
+
     setCurrentUserId(userId);
 
     const fetchFeeds = async () => {
@@ -16,6 +17,8 @@ const FeedsTab = () => {
         const response = await axios.get(
           'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/feeds'
         );
+        // const response = await axios.get('http://localhost:8080/feeds');
+
         setFeeds(response.data);
       } catch (error) {
         console.error('피드 데이터를 가져오는 중 오류 발생:', error);

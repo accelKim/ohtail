@@ -20,6 +20,9 @@ const MyRecipeList = () => {
   useEffect(() => {
     const fetchMyRecipes = async () => {
       try {
+        // const response = await fetch(
+        //   `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe`
+        // );
         const response = await fetch(`http://localhost:8080/myRecipe`);
         if (!response.ok) {
           throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
@@ -30,6 +33,7 @@ const MyRecipeList = () => {
         const recipesWithLikes = await Promise.all(
           data.map(async (recipe) => {
             const likeResponse = await fetch(
+              // `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/likes?cocktailId=${recipe._id}&type=myRecipe`
               `http://localhost:8080/likes?cocktailId=${recipe._id}&type=myRecipe`
             );
             if (likeResponse.ok) {

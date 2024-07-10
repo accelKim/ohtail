@@ -23,6 +23,9 @@ const EditMyRecipe = () => {
   useEffect(() => {
     const fetchMyRecipe = async () => {
       try {
+        // const response = await fetch(
+          // `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`
+        // );
         const response = await fetch(`http://localhost:8080/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
@@ -205,13 +208,17 @@ const EditMyRecipe = () => {
     formData.set("instructions", instructions);
 
     try {
-      const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`,
+        {
+          // const response = await fetch(`http://localhost:8080/myRecipe/${id}`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         toast.success("레시피를 수정했습니다!", {

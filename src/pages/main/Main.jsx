@@ -44,6 +44,9 @@ export class Main extends Component {
           <div className="mainFeed">
             <h2>피드</h2>
             <MainPageFeed />
+            <Link to="/feed" className="btnMore">
+              더보기<i className="fa-solid fa-caret-right"></i>
+            </Link>
           </div>
         </section>
       </main>

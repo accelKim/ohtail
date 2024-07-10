@@ -23,13 +23,17 @@ const MyPage = () => {
         const userId = JSON.parse(atob(token.split('.')[1])).userid; // 토큰에서 userid 추출
         console.log('추출된 userId:', userId);
 
-        const response = await fetch(`http://localhost:8080/user/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/user/${userId}`,
+          {
+            // const response = await fetch(`http://localhost:8080/user/${userId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           console.error('응답 오류:', response.status, response.statusText);
@@ -62,7 +66,8 @@ const MyPage = () => {
 
       const userId = JSON.parse(atob(token.split('.')[1])).userid;
       const response = await fetch(
-        `http://localhost:8080/user/${userId}/nickname`,
+        `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/user/${userId}/nickname`,
+        // `http://localhost:8080/user/${userId}/nickname`,
         {
           method: 'PUT',
           headers: {
