@@ -17,7 +17,7 @@ const FeedDetailPage = () => {
   useEffect(() => {
     const fetchFeedDetail = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/feedDetail/${id}`);
+        const response = await fetch(`${apiUrl}/feedDetail/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch feed detail");
         }

@@ -9,7 +9,7 @@ const MyRecipeTab = () => {
     const fetchMyPageRecipes = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${apiUrl}/api/myRecipeTab`, {
+        const response = await fetch(`${apiUrl}/myRecipeTab`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

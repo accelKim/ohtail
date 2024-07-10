@@ -79,7 +79,7 @@ const CreateFeed = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${apiUrl}/api/createFeed`, {
+      const response = await fetch(`${apiUrl}/createFeed`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

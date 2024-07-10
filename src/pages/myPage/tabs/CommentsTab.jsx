@@ -18,7 +18,7 @@ const CommentsTab = () => {
       console.log("Fetching comments for userId:", userId);
       try {
         const response = await fetch(
-          `${apiUrl}/api/comments/user?userId=${userId}`
+          `${apiUrl}/comments/user?userId=${userId}`
         );
         const data = await response.json();
         if (response.ok) {
@@ -65,7 +65,7 @@ const CommentsTab = () => {
       const response = await fetch(
         isExternal
           ? url
-          : `${apiUrl}/api/${url}`
+          : `${apiUrl}/${url}`
         // isExternal ? url : `http://localhost:8080${url}`
       );
       const data = await response.json();

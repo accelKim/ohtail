@@ -31,7 +31,7 @@ const MyRecipeDetail = () => {
 
     const fetchMyRecipe = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/myRecipe/${id}`);
+        const response = await fetch(`${apiUrl}/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }
@@ -96,7 +96,7 @@ const MyRecipeDetail = () => {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`${apiUrl}/api/myRecipe/${id}`, {
+      const response = await fetch(`${apiUrl}/myRecipe/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

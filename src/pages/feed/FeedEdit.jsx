@@ -87,7 +87,7 @@ const FeedEdit = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${apiUrl}/api/feedEdit/${id}`, {
+      const response = await fetch(`${apiUrl}/feedEdit/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

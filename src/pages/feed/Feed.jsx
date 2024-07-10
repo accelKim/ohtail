@@ -16,7 +16,7 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/feedList`);
+      const response = await fetch(`${apiUrl}/feedList`);
       if (!response.ok) {
         throw new Error("피드를 가져오는데 실패했습니다");
       }

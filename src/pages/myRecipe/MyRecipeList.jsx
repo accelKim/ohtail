@@ -24,7 +24,7 @@ const MyRecipeList = () => {
         // const response = await fetch(
         //   `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe`
         // );
-        const response = await fetch(`${apiUrl}/api/myRecipe`);
+        const response = await fetch(`${apiUrl}/myRecipe`);
         if (!response.ok) {
           throw new Error('레시피를 가져오는 중 오류 발생!!!!!');
         }
@@ -35,7 +35,7 @@ const MyRecipeList = () => {
           data.map(async (recipe) => {
             const likeResponse = await fetch(
               // `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/likes?cocktailId=${recipe._id}&type=myRecipe`
-              `${apiUrl}/api/likes?cocktailId=${recipe._id}&type=myRecipe`
+              `${apiUrl}/likes?cocktailId=${recipe._id}&type=myRecipe`
             );
             if (likeResponse.ok) {
               const likeData = await likeResponse.json();

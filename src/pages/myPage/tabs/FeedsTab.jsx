@@ -14,7 +14,7 @@ const FeedsTab = () => {
 
     const fetchFeeds = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/feeds`);
+        const response = await axios.get(`${apiUrl}/feeds`);
 
         setFeeds(response.data);
       } catch (error) {

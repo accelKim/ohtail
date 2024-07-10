@@ -26,7 +26,7 @@ const EditMyRecipe = () => {
         // const response = await fetch(
           // `https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/myRecipe/${id}`
         // );
-        const response = await fetch(`${apiUrl}/api/myRecipe/${id}`);
+        const response = await fetch(`${apiUrl}/myRecipe/${id}`);
         if (!response.ok) {
           throw new Error("레시피를 가져오는 중 오류 발생!!!!!");
         }

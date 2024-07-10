@@ -12,7 +12,7 @@ const FavoritesTab = () => {
     const fetchFavorites = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${apiUrl}/api/favorites`, {
+        const response = await fetch(`${apiUrl}/favorites`, {
           // const response = await fetch("http://localhost:8080/favorites", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const FavoritesTab = () => {
     const fetchInternalRecipe = async (cocktailId) => {
       try {
         const response = await fetch(
-          `${apiUrl}/api/myRecipe/${cocktailId}`
+          `${apiUrl}/myRecipe/${cocktailId}`
         );
         if (!response.ok) {
           throw new Error(
