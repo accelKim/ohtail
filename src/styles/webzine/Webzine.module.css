@@ -697,6 +697,12 @@
     width: 80px;
     height: 80px;
   }
+  #webzine .contArea.likeBtn > div:nth-of-type(3) button::before {
+    font-size: 2.5rem !important;
+  }
+  #webzine .contArea.likeBtn > div:nth-of-type(3) span {
+    font-size: 1.1em !important;
+  }
 }
 @media (max-width: 550px) {
   #webzine.large .optionArea div p {
