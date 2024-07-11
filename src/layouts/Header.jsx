@@ -6,12 +6,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [nickname, setNickname] = useState(false);
   const [profileImage, setProfileImage] = useState('');
   const [userInfo, setUserInfo] = useState({ properties: {} });
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const { nicknames = '', profile_image = '' } = userInfo.properties || {};
-  console.log(userInfo);
+  const { profile_image = '' } = userInfo.properties || {};
   const navigate = useNavigate();
 
   const getUserData = async (token) => {
@@ -40,11 +38,12 @@ const Header = () => {
       }
     };
     fetchData();
-  }, [localStorage.getItem('token')]);
+  }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-  }, [isMenuOpen]);
+    document.body.style.overflow =
+      isMenuOpen || isProfileMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen, isProfileMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -58,20 +57,17 @@ const Header = () => {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    // 로그아웃 관련 처리
     localStorage.removeItem('token');
-    localStorage.removeItem('profileImage');
-    localStorage.removeItem('userid');
-    localStorage.removeItem('nickname');
     setUserInfo({ properties: {} });
     setIsLoggedIn(false);
     setProfileImage('/default_profile_image.jpg');
-    setNickname('');
+    setIsProfileMenuOpen(false); // 프로필 메뉴 닫기
     navigate('/');
   };
 
   const handleMenuLinkClick = () => {
     setIsMenuOpen(false);
+    setIsProfileMenuOpen(false); // 프로필 메뉴 닫기
   };
 
   return (
