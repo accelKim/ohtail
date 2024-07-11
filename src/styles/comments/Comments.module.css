@@ -33,6 +33,26 @@
   padding: 0;
   margin: 0;
 }
+.commentArea > ul li form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.commentArea > ul li form input {
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  padding: 1rem 1rem 2rem;
+}
+.commentArea > ul li form button {
+  border: none;
+  background-color: transparent;
+  transition: 0.5s;
+}
+.commentArea > ul li form button:hover {
+  color: var(--main-color);
+}
 .comment_wrap small {
   display: block;
   font-family: 'Pretendard-SemiBold';
