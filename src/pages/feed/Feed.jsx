@@ -50,7 +50,6 @@ const Feed = () => {
   return (
     <div className="mw">
       <SearchBar onSearch={setSearchKeyword} />
-      {/* <div className={style.feed}> */}
       <div className={style.feedContainer}>
         {error ? (
           <p>오류: {error}</p>
@@ -62,13 +61,15 @@ const Feed = () => {
               className={style.feedImg}
             >
               <img src={feed.cover} alt={feed.title} />
+              <figcaption className={style.imgText}>
+                <h3>{feed.title}</h3>
+              </figcaption>
             </Link>
           ))
         ) : (
           <p>검색 결과가 없습니다</p>
         )}
       </div>
-      {/* </div> */}
       <button className={style.createButton} onClick={handleCreateFeedClick}>
         <div className={style.plusIcon}></div>
       </button>
