@@ -85,10 +85,10 @@ const FeedDetailPage = () => {
       <section className={style.button}>
         {userId && userId === feed.author && (
           <React.Fragment>
-            <button onClick={handleEditClick}>
+            <button onClick={handleEditClick} className={style.editbtn}>
               <i className="fa-solid fa-pen-to-square"></i>
             </button>
-            <button onClick={handleFeedDelete}>
+            <button onClick={handleFeedDelete} className={style.delbtn}>
               <i className="fa-solid fa-trash"></i>
             </button>
           </React.Fragment>

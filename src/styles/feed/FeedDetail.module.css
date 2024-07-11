@@ -60,7 +60,10 @@
   transition: 0.5s;
   background-color: transparent;
 }
-
+.editbtn:hover,
+.delbtn:hover {
+  color: red;
+}
 .left {
   display: flex;
   align-items: center;
