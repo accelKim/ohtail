@@ -1,11 +1,11 @@
 .wrap {
   max-width: 1200px;
   margin: auto;
-  text-align: center;
   overflow: hidden;
 }
 .feedDetail {
   padding: 2rem 0;
+  text-align: center;
 }
 
 .feedDetail img {
@@ -60,6 +60,51 @@
   transition: 0.5s;
   background-color: transparent;
 }
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.left button {
+  width: 75px;
+  height: 75px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 100%;
+  font-size: 1.25em;
+  background-color: #f9f9f9;
+}
+.left > div:nth-of-type(1) {
+  position: relative;
+}
+.left > div:nth-of-type(1) button {
+  position: relative;
+  color: #f9f9f9;
+}
+.left > div:nth-of-type(1) button::before {
+  content: '♥';
+  font-size: 1.35em;
+  color: var(--black);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.left > div:nth-of-type(1) span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding-top: 40px;
+  font-family: 'Pretendard-Medium';
+  font-size: 0.7em;
+}
+
 @media (max-width: 800px) {
   .feedDetail img {
     height: 250px;

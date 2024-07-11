@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import style from "../../styles/feed/MainFeed.module.css";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import style from '../../styles/feed/MainFeed.module.css';
 
 const MainPageFeed = () => {
   const [feeds, setFeeds] = useState([]);
@@ -12,9 +12,10 @@ const MainPageFeed = () => {
 
   const fetchFeeds = async () => {
     try {
-      const response = await fetch("http://localhost:8080/feedList");
+      const response = await fetch('http://localhost:8080/feedList');
+
       if (!response.ok) {
-        throw new Error("Failed to fetch feeds");
+        throw new Error('Failed to fetch feeds');
       }
       const data = await response.json();
       setFeeds(data);
