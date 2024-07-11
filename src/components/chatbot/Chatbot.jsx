@@ -17,7 +17,7 @@ const Chatbot = () => {
                 userPrompt: message,
             });
             console.log('API Response:', response.data); // 응답 데이터 확인
-            const botMessage = { role: 'bot', content: response.data.message };
+            const botMessage = { role: 'bot', content: response.data };
             console.log('Bot Message:', botMessage); // 봇 메시지 확인
             setChatHistory((prevHistory) => [...prevHistory, botMessage]);
             setMessage('');
