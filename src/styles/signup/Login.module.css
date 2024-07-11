@@ -25,19 +25,19 @@
   border-radius: 2px;
 }
 
-.login form button {
+.login form .loginbtn {
   background-color: black;
   color: white;
 }
 
-.login .signupin > div {
+.login .signupin > div:nth-child(1) {
   background-color: #f1f1f1;
 }
 
-.singupin > div > button {
+.login .signupin .kakaoBtn {
   background-color: #ffe85b;
+  color: #381e1f; /* 카카오톡 텍스트 색상 */
 }
-
 .login .signupin > div {
   padding: 1rem;
   width: 100%;
