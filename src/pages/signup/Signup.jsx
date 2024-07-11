@@ -47,12 +47,13 @@ const Signup = () => {
   const handleEmailCheck = async () => {
     try {
       const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-email',
-        { email }
+        'http://localhost:8080/api/check-email',
+        {
+          email,
+        }
       );
       alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
       setEmailAvailable(response.data.available);
-      setIsEmailChecked(true); // 이메일 중복 확인 완료 시 상태 변경
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
@@ -70,7 +71,7 @@ const Signup = () => {
   const handleNicknameCheck = async () => {
     try {
       const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/check-nickname',
+        'http://localhost:8080/api/check-nickname',
         {
           nickname,
         }
@@ -84,11 +85,6 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isEmailChecked) {
-      alert('이메일 중복 확인을 먼저 해주세요.');
-      return;
-    }
 
     if (password !== passwordcon) {
       setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -136,18 +132,15 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(
-        'https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app/api/signup',
-        {
-          email,
-          password,
-          phonenumber,
-          nickname,
-          drinkingFrequency,
-          preferredIngredients,
-          preferredAlcoholLevel,
-        }
-      );
+      const response = await axios.post('http://localhost:8080/signup', {
+        email,
+        password,
+        phonenumber,
+        nickname,
+        drinkingFrequency,
+        preferredIngredients,
+        preferredAlcoholLevel,
+      });
 
       if (response.status === 200) {
         alert('회원가입 성공!');
@@ -254,12 +247,9 @@ const Signup = () => {
         </select>
         {errMessage8 && <div className={style.errorMessage}>{errMessage8}</div>}
 
-        <button type="submit" disabled={!emailAvailable}>
-          회원가입
-        </button>
+        <button type="submit">회원가입</button>
       </form>
     </div>
   );
 };
-
 export default Signup;

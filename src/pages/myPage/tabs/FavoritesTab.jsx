@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import MyRecipeCard from "../../../components/myRecipe/MyRecipeCard";
-import RecipeCard from "../../../components/recipe/RecipeCard";
-import style from "../../../styles/myPage/RecipesTab.module.css";
+import React, { useEffect, useState } from 'react';
+import MyRecipeCard from '../../../components/myRecipe/MyRecipeCard';
+import RecipeCard from '../../../components/recipe/RecipeCard';
+import style from '../../../styles/myPage/RecipesTab.module.css';
 
 const FavoritesTab = () => {
   const [allRecipes, setAllRecipes] = useState([]);
@@ -11,8 +11,8 @@ const FavoritesTab = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8080/favorites", {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8080/favorites', {
           // const response = await fetch("http://localhost:8080/favorites", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -20,11 +20,11 @@ const FavoritesTab = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch favorites");
+          throw new Error('Failed to fetch favorites');
         }
 
         const data = await response.json();
-        console.log("Fetched favorites:", data);
+        console.log('Fetched favorites:', data);
 
         const recipePromises = data
           .filter((favorite) => favorite !== null) // null 값 필터링
@@ -37,7 +37,7 @@ const FavoritesTab = () => {
         const recipeData = await Promise.all(recipePromises);
         setAllRecipes(recipeData);
       } catch (error) {
-        console.error("Error occurred:", error);
+        console.error('Error occurred:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -57,7 +57,7 @@ const FavoritesTab = () => {
         const res = await response.json();
         return { ...res.drinks[0], isExternal: true };
       } catch (error) {
-        console.error("Error fetching external recipe:", error);
+        console.error('Error fetching external recipe:', error);
         return null; // 에러 발생 시 null 반환
       }
     };
@@ -74,7 +74,7 @@ const FavoritesTab = () => {
         }
         return await response.json();
       } catch (error) {
-        console.error("Error fetching internal recipe:", error);
+        console.error('Error fetching internal recipe:', error);
         return null; // 에러 발생 시 null 반환
       }
     };
