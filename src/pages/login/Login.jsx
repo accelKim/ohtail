@@ -78,7 +78,9 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">로그인</button>
+        <button type="submit" className={style.loginbtn}>
+          로그인
+        </button>
       </form>
       <div className={style.signupin}>
         <div>
@@ -87,7 +89,9 @@ const Login = () => {
             회원가입
           </Link>
         </div>
-        <KakaoLoginButton />
+        <div className={style.kakaoBtn}>
+          <KakaoLoginButton />
+        </div>
       </div>
     </div>
   );
