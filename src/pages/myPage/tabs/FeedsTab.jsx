@@ -8,9 +8,10 @@ const FeedsTab = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userid");
+    const userId = localStorage.getItem('userid');
 
-    setCurrentUserId(userId);
+    if (userId) {
+      setCurrentUserId(userId);
 
     const fetchFeeds = async () => {
       try {
@@ -22,13 +23,16 @@ const FeedsTab = () => {
       }
     };
 
-    fetchFeeds();
+      fetchFeeds();
+    } else {
+      console.error('사용자 ID가 로컬 스토리지에 없습니다.');
+    }
   }, []);
 
   const userFeeds = feeds.filter((feed) => feed.author === currentUserId);
 
   return (
-    <div className="mw">
+    <div>
       <div className={styles.feedsTabcon}>
         {userFeeds.length > 0 ? (
           userFeeds.map((feed) => (
@@ -38,6 +42,9 @@ const FeedsTab = () => {
                 className={styles.feedsTabImg}
               >
                 {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
+                <figcaption className={styles.imgText}>
+                  <h3>{feed.title}</h3>
+                </figcaption>
               </Link>
             </div>
           ))

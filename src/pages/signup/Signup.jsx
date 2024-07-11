@@ -52,7 +52,6 @@ const Signup = () => {
       );
       alert(response.data.message); // 서버에서 반환하는 메시지를 alert로 출력
       setEmailAvailable(response.data.available);
-      setIsEmailChecked(true); // 이메일 중복 확인 완료 시 상태 변경
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
@@ -85,11 +84,6 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log('Submitting form'); // 폼 제출 시 로그 확인
-
-    if (!isEmailChecked) {
-      alert('이메일 중복 확인을 먼저 해주세요.');
-      return;
-    }
 
     if (password !== passwordcon) {
       setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
@@ -255,12 +249,9 @@ const Signup = () => {
         </select>
         {errMessage8 && <div className={style.errorMessage}>{errMessage8}</div>}
 
-        <button type="submit" disabled={!emailAvailable}>
-          회원가입
-        </button>
+        <button type="submit">회원가입</button>
       </form>
     </div>
   );
 };
-
 export default Signup;

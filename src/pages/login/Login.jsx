@@ -5,8 +5,8 @@ import KakaoLoginButton from "./KakaoLoginBtn";
 import { useNavigate } from "react-router-dom";
 const apiUrl = process.env.REACT_APP_API_URL
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const loginWithEmail = async (e) => {
@@ -14,12 +14,12 @@ const Login = () => {
 
     // 아이디 또는 비밀번호가 입력되지 않은 경우 처리
     if (!email) {
-      alert("아이디를 입력해주세요.");
+      alert('아이디를 입력해주세요.');
       return;
     }
 
     if (!password) {
-      alert("비밀번호를 입력해주세요.");
+      alert('비밀번호를 입력해주세요.');
       return;
     }
 
@@ -27,7 +27,7 @@ const Login = () => {
       const response = await fetch(`${apiUrl}/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
@@ -37,27 +37,27 @@ const Login = () => {
       }
 
       const result = await response.json();
-      console.log("서버 응답:", result);
+      console.log('서버 응답:', result);
 
-      if (result.message === "로그인 성공") {
-        localStorage.setItem("userid", result.userid);
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("nickname", result.nickname);
+      if (result.message === '로그인 성공') {
+        localStorage.setItem('userid', result.userid);
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('nickname', result.nickname);
 
-        alert("로그인 성공!");
-        window.location.href = "/";
-      } else if (result.message === "사용자를 찾을 수 없습니다.") {
-        alert("사용자를 찾을 수 없습니다.");
-      } else if (result.message === "비밀번호가 일치하지 않습니다.") {
-        alert("비밀번호가 일치하지 않습니다.");
-      } else if (result.message === "토큰 만료") {
+        alert('로그인 성공!');
+        window.location.href = '/';
+      } else if (result.message === '사용자를 찾을 수 없습니다.') {
+        alert('사용자를 찾을 수 없습니다.');
+      } else if (result.message === '비밀번호가 일치하지 않습니다.') {
+        alert('비밀번호가 일치하지 않습니다.');
+      } else if (result.message === '토큰 만료') {
         // 토큰 만료 처리
       } else {
-        alert("로그인 실패!");
+        alert('로그인 실패!');
       }
     } catch (error) {
-      console.error("로그인 중 오류 발생:", error);
-      alert("로그인 중 오류가 발생했습니다.");
+      console.error('로그인 중 오류 발생:', error);
+      alert('로그인 중 오류가 발생했습니다.');
     }
   };
 
@@ -82,7 +82,7 @@ const Login = () => {
       </form>
       <div className={style.signupin}>
         <div>
-          {" "}
+          {' '}
           <Link to="/signup" className={style.signupBtn}>
             회원가입
           </Link>

@@ -248,6 +248,9 @@ main section .btnMore i {
 .mainWebzine:hover > div:nth-of-type(2) img {
   transform: scale(1.1);
 }
+.mainFeed {
+  position: relative;
+}
 .mainFeed .imgArea {
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
 }
@@ -272,6 +275,19 @@ main section .btnMore i {
   border-radius: 5px 20px 20px 20px;
 }
 
+.fa-solid.fa-star {
+  color: #ffd800;
+}
+.like-button-container .like-button.liked::before {
+  color: #cd0000;
+}
+
+@media (max-width: 900px) {
+  main section:last-of-type {
+    display: flex;
+    flex-direction: column;
+  }
+}
 @media (max-width: 700px) {
   :root {
     font-size: 0.95em;

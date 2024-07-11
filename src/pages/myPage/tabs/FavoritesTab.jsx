@@ -20,11 +20,11 @@ const FavoritesTab = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch favorites");
+          throw new Error('Failed to fetch favorites');
         }
 
         const data = await response.json();
-        console.log("Fetched favorites:", data);
+        console.log('Fetched favorites:', data);
 
         const recipePromises = data
           .filter((favorite) => favorite !== null) // null 값 필터링
@@ -37,7 +37,7 @@ const FavoritesTab = () => {
         const recipeData = await Promise.all(recipePromises);
         setAllRecipes(recipeData);
       } catch (error) {
-        console.error("Error occurred:", error);
+        console.error('Error occurred:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -57,7 +57,7 @@ const FavoritesTab = () => {
         const res = await response.json();
         return { ...res.drinks[0], isExternal: true };
       } catch (error) {
-        console.error("Error fetching external recipe:", error);
+        console.error('Error fetching external recipe:', error);
         return null; // 에러 발생 시 null 반환
       }
     };
@@ -74,7 +74,7 @@ const FavoritesTab = () => {
         }
         return await response.json();
       } catch (error) {
-        console.error("Error fetching internal recipe:", error);
+        console.error('Error fetching internal recipe:', error);
         return null; // 에러 발생 시 null 반환
       }
     };
@@ -91,7 +91,7 @@ const FavoritesTab = () => {
   }
 
   return (
-    <div className="mw">
+    <div>
       <ul className={style.gridContainer}>
         {allRecipes.length > 0 ? (
           allRecipes

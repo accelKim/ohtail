@@ -6,68 +6,51 @@ import style from '../../styles/myRecipe/CreateMyRecipe.module.css';
 const apiUrl = process.env.REACT_APP_API_URL
 
 const CreateMyRecipe = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [files, setFiles] = useState([]);
-    const [ingredients, setIngredients] = useState([
-        {
-            name: '',
-            quantity: '',
-            unit: '',
-            translatedName: '',
-            originalName: '',
-            filteredOptions: [],
-            originalOptions: [],
-        },
-    ]);
-    const [instructions, setInstructions] = useState('');
-    const [ingredientOptions, setIngredientOptions] = useState([]);
-    const [translatedIngredientOptions, setTranslatedIngredientOptions] = useState([]);
-    const navigate = useNavigate();
-    const textareaRef = useRef(null);
-    const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [files, setFiles] = useState([]);
+  const [ingredients, setIngredients] = useState([
+    {
+      name: "",
+      quantity: "",
+      unit: "",
+      translatedName: "",
+      originalName: "",
+      filteredOptions: [],
+      originalOptions: [],
+    },
+  ]);
+  const [instructions, setInstructions] = useState("");
+  const [ingredientOptions, setIngredientOptions] = useState([]);
+  const [translatedIngredientOptions, setTranslatedIngredientOptions] =
+    useState([]);
+  const navigate = useNavigate();
+  const textareaRef = useRef(null);
+  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
 
-    useEffect(() => {
-        const fetchIngredients = async () => {
-            try {
-                const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
-                const data = await response.json();
-                const ingredientNames = data.drinks.map((drink) => drink.strIngredient1);
-
-                // Translate ingredient names
-                const translatedOptions = await translateOptions(ingredientNames);
-
-                setIngredientOptions(ingredientNames);
-                setTranslatedIngredientOptions(translatedOptions);
-            } catch (error) {
-                console.error('Error fetching ingredient options:', error);
-            }
-        };
-
-        fetchIngredients();
-    }, []);
-
-    const translateText = async (text) => {
-        const response = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                q: text,
-                source: 'en',
-                target: 'ko',
-                format: 'text',
-            }),
-        });
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      try {
+        const response = await fetch(
+          "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+        );
         const data = await response.json();
-        return data.data.translations[0].translatedText;
+        const ingredientNames = data.drinks.map(
+          (drink) => drink.strIngredient1
+        );
+
+        // Translate ingredient names
+        const translatedOptions = await translateOptions(ingredientNames);
+
+        setIngredientOptions(ingredientNames);
+        setTranslatedIngredientOptions(translatedOptions);
+      } catch (error) {
+        console.error("Error fetching ingredient options:", error);
+      }
     };
 
-    const translateOptions = async (options) => {
-        const translatedOptions = await Promise.all(options.map((option) => translateText(option)));
-        return translatedOptions;
-    };
+    fetchIngredients();
+  }, []);
 
     const resizeImage = (file) => {
         return new Promise((resolve) => {
@@ -477,7 +460,7 @@ const CreateMyRecipe = () => {
             </form>
             <ToastContainer />
         </main>
-    );
+  );
 };
 
 export default CreateMyRecipe;

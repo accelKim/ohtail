@@ -15,13 +15,13 @@ const MyRecipeTab = () => {
           },
         });
         if (!response.ok) {
-          throw new Error("레시피 불러오기 실패!!!!!");
+          throw new Error('레시피 불러오기 실패!!!!!');
         }
         const data = await response.json();
-        console.log("불러온 레시피 데이터:", data); // 로그 추가
+        console.log('불러온 레시피 데이터:', data); // 로그 추가
         setMyPageRecipes(data);
       } catch (error) {
-        console.error("오류발생!!!!!", error);
+        console.error('오류발생!!!!!', error);
       }
     };
 
@@ -29,7 +29,7 @@ const MyRecipeTab = () => {
   }, []);
 
   return (
-    <div className="mw">
+    <div>
       <ul className={style.gridContainer}>
         {myPageRecipes.map((myRecipe) => (
           <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />
