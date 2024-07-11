@@ -16,7 +16,9 @@ const Chatbot = () => {
             const response = await axios.post(`${apiUrl}/chatbot`, {
                 userPrompt: message,
             });
+            console.log('API Response:', response.data); // 응답 데이터 확인
             const botMessage = { role: 'bot', content: response.data.message };
+            console.log('Bot Message:', botMessage); // 봇 메시지 확인
             setChatHistory((prevHistory) => [...prevHistory, botMessage]);
             setMessage('');
         } catch (error) {
