@@ -130,3 +130,11 @@
   font-weight: bold;
   background-color: transparent;
 }
+
+@media (max-width: 600px) {
+  .chatbot > button {
+    width: 90px;
+    height: 90px;
+    font-size: 2em;
+  }
+}
