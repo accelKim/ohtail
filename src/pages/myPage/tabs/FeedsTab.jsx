@@ -41,6 +41,9 @@ const FeedsTab = () => {
                 className={styles.feedsTabImg}
               >
                 {feed.cover && <img src={feed.cover} alt="피드 이미지" />}
+                <figcaption className={styles.imgText}>
+                  <h3>{feed.title}</h3>
+                </figcaption>
               </Link>
             </div>
           ))
