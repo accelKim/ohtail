@@ -2,12 +2,13 @@ const express = require("express");
 const Comment = require("../models/Comment");
 const MyRecipe = require("../models/MyRecipe");
 const Feed = require("../store/Feed");
+const User = require("../store/User"); // User 모델을 불러옴
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   const { cocktailId } = req.query;
   try {
-    const comments = await Comment.find({ cocktailId }).sort({ createdAt: -1 });
+    const comments = await Comment.find({ cocktailId }).sort({ createdAt: -1 }).populate('userId', 'nickname');
     res.status(200).json({ comments });
   } catch (error) {
     res.status(500).json({ error: "Error fetching comments" });
@@ -19,7 +20,7 @@ router.get("/user", async (req, res) => {
   const { userId } = req.query;
 
   try {
-    const comments = await Comment.find({ userId }).sort({ createdAt: -1 });
+    const comments = await Comment.find({ userId }).sort({ createdAt: -1 }).populate('userId', 'nickname');
 
     const commentsWithTitles = await Promise.all(
       comments.map(async (comment) => {
@@ -56,7 +57,14 @@ router.get("/user", async (req, res) => {
 router.post("/", async (req, res) => {
   const { cocktailId, userId, text, type } = req.body;
   try {
-    const newComment = new Comment({ cocktailId, userId, text, type });
+    const user = await User.findById(userId);
+    const newComment = new Comment({
+      cocktailId,
+      userId,
+      nickname: user.nickname, // 닉네임 추가
+      text,
+      type
+    });
     await newComment.save();
     res.status(200).json({ comment: newComment });
   } catch (error) {
