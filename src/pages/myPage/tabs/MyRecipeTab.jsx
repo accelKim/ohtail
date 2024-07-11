@@ -29,7 +29,7 @@ const MyRecipeTab = () => {
   }, []);
 
   return (
-    <div className="mw">
+    <div>
       <ul className={style.gridContainer}>
         {myPageRecipes.map((myRecipe) => (
           <MyRecipeCard key={myRecipe._id} myRecipe={myRecipe} />

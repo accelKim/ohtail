@@ -91,7 +91,7 @@ const FavoritesTab = () => {
   }
 
   return (
-    <div className="mw">
+    <div>
       <ul className={style.gridContainer}>
         {allRecipes.length > 0 ? (
           allRecipes

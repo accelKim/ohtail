@@ -31,7 +31,7 @@ const FeedsTab = () => {
   const userFeeds = feeds.filter((feed) => feed.author === currentUserId);
 
   return (
-    <div className="mw">
+    <div>
       <div className={styles.feedsTabcon}>
         {userFeeds.length > 0 ? (
           userFeeds.map((feed) => (
