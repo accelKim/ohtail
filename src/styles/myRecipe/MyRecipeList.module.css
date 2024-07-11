@@ -21,6 +21,7 @@
   color: var(--white);
   background-color: var(--black);
   border: 1px solid var(--black);
+  transition: 0.5s;
 }
 .addBtn:hover {
   background-color: var(--white);
