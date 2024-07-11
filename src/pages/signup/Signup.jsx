@@ -20,9 +20,8 @@ const Signup = () => {
   const [errMessage7, setErrMessage7] = useState('');
   const [errMessage8, setErrMessage8] = useState('');
   const [emailAvailable, setEmailAvailable] = useState(null);
-  const [isEmailChecked, setIsEmailChecked] = useState(false); // 이메일 중복 확인 상태 추가
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
 
-  const [instructions, setInstructions] = useState('');
   const [ingredientOptions, setIngredientOptions] = useState([]);
 
   useEffect(() => {
@@ -85,6 +84,7 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log('Submitting form'); // 폼 제출 시 로그 확인
 
     if (!isEmailChecked) {
       alert('이메일 중복 확인을 먼저 해주세요.');
