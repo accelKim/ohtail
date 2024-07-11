@@ -94,9 +94,12 @@ const FeedDetailPage = () => {
           </React.Fragment>
         )}
       </section>
-      <LikeButton cocktailId={id} userId={userId} type="feed" />
-      <CopyUrlButton />
+      <div className={style.left}>
+        <LikeButton cocktailId={id} userId={userId} type="feed" />
+        <CopyUrlButton />
+      </div>
       <CommentSection cocktailId={id} userId={userId} type="feed" />
+
       <ToastContainer />
     </div>
   );
