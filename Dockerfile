@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # 클라이언트 빌드
-RUN npm run build
+RUN CI=true ESLINT_NO_DEV_ERRORS=true npm run build
 
 # 서버 실행
 CMD ["node", "server.js"]
