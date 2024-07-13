@@ -164,7 +164,7 @@ const CreateMyRecipe = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch(`${apiUrl}/createMyRecipe`, {
+            const response = await fetch(`${apiUrl}/api/createMyRecipe`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

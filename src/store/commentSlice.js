@@ -15,11 +15,12 @@ export const fetchComments = createAsyncThunk(
 
 export const submitComment = createAsyncThunk(
   "comments/submitComment",
-  async ({ cocktailId, userId, text, type }) => {
+  async ({ cocktailId, userId, text, type, nickname }) => {
     // type 필드를 추가
     const response = await axios.post(`${apiUrl}/comments`, {
       cocktailId,
       userId,
+      nickname,
       text,
       type,
     }); // type 필드를 포함

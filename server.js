@@ -223,7 +223,7 @@ app.post('/api/check-nickname', async (req, res) => {
 });
 
 // 회원가입
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
     const {
         userid,
         password,
@@ -401,7 +401,7 @@ app.get('/favorites', authenticateJWT, async (req, res) => {
 // 나만의 레시피 생성
 const myRecipeUpload = multer({ storage: multer.memoryStorage() });
 
-app.post('/createMyRecipe', authenticateJWT, myRecipeUpload.array('files', 3), async (req, res) => {
+app.post('/api/createMyRecipe', authenticateJWT, myRecipeUpload.array('files', 3), async (req, res) => {
     try {
         const { title, description, instructions } = req.body;
         const files = req.files;
@@ -693,7 +693,7 @@ const feedUpload = multer({ storage: multer.memoryStorage() });
 
 // 피드 생성
 app.post(
-    '/createFeed',
+    '/api/createFeed',
     authenticateJWT,
     feedUpload.single('imgFile'), // 기존 multer 설정 유지
     async (req, res) => {
