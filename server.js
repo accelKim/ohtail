@@ -107,6 +107,8 @@ const corsOptions = {
         'http://localhost:8080',
         'http://localhost:3000',
     ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 };
 
@@ -225,20 +227,18 @@ app.post('/api/check-nickname', async (req, res) => {
 // 회원가입
 app.post('/api/signup', async (req, res) => {
     const {
-        userid,
-        password,
         email,
+        password,
         phonenumber,
         nickname,
         drinkingFrequency,
         preferredIngredients,
-        preferredAlcoholLevel,
+        preferredAlcoholLevel
     } = req.body;
 
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        console.log('해싱된 비밀번호:', hashedPassword);
 
         const counter = await Counter.findByIdAndUpdate(
             { _id: 'userId' },
@@ -254,7 +254,7 @@ app.post('/api/signup', async (req, res) => {
             nickname,
             drinkingFrequency,
             preferredIngredients,
-            preferredAlcoholLevel,
+            preferredAlcoholLevel
         });
 
         await newUser.save();
@@ -265,7 +265,7 @@ app.post('/api/signup', async (req, res) => {
         res.status(500).json({
             success: false,
             message: '회원가입 중 오류가 발생했습니다.',
-            error: error.message,
+            error: error.message
         });
     }
 });
