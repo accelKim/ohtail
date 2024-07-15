@@ -3,54 +3,50 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import style from '../../styles/myRecipe/CreateMyRecipe.module.css';
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = process.env.REACT_APP_API_URL;
+
+/* eslint-disable no-undef */
 
 const CreateMyRecipe = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [files, setFiles] = useState([]);
-  const [ingredients, setIngredients] = useState([
-    {
-      name: "",
-      quantity: "",
-      unit: "",
-      translatedName: "",
-      originalName: "",
-      filteredOptions: [],
-      originalOptions: [],
-    },
-  ]);
-  const [instructions, setInstructions] = useState("");
-  const [ingredientOptions, setIngredientOptions] = useState([]);
-  const [translatedIngredientOptions, setTranslatedIngredientOptions] =
-    useState([]);
-  const navigate = useNavigate();
-  const textareaRef = useRef(null);
-  const apiKey = process.env.REACT_APP_TRANSLATE_API_KEY;
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [files, setFiles] = useState([]);
+    const [ingredients, setIngredients] = useState([
+        {
+            name: '',
+            quantity: '',
+            unit: '',
+            translatedName: '',
+            originalName: '',
+            filteredOptions: [],
+            originalOptions: [],
+        },
+    ]);
+    const [instructions, setInstructions] = useState('');
+    const [ingredientOptions, setIngredientOptions] = useState([]);
+    const [translatedIngredientOptions, setTranslatedIngredientOptions] = useState([]);
+    const navigate = useNavigate();
+    const textareaRef = useRef(null);
+   
+    useEffect(() => {
+        const fetchIngredients = async () => {
+            try {
+                const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+                const data = await response.json();
+                const ingredientNames = data.drinks.map((drink) => drink.strIngredient1);
 
-  useEffect(() => {
-    const fetchIngredients = async () => {
-      try {
-        const response = await fetch(
-          "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-        );
-        const data = await response.json();
-        const ingredientNames = data.drinks.map(
-          (drink) => drink.strIngredient1
-        );
+                // Translate ingredient names
+                const translatedOptions = await translateOptions(ingredientNames);
 
-        // Translate ingredient names
-        const translatedOptions = await translateOptions(ingredientNames);
+                setIngredientOptions(ingredientNames);
+                setTranslatedIngredientOptions(translatedOptions);
+            } catch (error) {
+                console.error('Error fetching ingredient options:', error);
+            }
+        };
 
-        setIngredientOptions(ingredientNames);
-        setTranslatedIngredientOptions(translatedOptions);
-      } catch (error) {
-        console.error("Error fetching ingredient options:", error);
-      }
-    };
-
-    fetchIngredients();
-  }, []);
+        fetchIngredients();
+    }, []);
 
     const resizeImage = (file) => {
         return new Promise((resolve) => {
@@ -460,7 +456,7 @@ const CreateMyRecipe = () => {
             </form>
             <ToastContainer />
         </main>
-  );
+    );
 };
 
 export default CreateMyRecipe;
