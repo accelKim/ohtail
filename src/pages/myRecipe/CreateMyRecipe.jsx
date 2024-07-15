@@ -30,23 +30,54 @@ const CreateMyRecipe = () => {
    
     useEffect(() => {
         const fetchIngredients = async () => {
-            try {
-                const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
-                const data = await response.json();
-                const ingredientNames = data.drinks.map((drink) => drink.strIngredient1);
-
-                // Translate ingredient names
-                const translatedOptions = await translateOptions(ingredientNames);
-
-                setIngredientOptions(ingredientNames);
-                setTranslatedIngredientOptions(translatedOptions);
-            } catch (error) {
-                console.error('Error fetching ingredient options:', error);
-            }
+          try {
+            const response = await fetch(
+              "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+            );
+            const data = await response.json();
+            const ingredientNames = data.drinks.map(
+              (drink) => drink.strIngredient1
+            );
+    
+            // Translate ingredient names
+            const translatedOptions = await translateOptions(ingredientNames);
+    
+            setIngredientOptions(ingredientNames);
+            setTranslatedIngredientOptions(translatedOptions);
+          } catch (error) {
+            console.error("Error fetching ingredient options:", error);
+          }
         };
-
+    
         fetchIngredients();
-    }, []);
+      }, []);
+    
+      const translateText = async (text) => {
+        const response = await fetch(
+          `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              q: text,
+              source: "en",
+              target: "ko",
+              format: "text",
+            }),
+          }
+        );
+        const data = await response.json();
+        return data.data.translations[0].translatedText;
+      };
+    
+      const translateOptions = async (options) => {
+        const translatedOptions = await Promise.all(
+          options.map((option) => translateText(option))
+        );
+        return translatedOptions;
+      };
 
     const resizeImage = (file) => {
         return new Promise((resolve) => {
