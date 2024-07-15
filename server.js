@@ -30,7 +30,6 @@ const openai = new OpenAIApi({
     apiKey: process.env.REACT_APP_CHATBOT_API_KEY,
 });
 
-// 환경 변수로부터 파일 생성
 async function createKeyFile() {
     try {
         const keyFilePath = path.join(__dirname, 'vertical-set-428902-u5-78e087eb934e.json');
@@ -38,13 +37,13 @@ async function createKeyFile() {
         // 파일 존재 여부 확인
         if (realFs.existsSync(keyFilePath)) {
             console.log('Key file already exists, skipping creation.');
-            return;
+            return keyFilePath;
         }
 
         const keyFileContent = process.env.GCS_KEYFILE_CONTENT;
         if (!keyFileContent) {
             console.error('Environment variable GCS_KEYFILE_CONTENT is not set');
-            return;
+            return null;
         }
 
         console.log('keyFileContent:', keyFileContent);
@@ -52,8 +51,10 @@ async function createKeyFile() {
 
         await fs.writeFile(keyFilePath, Buffer.from(keyFileContent, 'base64'));
         console.log('File written successfully');
+        return keyFilePath;
     } catch (err) {
         console.error('Error writing file:', err);
+        return null;
     }
 }
 
@@ -69,7 +70,7 @@ async function setupGCS() {
         projectId: process.env.GCS_PROJECT_ID,
     });
 
-    return storage.bucket('ohtail');
+    return storage.bucket(process.env.GCS_BUCKET_NAME);
 }
 
 // 파일 업로드 함수
@@ -98,6 +99,12 @@ createKeyFile().then((keyFilePath) => {
         uploadFileToGCS(keyFilePath, 'vertical-set-428902-u5-78e087eb934e.json');
     }
 });
+
+module.exports = {
+    createKeyFile,
+    setupGCS,
+    uploadFileToGCS,
+};
 
 // CORS 설정
 const corsOptions = {
@@ -230,15 +237,8 @@ app.post('/api/check-nickname', async (req, res) => {
 app.post('/api/signup', async (req, res) => {
     console.log('요청 데이터:', req.body);
 
-    const {
-        email,
-        password,
-        phonenumber,
-        nickname,
-        drinkingFrequency,
-        preferredIngredients,
-        preferredAlcoholLevel
-    } = req.body;
+    const { email, password, phonenumber, nickname, drinkingFrequency, preferredIngredients, preferredAlcoholLevel } =
+        req.body;
 
     try {
         const saltRounds = 10;
@@ -263,7 +263,7 @@ app.post('/api/signup', async (req, res) => {
             nickname,
             drinkingFrequency,
             preferredIngredients,
-            preferredAlcoholLevel
+            preferredAlcoholLevel,
         });
 
         await newUser.save();
@@ -274,7 +274,7 @@ app.post('/api/signup', async (req, res) => {
         res.status(500).json({
             success: false,
             message: '회원가입 중 오류가 발생했습니다.',
-            error: error.message
+            error: error.message,
         });
     }
 });
@@ -424,15 +424,17 @@ app.post('/api/createMyRecipe', authenticateJWT, myRecipeUpload.array('files', 3
         }
         const authorNickname = user.nickname;
 
-        console.log('Author:', author);
-        console.log('Author Nickname:', authorNickname);
-
         for (let i = 0; req.body[`ingredient_${i}_name`]; i++) {
             ingredients.push({
                 name: req.body[`ingredient_${i}_name`],
                 quantity: req.body[`ingredient_${i}_quantity`],
                 unit: req.body[`ingredient_${i}_unit`],
             });
+        }
+
+        const bucket = await setupGCS();
+        if (!bucket) {
+            return res.status(500).json({ message: 'Google Cloud Storage 설정 실패' });
         }
 
         const uploadedFiles = await Promise.all(
