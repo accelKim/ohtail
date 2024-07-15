@@ -116,6 +116,8 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
+app.options('*', cors(corsOptions)); // OPTIONS 요청에 대해 CORS 설정 적용
+
 // 테스트용 엔드포인트
 app.get('/api/test', (req, res) => {
     res.json({ message: 'API is working!' });
@@ -226,6 +228,8 @@ app.post('/api/check-nickname', async (req, res) => {
 
 // 회원가입
 app.post('/api/signup', async (req, res) => {
+    console.log('요청 데이터:', req.body);
+
     const {
         email,
         password,
@@ -239,12 +243,17 @@ app.post('/api/signup', async (req, res) => {
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+        console.log('해싱된 비밀번호:', hashedPassword);
 
         const counter = await Counter.findByIdAndUpdate(
             { _id: 'userId' },
             { $inc: { sequence_value: 1 } },
             { new: true, upsert: true }
         );
+
+        if (!counter) {
+            throw new Error('카운터를 업데이트할 수 없습니다.');
+        }
 
         const newUser = new User({
             userid: counter.sequence_value,

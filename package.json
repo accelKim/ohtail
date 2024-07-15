@@ -2,6 +2,12 @@
     "name": "ohtail",
     "version": "0.1.0",
     "private": true,
+    "proxy": [
+        "https://web-ohtail-ly8dqscw04c35e9c.sel5.cloudtype.app",
+        "https://port-0-ohserver-ly8dqscw04c35e9c.sel5.cloudtype.app",
+        "http://localhost:8080",
+        "http://localhost:3000"
+    ],
     "dependencies": {
         "@babel/core": "^7.24.7",
         "@babel/preset-env": "^7.24.7",
@@ -69,4 +75,5 @@
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
     }
+    
 }
