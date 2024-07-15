@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../styles/signup/Signup.module.css';
 import axios from 'axios';
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -12,13 +12,15 @@ const Signup = () => {
   const [preferredIngredients, setPreferredIngredients] = useState('');
   const [preferredAlcoholLevel, setPreferredAlcoholLevel] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
-  const [errMessage2, setErrMessage2] = useState('');
-  const [errMessage3, setErrMessage3] = useState('');
-  const [errMessage4, setErrMessage4] = useState('');
-  const [errMessage5, setErrMessage5] = useState('');
-  const [errMessage6, setErrMessage6] = useState('');
-  const [errMessage7, setErrMessage7] = useState('');
-  const [errMessage8, setErrMessage8] = useState('');
+  const [errMessage, setErrMessage] = useState({
+    email: '',
+    password: '',
+    phone: '',
+    nickname: '',
+    drinkingFrequency: '',
+    ingredients: '',
+    alcoholLevel: ''
+  });
   const [emailAvailable, setEmailAvailable] = useState(null);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
 
@@ -70,9 +72,7 @@ const Signup = () => {
     try {
       const response = await axios.post(
         `${apiUrl}/api/check-nickname`,
-        {
-          nickname,
-        }
+        { nickname }
       );
       alert(response.data.message);
     } catch (error) {
@@ -85,49 +85,51 @@ const Signup = () => {
     e.preventDefault();
     console.log('Submitting form'); // 폼 제출 시 로그 확인
 
+    setErrMessage({
+      email: '',
+      password: '',
+      phone: '',
+      nickname: '',
+      drinkingFrequency: '',
+      ingredients: '',
+      alcoholLevel: ''
+    });
+
     if (password !== passwordcon) {
-      setErrMessage2('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      setErrMessage((prev) => ({ ...prev, password: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' }));
       return;
-    } else {
-      setErrMessage2('');
     }
+
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
-      setErrMessage3('유효하지 않은 이메일 주소입니다.');
+      setErrMessage((prev) => ({ ...prev, email: '유효하지 않은 이메일 주소입니다.' }));
       return;
-    } else {
-      setErrMessage3('');
     }
+
     const phonePattern = /^01[0-1, 7-9]\d{3,4}\d{4}$/;
     if (!phonePattern.test(phonenumber)) {
-      setErrMessage4('유효하지 않은 휴대폰 번호입니다.');
+      setErrMessage((prev) => ({ ...prev, phone: '유효하지 않은 휴대폰 번호입니다.' }));
       return;
-    } else {
-      setErrMessage4('');
     }
+
     if (!nickname) {
-      setErrMessage5('닉네임을 입력해주세요.');
+      setErrMessage((prev) => ({ ...prev, nickname: '닉네임을 입력해주세요.' }));
       return;
-    } else {
-      setErrMessage5('');
     }
+
     if (!drinkingFrequency) {
-      setErrMessage6('음주 빈도를 선택해주세요.');
+      setErrMessage((prev) => ({ ...prev, drinkingFrequency: '음주 빈도를 선택해주세요.' }));
       return;
-    } else {
-      setErrMessage6('');
     }
+
     if (!preferredIngredients) {
-      setErrMessage7('선호하는 재료를 선택해주세요.');
+      setErrMessage((prev) => ({ ...prev, ingredients: '선호하는 재료를 선택해주세요.' }));
       return;
-    } else {
-      setErrMessage7('');
     }
+
     if (!preferredAlcoholLevel) {
-      setErrMessage8('선호하는 도수를 선택해주세요.');
+      setErrMessage((prev) => ({ ...prev, alcoholLevel: '선호하는 도수를 선택해주세요.' }));
       return;
-    } else {
-      setErrMessage8('');
     }
 
     try {
@@ -171,7 +173,7 @@ const Signup = () => {
         <button type="button" onClick={handleEmailCheck}>
           이메일 중복 확인
         </button>
-        {errMessage3 && <div className={style.errorMessage}>{errMessage3}</div>}
+        {errMessage.email && <div className={style.errorMessage}>{errMessage.email}</div>}
 
         <label>비밀번호</label>
         <input
@@ -187,7 +189,7 @@ const Signup = () => {
           onChange={(e) => setPasswordcon(e.target.value)}
           required
         />
-        {errMessage2 && <div className={style.errorMessage}>{errMessage2}</div>}
+        {errMessage.password && <div className={style.errorMessage}>{errMessage.password}</div>}
 
         <label>휴대폰 번호</label>
         <input
@@ -196,7 +198,7 @@ const Signup = () => {
           onChange={(e) => setPhonenumber(e.target.value)}
           required
         />
-        {errMessage4 && <div className={style.errorMessage}>{errMessage4}</div>}
+        {errMessage.phone && <div className={style.errorMessage}>{errMessage.phone}</div>}
 
         <label>닉네임</label>
         <input
@@ -205,7 +207,10 @@ const Signup = () => {
           onChange={(e) => setNickname(e.target.value)}
           required
         />
-        {errMessage5 && <div className={style.errorMessage}>{errMessage5}</div>}
+        <button type="button" onClick={handleNicknameCheck}>
+          닉네임 중복 확인
+        </button>
+        {errMessage.nickname && <div className={style.errorMessage}>{errMessage.nickname}</div>}
 
         <label>음주 빈도</label>
         <select
@@ -219,7 +224,7 @@ const Signup = () => {
           <option value="often">7회~10회</option>
           <option value="very_often">10회 이상</option>
         </select>
-        {errMessage6 && <div className={style.errorMessage}>{errMessage6}</div>}
+        {errMessage.drinkingFrequency && <div className={style.errorMessage}>{errMessage.drinkingFrequency}</div>}
 
         <label>선호 재료</label>
         <select
@@ -234,7 +239,7 @@ const Signup = () => {
             </option>
           ))}
         </select>
-        {errMessage7 && <div className={style.errorMessage}>{errMessage7}</div>}
+        {errMessage.ingredients && <div className={style.errorMessage}>{errMessage.ingredients}</div>}
 
         <label>선호 도수</label>
         <select
@@ -247,11 +252,12 @@ const Signup = () => {
           <option value="medium">보통</option>
           <option value="high">높음</option>
         </select>
-        {errMessage8 && <div className={style.errorMessage}>{errMessage8}</div>}
+        {errMessage.alcoholLevel && <div className={style.errorMessage}>{errMessage.alcoholLevel}</div>}
 
         <button type="submit">회원가입</button>
       </form>
     </div>
   );
 };
+
 export default Signup;
