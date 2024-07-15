@@ -46,10 +46,12 @@ async function createKeyFile() {
             return null;
         }
 
-        console.log('keyFileContent:', keyFileContent);
+        const decodedContent = Buffer.from(keyFileContent, 'base64').toString('utf-8');
+
+        console.log('Decoded key file content:', decodedContent);
         console.log('keyFilePath:', keyFilePath);
 
-        await fs.writeFile(keyFilePath, Buffer.from(keyFileContent, 'base64'));
+        await fs.writeFile(keyFilePath, decodedContent);
         console.log('File written successfully');
         return keyFilePath;
     } catch (err) {
@@ -103,7 +105,7 @@ createKeyFile().then((keyFilePath) => {
 module.exports = {
     createKeyFile,
     setupGCS,
-    uploadFileToGCS,
+    uploadFileToGCS
 };
 
 // CORS 설정
